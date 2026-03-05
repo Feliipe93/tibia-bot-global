@@ -1,0 +1,163 @@
+{
+  "_comment": "Base de datos de NPCs de Tibia con secuencias de diálogo y servicios.",
+  "npc_types": {
+    "potion_shop": {
+      "description": "Tienda de pociones estándar",
+      "dialogue_sequence": ["hi", "trade"],
+      "close_sequence": ["bye"],
+      "service": "trade_window"
+    },
+    "house_npc": {
+      "description": "NPC de casa con pociones",
+      "dialogue_sequence": ["hi", "potions"],
+      "close_sequence": ["bye"],
+      "service": "trade_window"
+    },
+    "bank": {
+      "description": "Banquero (depositar oro)",
+      "dialogue_sequence": ["hi", "deposit all", "yes"],
+      "close_sequence": ["bye"],
+      "service": "deposit_gold"
+    },
+    "travel": {
+      "description": "NPC de viaje (barcos, alfombras, etc)",
+      "dialogue_sequence": ["hi", "{city}", "yes"],
+      "close_sequence": [],
+      "service": "travel"
+    },
+    "general_shop": {
+      "description": "Tienda general",
+      "dialogue_sequence": ["hi", "trade"],
+      "close_sequence": ["bye"],
+      "service": "trade_window"
+    },
+    "backpack_shop": {
+      "description": "Tienda de mochilas (postal NPC para Parcel)",
+      "dialogue_sequence": ["hi", "trade"],
+      "close_sequence": ["bye"],
+      "service": "trade_window"
+    },
+    "postal_npc": {
+      "description": "NPC de correo para Parcel",
+      "dialogue_sequence": ["hi", "postal"],
+      "close_sequence": ["bye"],
+      "service": "trade_window"
+    }
+  },
+  "cities": {
+    "Thais": {
+      "potion_shop": {"name": "Nah'Bob", "location": [32379, 32231, 7]},
+      "bank": {"name": "Brengus", "location": [32370, 32195, 7]},
+      "travel": {"name": "Captain Bluebear", "location": [32310, 32210, 6]},
+      "depot": {"location": [32369, 32241, 7]}
+    },
+    "Venore": {
+      "potion_shop": {"name": "Alaistar", "location": [32963, 32076, 7]},
+      "bank": {"name": "Brockham", "location": [32956, 32077, 7]},
+      "travel": {"name": "Captain Fearless", "location": [32954, 32022, 6]},
+      "depot": {"location": [32957, 32076, 7]}
+    },
+    "Ab'Dendriel": {
+      "potion_shop": {"name": "Lubo", "location": [32732, 31693, 7]},
+      "bank": {"name": "Ferdok", "location": [32734, 31660, 7]},
+      "travel": {"name": "Eremo", "location": [32734, 31663, 6]},
+      "depot": {"location": [32732, 31695, 7]}
+    },
+    "Carlin": {
+      "potion_shop": {"name": "Xodet", "location": [32360, 31784, 7]},
+      "bank": {"name": "Rafzan", "location": [32359, 31782, 7]},
+      "travel": {"name": "Captain Cookie", "location": [32387, 31820, 6]},
+      "depot": {"location": [32360, 31785, 7]}
+    },
+    "Edron": {
+      "potion_shop": {"name": "Jerom", "location": [33174, 31763, 7]},
+      "bank": {"name": "Ebenizer", "location": [33174, 31766, 7]},
+      "travel": {"name": "Captain Seagull", "location": [33175, 31764, 6]},
+      "depot": {"location": [33175, 31762, 7]}
+    },
+    "Darashia": {
+      "potion_shop": {"name": "Alesar", "location": [33212, 32454, 1]},
+      "bank": {"name": "Yaman", "location": [33213, 32455, 1]},
+      "travel": {"name": "Kazzan", "location": [33280, 32468, 6]},
+      "depot": {"location": [33213, 32453, 1]}
+    },
+    "Ankrahmun": {
+      "potion_shop": {"name": "Rahkem", "location": [33163, 32760, 7]},
+      "bank": {"name": "Arito", "location": [33164, 32758, 7]},
+      "travel": {"name": "Tamoril", "location": [33092, 32884, 6]},
+      "depot": {"location": [33163, 32762, 7]}
+    },
+    "Port Hope": {
+      "potion_shop": {"name": "Humgolf", "location": [32596, 32741, 7]},
+      "bank": {"name": "Noblewoman", "location": [32597, 32739, 7]},
+      "travel": {"name": "Uzon", "location": [32527, 32784, 6]},
+      "depot": {"location": [32597, 32743, 7]}
+    },
+    "Liberty Bay": {
+      "potion_shop": {"name": "Charlotta", "location": [32317, 32826, 7]},
+      "bank": {"name": "Jefrey", "location": [32316, 32824, 7]},
+      "travel": {"name": "Herbert", "location": [32285, 32892, 6]},
+      "depot": {"location": [32317, 32828, 7]}
+    },
+    "Svargrond": {
+      "potion_shop": {"name": "Hanna", "location": [32212, 31132, 7]},
+      "bank": {"name": "Buddel", "location": [32213, 31130, 7]},
+      "travel": {"name": "Buddel", "location": [32178, 31089, 6]},
+      "depot": {"location": [32213, 31134, 7]}
+    },
+    "Yalahar": {
+      "potion_shop": {"name": "Zora", "location": [32787, 31277, 7]},
+      "bank": {"name": "Leeland", "location": [32786, 31275, 7]},
+      "travel": {"name": "Captain Max", "location": [32816, 31272, 6]},
+      "depot": {"location": [32786, 31279, 7]}
+    },
+    "Farmine": {
+      "potion_shop": {"name": "Esrik", "location": [33024, 31539, 10]},
+      "bank": {"name": "Esrik", "location": [33024, 31539, 10]},
+      "travel": {"name": "Marvin", "location": [32983, 31539, 9]},
+      "depot": {"location": [33023, 31541, 10]}
+    },
+    "Issavi": {
+      "potion_shop": {"name": "Eryn", "location": [33933, 31669, 7]},
+      "bank": {"name": "Nabirah", "location": [33934, 31667, 7]},
+      "travel": {"name": "Ivory", "location": [33921, 31644, 6]},
+      "depot": {"location": [33934, 31671, 7]}
+    },
+    "Kazordoon": {
+      "potion_shop": {"name": "Bertha", "location": [32659, 31925, 7]},
+      "bank": {"name": "Gnomission", "location": [32660, 31923, 7]},
+      "travel": {"name": "Ubaid", "location": [32659, 31957, 6]},
+      "depot": {"location": [32660, 31927, 7]}
+    },
+    "Rathleton": {
+      "potion_shop": {"name": "Alexander", "location": [33592, 31689, 6]},
+      "bank": {"name": "Banker", "location": [33593, 31687, 6]},
+      "travel": {"name": "Gewen", "location": [33494, 31712, 6]},
+      "depot": {"location": [33593, 31691, 6]}
+    }
+  },
+  "travel_keywords": [
+    "Ab'Dendriel", "Ankrahmun", "Carlin", "Darashia", "Edron",
+    "Farmine", "Issavi", "Kazordoon", "Liberty Bay", "Port Hope",
+    "Rathleton", "Svargrond", "Thais", "Venore", "Yalahar"
+  ],
+  "potions": {
+    "health": {
+      "Health Potion": {"npc_price": 50, "level": 8},
+      "Strong Health Potion": {"npc_price": 115, "level": 50},
+      "Great Health Potion": {"npc_price": 225, "level": 130},
+      "Ultimate Health Potion": {"npc_price": 379, "level": 130},
+      "Supreme Health Potion": {"npc_price": 625, "level": 200}
+    },
+    "mana": {
+      "Mana Potion": {"npc_price": 56, "level": 8},
+      "Strong Mana Potion": {"npc_price": 93, "level": 50},
+      "Great Mana Potion": {"npc_price": 144, "level": 80},
+      "Ultimate Mana Potion": {"npc_price": 438, "level": 130}
+    },
+    "spirit": {
+      "Great Spirit Potion": {"npc_price": 190, "level": 80},
+      "Ultimate Spirit Potion": {"npc_price": 438, "level": 130}
+    }
+  }
+}

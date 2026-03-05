@@ -1,269 +1,149 @@
 """
-looter/looter_engine.py - Motor principal de looteo automático.
-Coordina la detección de cadáveres, apertura de cuerpos,
-filtrado de items y recogida al backpack.
+looter/looter_engine.py - Motor de looteo FUNCIONAL.
+Cuando un monstruo muere (conteo en battle list disminuye),
+hace right-click en los 9 SQMs alrededor del jugador.
+Basado en TibiaAuto12/engine/CaveBot/CaveBotController.py → TakeLoot().
 """
 
 import time
-from enum import Enum
 from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
-
-from looter.corpse_detector import Corpse, CorpseDetector
-from looter.item_filter import ItemFilter
-from looter.backpack_manager import BackpackManager
-
-
-class LootMethod(Enum):
-    """Método de looteo."""
-    SHIFT_CLICK = "shift_click"     # Shift+Click (quick loot moderno)
-    OPEN_BODY = "open_body"          # Abrir cadáver y drag items
-    RIGHT_CLICK = "right_click"      # Right-click context menu
-
-
-class LooterState(Enum):
-    """Estado del looter."""
-    IDLE = "idle"
-    APPROACHING = "approaching"       # Caminando al cadáver
-    OPENING_CORPSE = "opening_corpse" # Abriendo el cadáver
-    READING_ITEMS = "reading_items"   # Leyendo items del cadáver
-    LOOTING = "looting"               # Recogiendo items
-    BACKPACK_FULL = "backpack_full"   # Backpack lleno
-    PAUSED = "paused"
 
 
 class LooterEngine:
     """
     Motor de looteo automático.
-    Coordina:
-    - Detección de cadáveres (CorpseDetector)
-    - Filtrado de items (ItemFilter)
-    - Gestión de backpacks (BackpackManager)
-    - Ejecución de looteo (click/drag)
+    Recibe notificación de kill del TargetingEngine y hace right-click
+    en los 9 SQMs alrededor del jugador para recoger loot.
     """
 
     def __init__(self):
-        self.corpse_detector = CorpseDetector()
-        self.item_filter = ItemFilter()
-        self.backpack_manager = BackpackManager()
-
         # Estado
-        self.state: LooterState = LooterState.IDLE
-        self.current_corpse: Optional[Corpse] = None
+        self.enabled: bool = False
+        self.state: str = "idle"
+
+        # SQMs alrededor del jugador (9 posiciones x,y)
+        self.sqms: List[Tuple[int, int]] = []
 
         # Configuración
-        self.loot_method: LootMethod = LootMethod.SHIFT_CLICK
-        self.enabled: bool = True
-        self.loot_delay: float = 0.3   # Delay entre acciones de looteo
-        self.max_range: int = 2         # Rango máximo para lootear (tiles)
+        self.loot_button: str = "right"  # "right" o "left"
+        self.loot_delay: float = 0.05    # Delay entre clicks de SQM
+        self.eat_food: bool = False
+        self.food_key: str = ""
 
-        # Callbacks (inyectados)
-        self._on_shift_click: Optional[Callable] = None     # callback(hwnd, x, y)
-        self._on_right_click: Optional[Callable] = None     # callback(hwnd, x, y)
-        self._on_double_click: Optional[Callable] = None    # callback(hwnd, x, y)
-        self._on_drag_item: Optional[Callable] = None       # callback(hwnd, fx, fy, tx, ty)
-
-        self.hwnd: int = 0
-
-        # Timing
-        self.last_loot_time: float = 0.0
-        self.last_scan_time: float = 0.0
-        self.scan_interval: float = 0.5
+        # Callbacks
+        self._right_click_fn: Optional[Callable] = None  # right_click(x, y)
+        self._left_click_fn: Optional[Callable] = None    # left_click(x, y)
+        self._log_fn: Optional[Callable] = None
 
         # Métricas
-        self.items_looted: int = 0
-        self.corpses_opened: int = 0
-        self.gold_collected: int = 0
+        self.loot_actions: int = 0
+        self.corpses_looted: int = 0
+        self.last_loot_time: float = 0.0
+
+        # Kill tracking
+        self._pending_loots: int = 0
 
     # ==================================================================
-    # Configuración / Inyección
+    # Configuración
     # ==================================================================
-    def set_shift_click_callback(self, callback: Callable) -> None:
-        self._on_shift_click = callback
+    def set_right_click_callback(self, fn: Callable):
+        """fn(x, y) - right click en coordenadas de cliente."""
+        self._right_click_fn = fn
 
-    def set_right_click_callback(self, callback: Callable) -> None:
-        self._on_right_click = callback
+    def set_left_click_callback(self, fn: Callable):
+        """fn(x, y) - left click en coordenadas de cliente."""
+        self._left_click_fn = fn
 
-    def set_double_click_callback(self, callback: Callable) -> None:
-        self._on_double_click = callback
+    def set_log_callback(self, fn: Callable):
+        self._log_fn = fn
 
-    def set_drag_callback(self, callback: Callable) -> None:
-        self._on_drag_item = callback
+    def set_sqms(self, sqms: List[Tuple[int, int]]):
+        """Establece los 9 SQMs alrededor del jugador."""
+        self.sqms = sqms
 
-    def set_hwnd(self, hwnd: int) -> None:
-        self.hwnd = hwnd
-        self.backpack_manager.set_hwnd(hwnd)
+    def configure(self, config: dict):
+        """Aplica configuración desde dict."""
+        looter = config if isinstance(config, dict) else {}
+        self.loot_button = looter.get("loot_button", "right")
+        self.loot_delay = looter.get("loot_delay", 0.05)
+        self.eat_food = looter.get("eat_food", False)
+        self.food_key = looter.get("food_key", "")
 
-    def set_game_region(self, x: int, y: int, w: int, h: int) -> None:
-        self.corpse_detector.set_game_region(x, y, w, h)
-
-    def set_inventory_region(self, x: int, y: int, w: int, h: int) -> None:
-        self.backpack_manager.set_inventory_region(x, y, w, h)
-
-    # ==================================================================
-    # Registro de kills (llamado por targeting)
-    # ==================================================================
-    def register_kill(self, screen_x: int, screen_y: int) -> None:
-        """Registra la posición de un monstruo muerto."""
-        self.corpse_detector.register_kill(screen_x, screen_y)
+    def _log(self, msg: str):
+        if self._log_fn:
+            self._log_fn(f"[Looter] {msg}")
 
     # ==================================================================
-    # Lógica principal
+    # Notificación de kills
     # ==================================================================
-    def update(self, frame: np.ndarray) -> None:
-        """
-        Actualización principal del looter. Llamada cada frame.
-        """
-        if not self.enabled or self.state == LooterState.PAUSED:
+    def notify_kill(self):
+        """Llamado por el TargetingEngine cuando detecta que un monstruo murió."""
+        self._pending_loots += 1
+
+    # ==================================================================
+    # Loop principal (llamado por dispatcher)
+    # ==================================================================
+    def process_frame(self, frame: np.ndarray):
+        """Procesa looteo pendiente. Frame se ignora (usamos SQMs precalculados)."""
+        if not self.enabled:
             return
-
-        now = time.time()
-
-        # Escanear backpacks periódicamente
-        if now - self.last_scan_time >= self.scan_interval:
-            self.backpack_manager.scan_backpacks(frame)
-            self.last_scan_time = now
-
-        # ¿Backpacks llenos?
-        if self.backpack_manager.are_all_backpacks_full():
-            self.state = LooterState.BACKPACK_FULL
-            if self.backpack_manager.auto_open_next:
-                self.backpack_manager.open_next_backpack()
+        if self._pending_loots <= 0:
             return
-
-        # Detectar cadáveres
-        corpses = self.corpse_detector.detect(frame)
-
-        # Si no hay cadáveres pendientes, idle
-        if not corpses:
-            if self.state != LooterState.LOOTING:
-                self.state = LooterState.IDLE
-            return
-
-        # Obtener siguiente cadáver
-        if self.current_corpse is None or self.current_corpse.looted:
-            self.current_corpse = self.corpse_detector.get_next_corpse()
-
-        if self.current_corpse is None:
-            self.state = LooterState.IDLE
-            return
-
-        # Cooldown entre acciones
-        if now - self.last_loot_time < self.loot_delay:
+        if not self.sqms:
+            self._log("Sin SQMs configurados - necesita calibración")
             return
 
         # Ejecutar looteo
-        self._execute_loot(self.current_corpse)
+        self._take_loot()
+        self._pending_loots -= 1
 
-    def _execute_loot(self, corpse: Corpse) -> None:
-        """Ejecuta el looteo de un cadáver."""
-        if self.loot_method == LootMethod.SHIFT_CLICK:
-            self._loot_shift_click(corpse)
-        elif self.loot_method == LootMethod.OPEN_BODY:
-            self._loot_open_body(corpse)
-        elif self.loot_method == LootMethod.RIGHT_CLICK:
-            self._loot_right_click(corpse)
-
-    def _loot_shift_click(self, corpse: Corpse) -> None:
+    def _take_loot(self):
         """
-        Lootea con Shift+Click (quick loot de Tibia).
-        El juego automáticamente recoge todo al backpack.
+        Hace click en los 9 SQMs alrededor del jugador.
+        Igual que TibiaAuto12: for i, j in zip(range(0, 18, 2), range(1, 19, 2))
         """
-        if not self._on_shift_click or self.hwnd == 0:
+        click_fn = self._right_click_fn if self.loot_button == "right" else self._left_click_fn
+        if click_fn is None:
+            self._log("Sin callback de click configurado")
             return
 
-        self.state = LooterState.LOOTING
-        self._on_shift_click(self.hwnd, corpse.screen_x, corpse.screen_y)
+        self.state = "looting"
+        self._log(f"Looteando {len(self.sqms)} SQMs...")
 
+        for i, (x, y) in enumerate(self.sqms):
+            if x == 0 and y == 0:
+                continue
+            click_fn(x, y)
+            if self.loot_delay > 0:
+                time.sleep(self.loot_delay)
+            self.loot_actions += 1
+
+        self.corpses_looted += 1
         self.last_loot_time = time.time()
-        self.corpses_opened += 1
-        self.corpse_detector.mark_looted(corpse)
-        self.current_corpse = None
-
-    def _loot_open_body(self, corpse: Corpse) -> None:
-        """
-        Lootea abriendo el cadáver y arrastrando items.
-        Proceso: Right-click → Open → Drag items al backpack.
-        """
-        if not self._on_right_click or self.hwnd == 0:
-            return
-
-        self.state = LooterState.OPENING_CORPSE
-
-        # Abrir cadáver (right-click o double-click)
-        if self._on_double_click:
-            self._on_double_click(self.hwnd, corpse.screen_x, corpse.screen_y)
-        else:
-            self._on_right_click(self.hwnd, corpse.screen_x, corpse.screen_y)
-
-        self.last_loot_time = time.time()
-        self.corpses_opened += 1
-        self.corpse_detector.mark_attempt(corpse)
-
-        # Nota: El drag de items requiere otro ciclo después de que
-        # el cadáver se abra (el contenido aparece en un panel)
-
-    def _loot_right_click(self, corpse: Corpse) -> None:
-        """Lootea con right-click (menú contextual)."""
-        if not self._on_right_click or self.hwnd == 0:
-            return
-
-        self.state = LooterState.LOOTING
-        self._on_right_click(self.hwnd, corpse.screen_x, corpse.screen_y)
-
-        self.last_loot_time = time.time()
-        self.corpse_detector.mark_attempt(corpse)
+        self.state = "idle"
+        self._log(f"Loot completado (total: {self.corpses_looted})")
 
     # ==================================================================
     # Control
     # ==================================================================
-    def start(self) -> None:
-        """Inicia el looter."""
+    def start(self):
         self.enabled = True
-        self.state = LooterState.IDLE
+        self._log("Looter activado")
 
-    def pause(self) -> None:
-        """Pausa el looter."""
-        self.state = LooterState.PAUSED
-
-    def resume(self) -> None:
-        """Reanuda el looter."""
-        if self.state == LooterState.PAUSED:
-            self.state = LooterState.IDLE
-
-    def stop(self) -> None:
-        """Detiene el looter."""
+    def stop(self):
         self.enabled = False
-        self.state = LooterState.IDLE
-        self.current_corpse = None
+        self.state = "idle"
+        self._pending_loots = 0
+        self._log("Looter desactivado")
 
-    def reset_stats(self) -> None:
-        """Reinicia estadísticas."""
-        self.items_looted = 0
-        self.corpses_opened = 0
-        self.gold_collected = 0
-        self.corpse_detector.clear()
-
-    # ==================================================================
-    # Info
-    # ==================================================================
     def get_status(self) -> Dict:
         return {
-            "state": self.state.value,
             "enabled": self.enabled,
-            "loot_method": self.loot_method.value,
-            "pending_corpses": self.corpse_detector.pending_count,
-            "current_corpse": self.current_corpse.to_dict() if self.current_corpse else None,
-            "items_looted": self.items_looted,
-            "corpses_opened": self.corpses_opened,
-            "gold_collected": self.gold_collected,
-            "backpack_status": self.backpack_manager.get_status(),
+            "state": self.state,
+            "pending_loots": self._pending_loots,
+            "corpses_looted": self.corpses_looted,
+            "loot_actions": self.loot_actions,
+            "sqms_configured": len(self.sqms),
         }
-
-    def __repr__(self) -> str:
-        return (
-            f"<LooterEngine state={self.state.value} "
-            f"pending={self.corpse_detector.pending_count} "
-            f"looted={self.items_looted}>"
-        )

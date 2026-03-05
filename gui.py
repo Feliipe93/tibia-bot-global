@@ -4,6 +4,7 @@ Contiene las 4 secciones principales + pestaña de Ayuda.
 """
 
 import os
+import queue
 import threading
 import tkinter as tk
 from datetime import datetime
@@ -60,6 +61,8 @@ class TibiaHealerGUI(ctk.CTk):
         self._exit_hotkey_registered = False
         self._update_job = None
         self._rule_frames: List[ctk.CTkFrame] = []
+        self._log_queue: queue.Queue = queue.Queue()
+        self._gui_ready = False
 
         # Listas de ventanas para dropdowns
         self._tibia_windows: List[Dict] = []
@@ -109,6 +112,8 @@ class TibiaHealerGUI(ctk.CTk):
         self._register_hotkeys()
         self._start_status_loop()
 
+        self._gui_ready = True
+        self._drain_log_queue()
         self.log.ok("GUI iniciada correctamente")
 
     def _auto_connect_obs(self):
@@ -767,10 +772,10 @@ class TibiaHealerGUI(ctk.CTk):
         resized = cv2.resize(img, (new_w, new_h))
         rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
         pil_img = Image.fromarray(rgb)
-        photo = ImageTk.PhotoImage(pil_img)
+        ctk_img = ctk.CTkImage(light_image=pil_img, dark_image=pil_img, size=(new_w, new_h))
 
-        self.preview_label.configure(image=photo, text="")
-        self.preview_label._image = photo  # evitar garbage collection
+        self.preview_label.configure(image=ctk_img, text="")
+        self.preview_label._ctk_image = ctk_img  # evitar garbage collection
 
     # ==================================================================
     # TAB: Cavebot (v2.0)
@@ -816,6 +821,98 @@ class TibiaHealerGUI(ctk.CTk):
         self.wp_listbox.insert("1.0", "(Sin waypoints)")
         self.wp_listbox.configure(state="disabled")
 
+        # --- Agregar waypoint manual ---
+        add_frame = ctk.CTkFrame(scroll)
+        add_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(add_frame, text="AGREGAR WAYPOINT", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        # Tipo de waypoint
+        type_row = ctk.CTkFrame(add_frame, fg_color="transparent")
+        type_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(type_row, text="Tipo:", width=80).pack(side="left")
+
+        wp_types = [
+            "WALK", "ROPE", "SHOVEL", "LADDER", "DOOR", "STAIRS",
+            "STAND", "SINGLE_MOVE", "PICK", "MACHETE", "SEWER",
+            "RIGHT_CLICK_USE", "NPC_TALK", "DEPOSIT_GOLD",
+            "DEPOSIT_ITEMS", "TRAVEL", "BUY_BACKPACK",
+            "DROP_FLASKS", "REFILL_CHECKER", "REFILL", "LABEL",
+        ]
+        self.cb_wp_type = ctk.CTkComboBox(type_row, values=wp_types, width=180)
+        self.cb_wp_type.set("WALK")
+        self.cb_wp_type.pack(side="left", padx=5)
+
+        # Coordenadas
+        coord_row = ctk.CTkFrame(add_frame, fg_color="transparent")
+        coord_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(coord_row, text="X:", width=25).pack(side="left")
+        self.entry_wp_x = ctk.CTkEntry(coord_row, width=60)
+        self.entry_wp_x.insert(0, "0")
+        self.entry_wp_x.pack(side="left", padx=(3, 10))
+        ctk.CTkLabel(coord_row, text="Y:", width=25).pack(side="left")
+        self.entry_wp_y = ctk.CTkEntry(coord_row, width=60)
+        self.entry_wp_y.insert(0, "0")
+        self.entry_wp_y.pack(side="left", padx=(3, 10))
+        ctk.CTkLabel(coord_row, text="Z:", width=25).pack(side="left")
+        self.entry_wp_z = ctk.CTkEntry(coord_row, width=40)
+        self.entry_wp_z.insert(0, "7")
+        self.entry_wp_z.pack(side="left", padx=3)
+
+        # Label / opciones
+        opt_row = ctk.CTkFrame(add_frame, fg_color="transparent")
+        opt_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(opt_row, text="Etiqueta:", width=70).pack(side="left")
+        self.entry_wp_label = ctk.CTkEntry(opt_row, width=150, placeholder_text="nombre del wp")
+        self.entry_wp_label.pack(side="left", padx=(3, 10))
+        ctk.CTkLabel(opt_row, text="Ciudad/NPC:", width=90).pack(side="left")
+        self.entry_wp_option = ctk.CTkEntry(opt_row, width=150, placeholder_text="Thais, Venore...")
+        self.entry_wp_option.pack(side="left", padx=3)
+
+        add_btn_row = ctk.CTkFrame(add_frame, fg_color="transparent")
+        add_btn_row.pack(fill="x", padx=10, pady=5)
+        ctk.CTkButton(
+            add_btn_row, text="+ Agregar WP", width=140,
+            fg_color="#2ECC71", hover_color="#27AE60",
+            command=self._add_waypoint_manual,
+        ).pack(side="left", padx=3)
+        ctk.CTkButton(
+            add_btn_row, text="- Quitar Último", width=140,
+            fg_color="#E74C3C", hover_color="#C0392B",
+            command=self._remove_last_waypoint,
+        ).pack(side="left", padx=3)
+
+        # --- Hotkeys de herramientas ---
+        tools_frame = ctk.CTkFrame(scroll)
+        tools_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(tools_frame, text="HOTKEYS DE HERRAMIENTAS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            tools_frame,
+            text="Configura las teclas que el bot usará para Rope/Shovel/Pick/Machete",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        hotkeys_cfg = self.config.hotkeys
+        self._hotkey_vars: Dict[str, ctk.StringVar] = {}
+
+        tool_keys = [
+            ("rope", "🪢 Rope:"),
+            ("shovel", "⛏️ Shovel:"),
+            ("pick", "🔨 Pick:"),
+            ("machete", "🗡️ Machete:"),
+            ("food", "🍖 Food:"),
+            ("light", "💡 Light:"),
+        ]
+
+        for key_id, label in tool_keys:
+            row = ctk.CTkFrame(tools_frame, fg_color="transparent")
+            row.pack(fill="x", padx=15, pady=2)
+            ctk.CTkLabel(row, text=label, width=120, anchor="w").pack(side="left")
+            var = ctk.StringVar(value=hotkeys_cfg.get(key_id, ""))
+            ctk.CTkOptionMenu(
+                row, variable=var, values=[""] + AVAILABLE_KEYS, width=90,
+            ).pack(side="left", padx=5)
+            self._hotkey_vars[key_id] = var
+
         # --- Configuración ---
         cfg_frame = ctk.CTkFrame(scroll)
         cfg_frame.pack(fill="x", padx=5, pady=5)
@@ -833,6 +930,35 @@ class TibiaHealerGUI(ctk.CTk):
         if self.config.cavebot.get("cyclic", True):
             self.cb_cyclic.select()
 
+        # NPC config
+        npc_frame = ctk.CTkFrame(scroll)
+        npc_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(npc_frame, text="NPC INTERACCIÓN", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        npc_cfg = self.config.npc
+        npc_row1 = ctk.CTkFrame(npc_frame, fg_color="transparent")
+        npc_row1.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(npc_row1, text="Delay entre pasos (seg):", width=180).pack(side="left")
+        self.entry_npc_step_delay = ctk.CTkEntry(npc_row1, width=60)
+        self.entry_npc_step_delay.insert(0, str(npc_cfg.get("step_delay", 0.8)))
+        self.entry_npc_step_delay.pack(side="left", padx=5)
+
+        npc_row2 = ctk.CTkFrame(npc_frame, fg_color="transparent")
+        npc_row2.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(npc_row2, text="Delay al hablar (seg):", width=180).pack(side="left")
+        self.entry_npc_say_delay = ctk.CTkEntry(npc_row2, width=60)
+        self.entry_npc_say_delay.insert(0, str(npc_cfg.get("say_delay", 1.0)))
+        self.entry_npc_say_delay.pack(side="left", padx=5)
+
+        # --- Guardar cavebot ---
+        ctk.CTkButton(
+            scroll,
+            text="💾 Guardar Config Cavebot",
+            height=36,
+            font=ctk.CTkFont(weight="bold"),
+            command=self._save_cavebot_config,
+        ).pack(fill="x", padx=5, pady=8)
+
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
         state_frame.pack(fill="x", padx=5, pady=5)
@@ -841,10 +967,80 @@ class TibiaHealerGUI(ctk.CTk):
         self.lbl_cavebot_state = ctk.CTkLabel(state_frame, text="Estado: idle | WP: 0/0 | Pasos: 0", font=ctk.CTkFont(size=12))
         self.lbl_cavebot_state.pack(anchor="w", padx=15, pady=(0, 10))
 
+        # --- Log del Cavebot ---
+        log_frame_cb = ctk.CTkFrame(scroll)
+        log_frame_cb.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(log_frame_cb, text="📋 LOG CAVEBOT", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        self.log_cavebot = ctk.CTkTextbox(log_frame_cb, height=120, font=ctk.CTkFont(family="Consolas", size=11))
+        self.log_cavebot.pack(fill="x", padx=10, pady=(2, 8))
+        self.log_cavebot.configure(state="disabled")
+
+        # --- Botón Calibrar ---
+        ctk.CTkButton(
+            scroll, text="🎯 Calibrar Regiones del Juego", height=36,
+            font=ctk.CTkFont(weight="bold"), fg_color="#8E44AD", hover_color="#7D3C98",
+            command=self._force_recalibrate,
+        ).pack(fill="x", padx=5, pady=5)
+
+    def _save_cavebot_config(self):
+        """Guarda toda la configuración del cavebot desde la GUI."""
+        # Cavebot
+        cavebot = self.config.cavebot
+        cavebot["walk_mode"] = self.cb_walk_mode.get()
+        cavebot["cyclic"] = bool(self.cb_cyclic.get())
+        self.config.cavebot = cavebot
+
+        # Hotkeys
+        hotkeys = self.config.hotkeys
+        for key_id, var in self._hotkey_vars.items():
+            hotkeys[key_id] = var.get()
+        self.config.hotkeys = hotkeys
+
+        # NPC
+        npc = self.config.npc
+        try:
+            npc["step_delay"] = float(self.entry_npc_step_delay.get())
+        except ValueError:
+            pass
+        try:
+            npc["say_delay"] = float(self.entry_npc_say_delay.get())
+        except ValueError:
+            pass
+        self.config.npc = npc
+
+        self.config.save()
+        # Re-configure engine with new settings
+        self.bot.cavebot_engine.configure(cavebot)
+        self.log.ok("Configuración del Cavebot guardada")
+
+    def _add_waypoint_manual(self):
+        """Agrega un waypoint desde los campos de la GUI."""
+        wp_type = self.cb_wp_type.get().lower()
+        label = self.entry_wp_label.get().strip()
+
+        # Usar el label como nombre de marca (o tipo por defecto)
+        mark_name = label if label else wp_type
+
+        # Agregar al engine
+        self.bot.cavebot_engine.add_waypoint(mark_name, wp_type)
+        self._refresh_waypoint_list()
+
+    def _remove_last_waypoint(self):
+        """Elimina el último waypoint."""
+        self.bot.cavebot_engine.remove_last_waypoint()
+        self._refresh_waypoint_list()
+
     def _toggle_cavebot(self):
         enabled = self.cb_cavebot_enabled.get()
         self.config.cavebot_enabled = bool(enabled)
         self.config.save()
+        # Wire to dispatcher + engine
+        if enabled:
+            self.bot.dispatcher.enable_module("cavebot")
+            self.bot.cavebot_engine.start()
+        else:
+            self.bot.dispatcher.disable_module("cavebot")
+            self.bot.cavebot_engine.stop()
         self.log.info(f"Cavebot {'habilitado' if enabled else 'deshabilitado'}")
 
     def _load_route(self):
@@ -854,8 +1050,12 @@ class TibiaHealerGUI(ctk.CTk):
             initialdir="routes",
         )
         if path:
-            self.log.info(f"Ruta cargada: {path}")
-            self.lbl_route_name.configure(text=f"Ruta: {os.path.basename(path)}")
+            success = self.bot.cavebot_engine.load_route(path)
+            if success:
+                self.lbl_route_name.configure(text=f"Ruta: {os.path.basename(path)}")
+                self._refresh_waypoint_list()
+            else:
+                self.log.warning(f"Error cargando ruta: {path}")
 
     def _save_route(self):
         path = filedialog.asksaveasfilename(
@@ -865,14 +1065,38 @@ class TibiaHealerGUI(ctk.CTk):
             initialdir="routes",
         )
         if path:
-            self.log.info(f"Ruta guardada: {path}")
+            self.bot.cavebot_engine.save_route(path)
 
     def _clear_route(self):
+        self.bot.cavebot_engine.clear_route()
         self.wp_listbox.configure(state="normal")
         self.wp_listbox.delete("1.0", "end")
         self.wp_listbox.insert("1.0", "(Sin waypoints)")
         self.wp_listbox.configure(state="disabled")
         self.lbl_route_name.configure(text="Ruta: (ninguna cargada)")
+
+    def _refresh_waypoint_list(self):
+        """Actualiza el textbox de waypoints desde el engine."""
+        wps = self.bot.cavebot_engine.waypoints
+        self.wp_listbox.configure(state="normal")
+        self.wp_listbox.delete("1.0", "end")
+        if not wps:
+            self.wp_listbox.insert("1.0", "(Sin waypoints)")
+        else:
+            for i, wp in enumerate(wps):
+                prefix = "→ " if wp.status else "  "
+                line = f"{prefix}#{i}: {wp.wp_type:12s} [{wp.mark}]\n"
+                self.wp_listbox.insert("end", line)
+        self.wp_listbox.configure(state="disabled")
+
+    def _force_recalibrate(self):
+        """Fuerza recalibración de regiones del juego."""
+        self.log.info("Forzando recalibración de regiones...")
+        success = self.bot.force_recalibrate()
+        if success:
+            self.log.ok("Recalibración exitosa")
+        else:
+            self.log.error("Recalibración fallida - verificar captura OBS")
 
     # ==================================================================
     # TAB: Targeting (v2.1)
@@ -922,6 +1146,59 @@ class TibiaHealerGUI(ctk.CTk):
         if self.config.targeting.get("chase_monsters", True):
             self.cb_chase.select()
 
+        # --- Listas de criaturas ---
+        lists_frame = ctk.CTkFrame(scroll)
+        lists_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(lists_frame, text="LISTAS DE CRIATURAS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            lists_frame,
+            text="Escribe nombres separados por coma. Ej: Rat, Cyclops, Dragon Lord",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        # Attack list
+        atk_row = ctk.CTkFrame(lists_frame, fg_color="transparent")
+        atk_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(atk_row, text="✅ Atacar:", width=90, anchor="w",
+                      text_color="#2ECC71", font=ctk.CTkFont(weight="bold")).pack(side="left")
+        self.entry_attack_list = ctk.CTkEntry(atk_row, width=400,
+                                               placeholder_text="Rat, Rotworm, Cyclops...")
+        self.entry_attack_list.pack(side="left", padx=5)
+        attack_str = ", ".join(self.config.attack_list)
+        if attack_str:
+            self.entry_attack_list.insert(0, attack_str)
+
+        # Ignore list
+        ign_row = ctk.CTkFrame(lists_frame, fg_color="transparent")
+        ign_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(ign_row, text="🚫 Ignorar:", width=90, anchor="w",
+                      text_color="#E74C3C", font=ctk.CTkFont(weight="bold")).pack(side="left")
+        self.entry_ignore_list = ctk.CTkEntry(ign_row, width=400,
+                                               placeholder_text="Deer, Rabbit, Bug...")
+        self.entry_ignore_list.pack(side="left", padx=5)
+        ignore_str = ", ".join(self.config.ignore_list)
+        if ignore_str:
+            self.entry_ignore_list.insert(0, ignore_str)
+
+        # Priority list
+        pri_row = ctk.CTkFrame(lists_frame, fg_color="transparent")
+        pri_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(pri_row, text="⭐ Prioridad:", width=90, anchor="w",
+                      text_color="#F39C12", font=ctk.CTkFont(weight="bold")).pack(side="left")
+        self.entry_priority_list = ctk.CTkEntry(pri_row, width=400,
+                                                 placeholder_text="Dragon Lord, Demon...")
+        self.entry_priority_list.pack(side="left", padx=5)
+        priority_str = ", ".join(self.config.priority_list)
+        if priority_str:
+            self.entry_priority_list.insert(0, priority_str)
+
+        # Info skulls
+        ctk.CTkLabel(
+            lists_frame,
+            text="💀 Detección de skulls: Automática (HSV color analysis). No atacará jugadores sin skull.",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(5, 8))
+
         # --- Hechizos ---
         spell_frame = ctk.CTkFrame(scroll)
         spell_frame.pack(fill="x", padx=5, pady=5)
@@ -952,6 +1229,15 @@ class TibiaHealerGUI(ctk.CTk):
         self.spell_list_text.insert("1.0", "(Sin hechizos configurados)")
         self.spell_list_text.configure(state="disabled")
 
+        # --- Guardar targeting ---
+        ctk.CTkButton(
+            scroll,
+            text="💾 Guardar Config Targeting",
+            height=36,
+            font=ctk.CTkFont(weight="bold"),
+            command=self._save_targeting_config,
+        ).pack(fill="x", padx=5, pady=8)
+
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
         state_frame.pack(fill="x", padx=5, pady=5)
@@ -964,15 +1250,57 @@ class TibiaHealerGUI(ctk.CTk):
         )
         self.lbl_targeting_state.pack(anchor="w", padx=15, pady=(0, 10))
 
+        # --- Log del Targeting ---
+        log_frame_tg = ctk.CTkFrame(scroll)
+        log_frame_tg.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(log_frame_tg, text="📋 LOG TARGETING", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        self.log_targeting = ctk.CTkTextbox(log_frame_tg, height=120, font=ctk.CTkFont(family="Consolas", size=11))
+        self.log_targeting.pack(fill="x", padx=10, pady=(2, 8))
+        self.log_targeting.configure(state="disabled")
+
+    def _save_targeting_config(self):
+        """Guarda toda la configuración de targeting desde la GUI."""
+        targeting = self.config.targeting
+
+        targeting["attack_mode"] = self.cb_attack_mode.get()
+        targeting["target_priority"] = self.cb_target_priority.get()
+        targeting["auto_attack"] = bool(self.cb_auto_attack.get())
+        targeting["chase_monsters"] = bool(self.cb_chase.get())
+        targeting["use_aoe"] = bool(self.cb_use_aoe.get())
+        try:
+            targeting["aoe_min_monsters"] = int(self.entry_aoe_min.get())
+        except ValueError:
+            pass
+
+        # Listas de criaturas
+        def parse_list(text: str) -> list:
+            return [s.strip() for s in text.split(",") if s.strip()]
+
+        targeting["attack_list"] = parse_list(self.entry_attack_list.get())
+        targeting["ignore_list"] = parse_list(self.entry_ignore_list.get())
+        targeting["priority_list"] = parse_list(self.entry_priority_list.get())
+
+        self.config.targeting = targeting
+        self.config.save()
+        # Re-configure engine with new settings
+        self.bot.targeting_engine.configure(targeting)
+        self.log.ok("Configuración de Targeting guardada")
+
     def _toggle_targeting(self):
         enabled = self.cb_targeting_enabled.get()
         self.config.targeting_enabled = bool(enabled)
         self.config.save()
+        # Wire to dispatcher + engine
+        if enabled:
+            self.bot.dispatcher.enable_module("targeting")
+            self.bot.targeting_engine.start()
+        else:
+            self.bot.dispatcher.disable_module("targeting")
+            self.bot.targeting_engine.stop()
         self.log.info(f"Targeting {'habilitado' if enabled else 'deshabilitado'}")
 
     def _load_spell_preset(self, vocation: str):
         self.log.info(f"Cargando preset de hechizos: {vocation}")
-        # Actualizar UI con hechizos del preset
         preset_map = {
             "knight": "Exori Gran [F1], Exori [F2], Exori Mas [F3]",
             "sorcerer": "Exori Vis [F1], Exori Gran Vis [F2], Exevo Vis Hur [F3]",
@@ -1012,7 +1340,11 @@ class TibiaHealerGUI(ctk.CTk):
         row1 = ctk.CTkFrame(method_frame, fg_color="transparent")
         row1.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row1, text="Método:", width=80).pack(side="left")
-        self.cb_loot_method = ctk.CTkComboBox(row1, values=["shift_click", "open_body", "right_click"], width=150)
+        self.cb_loot_method = ctk.CTkComboBox(
+            row1,
+            values=["shift_click", "open_body", "right_click", "left_click"],
+            width=150,
+        )
         self.cb_loot_method.set(self.config.looter.get("loot_method", "shift_click"))
         self.cb_loot_method.pack(side="left", padx=5)
 
@@ -1033,18 +1365,86 @@ class TibiaHealerGUI(ctk.CTk):
         filter_frame.pack(fill="x", padx=5, pady=5)
         ctk.CTkLabel(filter_frame, text="FILTRO DE ITEMS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
 
+        item_filter = self.config.looter.get("item_filter", {})
+
         self.cb_pick_gold = ctk.CTkSwitch(filter_frame, text="Recoger Gold Coins")
         self.cb_pick_gold.pack(anchor="w", padx=15, pady=2)
-        if self.config.looter.get("item_filter", {}).get("pick_gold", True):
+        if item_filter.get("pick_gold", True):
             self.cb_pick_gold.select()
 
         self.cb_pick_equipment = ctk.CTkSwitch(filter_frame, text="Recoger Equipamiento")
         self.cb_pick_equipment.pack(anchor="w", padx=15, pady=2)
-        if self.config.looter.get("item_filter", {}).get("pick_equipment", True):
+        if item_filter.get("pick_equipment", True):
             self.cb_pick_equipment.select()
 
+        self.cb_pick_valuables = ctk.CTkSwitch(filter_frame, text="Recoger items valiosos (auto GameData)")
+        self.cb_pick_valuables.pack(anchor="w", padx=15, pady=2)
+        if item_filter.get("pick_valuables", True):
+            self.cb_pick_valuables.select()
+
+        self.cb_pick_creature_products = ctk.CTkSwitch(filter_frame, text="Recoger creature products")
+        self.cb_pick_creature_products.pack(anchor="w", padx=15, pady=2)
+        if item_filter.get("pick_creature_products", False):
+            self.cb_pick_creature_products.select()
+
         self.cb_pick_unknown = ctk.CTkSwitch(filter_frame, text="Recoger items desconocidos")
-        self.cb_pick_unknown.pack(anchor="w", padx=15, pady=(2, 8))
+        self.cb_pick_unknown.pack(anchor="w", padx=15, pady=2)
+        if item_filter.get("pick_unknown_items", False):
+            self.cb_pick_unknown.select()
+
+        # Valor mínimo
+        val_row = ctk.CTkFrame(filter_frame, fg_color="transparent")
+        val_row.pack(fill="x", padx=15, pady=5)
+        ctk.CTkLabel(val_row, text="Valor mínimo de item (gp):").pack(side="left")
+        self.entry_min_value = ctk.CTkEntry(val_row, width=80)
+        self.entry_min_value.insert(0, str(item_filter.get("min_item_value", 0)))
+        self.entry_min_value.pack(side="left", padx=5)
+
+        # --- Backpack Routing ---
+        bp_frame = ctk.CTkFrame(scroll)
+        bp_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(bp_frame, text="BACKPACK ROUTING", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            bp_frame,
+            text="Asigna cada categoría a un índice de backpack (0=primera, 1=segunda, ...)",
+            font=ctk.CTkFont(size=11),
+            text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        bp_routing = self.config.backpack_routing
+        cat_routes = bp_routing.get("category_routes", {})
+        bp_values = ["0", "1", "2", "3", "4", "5"]
+        self._bp_route_vars: Dict[str, ctk.StringVar] = {}
+
+        categories = [
+            ("gold", "💰 Oro"),
+            ("valuable", "💎 Valiosos"),
+            ("equipment", "🛡️ Equipamiento"),
+            ("potion", "🧪 Pociones"),
+            ("rune", "📜 Runas"),
+            ("food", "🍖 Comida"),
+            ("creature_product", "🦴 Creature Products"),
+        ]
+
+        for cat_key, cat_label in categories:
+            row = ctk.CTkFrame(bp_frame, fg_color="transparent")
+            row.pack(fill="x", padx=15, pady=2)
+            ctk.CTkLabel(row, text=cat_label, width=180, anchor="w").pack(side="left")
+            var = ctk.StringVar(value=str(cat_routes.get(cat_key, 0)))
+            ctk.CTkComboBox(row, variable=var, values=bp_values, width=70).pack(side="left", padx=5)
+            self._bp_route_vars[cat_key] = var
+
+        # Padding final
+        ctk.CTkFrame(bp_frame, fg_color="transparent", height=8).pack()
+
+        # --- Guardar looter config ---
+        ctk.CTkButton(
+            scroll,
+            text="💾 Guardar Config Looter",
+            height=36,
+            font=ctk.CTkFont(weight="bold"),
+            command=self._save_looter_config,
+        ).pack(fill="x", padx=5, pady=8)
 
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
@@ -1058,10 +1458,64 @@ class TibiaHealerGUI(ctk.CTk):
         )
         self.lbl_looter_state.pack(anchor="w", padx=15, pady=(0, 10))
 
+        # --- Log del Looter ---
+        log_frame_lt = ctk.CTkFrame(scroll)
+        log_frame_lt.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(log_frame_lt, text="📋 LOG LOOTER", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        self.log_looter = ctk.CTkTextbox(log_frame_lt, height=120, font=ctk.CTkFont(family="Consolas", size=11))
+        self.log_looter.pack(fill="x", padx=10, pady=(2, 8))
+        self.log_looter.configure(state="disabled")
+
+    def _save_looter_config(self):
+        """Guarda toda la configuración del looter desde la GUI."""
+        looter = self.config.looter
+
+        # Método
+        looter["loot_method"] = self.cb_loot_method.get()
+        try:
+            looter["max_range"] = int(self.entry_loot_range.get())
+        except ValueError:
+            pass
+        looter["auto_open_next_bp"] = bool(self.cb_auto_bp.get())
+
+        # Filtro
+        item_filter = looter.setdefault("item_filter", {})
+        item_filter["pick_gold"] = bool(self.cb_pick_gold.get())
+        item_filter["pick_equipment"] = bool(self.cb_pick_equipment.get())
+        item_filter["pick_valuables"] = bool(self.cb_pick_valuables.get())
+        item_filter["pick_creature_products"] = bool(self.cb_pick_creature_products.get())
+        item_filter["pick_unknown_items"] = bool(self.cb_pick_unknown.get())
+        try:
+            item_filter["min_item_value"] = int(self.entry_min_value.get())
+        except ValueError:
+            item_filter["min_item_value"] = 0
+
+        # Backpack routing
+        cat_routes = {}
+        for cat_key, var in self._bp_route_vars.items():
+            try:
+                cat_routes[cat_key] = int(var.get())
+            except ValueError:
+                cat_routes[cat_key] = 0
+        looter.setdefault("backpack_routing", {})["category_routes"] = cat_routes
+
+        self.config.looter = looter
+        self.config.save()
+        # Re-configure engine with new settings
+        self.bot.looter_engine.configure(looter)
+        self.log.ok("Configuración del Looter guardada")
+
     def _toggle_looter(self):
         enabled = self.cb_looter_enabled.get()
         self.config.looter_enabled = bool(enabled)
         self.config.save()
+        # Wire to dispatcher + engine
+        if enabled:
+            self.bot.dispatcher.enable_module("looter")
+            self.bot.looter_engine.start()
+        else:
+            self.bot.dispatcher.disable_module("looter")
+            self.bot.looter_engine.stop()
         self.log.info(f"Looter {'habilitado' if enabled else 'deshabilitado'}")
 
     # ==================================================================
@@ -1209,9 +1663,45 @@ class TibiaHealerGUI(ctk.CTk):
         self.log_text._textbox.tag_configure("CRITICAL", foreground="#FF0000")
 
     def _log_callback(self, msg: str, level: str):
-        """Callback invocado por BotLogger para escribir en la GUI."""
-        # Debe ejecutarse en el hilo principal de tkinter
-        self.after(0, self._append_log, msg, level)
+        """Callback invocado por BotLogger (puede venir de cualquier hilo)."""
+        self._log_queue.put((msg, level))
+
+    def _drain_log_queue(self):
+        """Procesa mensajes pendientes en el hilo principal de tkinter."""
+        try:
+            while True:
+                msg, level = self._log_queue.get_nowait()
+                self._append_log(msg, level)
+                # Redirigir a log de módulo si aplica
+                self._route_module_log(msg)
+        except queue.Empty:
+            pass
+        if self._gui_ready:
+            self.after(50, self._drain_log_queue)
+
+    def _route_module_log(self, msg: str):
+        """Redirige mensajes a los logs por módulo."""
+        try:
+            lower = msg.lower()
+            target_widget = None
+            if "[targeting]" in lower:
+                target_widget = getattr(self, "log_targeting", None)
+            elif "[looter]" in lower:
+                target_widget = getattr(self, "log_looter", None)
+            elif "[cavebot]" in lower:
+                target_widget = getattr(self, "log_cavebot", None)
+
+            if target_widget:
+                target_widget.configure(state="normal")
+                target_widget._textbox.insert("end", msg + "\n")
+                # Limitar líneas
+                line_count = int(target_widget._textbox.index("end-1c").split(".")[0])
+                if line_count > 500:
+                    target_widget._textbox.delete("1.0", "200.0")
+                target_widget._textbox.see("end")
+                target_widget.configure(state="disabled")
+        except Exception:
+            pass
 
     def _append_log(self, msg: str, level: str):
         """Agrega un mensaje al panel de logs (thread-safe via after)."""
@@ -1348,6 +1838,45 @@ class TibiaHealerGUI(ctk.CTk):
             self.lbl_heals.configure(
                 text=f"Curaciones: {self.bot.heal_count}"
             )
+
+            # --- Módulos v3 status ---
+            try:
+                # Targeting status
+                ts = self.bot.targeting_engine.get_status()
+                target_txt = ts.get("current_target", "—") or "—"
+                self.lbl_targeting_state.configure(
+                    text=f"Estado: {'activo' if ts['enabled'] else 'idle'} | "
+                         f"Target: {target_txt} | "
+                         f"Kills: {ts['monsters_killed']} | "
+                         f"Ataques: {ts['total_attacks']} | "
+                         f"Templates: {ts['templates_loaded']}"
+                )
+            except Exception:
+                pass
+
+            try:
+                # Looter status
+                ls = self.bot.looter_engine.get_status()
+                self.lbl_looter_state.configure(
+                    text=f"Estado: {ls['state']} | "
+                         f"Pendientes: {ls['pending_loots']} | "
+                         f"Looteados: {ls['corpses_looted']} | "
+                         f"SQMs: {ls['sqms_configured']}"
+                )
+            except Exception:
+                pass
+
+            try:
+                # Cavebot status
+                cs = self.bot.cavebot_engine.get_status()
+                self.lbl_cavebot_state.configure(
+                    text=f"Estado: {cs['state']} | "
+                         f"WP: {cs['current_wp']}/{cs['total_wps']} | "
+                         f"Pasos: {cs['steps']} | "
+                         f"Marcas: {cs['marks_loaded']}"
+                )
+            except Exception:
+                pass
         except Exception:
             pass
 

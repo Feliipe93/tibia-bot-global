@@ -1,17 +1,21 @@
 """
 targeting/battle_list_reader.py - Lector de la battle list de Tibia.
-Lee los nombres y estados de los monstruos/jugadores de la battle list
-usando análisis de píxeles y OCR.
+Usa template matching (OpenCV) para detectar nombres de monstruos.
+Basado en TibiaAuto12/engine/CaveBot/Scanners.py.
 """
 
-import numpy as np
+import os
 import cv2
-from typing import Dict, List, Optional, Tuple
+import numpy as np
+from typing import Dict, List, Optional, Set, Tuple
 from enum import Enum
+
+IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "images")
+NAMES_DIR = os.path.join(IMAGES_DIR, "Targets", "Names")
+ATTACK_DIR = os.path.join(IMAGES_DIR, "MonstersAttack")
 
 
 class CreatureType(Enum):
-    """Tipo de criatura en la battle list."""
     MONSTER = "monster"
     PLAYER = "player"
     NPC = "npc"
@@ -19,300 +23,253 @@ class CreatureType(Enum):
 
 
 class CreatureEntry:
-    """Representa una entrada en la battle list."""
-
-    def __init__(
-        self,
-        name: str = "",
-        creature_type: CreatureType = CreatureType.UNKNOWN,
-        hp_percent: int = 100,
-        is_attacking: bool = False,
-        is_following: bool = False,
-        position_index: int = 0,
-        skull: str = "",
-    ):
+    """Criatura encontrada en la battle list."""
+    def __init__(self, name="", creature_type=CreatureType.UNKNOWN,
+                 screen_x=0, screen_y=0, position_index=0):
         self.name = name
         self.creature_type = creature_type
-        self.hp_percent = hp_percent
-        self.is_attacking = is_attacking
-        self.is_following = is_following
+        self.screen_x = screen_x
+        self.screen_y = screen_y
         self.position_index = position_index
-        self.skull = skull
 
-    def to_dict(self) -> Dict:
-        return {
-            "name": self.name,
-            "type": self.creature_type.value,
-            "hp_percent": self.hp_percent,
-            "is_attacking": self.is_attacking,
-            "is_following": self.is_following,
-            "position_index": self.position_index,
-            "skull": self.skull,
-        }
+    def to_dict(self):
+        return {"name": self.name, "type": self.creature_type.value,
+                "screen_x": self.screen_x, "screen_y": self.screen_y}
 
-    def __repr__(self) -> str:
-        atk = " [ATK]" if self.is_attacking else ""
-        return f"<Creature '{self.name}' HP={self.hp_percent}%{atk}>"
+    def __repr__(self):
+        return f"<Creature '{self.name}' at ({self.screen_x},{self.screen_y})>"
 
 
 class BattleListReader:
     """
-    Lee la battle list de Tibia desde un frame de OBS.
-    Detecta criaturas por análisis de píxeles:
-    - HP bars (verde a rojo)
-    - Texto blanco (nombres de criaturas)
-    - Iconos de ataque/seguimiento
+    Lector basado en template matching.
+    Busca PNGs de nombres de monstruos en la región de la battle list.
     """
 
-    # Colores de referencia para la battle list (BGR)
-    COLORS = {
-        # HP bar colores
-        "hp_full": (0, 200, 0),       # Verde = 100%
-        "hp_high": (0, 220, 220),     # Amarillo = ~75%
-        "hp_medium": (0, 165, 255),   # Naranja = ~50%
-        "hp_low": (0, 0, 255),        # Rojo = ~25%
-        # Fondo de la battle list
-        "bg_dark": (30, 30, 30),
-        "bg_selected": (80, 60, 40),  # Azul oscuro seleccionado
-        # Texto
-        "text_white": (255, 255, 255),
-        "text_monster": (200, 200, 200),
-        "text_player": (200, 200, 255),
-    }
-
-    # Dimensiones típicas de una entrada en la battle list
-    ENTRY_HEIGHT = 22       # Altura de cada entrada en px
-    HP_BAR_HEIGHT = 3       # Altura de la barra de HP
-    HP_BAR_OFFSET_Y = 17   # Offset Y de la barra de HP desde inicio de entrada
-    NAME_OFFSET_Y = 2       # Offset Y del nombre
-    ICON_WIDTH = 12          # Ancho del icono (skull, etc)
-
     def __init__(self):
-        # Región de la battle list dentro del frame (x, y, w, h)
-        self.battle_list_region: Optional[Tuple[int, int, int, int]] = None
-
-        # Cache de criaturas detectadas
+        self.battle_region: Optional[Tuple[int, int, int, int]] = None
+        self._name_templates: Dict[str, np.ndarray] = {}
+        self._attack_templates: Dict[str, np.ndarray] = {}
+        self.attack_list: Set[str] = set()
+        self.ignore_list: Set[str] = set()
+        self.priority_list: Set[str] = set()
         self._creatures: List[CreatureEntry] = []
+        self._monster_count: int = 0
+        self._is_attacking: bool = False
+        self.name_precision: float = 0.80
+        self.attack_precision: float = 0.80
+        self._load_attack_templates()
 
-        # Configuración
-        self.max_entries: int = 10
-        self.min_hp_bar_width: int = 20
+    def _load_attack_templates(self):
+        if not os.path.isdir(ATTACK_DIR):
+            return
+        for fname in os.listdir(ATTACK_DIR):
+            if fname.endswith(".png") and fname != "VerifyAttacking.png":
+                key = fname.replace(".png", "")
+                tpl = cv2.imread(os.path.join(ATTACK_DIR, fname), cv2.IMREAD_GRAYSCALE)
+                if tpl is not None:
+                    self._attack_templates[key] = tpl
 
-        # OCR helper (inyectado opcionalmente)
-        self._ocr = None
+    def load_monster_templates(self, monster_names: List[str]) -> int:
+        loaded = 0
+        for name in monster_names:
+            filename = name.replace(" ", "")
+            path = os.path.join(NAMES_DIR, f"{filename}.png")
+            if os.path.exists(path):
+                tpl = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+                if tpl is not None:
+                    self._name_templates[name] = tpl
+                    loaded += 1
+        return loaded
 
-    def set_region(self, x: int, y: int, w: int, h: int) -> None:
-        """Configura la región de la battle list."""
-        self.battle_list_region = (x, y, w, h)
+    def load_all_available_templates(self) -> int:
+        if not os.path.isdir(NAMES_DIR):
+            return 0
+        loaded = 0
+        for fname in os.listdir(NAMES_DIR):
+            if fname.endswith(".png"):
+                raw = fname.replace(".png", "")
+                display = ""
+                for i, ch in enumerate(raw):
+                    if ch.isupper() and i > 0 and raw[i-1].islower():
+                        display += " "
+                    display += ch
+                tpl = cv2.imread(os.path.join(NAMES_DIR, fname), cv2.IMREAD_GRAYSCALE)
+                if tpl is not None:
+                    self._name_templates[display] = tpl
+                    loaded += 1
+        return loaded
 
-    def set_ocr(self, ocr_helper) -> None:
-        """Inyecta el helper de OCR para lectura de nombres."""
-        self._ocr = ocr_helper
+    def get_loaded_monster_names(self) -> List[str]:
+        return list(self._name_templates.keys())
+
+    def set_region(self, x1, y1, x2, y2):
+        self.battle_region = (x1, y1, x2, y2)
 
     def read(self, frame: np.ndarray) -> List[CreatureEntry]:
-        """
-        Lee la battle list completa del frame actual.
-
-        Args:
-            frame: Frame BGR de OBS.
-
-        Returns:
-            Lista de CreatureEntry detectadas.
-        """
-        if self.battle_list_region is None or frame is None:
+        """Lee la battle list. Retorna criaturas encontradas."""
+        if self.battle_region is None or frame is None or not self._name_templates:
             return []
 
-        x, y, w, h = self.battle_list_region
-        roi = frame[y:y + h, x:x + w]
+        x1, y1, x2, y2 = self.battle_region
+        h, w = frame.shape[:2]
+        x1, y1 = max(0, x1), max(0, y1)
+        x2, y2 = min(w, x2), min(h, y2)
+        roi = frame[y1:y2, x1:x2]
         if roi.size == 0:
             return []
 
+        roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         creatures = []
+        idx = 0
 
-        # Buscar barras de HP horizontales
-        hp_bars = self._detect_hp_bars(roi)
+        templates = {}
+        if self.attack_list:
+            for name in self.attack_list:
+                if name in self._name_templates:
+                    templates[name] = self._name_templates[name]
+        else:
+            templates = self._name_templates
 
-        for i, (bar_x, bar_y, bar_w, hp_pct) in enumerate(hp_bars):
-            if i >= self.max_entries:
-                break
-
-            entry = CreatureEntry(
-                position_index=i,
-                hp_percent=hp_pct,
-            )
-
-            # Intentar leer nombre con OCR
-            name_y = max(0, bar_y - self.HP_BAR_OFFSET_Y + self.NAME_OFFSET_Y)
-            name_h = self.HP_BAR_OFFSET_Y - self.NAME_OFFSET_Y
-            name_roi = roi[name_y:name_y + name_h, bar_x:bar_x + bar_w]
-
-            if self._ocr and name_roi.size > 0:
-                text = self._ocr.read_text(name_roi)
-                if text:
-                    entry.name = text.strip()
-
-            # Detectar si está siendo atacado (borde rojo alrededor)
-            entry.is_attacking = self._detect_attacking_indicator(roi, bar_y)
-
-            # Clasificar tipo de criatura por color del nombre
-            entry.creature_type = self._classify_creature(roi, bar_x, name_y, bar_w, name_h)
-
-            creatures.append(entry)
-
-        self._creatures = creatures
-        return creatures
-
-    def _detect_hp_bars(self, roi: np.ndarray) -> List[Tuple[int, int, int, int]]:
-        """
-        Detecta barras de HP en la battle list.
-
-        Returns:
-            Lista de (x, y, width, hp_percent).
-        """
-        bars = []
-        h, w = roi.shape[:2]
-
-        # Crear máscara de colores de HP (verde, amarillo, naranja, rojo)
-        hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-
-        # Rango amplio para barras de HP (de rojo a verde pasando por amarillo)
-        # Verde: H=40-80
-        mask_green = cv2.inRange(hsv, np.array([35, 100, 100]), np.array([85, 255, 255]))
-        # Amarillo: H=20-35
-        mask_yellow = cv2.inRange(hsv, np.array([15, 100, 100]), np.array([35, 255, 255]))
-        # Rojo: H=0-15 y H=170-180
-        mask_red1 = cv2.inRange(hsv, np.array([0, 100, 100]), np.array([15, 255, 255]))
-        mask_red2 = cv2.inRange(hsv, np.array([170, 100, 100]), np.array([180, 255, 255]))
-
-        hp_mask = mask_green | mask_yellow | mask_red1 | mask_red2
-
-        # Buscar contornos horizontales (barras)
-        contours, _ = cv2.findContours(hp_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        for cnt in contours:
-            bx, by, bw, bh = cv2.boundingRect(cnt)
-
-            # Filtrar: barras de HP son delgadas y horizontales
-            if bw < self.min_hp_bar_width or bh > 8 or bh < 2:
+        for monster_name, template in templates.items():
+            if monster_name.lower() in {n.lower() for n in self.ignore_list}:
+                continue
+            if roi_gray.shape[0] < template.shape[0] or roi_gray.shape[1] < template.shape[1]:
                 continue
 
-            # Calcular HP % basado en ratio de color
-            bar_region = hp_mask[by:by + bh, bx:bx + bw]
-            filled_ratio = np.count_nonzero(bar_region) / max(bar_region.size, 1)
+            res = cv2.matchTemplate(roi_gray, template, cv2.TM_CCOEFF_NORMED)
+            locations = np.where(res >= self.name_precision)
+            th, tw = template.shape[:2]
 
-            # Estimar HP basado en colores presentes
-            hp_pct = self._estimate_hp_from_bar(roi[by:by + bh, bx:bx + bw])
+            for pt in zip(*locations[::-1]):
+                cx, cy = pt[0] + tw // 2, pt[1] + th // 2
+                is_dup = False
+                for e in creatures:
+                    if abs((e.screen_x - x1) - cx) < tw and abs((e.screen_y - y1) - cy) < th:
+                        is_dup = True
+                        break
+                if is_dup:
+                    continue
 
-            bars.append((bx, by, bw, hp_pct))
+                creatures.append(CreatureEntry(
+                    name=monster_name, creature_type=CreatureType.MONSTER,
+                    screen_x=x1 + cx, screen_y=y1 + cy, position_index=idx,
+                ))
+                idx += 1
 
-        # Ordenar por Y (de arriba a abajo)
-        bars.sort(key=lambda b: b[1])
-        return bars
+        creatures.sort(key=lambda c: c.screen_y)
+        self._creatures = creatures
+        self._monster_count = len(creatures)
+        return creatures
 
-    def _estimate_hp_from_bar(self, bar_roi: np.ndarray) -> int:
-        """Estima el % de HP basado en el color predominante de la barra."""
-        if bar_roi.size == 0:
+    def count_monster(self, frame: np.ndarray, monster_name: str) -> int:
+        """Cuenta instancias de un monstruo en la battle list."""
+        if self.battle_region is None or frame is None:
+            return 0
+        template = self._name_templates.get(monster_name)
+        if template is None:
             return 0
 
-        hsv = cv2.cvtColor(bar_roi, cv2.COLOR_BGR2HSV)
-        h_mean = np.mean(hsv[:, :, 0])
+        x1, y1, x2, y2 = self.battle_region
+        h, w = frame.shape[:2]
+        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        if roi.size == 0:
+            return 0
 
-        # Mapear hue a HP%:
-        # Verde (H~60) = 100%, Amarillo (H~30) = 60%, Rojo (H~0/180) = ~10%
-        if h_mean > 50:
-            return 100
-        elif h_mean > 35:
-            return 75
-        elif h_mean > 20:
-            return 50
-        elif h_mean > 10:
-            return 25
-        else:
-            return 10
+        roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        if roi_gray.shape[0] < template.shape[0] or roi_gray.shape[1] < template.shape[1]:
+            return 0
 
-    def _detect_attacking_indicator(self, roi: np.ndarray, entry_y: int) -> bool:
-        """Detecta si hay indicador de ataque (borde rojo / icono de espada)."""
-        # Buscar píxeles rojos intensos en el área de la entrada
-        entry_start = max(0, entry_y - self.ENTRY_HEIGHT)
-        entry_region = roi[entry_start:entry_y + self.HP_BAR_HEIGHT, :5]
+        res = cv2.matchTemplate(roi_gray, template, cv2.TM_CCOEFF_NORMED)
+        locs = np.where(res >= self.name_precision)
+        th, tw = template.shape[:2]
+        pts = []
+        for pt in zip(*locs[::-1]):
+            if not any(abs(pt[0]-ex)<tw and abs(pt[1]-ey)<th for ex,ey in pts):
+                pts.append(pt)
+        return len(pts)
 
-        if entry_region.size == 0:
-            return False
+    def is_attacking(self, frame: np.ndarray) -> bool:
+        """
+        True = NO estamos atacando (necesitamos hacer click).
+        False = YA estamos atacando (hay selección activa).
+        """
+        if self.battle_region is None or frame is None or not self._attack_templates:
+            return True
 
-        # Buscar rojo brillante (icono de espadas cruzadas)
-        hsv = cv2.cvtColor(entry_region, cv2.COLOR_BGR2HSV)
-        mask_red = cv2.inRange(hsv, np.array([0, 150, 150]), np.array([10, 255, 255]))
-        return np.count_nonzero(mask_red) > 5
+        x1, y1, x2, y2 = self.battle_region
+        h, w = frame.shape[:2]
+        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        if roi.size == 0:
+            return True
 
-    def _classify_creature(
-        self, roi: np.ndarray, x: int, y: int, w: int, h: int
-    ) -> CreatureType:
-        """Clasifica el tipo de criatura basado en el color del texto del nombre."""
-        if h <= 0 or w <= 0:
-            return CreatureType.UNKNOWN
+        roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        found = {}
+        for key, tpl in self._attack_templates.items():
+            if roi_gray.shape[0] < tpl.shape[0] or roi_gray.shape[1] < tpl.shape[1]:
+                continue
+            res = cv2.matchTemplate(roi_gray, tpl, cv2.TM_CCOEFF_NORMED)
+            _, max_val, _, _ = cv2.minMaxLoc(res)
+            found[key] = max_val >= self.attack_precision
 
-        name_region = roi[y:y + h, x:x + w]
-        if name_region.size == 0:
-            return CreatureType.UNKNOWN
+        border_sets = [
+            ("LeftRed", "TopRed", "RightRed", "BottomRed"),
+            ("LeftBlackRed", "TopBlackRed", "RightBlackRed", "BottomBlackRed"),
+            ("LeftPink", "TopPink", "RightPink", "BottomPink"),
+            ("LeftBlackPink", "TopBlackPink", "RightBlackPink", "BottomBlackPink"),
+        ]
+        for borders in border_sets:
+            if all(found.get(b, False) for b in borders):
+                self._is_attacking = True
+                return False
 
-        # Analizar color promedio del texto
-        # Máscaras para texto blanco/gris
-        gray = cv2.cvtColor(name_region, cv2.COLOR_BGR2GRAY)
-        text_mask = gray > 150
+        self._is_attacking = False
+        return True
 
-        if np.count_nonzero(text_mask) == 0:
-            return CreatureType.UNKNOWN
+    def find_target(self, frame: np.ndarray, monster_name: str) -> Tuple[int, int]:
+        """Busca un monstruo y retorna posición absoluta para click. (0,0) si no hay."""
+        if self.battle_region is None or frame is None:
+            return 0, 0
+        template = self._name_templates.get(monster_name)
+        if template is None:
+            return 0, 0
 
-        # Extraer canal azul del texto
-        blue_channel = name_region[:, :, 0]
-        red_channel = name_region[:, :, 2]
+        x1, y1, x2, y2 = self.battle_region
+        h, w = frame.shape[:2]
+        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        if roi.size == 0:
+            return 0, 0
 
-        text_blue = np.mean(blue_channel[text_mask]) if np.any(text_mask) else 0
-        text_red = np.mean(red_channel[text_mask]) if np.any(text_mask) else 0
+        roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        if roi_gray.shape[0] < template.shape[0] or roi_gray.shape[1] < template.shape[1]:
+            return 0, 0
 
-        # Jugadores suelen tener nombres más azulados
-        if text_blue > text_red + 30:
-            return CreatureType.PLAYER
-        else:
-            return CreatureType.MONSTER
+        res = cv2.matchTemplate(roi_gray, template, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(res)
+        if max_val >= self.name_precision:
+            th, tw = template.shape[:2]
+            return x1 + max_loc[0] + tw // 2 - 10, y1 + max_loc[1] + th // 2
+        return 0, 0
 
-    # ==================================================================
-    # Acceso a datos
-    # ==================================================================
     @property
-    def creatures(self) -> List[CreatureEntry]:
+    def creatures(self):
         return self._creatures
 
     @property
-    def creature_count(self) -> int:
-        return len(self._creatures)
+    def creature_count(self):
+        return self._monster_count
 
-    def get_attacking_target(self) -> Optional[CreatureEntry]:
-        """Retorna la criatura que estamos atacando actualmente."""
-        for c in self._creatures:
-            if c.is_attacking:
-                return c
-        return None
+    @property
+    def currently_attacking(self):
+        return self._is_attacking
 
-    def get_monsters(self) -> List[CreatureEntry]:
-        """Retorna solo monstruos."""
-        return [c for c in self._creatures if c.creature_type == CreatureType.MONSTER]
+    def has_monsters(self):
+        return self._monster_count > 0
 
-    def get_players(self) -> List[CreatureEntry]:
-        """Retorna solo jugadores."""
-        return [c for c in self._creatures if c.creature_type == CreatureType.PLAYER]
+    def get_attackable_monsters(self):
+        if self.attack_list:
+            return [c for c in self._creatures if c.name.lower() in {n.lower() for n in self.attack_list}]
+        return [c for c in self._creatures if c.name.lower() not in {n.lower() for n in self.ignore_list}]
 
-    def get_lowest_hp_monster(self) -> Optional[CreatureEntry]:
-        """Retorna el monstruo con menor HP."""
-        monsters = self.get_monsters()
-        if not monsters:
-            return None
-        return min(monsters, key=lambda c: c.hp_percent)
-
-    def has_monsters(self) -> bool:
-        """¿Hay monstruos en la battle list?"""
-        return any(c.creature_type == CreatureType.MONSTER for c in self._creatures)
-
-    def has_players(self) -> bool:
-        """¿Hay jugadores en la battle list?"""
-        return any(c.creature_type == CreatureType.PLAYER for c in self._creatures)
+    def get_priority_targets(self):
+        return [c for c in self._creatures if c.name.lower() in {n.lower() for n in self.priority_list}]

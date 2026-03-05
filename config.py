@@ -65,6 +65,9 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "aoe_min_monsters": 3,
         "dangerous_monsters": [],
         "ignore_monsters": [],
+        "attack_list": [],              # Lista de monstruos a atacar
+        "ignore_list": [],              # Lista de monstruos a ignorar
+        "priority_list": [],            # Lista de monstruos prioritarios
         "battle_list_region": {"x": 0, "y": 0, "w": 160, "h": 220},
         "spell_rotation": {
             "enabled": True,
@@ -75,7 +78,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     # ===== v2.2 Looter =====
     "looter": {
         "enabled": False,
-        "loot_method": "shift_click",   # shift_click, open_body, right_click
+        "loot_method": "shift_click",   # shift_click, open_body, right_click, left_click
         "loot_delay": 0.3,
         "max_range": 2,
         "max_corpse_age": 15.0,
@@ -89,9 +92,33 @@ DEFAULT_CONFIG: Dict[str, Any] = {
             "pick_unknown_items": False,
             "pick_equipment": True,
             "pick_stackables": True,
+            "pick_valuables": True,
+            "pick_creature_products": False,
+            "min_item_value": 0,
             "pickup_list": [],
             "ignore_list": [],
         },
+        "backpack_routing": {
+            "default_backpack": 0,
+            "category_routes": {
+                "gold": 0,
+                "valuable": 1,
+                "equipment": 1,
+                "potion": 2,
+                "rune": 2,
+                "food": 3,
+                "creature_product": 3,
+            },
+            "item_routes": {},
+        },
+    },
+    # ===== NPC Interacción =====
+    "npc": {
+        "step_delay": 0.8,
+        "say_delay": 1.0,
+        "trade_delay": 0.5,
+        "walk_to_npc_timeout": 10.0,
+        "dialogue_timeout": 30.0,
     },
     # ===== Hotkeys globales =====
     "hotkeys": {
@@ -100,6 +127,9 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "food": "",
         "mana_potion": "",
         "health_potion": "",
+        "pick": "",
+        "machete": "",
+        "light": "",
     },
 }
 
@@ -315,6 +345,49 @@ class Config:
     @hotkeys.setter
     def hotkeys(self, value: Dict) -> None:
         self.data["hotkeys"] = value
+
+    # -- NPC config ----------------------------------------------------
+    @property
+    def npc(self) -> Dict:
+        return self.data.get("npc", DEFAULT_CONFIG.get("npc", {}))
+
+    @npc.setter
+    def npc(self, value: Dict) -> None:
+        self.data["npc"] = value
+
+    # -- Backpack routing (looter) ------------------------------------
+    @property
+    def backpack_routing(self) -> Dict:
+        return self.looter.get("backpack_routing", DEFAULT_CONFIG["looter"]["backpack_routing"])
+
+    @backpack_routing.setter
+    def backpack_routing(self, value: Dict) -> None:
+        self.data.setdefault("looter", {})["backpack_routing"] = value
+
+    # -- Targeting lists -----------------------------------------------
+    @property
+    def attack_list(self) -> List[str]:
+        return self.targeting.get("attack_list", [])
+
+    @attack_list.setter
+    def attack_list(self, value: List[str]) -> None:
+        self.data.setdefault("targeting", {})["attack_list"] = value
+
+    @property
+    def ignore_list(self) -> List[str]:
+        return self.targeting.get("ignore_list", [])
+
+    @ignore_list.setter
+    def ignore_list(self, value: List[str]) -> None:
+        self.data.setdefault("targeting", {})["ignore_list"] = value
+
+    @property
+    def priority_list(self) -> List[str]:
+        return self.targeting.get("priority_list", [])
+
+    @priority_list.setter
+    def priority_list(self, value: List[str]) -> None:
+        self.data.setdefault("targeting", {})["priority_list"] = value
 
     # ------------------------------------------------------------------
     # Helpers

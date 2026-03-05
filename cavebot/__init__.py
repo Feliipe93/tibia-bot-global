@@ -1,1 +1,1 @@
-"""cavebot/ - Módulo de navegación automática por waypoints."""
+"""cavebot package - Navegación por minimapa con marcas."""

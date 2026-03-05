@@ -1,3 +1,1 @@
-"""
-targeting/__init__.py - Módulo de targeting/ataque.
-"""
+"""targeting package - Detección y ataque de monstruos via template matching."""

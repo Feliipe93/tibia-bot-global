@@ -916,3 +916,479 @@
 [17:26:54] DEBUG    🔍 Debug image guardada (ciclo #800)
 [17:27:07] INFO     📊 Cerrando aplicación...
 [17:27:10] INFO     ✅ Bot detenido
+[18:22:30] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[18:22:30] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[18:22:30] INFO     📊 Ventanas Tibia encontradas: 4
+[18:22:30] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:22:30] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:22:30] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:22:30] INFO     📊 Loop principal iniciado
+[18:22:30] INFO     ✅ Bot iniciado
+[18:22:32] INFO     ✅ GUI iniciada correctamente
+[18:27:30] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[18:27:30] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[18:27:30] INFO     📊 Ventanas Tibia encontradas: 2
+[18:27:30] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:27:30] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:27:30] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:27:30] INFO     📊 Loop principal iniciado
+[18:27:30] INFO     ✅ Bot iniciado
+[18:27:31] INFO     ✅ GUI iniciada correctamente
+[18:27:49] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[18:28:03] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[18:28:03] DEBUG    🔍 Debug image guardada (ciclo #40)
+[18:28:18] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[18:28:37] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[18:28:37] DEBUG    🔍 Debug image guardada (ciclo #80)
+[18:28:53] INFO     📊 HP=98% (VERDE) | MP=18% | Estado=EN ESPERA
+[18:29:08] INFO     📊 HP=98% (VERDE) | MP=22% | Estado=EN ESPERA
+[18:29:08] DEBUG    🔍 Debug image guardada (ciclo #120)
+[18:29:25] INFO     📊 HP=96% (VERDE) | MP=28% | Estado=EN ESPERA
+[18:29:34] INFO     📊 Auto-healer ACTIVADO
+[18:29:41] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:29:43] INFO     💊 HP=67% < 70% → F1 (Exura)
+[18:29:43] INFO     📊 HP=67% (VERDE) | MP=24% | Estado=ACTIVO
+[18:29:44] DEBUG    🔍 Debug image guardada (ciclo #160)
+[18:29:46] INFO     💊 HP=67% < 70% → F1 (Exura)
+[18:29:48] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:29:49] INFO     💊 HP=61% < 70% → F1 (Exura)
+[18:29:51] INFO     💊 HP=55% < 70% → F1 (Exura)
+[18:29:52] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[18:29:59] INFO     📊 HP=88% (VERDE) | MP=9% | Estado=ACTIVO
+[18:30:15] INFO     📊 HP=96% (VERDE) | MP=16% | Estado=ACTIVO
+[18:30:15] DEBUG    🔍 Debug image guardada (ciclo #200)
+[18:30:28] INFO     💊 MP=20% < 30% → F3 (Mana potion)
+[18:30:29] INFO     💊 MP=20% < 30% → F3 (Mana potion)
+[18:30:32] INFO     💊 MP=20% < 30% → F3 (Mana potion)
+[18:30:34] INFO     💊 MP=22% < 30% → F7 (Mana potion)
+[18:30:37] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:30:53] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:30:53] DEBUG    🔍 Debug image guardada (ciclo #240)
+[18:31:09] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:31:26] INFO     📊 HP=77% (VERDE) | MP=98% | Estado=ACTIVO
+[18:31:26] DEBUG    🔍 Debug image guardada (ciclo #280)
+[18:31:30] INFO     💊 HP=68% < 70% → F1 (Exura)
+[18:31:34] INFO     💊 HP=65% < 70% → F1 (Exura)
+[18:31:37] INFO     💊 HP=67% < 70% → F1 (Exura)
+[18:31:39] INFO     💊 HP=70% < 70% → F1 (Exura)
+[18:31:41] INFO     📊 HP=71% (VERDE) | MP=61% | Estado=ACTIVO
+[18:31:42] INFO     💊 HP=67% < 70% → F1 (Exura)
+[18:31:45] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:31:47] INFO     💊 HP=68% < 70% → F1 (Exura)
+[18:31:51] INFO     💊 HP=68% < 70% → F1 (Exura)
+[18:31:53] INFO     💊 HP=64% < 70% → F1 (Exura)
+[18:31:55] INFO     💊 HP=60% < 70% → F1 (Exura)
+[18:31:56] INFO     💊 HP=63% < 70% → F1 (Exura)
+[18:31:58] INFO     💊 HP=62% < 70% → F1 (Exura)
+[18:31:59] INFO     📊 HP=54% (AMARILLO) | MP=5% | Estado=ACTIVO
+[18:31:59] DEBUG    🔍 Debug image guardada (ciclo #320)
+[18:32:00] INFO     💊 HP=53% < 70% → F1 (Exura)
+[18:32:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[18:32:03] INFO     💊 MP=7% < 30% → F7 (Mana potion)
+[18:32:09] INFO     💊 HP=67% < 70% → F1 (Exura)
+[18:32:11] INFO     💊 HP=68% < 70% → F1 (Exura)
+[18:32:13] INFO     💊 HP=70% < 70% → F1 (Exura)
+[18:32:14] INFO     📊 HP=70% (VERDE) | MP=69% | Estado=ACTIVO
+[18:32:15] INFO     💊 HP=70% < 70% → F1 (Exura)
+[18:32:17] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:32:31] INFO     📊 HP=81% (VERDE) | MP=63% | Estado=ACTIVO
+[18:32:31] DEBUG    🔍 Debug image guardada (ciclo #360)
+[18:32:47] INFO     📊 HP=89% (VERDE) | MP=69% | Estado=ACTIVO
+[18:33:06] INFO     📊 HP=98% (VERDE) | MP=75% | Estado=ACTIVO
+[18:33:06] DEBUG    🔍 Debug image guardada (ciclo #400)
+[18:33:24] INFO     📊 HP=98% (VERDE) | MP=82% | Estado=ACTIVO
+[18:33:40] INFO     📊 HP=98% (VERDE) | MP=88% | Estado=ACTIVO
+[18:33:40] DEBUG    🔍 Debug image guardada (ciclo #440)
+[18:33:56] INFO     📊 Waypoint agregado: WALK (0,0,7)
+[18:33:57] INFO     📊 HP=98% (VERDE) | MP=94% | Estado=ACTIVO
+[18:34:13] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:34:13] DEBUG    🔍 Debug image guardada (ciclo #480)
+[18:34:29] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:34:43] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[18:34:43] DEBUG    🔍 Debug image guardada (ciclo #520)
+[18:34:45] INFO     📊 Waypoint agregado: WALK (0,0,7)
+[18:34:57] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=ACTIVO
+[18:34:57] INFO     📊 Waypoint agregado: WALK (0,0,7)
+[18:35:13] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=ACTIVO
+[18:35:13] DEBUG    🔍 Debug image guardada (ciclo #560)
+[18:35:31] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=ACTIVO
+[18:35:39] INFO     💊 HP=45% < 50% → F2 (Exura Gran)
+[18:35:49] INFO     📊 HP=89% (VERDE) | MP=59% | Estado=ACTIVO
+[18:35:50] DEBUG    🔍 Debug image guardada (ciclo #600)
+[18:36:06] INFO     📊 HP=95% (VERDE) | MP=65% | Estado=ACTIVO
+[18:36:21] INFO     📊 HP=98% (VERDE) | MP=71% | Estado=ACTIVO
+[18:36:21] DEBUG    🔍 Debug image guardada (ciclo #640)
+[18:36:39] INFO     📊 HP=90% (VERDE) | MP=78% | Estado=ACTIVO
+[18:36:49] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:36:50] INFO     💊 HP=66% < 70% → F1 (Exura)
+[18:36:53] INFO     💊 HP=69% < 70% → F1 (Exura)
+[18:36:55] INFO     💊 HP=68% < 70% → F1 (Exura)
+[18:36:56] INFO     💊 HP=22% < 30% → F6 (Exura Vita)
+[18:36:58] INFO     📊 HP=80% (VERDE) | MP=36% | Estado=ACTIVO
+[18:36:58] DEBUG    🔍 Debug image guardada (ciclo #680)
+[18:37:15] INFO     📊 HP=84% (VERDE) | MP=41% | Estado=ACTIVO
+[18:37:36] INFO     📊 HP=83% (VERDE) | MP=46% | Estado=ACTIVO
+[18:37:36] DEBUG    🔍 Debug image guardada (ciclo #720)
+[18:38:00] INFO     📊 HP=83% (VERDE) | MP=53% | Estado=ACTIVO
+[18:38:16] INFO     📊 HP=83% (VERDE) | MP=59% | Estado=ACTIVO
+[18:38:16] DEBUG    🔍 Debug image guardada (ciclo #760)
+[18:38:24] INFO     📊 Waypoint agregado: WALK (0,0,7)
+[18:38:33] INFO     📊 HP=83% (VERDE) | MP=64% | Estado=ACTIVO
+[18:38:52] INFO     📊 HP=83% (VERDE) | MP=69% | Estado=ACTIVO
+[18:38:52] DEBUG    🔍 Debug image guardada (ciclo #800)
+[18:39:11] INFO     📊 HP=83% (VERDE) | MP=74% | Estado=ACTIVO
+[18:39:29] INFO     📊 HP=83% (VERDE) | MP=80% | Estado=ACTIVO
+[18:39:29] DEBUG    🔍 Debug image guardada (ciclo #840)
+[18:39:49] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:40:09] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:40:09] DEBUG    🔍 Debug image guardada (ciclo #880)
+[18:40:32] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:40:52] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:40:52] DEBUG    🔍 Debug image guardada (ciclo #920)
+[18:41:16] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:41:43] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:41:43] DEBUG    🔍 Debug image guardada (ciclo #960)
+[18:42:04] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:42:20] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:42:20] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[18:42:44] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:43:07] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:43:07] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[18:43:27] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:43:46] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:43:46] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[18:44:04] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:44:22] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:44:22] DEBUG    🔍 Debug image guardada (ciclo #1120)
+[18:44:43] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:45:03] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:45:03] DEBUG    🔍 Debug image guardada (ciclo #1160)
+[18:45:27] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:45:40] INFO     📊 Auto-healer DESACTIVADO
+[18:45:49] INFO     📊 Auto-healer ACTIVADO
+[18:45:50] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:45:50] DEBUG    🔍 Debug image guardada (ciclo #1200)
+[18:46:10] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:46:18] INFO     ✅ Captura de prueba: 1366x705 px, brillo=84.2
+[18:46:35] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:46:35] DEBUG    🔍 Debug image guardada (ciclo #1240)
+[18:46:47] INFO     📊 Auto-healer DESACTIVADO
+[18:46:48] INFO     📊 Auto-healer ACTIVADO
+[18:46:58] INFO     📊 Auto-healer DESACTIVADO
+[18:46:59] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:47:28] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:47:28] DEBUG    🔍 Debug image guardada (ciclo #1280)
+[18:47:50] INFO     📊 Auto-healer ACTIVADO
+[18:47:52] INFO     📊 Auto-healer DESACTIVADO
+[18:47:53] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:47:53] INFO     📊 Auto-healer ACTIVADO
+[18:49:40] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[18:49:40] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[18:49:40] INFO     📊 Ventanas Tibia encontradas: 2
+[18:49:40] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:49:40] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:49:40] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:49:40] INFO     📊 Loop principal iniciado
+[18:49:40] INFO     ✅ Bot iniciado
+[18:49:40] INFO     ✅ GUI iniciada correctamente
+[18:49:46] INFO     📊 Auto-healer ACTIVADO
+[18:50:03] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:50:26] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=ACTIVO
+[18:50:27] DEBUG    🔍 Debug image guardada (ciclo #40)
+[18:50:47] INFO     💊 HP=22% < 30% → F6 (Exura Vita)
+[18:50:48] INFO     💊 HP=22% < 30% → F6 (Exura Vita)
+[18:50:50] INFO     💊 HP=22% < 30% → F6 (Exura Vita)
+[18:50:55] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[18:50:57] INFO     💊 HP=28% < 30% → F6 (Exura Vita)
+[18:51:04] INFO     📊 HP=83% (VERDE) | MP=52% | Estado=ACTIVO
+[18:51:35] INFO     📊 HP=83% (VERDE) | MP=60% | Estado=ACTIVO
+[18:51:35] DEBUG    🔍 Debug image guardada (ciclo #80)
+[18:51:55] INFO     📊 HP=83% (VERDE) | MP=66% | Estado=ACTIVO
+[18:52:18] INFO     📊 HP=84% (VERDE) | MP=73% | Estado=ACTIVO
+[18:52:18] DEBUG    🔍 Debug image guardada (ciclo #120)
+[18:52:43] INFO     📊 HP=84% (VERDE) | MP=80% | Estado=ACTIVO
+[18:53:00] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=ACTIVO
+[18:53:00] DEBUG    🔍 Debug image guardada (ciclo #160)
+[18:53:11] INFO     📊 Auto-healer DESACTIVADO
+[18:53:17] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:53:43] INFO     📊 HP=84% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:53:43] DEBUG    🔍 Debug image guardada (ciclo #200)
+[18:54:05] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:54:21] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:54:21] DEBUG    🔍 Debug image guardada (ciclo #240)
+[18:54:39] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:54:56] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:54:56] DEBUG    🔍 Debug image guardada (ciclo #280)
+[18:55:25] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:55:54] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:55:54] DEBUG    🔍 Debug image guardada (ciclo #320)
+[18:56:16] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:56:38] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:56:39] DEBUG    🔍 Debug image guardada (ciclo #360)
+[18:57:03] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:57:26] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:57:26] DEBUG    🔍 Debug image guardada (ciclo #400)
+[18:57:46] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:58:03] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:58:03] DEBUG    🔍 Debug image guardada (ciclo #440)
+[18:58:23] INFO     📊 HP=83% (VERDE) | MP=83% | Estado=EN ESPERA
+[18:58:33] INFO     📊 Cerrando aplicación...
+[18:58:36] INFO     ✅ Bot detenido
+[19:16:24] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[19:16:24] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:16:24] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:16:24] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[19:16:24] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:16:24] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:16:24] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:16:24] INFO     📊 Ventanas Tibia encontradas: 2
+[19:16:24] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[19:16:24] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[19:16:24] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[19:16:24] INFO     📊 Loop principal iniciado
+[19:16:24] INFO     ✅ Bot iniciado
+[19:16:25] INFO     ✅ GUI iniciada correctamente
+[19:16:40] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=EN ESPERA
+[19:16:54] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=EN ESPERA
+[19:16:54] DEBUG    🔍 Debug image guardada (ciclo #40)
+[19:16:57] INFO     📊 [Cavebot] Waypoint agregado: walk (walk)
+[19:17:06] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=EN ESPERA
+[19:17:18] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=EN ESPERA
+[19:17:18] DEBUG    🔍 Debug image guardada (ciclo #80)
+[19:17:30] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=EN ESPERA
+[19:17:39] INFO     📊 Auto-healer ACTIVADO
+[19:17:39] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:39] INFO     📊 Battle region: (1026, 3, 1173, 418)
+[19:17:39] INFO     📊 Map region: (1199, 5, 1304, 113)
+[19:17:39] INFO     📊 SQMs configurados: 9 posiciones
+[19:17:39] INFO     📊 Player center: (595, 252)
+[19:17:39] INFO     ✅ Calibración completada exitosamente
+[19:17:41] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:42] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:44] INFO     📊 HP=38% (AMARILLO) | MP=38% | Estado=ACTIVO
+[19:17:44] DEBUG    🔍 Debug image guardada (ciclo #120)
+[19:17:44] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:45] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:47] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:49] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:51] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:53] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:55] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:56] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:58] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:17:59] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:01] INFO     📊 HP=38% (AMARILLO) | MP=6% | Estado=ACTIVO
+[19:18:01] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:02] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:03] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:05] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:07] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:08] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:09] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:11] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:13] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:14] INFO     💊 HP=38% < 50% → F2 (Exura Gran)
+[19:18:16] INFO     📊 Auto-healer DESACTIVADO
+[19:18:23] INFO     📊 HP=38% (AMARILLO) | MP=6% | Estado=EN ESPERA
+[19:18:23] DEBUG    🔍 Debug image guardada (ciclo #160)
+[19:18:27] INFO     📊 Forzando recalibración de regiones...
+[19:18:28] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.5
+[19:18:28] INFO     📊 Battle region: (1026, 3, 1173, 418)
+[19:18:28] INFO     📊 Map region: (1199, 5, 1304, 113)
+[19:18:28] INFO     📊 SQMs configurados: 9 posiciones
+[19:18:28] INFO     📊 Player center: (595, 252)
+[19:18:28] INFO     ✅ Calibración completada exitosamente
+[19:18:28] INFO     ✅ Recalibración exitosa
+[19:18:33] INFO     📊 Forzando recalibración de regiones...
+[19:18:34] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.6
+[19:18:34] INFO     📊 Battle region: (1026, 3, 1173, 418)
+[19:18:34] INFO     📊 Map region: (1199, 5, 1304, 113)
+[19:18:34] INFO     📊 SQMs configurados: 9 posiciones
+[19:18:34] INFO     📊 Player center: (595, 252)
+[19:18:34] INFO     ✅ Calibración completada exitosamente
+[19:18:34] INFO     ✅ Recalibración exitosa
+[19:18:42] INFO     📊 HP=38% (AMARILLO) | MP=6% | Estado=EN ESPERA
+[19:18:56] INFO     📊 HP=38% (AMARILLO) | MP=6% | Estado=EN ESPERA
+[19:18:56] DEBUG    🔍 Debug image guardada (ciclo #200)
+[19:19:01] INFO     📊 Módulo 'targeting' habilitado
+[19:19:01] INFO     📊 [Targeting] Targeting activado
+[19:19:01] INFO     📊 Targeting habilitado
+[19:19:12] INFO     📊 HP=38% (AMARILLO) | MP=7% | Estado=EN ESPERA
+[19:19:29] INFO     📊 HP=38% (AMARILLO) | MP=9% | Estado=EN ESPERA
+[19:19:29] DEBUG    🔍 Debug image guardada (ciclo #240)
+[19:19:49] INFO     📊 HP=38% (AMARILLO) | MP=12% | Estado=EN ESPERA
+[19:19:51] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[19:19:51] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:19:51] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:19:51] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[19:19:51] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:19:51] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:19:51] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:19:51] INFO     📊 Ventanas Tibia encontradas: 2
+[19:19:54] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.9
+[19:20:01] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.8
+[19:20:07] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.8
+[19:20:07] INFO     ✅ Calibración exitosa: HP en fila 15, MP en fila 12, ancho máx=533px
+[19:20:07] INFO     📊 Battle region: (1026, 3, 1173, 418)
+[19:20:07] INFO     📊 Map region: (1199, 5, 1304, 113)
+[19:20:07] INFO     📊 SQMs configurados: 9 posiciones
+[19:20:07] INFO     📊 Player center: (595, 252)
+[19:20:07] INFO     ✅ Calibración completada exitosamente
+[19:20:08] INFO     📊 HP=37% (AMARILLO) | MP=14% | Estado=EN ESPERA
+[19:20:08] DEBUG    🔍 Debug image guardada (ciclo #280)
+[19:20:29] INFO     📊 HP=37% (AMARILLO) | MP=17% | Estado=EN ESPERA
+[19:20:50] INFO     📊 Módulo 'targeting' deshabilitado
+[19:20:50] INFO     📊 [Targeting] Targeting desactivado
+[19:20:50] INFO     📊 Targeting deshabilitado
+[19:20:50] INFO     📊 Módulo 'targeting' habilitado
+[19:20:50] INFO     📊 [Targeting] Targeting activado
+[19:20:50] INFO     📊 Targeting habilitado
+[19:20:59] INFO     📊 HP=29% (ROJO) | MP=20% | Estado=EN ESPERA
+[19:20:59] DEBUG    🔍 Debug image guardada (ciclo #320)
+[19:21:16] INFO     📊 Cargando preset de hechizos: knight
+[19:21:16] INFO     📊 HP=22% (ROJO) | MP=22% | Estado=EN ESPERA
+[19:21:23] INFO     📊 Auto-healer ACTIVADO
+[19:21:23] INFO     💊 HP=18% < 30% → F6 (Exura Vita)
+[19:21:23] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:24] INFO     💊 HP=16% < 30% → F6 (Exura Vita)
+[19:21:24] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:25] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:26] INFO     💊 HP=37% < 50% → F2 (Exura Gran)
+[19:21:26] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:27] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:28] INFO     💊 HP=35% < 50% → F2 (Exura Gran)
+[19:21:28] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:29] INFO     📊 [Targeting] Atacando: Cave Rat en (1069,23)
+[19:21:30] INFO     📊 Auto-healer DESACTIVADO
+[19:21:34] INFO     📊 HP=32% (AMARILLO) | MP=10% | Estado=EN ESPERA
+[19:21:34] DEBUG    🔍 Debug image guardada (ciclo #360)
+[19:21:57] INFO     📊 HP=32% (AMARILLO) | MP=12% | Estado=EN ESPERA
+[19:22:20] INFO     📊 HP=36% (AMARILLO) | MP=15% | Estado=EN ESPERA
+[19:22:20] DEBUG    🔍 Debug image guardada (ciclo #400)
+[19:22:42] INFO     📊 HP=37% (AMARILLO) | MP=18% | Estado=EN ESPERA
+[19:23:02] INFO     📊 Módulo 'looter' habilitado
+[19:23:02] INFO     📊 [Looter] Looter activado
+[19:23:02] INFO     📊 Looter habilitado
+[19:23:02] INFO     📊 HP=37% (AMARILLO) | MP=21% | Estado=EN ESPERA
+[19:23:03] DEBUG    🔍 Debug image guardada (ciclo #440)
+[19:23:26] INFO     📊 HP=36% (AMARILLO) | MP=23% | Estado=EN ESPERA
+[19:23:49] INFO     📊 HP=37% (AMARILLO) | MP=26% | Estado=EN ESPERA
+[19:23:49] DEBUG    🔍 Debug image guardada (ciclo #480)
+[19:24:12] INFO     📊 HP=37% (AMARILLO) | MP=29% | Estado=EN ESPERA
+[19:24:42] INFO     📊 HP=37% (AMARILLO) | MP=33% | Estado=EN ESPERA
+[19:24:42] DEBUG    🔍 Debug image guardada (ciclo #520)
+[19:25:41] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[19:25:41] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:25:41] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:25:41] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[19:25:41] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:25:41] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:25:41] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:25:41] INFO     📊 Ventanas Tibia encontradas: 2
+[19:25:41] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[19:25:41] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[19:25:41] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[19:25:41] INFO     📊 Loop principal iniciado
+[19:25:41] INFO     ✅ Bot iniciado
+[19:25:42] INFO     ✅ GUI iniciada correctamente
+[19:26:01] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[19:26:01] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:26:01] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:26:01] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[19:26:01] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:26:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:26:01] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:26:01] INFO     📊 Ventanas Tibia encontradas: 3
+[19:26:08] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.3
+[19:26:10] INFO     📊 HP=43% (AMARILLO) | MP=43% | Estado=EN ESPERA
+[19:26:24] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.3
+[19:26:24] INFO     ✅ Calibración exitosa: HP en fila 16, MP en fila 16, ancho máx=620px
+[19:26:24] WARNING  ⚠️ Calibración fallida - verificar que Tibia sea visible en OBS
+[19:26:29] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.3
+[19:26:33] INFO     📊 HP=43% (AMARILLO) | MP=43% | Estado=EN ESPERA
+[19:26:34] DEBUG    🔍 Debug image guardada (ciclo #40)
+[19:26:44] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.9
+[19:26:44] INFO     ✅ Calibración exitosa: HP en fila 15, MP en fila 16, ancho máx=531px
+[19:26:45] WARNING  ⚠️ Calibración fallida - verificar que Tibia sea visible en OBS
+[19:26:49] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.8
+[19:26:52] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.9
+[19:26:55] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.9
+[19:27:04] INFO     ✅ Captura de prueba: 1366x705 px, brillo=83.8
+[19:27:04] INFO     ✅ Calibración exitosa: HP en fila 15, MP en fila 16, ancho máx=532px
+[19:27:04] WARNING  ⚠️ Calibración fallida - verificar que Tibia sea visible en OBS
+[19:27:05] INFO     📊 HP=37% (AMARILLO) | MP=37% | Estado=EN ESPERA
+[19:27:10] INFO     📊 Auto-healer ACTIVADO
+[19:27:10] INFO     💊 HP=37% < 50% → F2 (Exura Gran)
+[19:27:10] WARNING  ⚠️ Calibración fallida - verificar que Tibia sea visible en OBS
+[19:27:12] INFO     💊 HP=37% < 50% → F2 (Exura Gran)
+[19:27:12] WARNING  ⚠️ Calibración fallida - verificar que Tibia sea visible en OBS
+[19:27:13] INFO     📊 Auto-healer DESACTIVADO
+[19:27:16] INFO     📊 Cerrando aplicación...
+[19:27:19] INFO     ✅ Bot detenido
+[19:38:34] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[19:38:34] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:38:34] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:38:34] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[19:38:34] INFO     📊 [Targeting] Templates disponibles cargados: 12
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[19:38:34] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[19:38:34] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[19:38:34] INFO     📊 Ventanas Tibia encontradas: 2
+[19:38:34] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[19:38:34] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[19:38:34] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[19:38:34] INFO     📊 Loop principal iniciado
+[19:38:34] INFO     ✅ Bot iniciado
+[19:38:35] INFO     ✅ GUI iniciada correctamente
+[19:38:51] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[19:39:06] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[19:39:07] DEBUG    🔍 Debug image guardada (ciclo #40)
+[19:39:12] INFO     📊 Auto-healer ACTIVADO
+[19:39:13] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[19:39:13] INFO     📊 Map region: (1199, 5, 1304, 113)
+[19:39:13] INFO     📊 SQMs configurados: 9 posiciones
+[19:39:13] INFO     📊 Player center: (592, 252)
+[19:39:13] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[19:39:13] INFO     ✅ Calibración completada exitosamente
+[19:39:22] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=ACTIVO
+[19:39:36] INFO     💊 HP=68% < 70% → F1 (Exura)
+[19:39:38] INFO     📊 HP=75% (VERDE) | MP=88% | Estado=ACTIVO
+[19:39:38] DEBUG    🔍 Debug image guardada (ciclo #80)
+[19:39:55] INFO     💊 HP=46% < 50% → F2 (Exura Gran)
+[19:39:58] INFO     📊 HP=98% (VERDE) | MP=55% | Estado=ACTIVO
+[19:40:14] INFO     📊 HP=99% (VERDE) | MP=59% | Estado=ACTIVO
+[19:40:14] DEBUG    🔍 Debug image guardada (ciclo #120)
+[19:40:34] INFO     💊 HP=51% < 70% → F1 (Exura)
+[19:40:36] INFO     📊 HP=98% (VERDE) | MP=57% | Estado=ACTIVO
+[19:40:45] INFO     💊 HP=45% < 50% → F2 (Exura Gran)
+[19:40:59] INFO     📊 HP=98% (VERDE) | MP=24% | Estado=ACTIVO
+[19:40:59] DEBUG    🔍 Debug image guardada (ciclo #160)
+[19:41:20] INFO     📊 HP=68% (VERDE) | MP=21% | Estado=ACTIVO
+[19:41:20] INFO     💊 HP=68% < 70% → F1 (Exura)
+[19:41:40] INFO     📊 HP=83% (VERDE) | MP=24% | Estado=ACTIVO
+[19:41:40] DEBUG    🔍 Debug image guardada (ciclo #200)
+[19:42:03] INFO     📊 HP=83% (VERDE) | MP=31% | Estado=ACTIVO

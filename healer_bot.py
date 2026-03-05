@@ -7,6 +7,7 @@ Usa OBS WebSocket para capturar frames directamente de la memoria de OBS,
 sin necesidad de que el proyector sea visible en pantalla.
 
 v2.0+: Integra dispatcher para cavebot, targeting y looter.
+v3.0:  Todos los módulos funcionan con template matching real (OpenCV).
 """
 
 import threading
@@ -24,8 +25,13 @@ from window_finder import (
 from screen_capture import ScreenCapture
 from bar_detector import BarDetector
 from key_sender import KeySender
+from mouse_click_sender import MouseClickSender
 from debug_visual import DebugVisual
 from dispatcher import BotDispatcher
+from screen_calibrator import ScreenCalibrator
+from targeting.targeting_engine import TargetingEngine
+from looter.looter_engine import LooterEngine
+from cavebot.cavebot_engine import CavebotEngine
 
 
 class HealerBot:
@@ -57,6 +63,19 @@ class HealerBot:
 
         # Dispatcher v2 (cavebot, targeting, looter)
         self.dispatcher = BotDispatcher(self.config, self.log, self.capture)
+
+        # --- Módulos v3 (template matching real) ---
+        self.mouse_sender = MouseClickSender()
+        self.calibrator = ScreenCalibrator()
+        self.targeting_engine = TargetingEngine()
+        self.looter_engine = LooterEngine()
+        self.cavebot_engine = CavebotEngine()
+        self._calibrated = False
+
+        # Coordenadas: factores de escala OBS frame → Tibia client
+        self._scale_x: float = 1.0
+        self._scale_y: float = 1.0
+        self._obs_frame_size: Tuple[int, int] = (0, 0)  # (w, h)
 
         # Estado
         self.running: bool = False      # True = hilo activo
@@ -120,6 +139,125 @@ class HealerBot:
                 self._on_status_update()
             except Exception:
                 pass
+
+    # ==================================================================
+    # Inicialización de módulos v3
+    # ==================================================================
+    def _scaled_left_click(self, x: int, y: int) -> bool:
+        """Click izquierdo con coordenadas escaladas de OBS frame → Tibia client."""
+        cx = int(x * self._scale_x)
+        cy = int(y * self._scale_y)
+        return self.mouse_sender.left_click(cx, cy)
+
+    def _scaled_right_click(self, x: int, y: int) -> bool:
+        """Click derecho con coordenadas escaladas de OBS frame → Tibia client."""
+        cx = int(x * self._scale_x)
+        cy = int(y * self._scale_y)
+        return self.mouse_sender.right_click(cx, cy)
+
+    def _update_scale_factors(self, frame: np.ndarray):
+        """Calcula factores de escala OBS frame → Tibia client coordinates."""
+        if frame is None:
+            return
+        frame_h, frame_w = frame.shape[:2]
+        self._obs_frame_size = (frame_w, frame_h)
+
+        client_w, client_h = self.mouse_sender.get_client_size()
+        if client_w > 0 and client_h > 0 and frame_w > 0 and frame_h > 0:
+            self._scale_x = client_w / frame_w
+            self._scale_y = client_h / frame_h
+            self.log.info(
+                f"Escala OBS({frame_w}x{frame_h}) → Tibia({client_w}x{client_h}): "
+                f"x={self._scale_x:.3f} y={self._scale_y:.3f}"
+            )
+        else:
+            self._scale_x = 1.0
+            self._scale_y = 1.0
+
+    def _init_modules(self):
+        """
+        Wires all module callbacks and registers dispatcher handlers.
+        Called once when tibia_hwnd is available and mouse_sender has a target.
+        """
+        # --- Targeting ---
+        self.targeting_engine.set_click_callback(self._scaled_left_click)
+        self.targeting_engine.set_key_callback(self.key_sender.send_key)
+        self.targeting_engine.set_log_callback(
+            lambda msg: self.log.info(msg)
+        )
+        self.targeting_engine.configure(self.config.targeting)
+
+        # --- Looter ---
+        self.looter_engine.set_right_click_callback(self._scaled_right_click)
+        self.looter_engine.set_left_click_callback(self._scaled_left_click)
+        self.looter_engine.set_log_callback(
+            lambda msg: self.log.info(msg)
+        )
+        self.looter_engine.configure(self.config.looter)
+
+        # --- Cavebot ---
+        self.cavebot_engine.set_click_callback(self._scaled_left_click)
+        self.cavebot_engine.set_key_callback(self.key_sender.send_key)
+        self.cavebot_engine.set_log_callback(
+            lambda msg: self.log.info(msg)
+        )
+        self.cavebot_engine.configure(self.config.cavebot)
+
+        # --- Conectar targeting → looter (kill notification) ---
+        original_process = self.targeting_engine.process_frame
+
+        def _targeting_with_loot(frame):
+            prev_kills = self.targeting_engine.monsters_killed
+            original_process(frame)
+            new_kills = self.targeting_engine.monsters_killed
+            if new_kills > prev_kills:
+                for _ in range(new_kills - prev_kills):
+                    self.looter_engine.notify_kill()
+        self._targeting_with_loot = _targeting_with_loot
+
+        # --- Registrar handlers en dispatcher ---
+        self.dispatcher.register_handler("targeting", self._targeting_with_loot)
+        self.dispatcher.register_handler("cavebot", self.cavebot_engine.process_frame)
+        self.dispatcher.register_handler("looter", self.looter_engine.process_frame)
+
+        self.log.ok("Módulos v3 inicializados (targeting, looter, cavebot)")
+
+    def _run_calibration_on_frame(self, frame: np.ndarray) -> bool:
+        """
+        Calibra regiones del juego usando el frame actual.
+        Configura todas las regiones para targeting, looter y cavebot.
+        """
+        success = self.calibrator.calibrate(frame)
+        if not success:
+            self.log.warning("Calibración fallida - verificar que Tibia sea visible en OBS")
+            return False
+
+        # Pasar regiones a los módulos
+        br = self.calibrator.battle_region
+        if br:
+            self.targeting_engine.set_battle_region(*br)
+            self.log.info(f"Battle region: {br}")
+
+        mr = self.calibrator.map_region
+        if mr:
+            self.cavebot_engine.set_map_region(*mr)
+            self.log.info(f"Map region: {mr}")
+
+        sqms = self.calibrator.sqms
+        if sqms:
+            self.looter_engine.set_sqms(sqms)
+            self.log.info(f"SQMs configurados: {len(sqms)} posiciones")
+
+        pc = self.calibrator.player_center
+        if pc:
+            self.log.info(f"Player center: {pc}")
+
+        # Actualizar factores de escala OBS → Tibia client
+        self._update_scale_factors(frame)
+
+        self._calibrated = True
+        self.log.ok("Calibración completada exitosamente")
+        return True
 
     # ==================================================================
     # Conexión OBS WebSocket
@@ -214,6 +352,7 @@ class HealerBot:
                         self.tibia_hwnd = t["hwnd"]
                         self.tibia_title = t["title"]
                         self.key_sender.set_target(t["hwnd"])
+                        self.mouse_sender.set_target(t["hwnd"])
                         tibia_found = True
                         break
 
@@ -223,10 +362,12 @@ class HealerBot:
                 self.tibia_hwnd = t["hwnd"]
                 self.tibia_title = t["title"]
                 self.key_sender.set_target(t["hwnd"])
+                self.mouse_sender.set_target(t["hwnd"])
                 tibia_found = True
 
             if tibia_found:
                 self.log.ok(f"Tibia encontrado: {self.tibia_title}")
+                self._init_modules()
         else:
             self.tibia_hwnd = None
             self.tibia_title = ""
@@ -240,8 +381,10 @@ class HealerBot:
         self.tibia_hwnd = hwnd
         self.tibia_title = title
         self.key_sender.set_target(hwnd)
+        self.mouse_sender.set_target(hwnd)
         self.config.set("tibia_window_title", title)
         self.log.ok(f"Tibia seleccionado: {title}")
+        self._init_modules()
         self._notify_status()
 
     # ==================================================================
@@ -358,8 +501,15 @@ class HealerBot:
                 if self.active and self.tibia_connected:
                     self._process_healing(hp, mp)
 
-                # --- 5b. Dispatcher v2 (cavebot / targeting / looter) ---
-                if self.active and self.tibia_connected:
+                # --- 5b. Auto-calibración en primer frame ---
+                if self.active and self.tibia_connected and not self._calibrated:
+                    try:
+                        self._run_calibration_on_frame(img)
+                    except Exception as e:
+                        self.log.debug(f"Calibración pendiente: {e}")
+
+                # --- 5c. Dispatcher v3 (targeting / cavebot / looter) ---
+                if self.active and self.tibia_connected and self._calibrated:
                     try:
                         self.dispatcher.dispatch_frame(img)
                     except Exception as e:
@@ -465,11 +615,13 @@ class HealerBot:
         return img
 
     def run_calibration(self) -> Dict:
-        """Ejecuta calibración automática de barras."""
+        """Ejecuta calibración automática de barras + regiones del juego."""
         img = self.take_test_capture()
         if img is None:
             self.log.error("No se pudo calibrar — captura fallida")
             return {}
+
+        # Calibración de barras (original)
         result = self.detector.auto_calibrate(img)
         if result.get("hp_row") is not None:
             self.log.ok(
@@ -482,7 +634,22 @@ class HealerBot:
                 "Calibración: no se encontraron barras. "
                 "¿El proyector está mostrando Tibia?"
             )
+
+        # Calibración de regiones del juego (v3)
+        try:
+            self._run_calibration_on_frame(img)
+        except Exception as e:
+            self.log.warning(f"Calibración de regiones falló: {e}")
+
         return result
+
+    def force_recalibrate(self) -> bool:
+        """Fuerza recalibración de regiones del juego."""
+        self._calibrated = False
+        img = self.take_test_capture()
+        if img is None:
+            return False
+        return self._run_calibration_on_frame(img)
 
     def generate_analysis_image(self) -> Optional[np.ndarray]:
         """Genera una imagen de análisis de barras."""

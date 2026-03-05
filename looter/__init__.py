@@ -1,3 +1,1 @@
-"""
-looter/__init__.py - Módulo de looteo automático.
-"""
+"""looter package - Looteo automático basado en SQMs."""

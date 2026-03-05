@@ -1,318 +1,229 @@
 """
-targeting/targeting_engine.py - Motor principal de targeting/ataque.
-Coordina la detección de monstruos, selección de objetivo,
-ataque y rotación de hechizos.
+targeting/targeting_engine.py - Motor de targeting/ataque FUNCIONAL.
+Coordina detección de monstruos en battle list y ataque via click.
+Basado en TibiaAuto12/engine/CaveBot/CaveBotController.py.
 """
 
 import time
-from enum import Enum
 from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from targeting.battle_list_reader import BattleListReader, CreatureEntry, CreatureType
-from targeting.target_detector import ScreenTarget, TargetDetector
-from targeting.spell_rotator import SpellRotator
-
-
-class AttackMode(Enum):
-    """Modo de ataque."""
-    OFFENSIVE = "offensive"   # Ataque completo
-    BALANCED = "balanced"     # Ataque + defensa
-    DEFENSIVE = "defensive"   # Solo si atacan
-
-
-class TargetPriority(Enum):
-    """Prioridad de selección de objetivo."""
-    CLOSEST = "closest"       # El más cercano
-    LOWEST_HP = "lowest_hp"   # El de menor HP
-    HIGHEST_HP = "highest_hp" # El de mayor HP
-    DANGEROUS = "dangerous"   # El más peligroso (por nombre)
-
-
-class TargetingState(Enum):
-    """Estado del motor de targeting."""
-    IDLE = "idle"
-    SEARCHING = "searching"
-    ATTACKING = "attacking"
-    CASTING = "casting"
-    CHASING = "chasing"
-    PAUSED = "paused"
+from targeting.battle_list_reader import BattleListReader, CreatureEntry
 
 
 class TargetingEngine:
     """
-    Motor de targeting/ataque del bot.
-    Coordina:
-    - Lectura de la battle list
-    - Detección de monstruos en pantalla
-    - Selección de objetivo por prioridad
-    - Ataque con click y hechizos
-    - Rotación de hechizos AOE/single target
+    Motor de targeting real.
+    Usa BattleListReader (template matching) para encontrar monstruos
+    y MouseClickSender para hacer click de ataque en la battle list.
     """
 
     def __init__(self):
-        self.battle_list_reader = BattleListReader()
-        self.target_detector = TargetDetector()
-        self.spell_rotator = SpellRotator()
+        self.battle_reader = BattleListReader()
 
         # Estado
-        self.state: TargetingState = TargetingState.IDLE
-        self.current_target: Optional[CreatureEntry] = None
-        self.screen_target: Optional[ScreenTarget] = None
+        self.enabled: bool = False
+        self.current_target: Optional[str] = None  # Nombre del monstruo atacando
 
         # Configuración
-        self.attack_mode: AttackMode = AttackMode.OFFENSIVE
-        self.target_priority: TargetPriority = TargetPriority.CLOSEST
+        self.attack_mode: str = "offensive"
         self.auto_attack: bool = True
         self.chase_monsters: bool = True
-        self.max_chase_distance: int = 5  # Tiles máximos para perseguir
 
-        # Lista de monstruos peligrosos (mayor prioridad)
-        self.dangerous_monsters: List[str] = []
-        # Lista de monstruos a ignorar
-        self.ignore_monsters: List[str] = []
+        # Listas de monstruos
+        self.monsters_to_attack: List[str] = []
 
-        # Configuración AOE
-        self.use_aoe: bool = True
-        self.aoe_min_monsters: int = 3
-
-        # Callbacks (inyectados)
-        self._on_attack_click: Optional[Callable] = None   # callback(hwnd, x, y)
-        self._on_send_key: Optional[Callable] = None        # callback(hwnd, key)
-
-        # Handle de ventana
-        self.hwnd: int = 0
+        # Callbacks inyectados
+        self._click_fn: Optional[Callable] = None   # click(x, y) en coordenadas del frame
+        self._log_fn: Optional[Callable] = None      # log(msg)
+        self._key_fn: Optional[Callable] = None      # send_key(key_name)
 
         # Timing
-        self.attack_delay: float = 0.5
+        self.attack_delay: float = 0.4
         self.last_attack_time: float = 0.0
-        self.last_search_time: float = 0.0
         self.search_interval: float = 0.2
+        self.last_search_time: float = 0.0
 
         # Métricas
         self.monsters_killed: int = 0
         self.total_attacks: int = 0
-        self.spells_cast: int = 0
+        self._prev_count: int = 0
 
     # ==================================================================
-    # Configuración / Inyección
+    # Configuración
     # ==================================================================
-    def set_attack_click_callback(self, callback: Callable) -> None:
-        """callback(hwnd: int, x: int, y: int) - Click de ataque."""
-        self._on_attack_click = callback
+    def set_click_callback(self, fn: Callable):
+        """fn(x, y) - hace click izquierdo en coordenadas de cliente."""
+        self._click_fn = fn
 
-    def set_send_key_callback(self, callback: Callable) -> None:
-        """callback(hwnd: int, key: str) - Envío de tecla."""
-        self._on_send_key = callback
-        self.spell_rotator.set_send_key_callback(callback)
+    def set_key_callback(self, fn: Callable):
+        """fn(key_name) - envía tecla a Tibia."""
+        self._key_fn = fn
 
-    def set_hwnd(self, hwnd: int) -> None:
-        self.hwnd = hwnd
+    def set_log_callback(self, fn: Callable):
+        """fn(msg) - log del módulo."""
+        self._log_fn = fn
 
-    def set_battle_list_region(self, x: int, y: int, w: int, h: int) -> None:
-        self.battle_list_reader.set_region(x, y, w, h)
+    def set_battle_region(self, x1, y1, x2, y2):
+        """Configura la región de la battle list."""
+        self.battle_reader.set_region(x1, y1, x2, y2)
 
-    def set_game_region(self, x: int, y: int, w: int, h: int) -> None:
-        self.target_detector.set_game_region(x, y, w, h)
+    def configure(self, config: dict):
+        """Aplica configuración desde el dict de config."""
+        targeting = config if isinstance(config, dict) else {}
+        self.attack_mode = targeting.get("attack_mode", "offensive")
+        self.auto_attack = targeting.get("auto_attack", True)
+        self.chase_monsters = targeting.get("chase_monsters", True)
+        self.attack_delay = targeting.get("attack_delay", 0.4)
+
+        # Listas
+        atk = targeting.get("attack_list", [])
+        ign = targeting.get("ignore_list", [])
+        pri = targeting.get("priority_list", [])
+
+        self.monsters_to_attack = atk
+        self.battle_reader.attack_list = set(atk)
+        self.battle_reader.ignore_list = set(ign)
+        self.battle_reader.priority_list = set(pri)
+
+        # Cargar templates
+        if atk:
+            loaded = self.battle_reader.load_monster_templates(atk)
+            self._log(f"Templates cargados: {loaded}/{len(atk)}")
+        else:
+            loaded = self.battle_reader.load_all_available_templates()
+            self._log(f"Templates disponibles cargados: {loaded}")
+
+    def _log(self, msg: str):
+        if self._log_fn:
+            self._log_fn(f"[Targeting] {msg}")
 
     # ==================================================================
-    # Lógica principal
+    # Loop principal (llamado por dispatcher cada frame)
     # ==================================================================
-    def update(self, frame: np.ndarray, current_mana: int = 999999) -> None:
+    def process_frame(self, frame: np.ndarray):
         """
-        Actualización principal del targeting. Llamada cada frame.
-
-        Args:
-            frame: Frame BGR de OBS.
-            current_mana: Mana actual del jugador (para hechizos).
+        Procesamiento principal. Llamado por dispatcher en cada frame.
+        1. Lee battle list
+        2. Si hay monstruos y no estamos atacando → click de ataque
+        3. Detecta kills por disminución de conteo
         """
-        if self.state == TargetingState.PAUSED:
+        if not self.enabled or frame is None:
+            return
+        if not self.auto_attack:
             return
 
         now = time.time()
 
-        # 1. Leer battle list periódicamente
-        if now - self.last_search_time >= self.search_interval:
-            creatures = self.battle_list_reader.read(frame)
-            self.last_search_time = now
+        # Leer battle list periódicamente
+        if now - self.last_search_time < self.search_interval:
+            return
+        self.last_search_time = now
 
-            # 2. Verificar si el objetivo actual murió
-            if self.current_target:
-                still_alive = any(
-                    c.name == self.current_target.name
-                    for c in creatures
-                    if c.creature_type == CreatureType.MONSTER
-                )
-                if not still_alive:
-                    self.monsters_killed += 1
-                    self.current_target = None
-                    self.screen_target = None
-                    self.state = TargetingState.SEARCHING
+        # Log periódico de estado (cada ~5 segundos)
+        if int(now) % 5 == 0 and not hasattr(self, '_last_status_log'):
+            self._last_status_log = 0
+        if not hasattr(self, '_last_status_log'):
+            self._last_status_log = 0
+        if now - self._last_status_log >= 5.0:
+            self._last_status_log = now
+            tpl_count = len(self.battle_reader._name_templates)
+            region = self.battle_reader.battle_region
+            self._log(
+                f"Estado: templates={tpl_count}, region={region}, "
+                f"attack_list={self.monsters_to_attack}"
+            )
 
-        # 3. Si no tenemos objetivo, buscar uno
-        if self.current_target is None and self.auto_attack:
-            self._select_target()
+        # Escanear monstruos en la battle list
+        creatures = self.battle_reader.read(frame)
+        current_count = len(creatures)
 
-        # 4. Si tenemos objetivo, atacar
-        if self.current_target is not None:
-            self._attack_cycle(frame, current_mana, now)
-        else:
-            self.state = TargetingState.IDLE if not self.battle_list_reader.has_monsters() else TargetingState.SEARCHING
+        # Detectar kills
+        if self._prev_count > current_count and current_count >= 0:
+            kills = self._prev_count - current_count
+            self.monsters_killed += kills
+            self._log(f"¡Monstruo eliminado! Total kills: {self.monsters_killed}")
+        self._prev_count = current_count
 
-    def _select_target(self) -> None:
-        """Selecciona un nuevo objetivo basado en la prioridad configurada."""
-        monsters = self.battle_list_reader.get_monsters()
-
-        # Filtrar ignorados
-        if self.ignore_monsters:
-            monsters = [
-                m for m in monsters
-                if m.name.lower() not in [n.lower() for n in self.ignore_monsters]
-            ]
-
-        if not monsters:
+        if not creatures:
             self.current_target = None
             return
 
-        # Priorizar peligrosos
-        dangerous = [
-            m for m in monsters
-            if m.name.lower() in [n.lower() for n in self.dangerous_monsters]
-        ]
-        if dangerous:
-            monsters = dangerous
+        # Verificar si ya estamos atacando
+        needs_attack = self.battle_reader.is_attacking(frame)
 
-        # Seleccionar según prioridad
-        if self.target_priority == TargetPriority.LOWEST_HP:
-            target = min(monsters, key=lambda m: m.hp_percent)
-        elif self.target_priority == TargetPriority.HIGHEST_HP:
-            target = max(monsters, key=lambda m: m.hp_percent)
-        elif self.target_priority == TargetPriority.CLOSEST:
-            target = monsters[0]  # La battle list suele tener los cercanos primero
-        else:
-            target = monsters[0]
+        if needs_attack and (now - self.last_attack_time >= self.attack_delay):
+            # Seleccionar objetivo
+            target = self._select_target(creatures)
+            if target:
+                self._attack_target(frame, target)
 
-        self.current_target = target
-        self.state = TargetingState.ATTACKING
+    def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
+        """Selecciona el mejor objetivo según prioridad."""
+        # Primero: prioridad alta
+        priority = self.battle_reader.get_priority_targets()
+        if priority:
+            return priority[0]
 
-    def _attack_cycle(self, frame: np.ndarray, current_mana: int, now: float) -> None:
-        """Ciclo de ataque al objetivo actual."""
-        # Verificar si ya estamos atacando (indicador en battle list)
-        is_already_attacking = (
-            self.current_target and self.current_target.is_attacking
-        )
+        # Segundo: atacables
+        attackable = self.battle_reader.get_attackable_monsters()
+        if not attackable:
+            return creatures[0] if creatures else None
 
-        # Si no estamos atacando, hacer click de ataque
-        if not is_already_attacking and now - self.last_attack_time >= self.attack_delay:
-            self._click_attack()
-            self.last_attack_time = now
+        return attackable[0]  # El primero en la battle list (más cercano)
 
-        # Castear hechizos (rotación)
-        monster_count = self.battle_list_reader.creature_count
-        target_dist = 1.0  # Default, se actualiza con screen detection
-
-        # Detectar monstruos en pantalla para distancia real
-        screen_targets = self.target_detector.detect(frame)
-        if screen_targets:
-            closest = screen_targets[0]
-            target_dist = closest.distance
-
-        # Intentar castear hechizo
-        spell_cast = self.spell_rotator.cast_best(
-            hwnd=self.hwnd,
-            monster_count=monster_count,
-            current_mana=current_mana,
-            target_distance=target_dist,
-        )
-        if spell_cast:
-            self.spells_cast += 1
-            self.state = TargetingState.CASTING
-
-    def _click_attack(self) -> None:
-        """Hace click de ataque en el objetivo."""
-        if not self._on_attack_click or self.hwnd == 0:
+    def _attack_target(self, frame: np.ndarray, target: CreatureEntry):
+        """Hace click en el monstruo en la battle list para atacarlo."""
+        if not self._click_fn:
             return
 
-        # Usar posición de la battle list (click en la entry)
-        # O usar screen target si está disponible
-        if self.screen_target:
-            self._on_attack_click(
-                self.hwnd,
-                self.screen_target.screen_x,
-                self.screen_target.screen_y,
-            )
+        # Usar la posición del nombre en la battle list
+        x, y = target.screen_x, target.screen_y
+        if x == 0 and y == 0:
+            # Buscar con find_target como fallback
+            x, y = self.battle_reader.find_target(frame, target.name)
+
+        if x != 0 and y != 0:
+            self._click_fn(x, y)
+            self.current_target = target.name
             self.total_attacks += 1
+            self.last_attack_time = time.time()
+            self._log(f"Atacando: {target.name} en ({x},{y})")
 
     # ==================================================================
     # Control
     # ==================================================================
-    def start(self) -> None:
-        """Inicia el targeting."""
-        self.state = TargetingState.SEARCHING
+    def start(self):
+        self.enabled = True
+        tpl_count = len(self.battle_reader._name_templates)
+        region = self.battle_reader.battle_region
+        self._log("Targeting activado")
+        self._log(f"Templates cargados: {tpl_count} ({list(self.battle_reader._name_templates.keys())})")
+        self._log(f"Battle region: {region}")
+        self._log(f"Attack list: {self.monsters_to_attack}")
+        if not self.battle_reader._name_templates:
+            self._log("⚠ Sin templates — configura monstruos en la pestaña Targeting y guarda")
+        if region is None:
+            self._log("⚠ Sin battle region — presiona 'Calibrar' primero")
 
-    def pause(self) -> None:
-        """Pausa el targeting."""
-        self.state = TargetingState.PAUSED
-
-    def resume(self) -> None:
-        """Reanuda el targeting."""
-        if self.state == TargetingState.PAUSED:
-            self.state = TargetingState.SEARCHING
-
-    def stop(self) -> None:
-        """Detiene el targeting y limpia estado."""
-        self.state = TargetingState.IDLE
+    def stop(self):
+        self.enabled = False
         self.current_target = None
-        self.screen_target = None
+        self._log("Targeting desactivado")
 
-    def clear_target(self) -> None:
-        """Limpia el objetivo actual."""
-        self.current_target = None
-        self.screen_target = None
-        self.state = TargetingState.SEARCHING
+    def get_kill_count(self) -> int:
+        return self.monsters_killed
 
-    # ==================================================================
-    # Configuración de listas
-    # ==================================================================
-    def add_dangerous_monster(self, name: str) -> None:
-        if name not in self.dangerous_monsters:
-            self.dangerous_monsters.append(name)
+    def get_monster_count(self) -> int:
+        return self._prev_count
 
-    def remove_dangerous_monster(self, name: str) -> None:
-        if name in self.dangerous_monsters:
-            self.dangerous_monsters.remove(name)
-
-    def add_ignore_monster(self, name: str) -> None:
-        if name not in self.ignore_monsters:
-            self.ignore_monsters.append(name)
-
-    def remove_ignore_monster(self, name: str) -> None:
-        if name in self.ignore_monsters:
-            self.ignore_monsters.remove(name)
-
-    # ==================================================================
-    # Info
-    # ==================================================================
     def get_status(self) -> Dict:
         return {
-            "state": self.state.value,
-            "attack_mode": self.attack_mode.value,
-            "target_priority": self.target_priority.value,
-            "current_target": self.current_target.to_dict() if self.current_target else None,
-            "battle_list_count": self.battle_list_reader.creature_count,
-            "screen_targets": self.target_detector.target_count,
+            "enabled": self.enabled,
+            "current_target": self.current_target,
+            "monster_count": self._prev_count,
             "monsters_killed": self.monsters_killed,
             "total_attacks": self.total_attacks,
-            "spells_cast": self.spells_cast,
-            "auto_attack": self.auto_attack,
-            "use_aoe": self.use_aoe,
+            "templates_loaded": len(self.battle_reader._name_templates),
         }
-
-    def __repr__(self) -> str:
-        target_name = self.current_target.name if self.current_target else "None"
-        return (
-            f"<TargetingEngine state={self.state.value} "
-            f"target='{target_name}' "
-            f"kills={self.monsters_killed}>"
-        )
