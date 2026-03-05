@@ -50,6 +50,10 @@ class TargetingEngine:
         self.total_attacks: int = 0
         self._prev_count: int = 0
 
+        # Última posición de ataque (para el looter)
+        self.last_attack_position: Tuple[int, int] = (0, 0)
+        self.last_attack_name: str = ""
+
     # ==================================================================
     # Configuración
     # ==================================================================
@@ -196,6 +200,8 @@ class TargetingEngine:
         if x != 0 and y != 0:
             self._click_fn(x, y)
             self.current_target = target.name
+            self.last_attack_position = (x, y)
+            self.last_attack_name = target.name
             self.total_attacks += 1
             self.last_attack_time = time.time()
             self._log(f"Atacando: {target.name} en ({x},{y})")

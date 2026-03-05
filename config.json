@@ -62,7 +62,7 @@
         }
     },
     "targeting": {
-        "enabled": false,
+        "enabled": true,
         "auto_attack": true,
         "chase_monsters": true,
         "attack_mode": "offensive",
@@ -73,7 +73,9 @@
         "aoe_min_monsters": 3,
         "dangerous_monsters": [],
         "ignore_monsters": [],
-        "attack_list": [],
+        "attack_list": [
+            "Cave Rat"
+        ],
         "ignore_list": [],
         "priority_list": [],
         "battle_list_region": {
@@ -89,8 +91,8 @@
         }
     },
     "looter": {
-        "enabled": false,
-        "loot_method": "shift_click",
+        "enabled": true,
+        "loot_method": "left_click",
         "loot_delay": 0.3,
         "max_range": 2,
         "max_corpse_age": 15.0,
@@ -106,12 +108,12 @@
             "pick_gold": true,
             "pick_platinum": true,
             "pick_crystal": true,
-            "pick_unknown_items": false,
+            "pick_unknown_items": true,
             "pick_equipment": true,
             "pick_stackables": true,
             "pick_valuables": true,
-            "pick_creature_products": false,
-            "min_item_value": 0,
+            "pick_creature_products": true,
+            "min_item_value": 1,
             "pickup_list": [],
             "ignore_list": []
         },
@@ -121,10 +123,10 @@
                 "gold": 0,
                 "valuable": 1,
                 "equipment": 1,
-                "potion": 2,
-                "rune": 2,
-                "food": 3,
-                "creature_product": 3
+                "potion": 1,
+                "rune": 1,
+                "food": 1,
+                "creature_product": 1
             },
             "item_routes": {}
         }

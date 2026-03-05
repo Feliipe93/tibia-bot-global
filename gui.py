@@ -1292,6 +1292,8 @@ class TibiaHealerGUI(ctk.CTk):
         self.config.save()
         # Wire to dispatcher + engine
         if enabled:
+            # Aplicar la configuración actual de la GUI antes de activar
+            self._save_targeting_config()
             self.bot.dispatcher.enable_module("targeting")
             self.bot.targeting_engine.start()
         else:
@@ -1511,6 +1513,8 @@ class TibiaHealerGUI(ctk.CTk):
         self.config.save()
         # Wire to dispatcher + engine
         if enabled:
+            # Aplicar configuración actual de la GUI antes de activar
+            self._save_looter_config()
             self.bot.dispatcher.enable_module("looter")
             self.bot.looter_engine.start()
         else:

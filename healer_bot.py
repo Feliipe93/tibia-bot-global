@@ -211,8 +211,12 @@ class HealerBot:
             original_process(frame)
             new_kills = self.targeting_engine.monsters_killed
             if new_kills > prev_kills:
+                # Posición del jugador (centro del game area) — ahí estará el cuerpo
+                pc = self.calibrator.player_center
+                px, py = pc if pc else (0, 0)
+                lname = self.targeting_engine.last_attack_name
                 for _ in range(new_kills - prev_kills):
-                    self.looter_engine.notify_kill()
+                    self.looter_engine.notify_kill(lname, px, py)
         self._targeting_with_loot = _targeting_with_loot
 
         # --- Registrar handlers en dispatcher ---
