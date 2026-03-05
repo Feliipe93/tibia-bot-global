@@ -275,8 +275,17 @@ class CavebotEngine:
             if self._click_fn:
                 self._click_fn(x, y)
                 self.steps += 1
+                if self.steps % 5 == 1:
+                    self._log(f"Navegando a '{mark_name}' → click ({x},{y}), paso #{self.steps}")
         else:
-            self._log(f"Marca '{mark_name}' no encontrada en minimapa")
+            if not hasattr(self, '_last_not_found_log') or \
+               time.time() - self._last_not_found_log > 5.0:
+                self._last_not_found_log = time.time()
+                available = mark_name in self._mark_templates
+                self._log(
+                    f"Marca '{mark_name}' no encontrada en minimapa "
+                    f"(template existe: {available}, region: {self.map_region})"
+                )
 
     def _handle_waypoint_type(self, wp: Waypoint):
         """Ejecuta la acción del tipo de waypoint."""

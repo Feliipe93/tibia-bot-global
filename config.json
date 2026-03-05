@@ -27,7 +27,7 @@
     "mana_heal": {
         "enabled": false,
         "threshold": 0.3,
-        "key": "F3",
+        "key": "F7",
         "description": "Mana potion"
     },
     "cooldown_seconds": 1.2,
@@ -62,7 +62,7 @@
         }
     },
     "targeting": {
-        "enabled": true,
+        "enabled": false,
         "auto_attack": true,
         "chase_monsters": true,
         "attack_mode": "offensive",
@@ -89,7 +89,7 @@
         }
     },
     "looter": {
-        "enabled": true,
+        "enabled": false,
         "loot_method": "shift_click",
         "loot_delay": 0.3,
         "max_range": 2,

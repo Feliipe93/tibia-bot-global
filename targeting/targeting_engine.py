@@ -139,6 +139,11 @@ class TargetingEngine:
         creatures = self.battle_reader.read(frame)
         current_count = len(creatures)
 
+        # Log cuando hay criaturas detectadas (cada 5s)
+        if current_count > 0 and now - self._last_status_log < 1.0:
+            names = [c.name for c in creatures]
+            self._log(f"Criaturas en battle list ({current_count}): {names}")
+
         # Detectar kills
         if self._prev_count > current_count and current_count >= 0:
             kills = self._prev_count - current_count
@@ -158,6 +163,10 @@ class TargetingEngine:
             target = self._select_target(creatures)
             if target:
                 self._attack_target(frame, target)
+        elif not needs_attack:
+            # Ya estamos atacando, no hacer nada
+            if self.current_target and now - self._last_status_log < 1.0:
+                self._log(f"Ya atacando: {self.current_target}")
 
     def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
         """Selecciona el mejor objetivo según prioridad."""

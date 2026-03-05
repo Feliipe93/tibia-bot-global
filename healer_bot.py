@@ -502,14 +502,27 @@ class HealerBot:
                     self._process_healing(hp, mp)
 
                 # --- 5b. Auto-calibración en primer frame ---
-                if self.active and self.tibia_connected and not self._calibrated:
+                # La calibración se ejecuta independientemente de si el
+                # healer está ACTIVO, para que targeting/cavebot/looter
+                # puedan funcionar con sus propios toggles.
+                if self.tibia_connected and not self._calibrated:
                     try:
                         self._run_calibration_on_frame(img)
                     except Exception as e:
                         self.log.debug(f"Calibración pendiente: {e}")
 
+                # Re-calibrar regiones periódicamente (cada 120 ciclos ≈ 60s)
+                # para adaptarse a cambios de paneles en Tibia
+                if self.tibia_connected and self._calibrated and self.cycle_count % 120 == 0:
+                    try:
+                        self._run_calibration_on_frame(img)
+                    except Exception:
+                        pass
+
                 # --- 5c. Dispatcher v3 (targeting / cavebot / looter) ---
-                if self.active and self.tibia_connected and self._calibrated:
+                # Los módulos tienen sus propios toggles individuales en la GUI.
+                # No requieren que el healer esté ACTIVO (F9).
+                if self.tibia_connected and self._calibrated:
                     try:
                         self.dispatcher.dispatch_frame(img)
                     except Exception as e:
