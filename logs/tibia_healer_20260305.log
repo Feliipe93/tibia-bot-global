@@ -1,0 +1,843 @@
+[14:55:47] INFO     ✅ Tibia seleccionado: Tibia Auto Healer
+[14:55:47] INFO     ✅ Proyector seleccionado: Proyector - Fuente: Captura de juego
+[14:55:47] INFO     ✅ Tibia encontrado: Tibia Auto Healer
+[14:55:47] INFO     ✅ Proyector encontrado: Proyector - Fuente: Captura de juego (1382x744)
+[14:55:47] INFO     📊 Ventanas: 2 Tibia, 1 Proyectores
+[14:55:47] INFO     📊 Loop principal iniciado
+[14:55:47] INFO     ✅ Bot iniciado
+[14:55:48] INFO     ✅ GUI iniciada correctamente
+[14:55:53] INFO     📊 HP=N/A (N/A) | MP=0% | Estado=EN ESPERA
+[14:55:58] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:55:59] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:00] INFO     📊 HP=N/A (N/A) | MP=N/A | Estado=EN ESPERA
+[14:56:00] DEBUG    🔍 Debug image guardada (ciclo #40)
+[14:56:05] INFO     📊 HP=N/A (N/A) | MP=N/A | Estado=EN ESPERA
+[14:56:10] INFO     📊 HP=1% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:10] DEBUG    🔍 Debug image guardada (ciclo #80)
+[14:56:14] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:15] WARNING  ⚠️ Pantalla negra detectada (brillo=4.1) — ¿Proyector minimizado?
+[14:56:17] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[14:56:22] INFO     📊 HP=31% (AMARILLO) | MP=35% | Estado=EN ESPERA
+[14:56:22] DEBUG    🔍 Debug image guardada (ciclo #120)
+[14:56:27] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[14:56:31] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:32] WARNING  ⚠️ Pantalla negra detectada (brillo=1.9) — ¿Proyector minimizado?
+[14:56:34] INFO     📊 HP=1% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:34] DEBUG    🔍 Debug image guardada (ciclo #160)
+[14:56:39] INFO     📊 HP=23% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:44] INFO     📊 HP=13% (ROJO) | MP=1% | Estado=EN ESPERA
+[14:56:44] DEBUG    🔍 Debug image guardada (ciclo #200)
+[14:56:44] INFO     ✅ Log guardado en: C:/Users/felip/Documents/tibia_healer_20260305_145641.log
+[14:56:49] INFO     📊 HP=39% (AMARILLO) | MP=27% | Estado=EN ESPERA
+[14:56:50] INFO     📊 Auto-healer ACTIVADO
+[14:56:50] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:56:51] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:56:54] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:56:54] DEBUG    🔍 Debug image guardada (ciclo #240)
+[14:56:55] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:56] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:57] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:58] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:56:59] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:01] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:01] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:57:02] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:57:03] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:04] INFO     📊 HP=23% (ROJO) | MP=8% | Estado=ACTIVO
+[14:57:04] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:06] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:07] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:09] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:09] DEBUG    🔍 Debug image guardada (ciclo #280)
+[14:57:09] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:11] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:12] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:13] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:14] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:15] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:19] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:19] DEBUG    🔍 Debug image guardada (ciclo #320)
+[14:57:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:24] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:26] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:29] INFO     📊 HP=100% (VERDE) | MP=46% | Estado=ACTIVO
+[14:57:29] DEBUG    🔍 Debug image guardada (ciclo #360)
+[14:57:34] INFO     📊 HP=100% (VERDE) | MP=46% | Estado=ACTIVO
+[14:57:39] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:39] DEBUG    🔍 Debug image guardada (ciclo #400)
+[14:57:40] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:41] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:42] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:43] INFO     💊 HP=52% < 70% → F1 (Exura)
+[14:57:44] INFO     📊 HP=49% (AMARILLO) | MP=8% | Estado=ACTIVO
+[14:57:45] INFO     💊 HP=49% < 50% → F2 (Exura Gran)
+[14:57:46] INFO     💊 HP=49% < 50% → F2 (Exura Gran)
+[14:57:49] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:49] DEBUG    🔍 Debug image guardada (ciclo #440)
+[14:57:54] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:59] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:59] DEBUG    🔍 Debug image guardada (ciclo #480)
+[14:58:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:02] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:03] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:04] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:05] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:06] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:07] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:09] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:10] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:10] DEBUG    🔍 Debug image guardada (ciclo #520)
+[14:58:11] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:12] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:13] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:14] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:15] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:20] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:20] DEBUG    🔍 Debug image guardada (ciclo #560)
+[14:58:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:25] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:28] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:29] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:30] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:31] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:31] DEBUG    🔍 Debug image guardada (ciclo #600)
+[14:58:32] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:33] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:34] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:35] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:36] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:37] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:38] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:41] INFO     📊 HP=2% (ROJO) | MP=100% | Estado=ACTIVO
+[14:58:41] DEBUG    🔍 Debug image guardada (ciclo #640)
+[14:58:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:46] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:49] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:58:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:52] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:58:52] DEBUG    🔍 Debug image guardada (ciclo #680)
+[14:58:57] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:59:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:02] INFO     📊 HP=3% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:02] DEBUG    🔍 Debug image guardada (ciclo #720)
+[14:59:02] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:03] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:04] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:06] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:07] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:08] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:11] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:12] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:12] DEBUG    🔍 Debug image guardada (ciclo #760)
+[14:59:12] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:17] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:59:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:20] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:21] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:22] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:22] DEBUG    🔍 Debug image guardada (ciclo #800)
+[14:59:22] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:23] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:25] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:26] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:27] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:27] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:28] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:29] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:30] WARNING  ⚠️ Pantalla negra detectada (brillo=0.9) — ¿Proyector minimizado?
+[14:59:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:33] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:35] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[14:59:35] DEBUG    🔍 Debug image guardada (ciclo #840)
+[14:59:36] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:37] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:38] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:39] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:40] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:42] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:44] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:47] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:47] DEBUG    🔍 Debug image guardada (ciclo #880)
+[14:59:48] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:49] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:52] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:53] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:54] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:55] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:57] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:57] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:57] DEBUG    🔍 Debug image guardada (ciclo #920)
+[14:59:58] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:59] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:00] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:02] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:02] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:03] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:04] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:05] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:07] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:07] DEBUG    🔍 Debug image guardada (ciclo #960)
+[15:00:08] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:09] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:12] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:12] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:14] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:17] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:17] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:17] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[15:00:18] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:19] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:21] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:22] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:22] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:23] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:24] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:26] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:27] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:27] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:28] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[15:00:28] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:29] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:31] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:32] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:32] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:33] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:34] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:36] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:00:38] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:38] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[15:00:38] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:00:40] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:41] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:43] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:48] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:48] DEBUG    🔍 Debug image guardada (ciclo #1120)
+[15:00:49] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:51] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:53] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:54] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:55] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:00:56] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:57] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:58] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:58] DEBUG    🔍 Debug image guardada (ciclo #1160)
+[15:00:59] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:00] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:01] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:02] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:03] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:04] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:05] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:06] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:08] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:08] DEBUG    🔍 Debug image guardada (ciclo #1200)
+[15:01:09] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:11] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:13] INFO     📊 HP=3% (ROJO) | MP=100% | Estado=ACTIVO
+[15:01:14] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:01:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:18] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:18] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:18] DEBUG    🔍 Debug image guardada (ciclo #1240)
+[15:01:19] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:23] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:29] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:29] DEBUG    🔍 Debug image guardada (ciclo #1280)
+[15:01:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:30] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:34] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:35] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:39] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:39] DEBUG    🔍 Debug image guardada (ciclo #1320)
+[15:01:39] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:40] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:42] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:43] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:44] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:44] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:45] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:47] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:48] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:49] DEBUG    🔍 Debug image guardada (ciclo #1360)
+[15:01:49] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:50] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:52] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:55] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:57] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:59] DEBUG    🔍 Debug image guardada (ciclo #1400)
+[15:01:59] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:04] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:09] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:09] DEBUG    🔍 Debug image guardada (ciclo #1440)
+[15:02:14] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:19] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:19] DEBUG    🔍 Debug image guardada (ciclo #1480)
+[15:02:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:24] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:26] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:29] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:29] DEBUG    🔍 Debug image guardada (ciclo #1520)
+[15:02:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:31] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:34] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:36] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:39] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:39] DEBUG    🔍 Debug image guardada (ciclo #1560)
+[15:02:39] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:41] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:42] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:43] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:44] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:44] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:46] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:47] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:48] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:49] DEBUG    🔍 Debug image guardada (ciclo #1600)
+[15:02:49] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:51] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:52] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:55] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:02:56] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:03:01] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:03:02] WARNING  ⚠️ Pantalla negra detectada (brillo=0.6) — ¿Proyector minimizado?
+[15:03:03] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:03] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[15:03:03] DEBUG    🔍 Debug image guardada (ciclo #1640)
+[15:03:04] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:08] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:08] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[15:03:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:13] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:13] DEBUG    🔍 Debug image guardada (ciclo #1680)
+[15:03:14] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:18] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:23] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:23] DEBUG    🔍 Debug image guardada (ciclo #1720)
+[15:03:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:28] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:30] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:33] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:33] DEBUG    🔍 Debug image guardada (ciclo #1760)
+[15:03:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:35] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:38] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:39] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:41] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:03:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:44] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:44] DEBUG    🔍 Debug image guardada (ciclo #1800)
+[15:03:44] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:48] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:49] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:51] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:53] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:54] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:54] DEBUG    🔍 Debug image guardada (ciclo #1840)
+[15:03:55] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:56] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:57] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:04:00] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:04:01] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:02] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:03] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:04] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:04] DEBUG    🔍 Debug image guardada (ciclo #1880)
+[15:04:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:07] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:08] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:09] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:12] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:13] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:14] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:14] DEBUG    🔍 Debug image guardada (ciclo #1920)
+[15:04:15] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:16] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:17] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:18] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:19] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:20] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:21] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:22] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:23] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:24] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:24] DEBUG    🔍 Debug image guardada (ciclo #1960)
+[15:04:25] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:26] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:28] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:29] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:30] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:32] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:34] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:34] DEBUG    🔍 Debug image guardada (ciclo #2000)
+[15:04:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:36] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:39] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:40] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:42] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:44] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:44] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:44] DEBUG    🔍 Debug image guardada (ciclo #2040)
+[15:04:45] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:46] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:47] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:49] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:49] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:50] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:51] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:52] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:54] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:54] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:54] DEBUG    🔍 Debug image guardada (ciclo #2080)
+[15:04:55] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:56] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:57] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:59] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:59] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:00] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:01] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:02] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:04] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:04] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:04] DEBUG    🔍 Debug image guardada (ciclo #2120)
+[15:05:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:07] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:09] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:12] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:14] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:14] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:14] DEBUG    🔍 Debug image guardada (ciclo #2160)
+[15:05:15] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:16] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:17] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:19] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:19] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:20] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:21] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:22] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:24] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:24] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:24] DEBUG    🔍 Debug image guardada (ciclo #2200)
+[15:05:25] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:26] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:29] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:29] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:30] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:32] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:34] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:34] DEBUG    🔍 Debug image guardada (ciclo #2240)
+[15:05:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:36] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:39] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:40] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:42] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:44] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:44] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:44] DEBUG    🔍 Debug image guardada (ciclo #2280)
+[15:05:45] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:46] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:47] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:49] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:05:50] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:51] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:05:54] DEBUG    🔍 Debug image guardada (ciclo #2320)
+[15:05:55] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:56] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:59] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:00] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:03] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:04] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:04] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:04] DEBUG    🔍 Debug image guardada (ciclo #2360)
+[15:06:05] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:06] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:06:09] INFO     📊 HP=1% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:06:12] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:13] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:14] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:14] INFO     📊 HP=24% (ROJO) | MP=8% | Estado=ACTIVO
+[15:06:14] DEBUG    🔍 Debug image guardada (ciclo #2400)
+[15:06:15] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:17] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:18] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:19] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:19] INFO     📊 HP=24% (ROJO) | MP=1% | Estado=ACTIVO
+[15:06:20] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:22] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:23] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:24] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:24] INFO     📊 HP=24% (ROJO) | MP=1% | Estado=ACTIVO
+[15:06:24] DEBUG    🔍 Debug image guardada (ciclo #2440)
+[15:06:25] INFO     ✅ Log guardado en: C:/Users/felip/Documents/GitHub/bot_ia_claude/tibia_healer_20260305_150615.log
+[15:06:25] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:27] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:28] INFO     📊 Auto-healer DESACTIVADO
+[15:06:28] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:29] INFO     📊 HP=0% (ROJO) | MP=13% | Estado=EN ESPERA
+[15:06:34] INFO     📊 HP=0% (ROJO) | MP=9% | Estado=EN ESPERA
+[15:06:34] DEBUG    🔍 Debug image guardada (ciclo #2480)
+[15:06:39] INFO     📊 HP=0% (ROJO) | MP=9% | Estado=EN ESPERA
+[15:06:41] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[15:06:44] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:45] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:46] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:47] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:48] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:50] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:51] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:52] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:06:53] WARNING  ⚠️ Pantalla negra detectada (brillo=1.6) — ¿Proyector minimizado?
+[15:06:54] WARNING  ⚠️ Pantalla negra detectada (brillo=3.9) — ¿Proyector minimizado?
+[15:06:55] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:06:55] DEBUG    🔍 Debug image guardada (ciclo #2520)
+[15:07:00] INFO     📊 HP=24% (ROJO) | MP=8% | Estado=EN ESPERA
+[15:07:03] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:07:04] WARNING  ⚠️ Pantalla negra detectada (brillo=0.9) — ¿Proyector minimizado?
+[15:07:07] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=EN ESPERA
+[15:07:07] DEBUG    🔍 Debug image guardada (ciclo #2560)
+[15:07:12] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=EN ESPERA
+[15:07:17] INFO     📊 HP=0% (ROJO) | MP=31% | Estado=EN ESPERA
+[15:07:17] DEBUG    🔍 Debug image guardada (ciclo #2600)
+[15:07:22] INFO     📊 HP=1% (ROJO) | MP=31% | Estado=EN ESPERA
+[15:07:23] INFO     📊 Cerrando aplicación...
+[15:07:23] INFO     📊 Loop principal finalizado
+[15:07:26] INFO     ✅ Bot detenido
+[15:19:46] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[15:19:46] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[15:19:46] INFO     📊 Ventanas Tibia encontradas: 3
+[15:19:46] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[15:19:46] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[15:19:46] INFO     ✅ Fuente OBS seleccionada: Audio del escritorio
+[15:19:46] INFO     📊 Loop principal iniciado
+[15:19:46] INFO     ✅ Bot iniciado
+[15:19:47] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:48] INFO     ✅ GUI iniciada correctamente
+[15:19:49] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:50] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:50] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:51] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:51] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:52] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:52] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:53] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:53] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:54] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:54] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:55] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:55] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:56] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:56] INFO     📊 Auto-healer ACTIVADO
+[15:19:56] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:57] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:57] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:58] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:58] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:59] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:19:59] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:00] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:00] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:01] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:01] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:02] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:02] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:03] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:03] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:04] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:04] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:05] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:05] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:06] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:06] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:07] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:07] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:08] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:08] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:09] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:09] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:10] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:10] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:11] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:11] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:12] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:12] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:13] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:13] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:14] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:14] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:15] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:15] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:16] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:16] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:17] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:17] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:18] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:18] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:19] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:19] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:20] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:20] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:21] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:21] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:22] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:22] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:23] INFO     📊 Auto-healer DESACTIVADO
+[15:20:23] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:24] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:24] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:25] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:25] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:26] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:26] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:27] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:27] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:28] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:28] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:29] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:29] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:30] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:30] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:31] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:31] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:32] WARNING  ⚠️ Captura fallida: Request GetSourceScreenshot returned code 702. With message: Failed to render screenshot.
+[15:20:32] INFO     📊 Cerrando aplicación...
+[15:20:32] INFO     📊 Loop principal finalizado
+[15:20:35] INFO     ✅ Bot detenido
+[15:25:22] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[15:25:22] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[15:25:22] INFO     📊 Ventanas Tibia encontradas: 4
+[15:25:22] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[15:25:22] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[15:25:22] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[15:25:22] INFO     📊 Loop principal iniciado
+[15:25:22] INFO     ✅ Bot iniciado
+[15:25:24] INFO     ✅ GUI iniciada correctamente
+[15:25:41] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:25:46] INFO     📊 Auto-healer ACTIVADO
+[15:25:58] INFO     📊 HP=95% (VERDE) | MP=98% | Estado=ACTIVO
+[15:25:58] DEBUG    🔍 Debug image guardada (ciclo #40)
+[15:26:15] INFO     📊 HP=78% (VERDE) | MP=98% | Estado=ACTIVO
+[15:26:31] INFO     📊 HP=86% (VERDE) | MP=98% | Estado=ACTIVO
+[15:26:31] DEBUG    🔍 Debug image guardada (ciclo #80)
+[15:26:46] INFO     📊 HP=95% (VERDE) | MP=98% | Estado=ACTIVO
+[15:27:04] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:27:04] DEBUG    🔍 Debug image guardada (ciclo #120)
+[15:27:17] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:27:31] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:27:31] DEBUG    🔍 Debug image guardada (ciclo #160)
+[15:27:47] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:28:04] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:28:04] DEBUG    🔍 Debug image guardada (ciclo #200)
+[15:28:20] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=ACTIVO
+[15:28:36] INFO     📊 HP=96% (VERDE) | MP=98% | Estado=ACTIVO
+[15:28:36] DEBUG    🔍 Debug image guardada (ciclo #240)
+[15:28:43] INFO     💊 HP=66% < 70% → F1 (Exura)
+[15:28:45] INFO     💊 HP=68% < 70% → F1 (Exura)
+[15:28:47] INFO     💊 HP=63% < 70% → F1 (Exura)
+[15:28:48] INFO     💊 HP=69% < 70% → F1 (Exura)
+[15:28:50] INFO     💊 HP=66% < 70% → F1 (Exura)
+[15:28:52] INFO     💊 HP=67% < 70% → F1 (Exura)
+[15:28:53] INFO     💊 HP=63% < 70% → F1 (Exura)
+[15:28:54] INFO     📊 HP=66% (VERDE) | MP=35% | Estado=ACTIVO
+[15:28:55] INFO     💊 HP=65% < 70% → F1 (Exura)
+[15:28:57] INFO     💊 HP=69% < 70% → F1 (Exura)
+[15:28:59] INFO     💊 HP=67% < 70% → F1 (Exura)
+[15:29:01] INFO     💊 HP=60% < 70% → F1 (Exura)
+[15:29:03] INFO     💊 HP=53% < 70% → F1 (Exura)
+[15:29:04] INFO     💊 HP=55% < 70% → F1 (Exura)
+[15:29:06] INFO     💊 HP=55% < 70% → F1 (Exura)
+[15:29:07] INFO     📊 Auto-healer DESACTIVADO
+[15:29:10] INFO     📊 HP=57% (AMARILLO) | MP=9% | Estado=EN ESPERA
+[15:29:10] DEBUG    🔍 Debug image guardada (ciclo #280)
+[15:29:26] INFO     📊 HP=66% (VERDE) | MP=13% | Estado=EN ESPERA
+[15:29:41] INFO     📊 HP=74% (VERDE) | MP=20% | Estado=EN ESPERA
+[15:29:41] DEBUG    🔍 Debug image guardada (ciclo #320)
+[15:29:58] INFO     📊 HP=83% (VERDE) | MP=26% | Estado=EN ESPERA
+[15:30:13] INFO     📊 HP=91% (VERDE) | MP=31% | Estado=EN ESPERA
+[15:30:13] DEBUG    🔍 Debug image guardada (ciclo #360)
+[15:30:28] INFO     📊 HP=98% (VERDE) | MP=37% | Estado=EN ESPERA
+[15:30:43] INFO     📊 HP=98% (VERDE) | MP=42% | Estado=EN ESPERA
+[15:30:43] DEBUG    🔍 Debug image guardada (ciclo #400)
+[15:30:59] INFO     📊 HP=98% (VERDE) | MP=48% | Estado=EN ESPERA
+[15:31:18] INFO     📊 HP=98% (VERDE) | MP=55% | Estado=EN ESPERA
+[15:31:18] DEBUG    🔍 Debug image guardada (ciclo #440)
+[15:31:33] INFO     📊 HP=98% (VERDE) | MP=61% | Estado=EN ESPERA
+[15:31:49] INFO     📊 HP=98% (VERDE) | MP=65% | Estado=EN ESPERA
+[15:31:49] DEBUG    🔍 Debug image guardada (ciclo #480)
+[15:32:07] INFO     📊 HP=98% (VERDE) | MP=72% | Estado=EN ESPERA
+[15:32:26] INFO     📊 HP=98% (VERDE) | MP=78% | Estado=EN ESPERA
+[15:32:26] DEBUG    🔍 Debug image guardada (ciclo #520)
+[15:32:42] INFO     📊 HP=98% (VERDE) | MP=85% | Estado=EN ESPERA
+[15:32:59] INFO     📊 HP=98% (VERDE) | MP=92% | Estado=EN ESPERA
+[15:32:59] DEBUG    🔍 Debug image guardada (ciclo #560)
+[15:33:16] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:33:36] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:33:36] DEBUG    🔍 Debug image guardada (ciclo #600)
+[15:33:59] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:34:18] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:34:18] DEBUG    🔍 Debug image guardada (ciclo #640)
+[15:34:36] INFO     📊 HP=98% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:34:56] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:34:56] DEBUG    🔍 Debug image guardada (ciclo #680)
+[15:35:12] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:35:35] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:35:35] DEBUG    🔍 Debug image guardada (ciclo #720)
+[15:35:54] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:36:13] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:36:13] DEBUG    🔍 Debug image guardada (ciclo #760)
+[15:36:31] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[15:36:53] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:36:53] DEBUG    🔍 Debug image guardada (ciclo #800)
+[15:37:12] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:37:34] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:37:34] DEBUG    🔍 Debug image guardada (ciclo #840)
+[15:37:51] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:38:11] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:38:11] DEBUG    🔍 Debug image guardada (ciclo #880)
+[15:38:29] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:38:34] INFO     📊 Cerrando aplicación...
+[15:38:37] INFO     ✅ Bot detenido

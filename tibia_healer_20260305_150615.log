@@ -1,0 +1,554 @@
+[14:55:47] INFO     ✅ Tibia seleccionado: Tibia Auto Healer
+[14:55:47] INFO     ✅ Proyector seleccionado: Proyector - Fuente: Captura de juego
+[14:55:47] INFO     ✅ Tibia encontrado: Tibia Auto Healer
+[14:55:47] INFO     ✅ Proyector encontrado: Proyector - Fuente: Captura de juego (1382x744)
+[14:55:47] INFO     📊 Ventanas: 2 Tibia, 1 Proyectores
+[14:55:47] INFO     ✅ Bot iniciado
+[14:55:48] INFO     ✅ GUI iniciada correctamente
+[14:55:53] INFO     📊 HP=N/A (N/A) | MP=0% | Estado=EN ESPERA
+[14:55:58] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:55:59] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:00] INFO     📊 HP=N/A (N/A) | MP=N/A | Estado=EN ESPERA
+[14:56:05] INFO     📊 HP=N/A (N/A) | MP=N/A | Estado=EN ESPERA
+[14:56:10] INFO     📊 HP=1% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:14] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:15] WARNING  ⚠️ Pantalla negra detectada (brillo=4.1) — ¿Proyector minimizado?
+[14:56:17] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[14:56:22] INFO     📊 HP=31% (AMARILLO) | MP=35% | Estado=EN ESPERA
+[14:56:27] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=EN ESPERA
+[14:56:31] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:32] WARNING  ⚠️ Pantalla negra detectada (brillo=1.9) — ¿Proyector minimizado?
+[14:56:34] INFO     📊 HP=1% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:39] INFO     📊 HP=23% (ROJO) | MP=8% | Estado=EN ESPERA
+[14:56:44] INFO     📊 HP=13% (ROJO) | MP=1% | Estado=EN ESPERA
+[14:56:44] INFO     ✅ Log guardado en: C:/Users/felip/Documents/tibia_healer_20260305_145641.log
+[14:56:49] INFO     📊 HP=39% (AMARILLO) | MP=27% | Estado=EN ESPERA
+[14:56:50] INFO     📊 Auto-healer ACTIVADO
+[14:56:50] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:56:51] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:56:54] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:56:55] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:56] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:57] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:56:58] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:56:59] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:01] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:01] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:57:02] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:57:03] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:04] INFO     📊 HP=23% (ROJO) | MP=8% | Estado=ACTIVO
+[14:57:04] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:06] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:07] INFO     💊 HP=23% < 30% → F6 (Exura Vita)
+[14:57:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:09] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:09] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:11] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:12] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:13] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:14] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:15] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:19] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:24] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:57:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:26] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:57:29] INFO     📊 HP=100% (VERDE) | MP=46% | Estado=ACTIVO
+[14:57:34] INFO     📊 HP=100% (VERDE) | MP=46% | Estado=ACTIVO
+[14:57:39] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:40] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:41] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:42] INFO     💊 HP=39% < 50% → F2 (Exura Gran)
+[14:57:43] INFO     💊 HP=52% < 70% → F1 (Exura)
+[14:57:44] INFO     📊 HP=49% (AMARILLO) | MP=8% | Estado=ACTIVO
+[14:57:45] INFO     💊 HP=49% < 50% → F2 (Exura Gran)
+[14:57:46] INFO     💊 HP=49% < 50% → F2 (Exura Gran)
+[14:57:49] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:54] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:57:59] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:58:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:02] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:03] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:04] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:05] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:06] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:07] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:09] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:10] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:11] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:12] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:13] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:14] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:15] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:20] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:58:25] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:58:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:28] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:29] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:30] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:31] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:32] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:33] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:34] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:35] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:36] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:37] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:38] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:58:41] INFO     📊 HP=2% (ROJO) | MP=100% | Estado=ACTIVO
+[14:58:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:46] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:58:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:49] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:58:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:58:52] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:58:57] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[14:59:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:02] INFO     📊 HP=3% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:02] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:03] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:04] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[14:59:06] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:07] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:08] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:11] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:12] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:12] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:17] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[14:59:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[14:59:20] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:21] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:22] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:22] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:23] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:25] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:26] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:27] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:27] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:28] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:29] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:30] WARNING  ⚠️ Pantalla negra detectada (brillo=0.9) — ¿Proyector minimizado?
+[14:59:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:33] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[14:59:35] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[14:59:36] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:37] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[14:59:38] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:39] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:40] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:42] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:44] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:47] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:48] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:49] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:52] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:53] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:54] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:55] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:57] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:57] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[14:59:58] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[14:59:59] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:00] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:02] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:02] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:03] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:04] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:05] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:07] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:08] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:09] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:12] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:12] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:14] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:17] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:17] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:18] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:19] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:21] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:22] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:22] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:23] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:24] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:26] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:27] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:27] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:28] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:29] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:31] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:32] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:32] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:33] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:34] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:36] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:00:38] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:38] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:00:40] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:41] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:43] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:45] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:48] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:49] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:51] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:53] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:54] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:55] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:00:56] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:57] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:00:58] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:00:59] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:00] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:01] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:02] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:03] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:04] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:05] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:06] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:07] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:08] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:09] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:10] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:11] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:13] INFO     📊 HP=3% (ROJO) | MP=100% | Estado=ACTIVO
+[15:01:14] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:01:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:16] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:18] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:18] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:01:19] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:01:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:23] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:29] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:30] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:34] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:35] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:39] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:39] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:40] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:42] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:43] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:44] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:44] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:45] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:47] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:48] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:49] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:50] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:52] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:55] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:57] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:01:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:01:59] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:04] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:09] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:14] INFO     📊 HP=98% (VERDE) | MP=99% | Estado=ACTIVO
+[15:02:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:17] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:19] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:21] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:24] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:26] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:29] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:31] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:34] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:36] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:39] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:39] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:41] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:42] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:43] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:44] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:44] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:46] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:47] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:48] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:49] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:51] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:52] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:02:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:02:55] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:02:56] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:03:01] WARNING  ⚠️ Pantalla negra detectada (brillo=0.0) — ¿Proyector minimizado?
+[15:03:02] WARNING  ⚠️ Pantalla negra detectada (brillo=0.6) — ¿Proyector minimizado?
+[15:03:03] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:03] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[15:03:04] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:08] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:08] INFO     📊 HP=1% (ROJO) | MP=1% | Estado=ACTIVO
+[15:03:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:03:13] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:13] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:14] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:15] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:16] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:18] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:18] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:20] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:22] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:23] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:23] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:24] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:25] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:27] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:28] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:28] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:29] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:30] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:32] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:33] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:33] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:03:34] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:35] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:37] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:38] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:38] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:39] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:41] INFO     💊 HP=3% < 30% → F6 (Exura Vita)
+[15:03:42] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:43] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:44] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:44] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:46] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:47] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:48] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:49] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:50] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:51] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:52] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:53] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:54] INFO     📊 HP=2% (ROJO) | MP=2% | Estado=ACTIVO
+[15:03:55] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:56] INFO     💊 HP=2% < 30% → F6 (Exura Vita)
+[15:03:57] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:03:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:04:00] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:04:01] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:02] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:03] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:04] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:07] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:08] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:09] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:12] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:13] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:14] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:15] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:16] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:17] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:18] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:19] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:20] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:21] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:22] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:23] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:24] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:25] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:26] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:28] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:29] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:30] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:32] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:34] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:36] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:39] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:40] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:42] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:44] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:44] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:45] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:46] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:47] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:49] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:49] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:50] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:51] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:52] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:54] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:54] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:04:55] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:56] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:57] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:59] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:04:59] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:00] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:01] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:02] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:04] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:04] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:05] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:06] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:07] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:09] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:11] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:12] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:14] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:14] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:15] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:16] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:17] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:19] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:19] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:20] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:21] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:22] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:24] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:24] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:25] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:26] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:27] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:29] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:29] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:30] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:31] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:32] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:34] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:34] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:35] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:36] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:37] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:39] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:39] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:40] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:41] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:42] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:44] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:44] INFO     📊 HP=1% (ROJO) | MP=2% | Estado=ACTIVO
+[15:05:45] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:46] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:47] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:49] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:05:49] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:05:50] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:51] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:53] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:54] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:54] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:05:55] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:56] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:58] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:59] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:05:59] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:00] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:01] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:03] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:04] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:04] INFO     📊 HP=5% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:05] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:06] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:08] INFO     💊 HP=5% < 30% → F6 (Exura Vita)
+[15:06:09] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:06:09] INFO     📊 HP=1% (ROJO) | MP=31% | Estado=ACTIVO
+[15:06:10] INFO     💊 HP=1% < 30% → F6 (Exura Vita)
+[15:06:12] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:13] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:14] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:14] INFO     📊 HP=24% (ROJO) | MP=8% | Estado=ACTIVO
+[15:06:15] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:17] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:18] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:19] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:19] INFO     📊 HP=24% (ROJO) | MP=1% | Estado=ACTIVO
+[15:06:20] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:22] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:23] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:24] INFO     💊 HP=24% < 30% → F6 (Exura Vita)
+[15:06:24] INFO     📊 HP=24% (ROJO) | MP=1% | Estado=ACTIVO
+

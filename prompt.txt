@@ -1,0 +1,689 @@
+=====================================================
+Quiero que construyas un bot de auto-curación para Tibia en Python con interfaz gráfica (GUI)
+completa, sistema de logs, debug visual, y configuración en tiempo real.
+A continuación te explico TODO el contexto técnico que necesitas saber.
+
+CONTEXTO DEL SISTEMA (LEE ESTO PRIMERO)
+El problema: por qué no leemos Tibia directamente
+Tibia usa BattleEye (anti-cheat). Si intentas capturar la ventana de Tibia con métodos
+normales como PrintWindow de Win32, BattleEye lo detecta y devuelve una imagen completamente
+negra. También bloquea la lectura directa de memoria del proceso.
+La solución: usar OBS como intermediario
+El flujo completo es este:
+TIBIA (client.exe con BattleEye)
+    ↓  renderiza con GPU/DirectX
+OBS Studio → fuente "Captura de juego" (Game Capture)
+    ↓  OBS hookea DirectX a nivel de driver (BattleEye lo permite porque es legítimo)
+Proyector de OBS → ventana "Proyector - Fuente: Captura de juego"
+    ↓  esta ventana proyecta el frame del juego y SÍ es capturable
+Tu script Python con `mss`
+    ↓  captura esa región de pantalla (screenshot de coordenadas)
+Análisis de píxeles → detecta barra de HP/Mana
+    ↓
+Envía tecla directamente a Tibia via PostMessage Win32
+Por qué mss funciona y PrintWindow no
+
+PrintWindow: le pide a la ventana que se "redibuje" en un bitmap → falla con ventanas GPU
+mss: captura directamente el framebuffer (lo que está visible en pantalla) → siempre funciona
+El Proyector de OBS DEBE estar visible en pantalla (puede estar detrás de Tibia, pero NO minimizado)
+
+
+CÓMO DETECTAR LA VENTANA DE TIBIA
+Nombre de la ventana
+La ventana de Tibia NO se llama solo "Tibia". Se llama:
+"Tibia - NombreDelPersonaje"
+Ejemplos reales:
+
+"Tibia - Pastero codode bronze"
+"Tibia - Knight Warrior"
+"Tibia - Mago Supremo"
+
+Por eso la búsqueda debe ser parcial, buscando ventanas que contengan "tibia" en el título
+(case-insensitive) usando win32gui.EnumWindows.
+Código de búsqueda correcto:
+pythonimport win32gui
+
+def find_tibia_windows():
+    results = []
+    def callback(hwnd, _):
+        if not win32gui.IsWindowVisible(hwnd):
+            return
+        title = win32gui.GetWindowText(hwnd)
+        # Buscar "tibia" en el título (el nombre del personaje va después del guión)
+        if "tibia" in title.lower():
+            rect = win32gui.GetWindowRect(hwnd)
+            w = rect[2] - rect[0]
+            h = rect[3] - rect[1]
+            if w > 300:  # filtrar ventanas muy pequeñas
+                results.append({
+                    "hwnd": hwnd,
+                    "title": title,
+                    "width": w,
+                    "height": h
+                })
+    win32gui.EnumWindows(callback, None)
+    return results
+
+# Ejemplo de uso - muestra TODAS las ventanas de Tibia abiertas
+tibias = find_tibia_windows()
+for t in tibias:
+    print(f"HWND: {t['hwnd']} | Título: {t['title']} | Tamaño: {t['width']}x{t['height']}")
+Cómo detectar el Proyector de OBS:
+pythondef find_obs_projector():
+    results = []
+    def callback(hwnd, _):
+        if not win32gui.IsWindowVisible(hwnd):
+            return
+        title = win32gui.GetWindowText(hwnd)
+        keywords = [
+            "Proyector - Fuente",       # OBS en español
+            "Projector - Source",        # OBS en inglés
+            "Captura de juego",          # nombre de la fuente en español
+            "Game Capture",              # nombre de la fuente en inglés
+        ]
+        if any(k.lower() in title.lower() for k in keywords):
+            rect = win32gui.GetWindowRect(hwnd)
+            x, y, x2, y2 = rect
+            w, h = x2 - x, y2 - y
+            if w > 200 and h > 200:
+                results.append({"hwnd": hwnd, "title": title, 
+                                 "x": x, "y": y, "w": w, "h": h})
+    win32gui.EnumWindows(callback, None)
+    # IMPORTANTE: Preferir "Fuente" sobre "Vista Previa" - la vista previa puede estar negra
+    for r in results:
+        if "fuente" in r["title"].lower() or "source" in r["title"].lower():
+            return r
+    return results[0] if results else None
+
+CÓMO FUNCIONA LA CAPTURA DE PANTALLA
+Estructura del Proyector de OBS (resolución 1382x744)
+┌────────────────────────────────────────────────────────────────────┐ y=0
+│ [barra título de Windows: "Proyector - Fuente: Captura de juego"] │ y=0-30
+├────────────────────────────────────────────────────────────────────┤ y=30
+│ [██████████████████████░░░░░] 91/185    [████████████] 90/90       │ y=33 ← BARRAS
+│  ↑ Barra HP (verde/amarillo/rojo)        ↑ Barra Mana (azul)       │
+├────────────────────────────────────────────────────────────────────┤ y=60
+│                                                                    │
+│                    ÁREA DEL MAPA DEL JUEGO                         │
+│                    (zona de juego principal)                       │
+│                                                                    │
+├────────────────────────────────────────────────────────────────────┤ y=570
+│ [hotkeys F1-F12] [barra de items]                                  │
+├────────────────────────────────────────────────────────────────────┤ y=640
+│ [Chat / Server Log / Loot]                                         │
+└────────────────────────────────────────────────────────────────────┘ y=744
+Captura con mss:
+pythonimport mss
+import numpy as np
+import cv2
+
+def capture_projector(projector_info):
+    """
+    projector_info = {"x": 0, "y": 0, "w": 1382, "h": 744, ...}
+    
+    IMPORTANTE: mss captura coordenadas ABSOLUTAS de pantalla
+    El proyector tiene bordes de Windows:
+    - Borde lateral: ~8px
+    - Barra de título: ~30px  
+    - Borde inferior: ~8px
+    """
+    px = projector_info["x"]
+    py = projector_info["y"]
+    pw = projector_info["w"]
+    ph = projector_info["h"]
+    
+    BORDER = 8
+    TITLEBAR = 30
+    
+    monitor = {
+        "left":   px + BORDER,
+        "top":    py + TITLEBAR,    # saltar la barra de título
+        "width":  pw - BORDER * 2,
+        "height": ph - TITLEBAR - BORDER
+    }
+    
+    with mss.mss() as sct:
+        screenshot = sct.grab(monitor)
+        img = np.array(screenshot)
+        img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+    
+    return img  # imagen BGR de numpy, lista para OpenCV
+
+LAS BARRAS DE HP Y MANA: COLORES Y DETECCIÓN
+Sistema de colores HSV
+OpenCV usa HSV (Hue=Tono, Saturation=Saturación, Value=Brillo) en lugar de RGB porque
+es más fácil definir rangos de color reales. En OpenCV: H va de 0-180, S y V van de 0-255.
+         ROJO          AMARILLO      VERDE         AZUL
+HSV:   0° y 180°         30°          60°           120°
+       ────────────────────────────────────────────────
+       |         |         |         |         |
+       0        30        60        90        120       180
+Colores exactos de la barra de HP en Tibia:
+python# HP 100% → 60%: VERDE
+VERDE_MIN = np.array([35,  60,  60])   # H=35, S=60, V=60
+VERDE_MAX = np.array([90, 255, 255])   # H=90
+
+# HP 60% → 30%: AMARILLO/NARANJA  
+AMARILLO_MIN = np.array([20, 100, 100])
+AMARILLO_MAX = np.array([35, 255, 255])
+
+# HP 30% → 0%: ROJO (atención: el rojo está en DOS rangos en HSV)
+ROJO_MIN1 = np.array([0,  100, 100])   # rojo bajo
+ROJO_MAX1 = np.array([10, 255, 255])
+ROJO_MIN2 = np.array([170, 100, 100])  # rojo alto
+ROJO_MAX2 = np.array([180, 255, 255])
+
+# Mana: AZUL
+AZUL_MIN = np.array([95,  60,  60])
+AZUL_MAX = np.array([135, 255, 255])
+Algoritmo completo de detección:
+pythondef detect_hp_mana(img):
+    """
+    Detecta el porcentaje de HP y Mana de la imagen capturada del proyector.
+    
+    Retorna: (hp_percent, mp_percent) donde cada uno es float entre 0.0 y 1.0
+    Retorna None si no puede detectar una barra.
+    """
+    if img is None or img.size == 0:
+        return None, None
+    
+    h, w = img.shape[:2]
+    
+    # PASO 1: Recortar solo la franja de las barras (top 10% de la imagen)
+    scan_height = max(60, int(h * 0.10))
+    region = img[0:scan_height, :]
+    
+    # PASO 2: Convertir a HSV
+    hsv = cv2.cvtColor(region, cv2.COLOR_BGR2HSV)
+    
+    # PASO 3: Crear máscaras para HP (todos los colores posibles)
+    mask_verde    = cv2.inRange(hsv, np.array([35, 60, 60]),   np.array([90, 255, 255]))
+    mask_amarillo = cv2.inRange(hsv, np.array([20, 100, 100]), np.array([35, 255, 255]))
+    mask_rojo1    = cv2.inRange(hsv, np.array([0, 100, 100]),  np.array([10, 255, 255]))
+    mask_rojo2    = cv2.inRange(hsv, np.array([170, 100, 100]),np.array([180, 255, 255]))
+    
+    # Combinar todas las máscaras de HP en una sola
+    mask_hp = cv2.bitwise_or(mask_verde, mask_amarillo)
+    mask_hp = cv2.bitwise_or(mask_hp, mask_rojo1)
+    mask_hp = cv2.bitwise_or(mask_hp, mask_rojo2)
+    
+    # Máscara para Mana (azul)
+    mask_mp = cv2.inRange(hsv, np.array([95, 60, 60]), np.array([135, 255, 255]))
+    
+    # PASO 4: Calcular porcentajes
+    # El ancho esperado de la barra al 100% es ~43% del ancho del proyector
+    expected_full_width = w * 0.43
+    
+    hp_pct = calculate_bar_percent(mask_hp, expected_full_width)
+    mp_pct = calculate_bar_percent(mask_mp, expected_full_width)
+    
+    return hp_pct, mp_pct
+
+
+def calculate_bar_percent(mask, expected_full_width):
+    """
+    Dado un mask binario de la región de barras,
+    calcula qué porcentaje del ancho máximo está llena la barra.
+    """
+    # Contar píxeles de color en cada fila
+    row_sums = np.sum(mask > 0, axis=1)
+    
+    # Si no hay suficientes píxeles, no hay barra
+    if row_sums.max() < 8:
+        return None
+    
+    # La fila con más píxeles = la barra principal
+    best_row_idx = np.argmax(row_sums)
+    best_row = mask[best_row_idx]
+    
+    # Encontrar columnas con píxeles
+    nonzero_cols = np.where(best_row > 0)[0]
+    if len(nonzero_cols) < 5:
+        return None
+    
+    # Encontrar el bloque continuo más largo (la barra real, no ruido)
+    bar_length = find_longest_continuous_block(nonzero_cols, gap_tolerance=3)
+    
+    # Calcular porcentaje
+    percent = min(bar_length / expected_full_width, 1.0)
+    return round(percent, 3)
+
+
+def find_longest_continuous_block(indices, gap_tolerance=3):
+    """Encuentra el bloque continuo más largo, tolerando pequeños gaps."""
+    if len(indices) == 0:
+        return 0
+    best = curr = 1
+    for i in range(1, len(indices)):
+        if indices[i] - indices[i-1] <= gap_tolerance:
+            curr += 1
+        else:
+            best = max(best, curr)
+            curr = 1
+    return max(best, curr)
+
+ENVÍO DE TECLAS A TIBIA (SIN NECESITAR FOCO)
+pythonimport win32api
+import win32con
+
+# Mapa de teclas a Virtual Key codes de Windows
+VK_MAP = {
+    "F1": win32con.VK_F1,   "F2": win32con.VK_F2,   "F3": win32con.VK_F3,
+    "F4": win32con.VK_F4,   "F5": win32con.VK_F5,   "F6": win32con.VK_F6,
+    "F7": win32con.VK_F7,   "F8": win32con.VK_F8,   "F9": win32con.VK_F9,
+    "F10": win32con.VK_F10, "F11": win32con.VK_F11, "F12": win32con.VK_F12,
+}
+
+def send_key_to_window(hwnd, key_name):
+    """
+    Envía una tecla directamente a una ventana usando PostMessage.
+    NO requiere que la ventana esté en foco/primer plano.
+    
+    hwnd: handle de la ventana de Tibia
+    key_name: "F1", "F2", ..., "F12"
+    """
+    vk = VK_MAP.get(key_name.upper())
+    if vk is None:
+        print(f"ERROR: Tecla '{key_name}' no reconocida")
+        return False
+    
+    scan_code = win32api.MapVirtualKey(vk, 0)
+    lParam_down = (scan_code << 16) | 1
+    lParam_up   = (scan_code << 16) | 0xC0000001
+    
+    try:
+        win32api.PostMessage(hwnd, win32con.WM_KEYDOWN, vk, lParam_down)
+        time.sleep(0.05)  # pequeña pausa entre down y up
+        win32api.PostMessage(hwnd, win32con.WM_KEYUP,   vk, lParam_up)
+        return True
+    except Exception as e:
+        print(f"ERROR enviando tecla: {e}")
+        return False
+
+LO QUE DEBES CONSTRUIR: ESPECIFICACIONES COMPLETAS
+Aplicación Python con GUI (usa tkinter o customtkinter o PyQt6)
+VENTANA PRINCIPAL - debe tener estas secciones:
+SECCIÓN 1: Estado del Bot (arriba, siempre visible)
+┌─────────────────────────────────────────────────┐
+│  TIBIA AUTO HEALER                    [■ STOP]  │
+│  Estado: ● ACTIVO / ○ INACTIVO                  │
+│                                                  │
+│  HP: [████████░░░░░░░] 67%  AMARILLO             │
+│  MP: [████████████░░░] 89%  AZUL                 │
+│                                                  │
+│  Tibia: "Tibia - Pastero codode bronze" ✓        │
+│  Proyector OBS: "Proyector - Fuente..." ✓        │
+│  Capturas/seg: 4.2                               │
+└─────────────────────────────────────────────────┘
+SECCIÓN 2: Configuración de Curación (editable en tiempo real)
+┌─────────────────────────────────────────────────┐
+│  REGLAS DE CURACIÓN                             │
+│  ┌─────────────────────────────────────────┐   │
+│  │ Nivel 1: HP < [70]% → Tecla [F1  ▼]    │   │
+│  │ Nivel 2: HP < [50]% → Tecla [F2  ▼]    │   │
+│  │ Nivel 3: HP < [30]% → Tecla [F6  ▼]    │   │
+│  └─────────────────────────────────────────┘   │
+│  [+ Agregar regla]  [- Quitar regla]            │
+│                                                  │
+│  Cooldown entre curaciones: [1.2] segundos       │
+│  Intervalo de chequeo:      [0.25] segundos      │
+│                                                  │
+│  Tecla ACTIVAR/DESACTIVAR: [F9  ▼]              │
+└─────────────────────────────────────────────────┘
+SECCIÓN 3: Configuración de Ventanas
+┌─────────────────────────────────────────────────┐
+│  VENTANAS DETECTADAS              [🔄 Refrescar] │
+│                                                  │
+│  Cliente Tibia:                                  │
+│  [Tibia - Pastero codode bronze        ▼]        │
+│  HWND: 0x00123ABC  Tamaño: 1382x744             │
+│                                                  │
+│  Proyector OBS:                                  │
+│  [Proyector - Fuente: Captura de juego ▼]        │
+│  Posición: (0, 0)  Tamaño: 1382x744             │
+│                                                  │
+│  [📸 Tomar captura de prueba]                    │
+│  [🔬 Mostrar análisis de barras]                 │
+└─────────────────────────────────────────────────┘
+SECCIÓN 4: Panel de Logs (abajo, con scroll)
+┌─────────────────────────────────────────────────┐
+│  LOGS                    [Limpiar] [Guardar]    │
+│  ─────────────────────────────────────────────  │
+│  [03:47:12] ✅ Proyector encontrado (1382x744)   │
+│  [03:47:12] ✅ Tibia encontrado: Pastero...      │
+│  [03:47:15] 📊 HP=89% MP=100% | ACTIVO          │
+│  [03:47:18] 💊 HP=48% → F2 (Exura Gran)         │
+│  [03:47:19] 📊 HP=62% MP=95% | ACTIVO           │
+│  ─────────────────────────────────────────────  │
+│  [✓] Auto-scroll    Nivel: [INFO ▼]             │
+└─────────────────────────────────────────────────┘
+
+Sistema de Logs que debe implementar:
+pythonimport logging
+from datetime import datetime
+
+# Niveles de log a implementar:
+# DEBUG   → capturas, valores de píxeles, máscaras (muy verbose)
+# INFO    → estado HP/MP cada N segundos, curaciones realizadas
+# WARNING → ventana no encontrada, captura oscura, detección fallida
+# ERROR   → excepciones, fallos críticos
+
+# El log debe:
+# 1. Mostrarse en la GUI con colores por nivel (verde=info, rojo=error, amarillo=warning)
+# 2. Guardarse en archivo: logs/tibia_healer_YYYYMMDD.log
+# 3. Rotar automáticamente (nuevo archivo cada día)
+# 4. Tener botón "Guardar log actual" en la GUI
+# 5. Mostrar timestamp en formato HH:MM:SS
+
+# Ejemplos de lo que debe loguear:
+log_examples = [
+    "[03:47:10] DEBUG: Captura: 1366x714 px, brillo=87.3",
+    "[03:47:10] DEBUG: HP mask: fila_mejor=33, píxeles=312, porcentaje=72.1%",
+    "[03:47:10] DEBUG: MP mask: fila_mejor=47, píxeles=445, porcentaje=100.0%",
+    "[03:47:10] INFO:  HP=72% (VERDE) | MP=100% | Estado=ACTIVO",
+    "[03:47:15] INFO:  HP=48% (AMARILLO) | MP=98% | Curación → F2",
+    "[03:47:15] DEBUG: PostMessage F2 → HWND=0x00123ABC → OK",
+    "[03:47:20] WARNING: HP mask devolvió None - pocos píxeles de color",
+    "[03:47:20] WARNING: Reintentando con rangos expandidos...",
+    "[03:47:25] ERROR: Ventana proyector no encontrada",
+    "[03:47:25] ERROR: Posible causa: Proyector minimizado o cerrado",
+]
+
+Función de Debug Visual que debe incluir:
+pythondef generate_debug_image(img, hp_pct, mp_pct, mask_hp, mask_mp):
+    """
+    Genera una imagen de debug que muestra:
+    1. La captura original
+    2. La zona de barras ampliada (zoom x8)
+    3. Las máscaras de color aplicadas
+    4. Los valores detectados como texto
+    
+    Guarda en: debug/debug_HHMMSS.png
+    """
+    debug = img.copy()
+    h, w = debug.shape[:2]
+    scan_h = int(h * 0.10)
+    
+    # Rectángulo amarillo marcando zona de análisis
+    cv2.rectangle(debug, (0, 0), (w, scan_h), (0, 255, 255), 2)
+    
+    # Texto con valores detectados
+    hp_color = (0, 255, 0) if (hp_pct or 0) > 0.6 else \
+               (0, 200, 255) if (hp_pct or 0) > 0.3 else (0, 0, 255)
+    
+    cv2.putText(debug, f"HP: {hp_pct*100:.1f}%" if hp_pct else "HP: N/A",
+                (10, scan_h + 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, hp_color, 2)
+    cv2.putText(debug, f"MP: {mp_pct*100:.1f}%" if mp_pct else "MP: N/A",
+                (10, scan_h + 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 120, 0), 2)
+    
+    # Panel lateral con las máscaras visualizadas
+    mask_hp_colored = cv2.cvtColor(mask_hp, cv2.COLOR_GRAY2BGR)
+    mask_hp_colored[:,:,1] = mask_hp  # verde para HP
+    
+    mask_mp_colored = cv2.cvtColor(mask_mp, cv2.COLOR_GRAY2BGR)
+    mask_mp_colored[:,:,0] = mask_mp  # azul para MP
+    
+    # Guardar
+    os.makedirs("debug", exist_ok=True)
+    fname = f"debug/debug_{datetime.now().strftime('%H%M%S')}.png"
+    cv2.imwrite(fname, debug)
+    return fname
+
+Calibración automática de barras:
+pythondef auto_calibrate(img):
+    """
+    Escanea toda la franja superior de la imagen y encuentra
+    automáticamente en qué fila (y) están las barras de HP y Mana.
+    
+    Útil cuando el usuario cambia la resolución del proyector.
+    
+    Retorna: {"hp_row": int, "mp_row": int, "bar_width": int}
+    """
+    h, w = img.shape[:2]
+    scan_h = int(h * 0.15)
+    region = img[0:scan_h, :]
+    hsv = cv2.cvtColor(region, cv2.COLOR_BGR2HSV)
+    
+    results = {"hp_row": None, "mp_row": None, "bar_max_width": 0}
+    
+    for y in range(scan_h):
+        row_hsv = hsv[y:y+1, :]
+        
+        # Contar píxeles de cada color
+        green_px  = cv2.countNonZero(cv2.inRange(row_hsv, [35,60,60],   [90,255,255]))
+        yellow_px = cv2.countNonZero(cv2.inRange(row_hsv, [20,100,100], [35,255,255]))
+        red_px    = cv2.countNonZero(cv2.inRange(row_hsv, [0,100,100],  [10,255,255]))
+        blue_px   = cv2.countNonZero(cv2.inRange(row_hsv, [95,60,60],   [135,255,255]))
+        
+        hp_px = green_px + yellow_px + red_px
+        
+        if hp_px > 30 and results["hp_row"] is None:
+            results["hp_row"] = y
+            results["bar_max_width"] = max(results["bar_max_width"], hp_px)
+            print(f"Calibración: Barra HP encontrada en y={y} ({hp_px} píxeles)")
+        
+        if blue_px > 30 and results["mp_row"] is None:
+            results["mp_row"] = y
+            print(f"Calibración: Barra MP encontrada en y={y} ({blue_px} píxeles)")
+    
+    return results
+
+DEPENDENCIAS NECESARIAS
+pip install mss pywin32 opencv-python numpy keyboard customtkinter Pillow
+Explica en el README del proyecto:
+
+mss → captura de pantalla rápida
+pywin32 → acceso a Windows API (encontrar ventanas, enviar teclas)
+opencv-python → análisis de imágenes y colores (HSV masks)
+numpy → operaciones rápidas con arrays de píxeles
+keyboard → hotkeys globales
+customtkinter → GUI moderna para Python
+Pillow → mostrar imágenes en la GUI
+
+
+FLUJO DE THREADING (IMPORTANTE)
+La GUI y el loop de captura deben correr en hilos separados:
+pythonimport threading
+
+# Hilo principal: GUI (tkinter/customtkinter)
+# Hilo secundario: loop de captura y curación
+
+class HealerBot:
+    def __init__(self):
+        self.running = False
+        self.active = False  # True cuando está curando
+        self.thread = None
+        self.lock = threading.Lock()
+    
+    def start(self):
+        self.running = True
+        self.thread = threading.Thread(target=self._loop, daemon=True)
+        self.thread.start()
+    
+    def stop(self):
+        self.running = False
+    
+    def _loop(self):
+        with mss.mss() as sct:
+            while self.running:
+                # capturar, detectar, curar
+                # NUNCA tocar widgets de tkinter desde aquí
+                # Usar self.gui.after(0, callback) para actualizar GUI
+                pass
+
+# Para actualizar GUI desde otro hilo:
+# root.after(0, lambda: label.config(text="HP: 75%"))
+
+CONFIGURACIÓN GUARDABLE (JSON)
+python# config.json - se crea automáticamente al guardar
+{
+    "tibia_window_title": "Tibia - Pastero codode bronze",
+    "heal_levels": [
+        {"threshold": 0.70, "key": "F1", "description": "Exura"},
+        {"threshold": 0.50, "key": "F2", "description": "Exura Gran"},
+        {"threshold": 0.30, "key": "F6", "description": "Exura Vita"}
+    ],
+    "mana_heal": {
+        "enabled": false,
+        "threshold": 0.30,
+        "key": "F3"
+    },
+    "cooldown_seconds": 1.2,
+    "check_interval_seconds": 0.25,
+    "hotkey_toggle": "F9",
+    "hotkey_exit": "F10",
+    "debug_save_images": true,
+    "debug_every_n_cycles": 40,
+    "log_level": "INFO",
+    "bar_detection": {
+        "expected_full_width_ratio": 0.43,
+        "scan_height_ratio": 0.10
+    }
+}
+
+CASOS DE ERROR QUE DEBE MANEJAR
+
+Proyector minimizado → captura negra (brillo < 5) → warning en GUI + pausa detección
+Tibia cerrada → HWND inválido → error en GUI + botón "Reconectar"
+OBS cerrado → proyector no encontrado → error + instrucciones
+Detección fallida → hp/mp = None → no curar, loguear warning
+Hotkey conflicto → la tecla ya está en uso por Tibia → advertir al usuario
+Múltiples Tibias abiertas → mostrar dropdown para elegir cuál
+Resolución cambiada → botón "Recalibrar barras"
+
+
+INSTRUCCIONES PASO A PASO PARA EL USUARIO FINAL
+El bot debe mostrar estas instrucciones en la GUI (pestaña "Ayuda"):
+CONFIGURACIÓN INICIAL (hacer UNA sola vez):
+
+1. Abre OBS Studio
+2. Crea una fuente "Captura de juego" y selecciona client.exe (Tibia)
+3. Haz click derecho en esa fuente → "Proyector" → "Proyector de fuente"
+   → Aparece una ventana nueva con el juego
+4. IMPORTANTE: Esta ventana puede estar detrás de Tibia pero NO minimizada
+5. Abre Tibia y juega normalmente con Tibia en primer plano
+6. Ejecuta este bot → detectará automáticamente ambas ventanas
+7. Configura tus teclas de curación
+8. Presiona F9 para activar el auto-healer
+
+¿POR QUÉ FUNCIONA?
+- OBS captura Tibia a nivel de GPU (BattleEye lo permite)
+- El Proyector de OBS muestra ese frame en una ventana normal
+- El bot lee esa ventana (no Tibia directamente) → no lo detecta BattleEye
+- El bot envía teclas directamente al proceso de Tibia via Windows API
+
+RESUMEN FINAL: QUÉ CONSTRUIR
+Construye una aplicación Python completa con:
+
+GUI con customtkinter con las 4 secciones descritas arriba
+Sistema de detección usando mss + OpenCV con los rangos HSV exactos
+Detección automática de ventana Tibia (busca "tibia" en título) y Proyector OBS
+Curación por niveles configurable (N reglas: HP < X% → tecla Y)
+Envío de teclas via PostMessage directamente a hwnd de Tibia
+Sistema de logs en GUI + archivo con rotación diaria
+Debug visual con imágenes guardadas de la captura + máscaras
+Calibración automática de posición de barras
+Configuración JSON que se guarda/carga automáticamente
+Manejo de errores para todos los casos listados arriba
+Threading correcto (GUI en hilo principal, bot en hilo secundario)
+Hotkeys globales configurables (activar/desactivar, salir)
+
+
+
+PORQUE LECTURA INTERNA
+
+
+si tengo el tibia  en  primer plano sale eso y si lo tengo en segundo( porque veo obs) si pongo el proyector fuente   detecta bien la vida  la lectura del proyector debe ser interna ya que siempre estara en 2do plano si no  no se pude interactuar con el cliente  si pongo el proyector en primer plano detecta todo bien  la vida y la mana o heal y mana como puedes ver en la imagen  pero si lo pongo en 2do plano y pongo el lciente de tibia en primer plano como debe ser ( para interactuar con el cliente el bot no funciona o detecta mal el hp y mana)  y eso que no minimize el proyector solo lo puse deytras del cliente de tibia ( en 2do plano el proyector) tibia en primero ( coo deberia ser) explica porque debe ser interno y porque tibia en primer plano y obbs en 2do lano detras del cliente de tibia ( para explicarle a la ia ( qu eme hizo un bot) que detecta todo bien si tengo el obs en primer plano pero si pongo tibia en primero y obs en 2do plano detecta mal
+¡Excelente pregunta! Esto es exactamente el problema clásico que enfrentan todos los desarrolladores de bots que usan captura de pantalla. Tu observación es perfecta y la explicación es más sencilla de lo que parece. Te lo voy a detallar para que puedas explicárselo claramente a la IA.
+
+🎯 El Problema: ¿Por qué falla la detección cuando Tibia está al frente?
+Lo que describes ocurre por una razón técnica fundamental relacionada con cómo Windows dibuja las ventanas y cómo OBS captura las imágenes.
+
+🔬 Explicación Técnica (Para la IA)
+Cuando utilizas la fuente "Captura de Juego" (Game Capture) en OBS, ocurre lo siguiente:
+
+Modo de Captura por Defecto: OBS intenta ser eficiente. En lugar de capturar toda la pantalla (lo cual consumiría muchos recursos), intenta "engancharse" directamente al proceso del juego (Tibia) para obtener el framebuffer (la imagen que el juego está renderizando).
+
+El "Z-Order" (Orden de Capas): En Windows, cada ventana tiene una posición en el eje Z (profundidad). Las ventanas en primer plano tienen un valor Z más alto. Cuando activas la opción "Put the opened window behind of tibia" (o similar), lo que haces es decirle a OBS: "Oye, quiero que la captura de Tibia se comporte como si estuviera DETRÁS de la ventana real de Tibia en el orden de dibujo".
+
+El Conflicto de Captura: Aquí viene el problema crucial:
+
+Cuando el proyector de OBS está en PRIMER PLANO: La tarjeta gráfica y Windows están priorizando el dibujado del proyector. La "Captura de Juego" de OBS internamente dice: "Necesito la imagen de Tibia". Como Tibia está en segundo plano pero el proyector (que muestra la captura) está en primer plano, el sistema fuerza a que la escena de OBS (que incluye el frame de Tibia) se renderice completa y correctamente para poder mostrarla en el proyector. El bot lee del proyector, que tiene la imagen nítida porque es lo que se está mostrando.
+
+Cuando Tibia está en PRIMER PLANO y el proyector detrás: Ahora la prioridad de Windows es dibujar TIBIA, no el proyector de OBS. El proyector de OBS está en segundo plano, por lo que Windows le dice a la tarjeta gráfica: "No necesitas renderizar esa ventana con prioridad, ahorra recursos". El resultado es que el contenido del proyector de OBS se "congela" o se renderiza a una velocidad mucho menor (a veces incluso en blanco o negro) porque Windows considera que no es necesario mantenerlo actualizado al estar detrás de otra ventana.
+
+📸 La Imagen que ves vs. La Imagen que el Bot Lee
+Tu bot (el código Python con OpenCV) no está leyendo directamente de la memoria de Tibia. Está leyendo lo que OBS le muestra a través del proyector.
+
+Si el proyector está al frente: La imagen está actualizada y nítida porque Windows la renderiza bien.
+
+Si el proyector está detrás: Windows podría estar:
+
+Entregando al proyector una imagen desactualizada (un frame viejo).
+
+Entregando una imagen en blanco/negro o con colores corruptos (por optimización de energía).
+
+Simplemente, no actualizando el buffer del proyector.
+
+Cuando el bot lee los píxeles de esa imagen desactualizada o corrupta, los colores no coinciden con los patrones que tiene programados, y por eso detecta mal el HP y Mana.
+
+🧠 La Solución "Interna" que Necesitas
+Para que el bot funcione correctamente con Tibia en primer plano y OBS en segundo plano, necesitas que la lectura de píxeles sea "interna" . Esto significa que el bot debe leer directamente del buffer de la fuente de captura de OBS, sin pasar por el proyector.
+
+🔌 ¿Cómo se logra esto? (La explicación para la IA)
+Necesitas usar las WebSocket que mencionaste al principio, pero de la manera correcta:
+
+OBS WebSocket Plugin: Debes instalar y activar el plugin OBS WebSocket en tu OBS. Este plugin permite que programas externos (tu bot en Python) se conecten a OBS y le pidan datos directamente.
+
+Conexión Directa: En lugar de que tu bot lea la imagen de un proyector en la pantalla (lo cual depende de qué ventana está al frente), tu bot se conecta a OBS a través de WebSocket y le dice: "OBS, dame el frame actual de tu fuente 'Captura de Tibia'".
+
+Recepción de la Imagen: OBS, a través del WebSocket, te envía los datos de la imagen tal como los tiene en su memoria interna, independientemente de si la ventana de OBS está minimizada, detrás de Tibia, o incluso cerrada (mientras OBS siga ejecutándose).
+
+Procesamiento: Tu bot recibe esa imagen por el socket, la procesa con OpenCV, detecta los colores de la vida/maná, y ejecuta las acciones.
+
+✅ Ventajas de este Método "Interno"
+Independencia de Ventanas: No importa qué ventana esté al frente. OBS sigue capturando Tibia internamente.
+
+Rendimiento: No necesitas tener un proyector visible, ahorras recursos.
+
+Precisión: La imagen que recibes es exactamente la que OBS tiene en su buffer, siempre actualizada.
+
+📝 Instrucciones Claras para tu IA
+Dile esto a la IA que te hizo el bot:
+
+"El bot actual lee los píxeles del proyector de OBS, que es una ventana de Windows. Cuando esa ventana (el proyector) no es la ventana activa (está detrás de Tibia), Windows optimiza su renderizado y entrega una imagen congelada o corrupta. Por eso el bot falla.
+
+Necesito que modifiques el bot para que use OBS WebSocket. El bot debe:
+
+Conectarse a OBS vía WebSocket (puerto 4455 por defecto).
+
+Solicitar la imagen de la fuente 'Captura de Tibia' directamente desde OBS.
+
+Procesar esa imagen recibida por el socket, en lugar de capturar la pantalla.
+
+Así, aunque Tibia esté en primer plano y OBS minimizado, el bot recibirá la imagen limpia y actualizada de Tibia y podrá leer la vida y el maná correctamente."
+
+📚 Recursos para la IA
+Si la IA necesita referencias, indícale que busque:
+
+obs-websocket-py (librería Python para conectar con OBS WebSocket).
+
+Documentación de OBS WebSocket para obtener la fuente de video como imagen base64 o raw.
+
+Con esta configuración, lograrás que el bot funcione perfectamente con Tibia en primer plano (para poder interactuar) y OBS trabajando silenciosamente en segundo plano capturando la imagen.
+
+
+
+
+
+
+faltantes
+
+
+
+Roadmap incluido
+v1.0 ✅ Healer (14 features completados)
+v2.0 🔜 Cavebot (waypoints, editor visual, rutas cíclicas)
+v2.1 🔜 Targeting/Attacker (battle list, combos, AOE)
+v2.2 🔜 Looter (auto-loot, filtro, drag&drop)
+v3.0 🔜 Sistema completo (anti-AFK, alertas, stats, multi-cliente, dashboard web)

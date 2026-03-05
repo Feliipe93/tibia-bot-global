@@ -1,0 +1,44 @@
+{
+    "tibia_window_title": "Tibia - Pastero codode bronze",
+    "obs_projector_title": "",
+    "obs_websocket": {
+        "host": "localhost",
+        "port": 4455,
+        "password": "",
+        "source_name": "Captura de juego"
+    },
+    "heal_levels": [
+        {
+            "threshold": 0.7,
+            "key": "F1",
+            "description": "Exura"
+        },
+        {
+            "threshold": 0.5,
+            "key": "F2",
+            "description": "Exura Gran"
+        },
+        {
+            "threshold": 0.3,
+            "key": "F6",
+            "description": "Exura Vita"
+        }
+    ],
+    "mana_heal": {
+        "enabled": false,
+        "threshold": 0.3,
+        "key": "F3",
+        "description": "Mana potion"
+    },
+    "cooldown_seconds": 1.2,
+    "check_interval_seconds": 0.25,
+    "hotkey_toggle": "F9",
+    "hotkey_exit": "F10",
+    "debug_save_images": true,
+    "debug_every_n_cycles": 40,
+    "log_level": "INFO",
+    "bar_detection": {
+        "expected_full_width_ratio": 0.43,
+        "scan_height_ratio": 0.1
+    }
+}
