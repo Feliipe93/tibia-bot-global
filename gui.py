@@ -81,12 +81,18 @@ class TibiaHealerGUI(ctk.CTk):
         self.tab_main = self.tabview.add("🏠 Principal")
         self.tab_config = self.tabview.add("⚙️ Configuración")
         self.tab_windows = self.tabview.add("🪟 Ventanas")
+        self.tab_cavebot = self.tabview.add("🗺️ Cavebot")
+        self.tab_targeting = self.tabview.add("⚔️ Targeting")
+        self.tab_looter = self.tabview.add("💰 Looter")
         self.tab_help = self.tabview.add("❓ Ayuda")
 
         # Construir cada sección
         self._build_main_tab()
         self._build_config_tab()
         self._build_windows_tab()
+        self._build_cavebot_tab()
+        self._build_targeting_tab()
+        self._build_looter_tab()
         self._build_help_tab()
 
         # ----------------------------------------------------------
@@ -765,6 +771,298 @@ class TibiaHealerGUI(ctk.CTk):
 
         self.preview_label.configure(image=photo, text="")
         self.preview_label._image = photo  # evitar garbage collection
+
+    # ==================================================================
+    # TAB: Cavebot (v2.0)
+    # ==================================================================
+    def _build_cavebot_tab(self):
+        tab = self.tab_cavebot
+        scroll = ctk.CTkScrollableFrame(tab, label_text="🗺️ CAVEBOT — Navegación por Waypoints")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # --- Habilitar ---
+        enable_frame = ctk.CTkFrame(scroll)
+        enable_frame.pack(fill="x", padx=5, pady=5)
+
+        self.cb_cavebot_enabled = ctk.CTkSwitch(
+            enable_frame, text="Cavebot habilitado",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self._toggle_cavebot,
+        )
+        self.cb_cavebot_enabled.pack(anchor="w", padx=15, pady=10)
+
+        # --- Ruta ---
+        route_frame = ctk.CTkFrame(scroll)
+        route_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(route_frame, text="RUTA", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        route_btns = ctk.CTkFrame(route_frame, fg_color="transparent")
+        route_btns.pack(fill="x", padx=10, pady=5)
+
+        ctk.CTkButton(route_btns, text="📂 Cargar Ruta", width=130, command=self._load_route).pack(side="left", padx=3)
+        ctk.CTkButton(route_btns, text="💾 Guardar Ruta", width=130, command=self._save_route).pack(side="left", padx=3)
+        ctk.CTkButton(route_btns, text="🗑️ Limpiar", width=100, fg_color="#E74C3C", command=self._clear_route).pack(side="left", padx=3)
+
+        self.lbl_route_name = ctk.CTkLabel(route_frame, text="Ruta: (ninguna cargada)", font=ctk.CTkFont(size=12))
+        self.lbl_route_name.pack(anchor="w", padx=15, pady=(0, 8))
+
+        # --- Lista de Waypoints ---
+        wp_frame = ctk.CTkFrame(scroll)
+        wp_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(wp_frame, text="WAYPOINTS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.wp_listbox = ctk.CTkTextbox(wp_frame, height=200, font=ctk.CTkFont(family="Consolas", size=11))
+        self.wp_listbox.pack(fill="x", padx=10, pady=5)
+        self.wp_listbox.insert("1.0", "(Sin waypoints)")
+        self.wp_listbox.configure(state="disabled")
+
+        # --- Configuración ---
+        cfg_frame = ctk.CTkFrame(scroll)
+        cfg_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(cfg_frame, text="CONFIGURACIÓN", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        row1 = ctk.CTkFrame(cfg_frame, fg_color="transparent")
+        row1.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row1, text="Modo caminata:", width=120).pack(side="left")
+        self.cb_walk_mode = ctk.CTkComboBox(row1, values=["click", "arrow"], width=120)
+        self.cb_walk_mode.set(self.config.cavebot.get("walk_mode", "click"))
+        self.cb_walk_mode.pack(side="left", padx=5)
+
+        self.cb_cyclic = ctk.CTkSwitch(cfg_frame, text="Ruta cíclica")
+        self.cb_cyclic.pack(anchor="w", padx=15, pady=5)
+        if self.config.cavebot.get("cyclic", True):
+            self.cb_cyclic.select()
+
+        # --- Estado ---
+        state_frame = ctk.CTkFrame(scroll)
+        state_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(state_frame, text="ESTADO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.lbl_cavebot_state = ctk.CTkLabel(state_frame, text="Estado: idle | WP: 0/0 | Pasos: 0", font=ctk.CTkFont(size=12))
+        self.lbl_cavebot_state.pack(anchor="w", padx=15, pady=(0, 10))
+
+    def _toggle_cavebot(self):
+        enabled = self.cb_cavebot_enabled.get()
+        self.config.cavebot_enabled = bool(enabled)
+        self.config.save()
+        self.log.info(f"Cavebot {'habilitado' if enabled else 'deshabilitado'}")
+
+    def _load_route(self):
+        path = filedialog.askopenfilename(
+            title="Cargar ruta",
+            filetypes=[("JSON", "*.json"), ("Todos", "*.*")],
+            initialdir="routes",
+        )
+        if path:
+            self.log.info(f"Ruta cargada: {path}")
+            self.lbl_route_name.configure(text=f"Ruta: {os.path.basename(path)}")
+
+    def _save_route(self):
+        path = filedialog.asksaveasfilename(
+            title="Guardar ruta",
+            defaultextension=".json",
+            filetypes=[("JSON", "*.json")],
+            initialdir="routes",
+        )
+        if path:
+            self.log.info(f"Ruta guardada: {path}")
+
+    def _clear_route(self):
+        self.wp_listbox.configure(state="normal")
+        self.wp_listbox.delete("1.0", "end")
+        self.wp_listbox.insert("1.0", "(Sin waypoints)")
+        self.wp_listbox.configure(state="disabled")
+        self.lbl_route_name.configure(text="Ruta: (ninguna cargada)")
+
+    # ==================================================================
+    # TAB: Targeting (v2.1)
+    # ==================================================================
+    def _build_targeting_tab(self):
+        tab = self.tab_targeting
+        scroll = ctk.CTkScrollableFrame(tab, label_text="⚔️ TARGETING — Ataque Automático")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # --- Habilitar ---
+        enable_frame = ctk.CTkFrame(scroll)
+        enable_frame.pack(fill="x", padx=5, pady=5)
+
+        self.cb_targeting_enabled = ctk.CTkSwitch(
+            enable_frame, text="Targeting habilitado",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self._toggle_targeting,
+        )
+        self.cb_targeting_enabled.pack(anchor="w", padx=15, pady=10)
+
+        # --- Modo de ataque ---
+        mode_frame = ctk.CTkFrame(scroll)
+        mode_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(mode_frame, text="MODO DE ATAQUE", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        row1 = ctk.CTkFrame(mode_frame, fg_color="transparent")
+        row1.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row1, text="Modo:", width=100).pack(side="left")
+        self.cb_attack_mode = ctk.CTkComboBox(row1, values=["offensive", "balanced", "defensive"], width=150)
+        self.cb_attack_mode.set(self.config.targeting.get("attack_mode", "offensive"))
+        self.cb_attack_mode.pack(side="left", padx=5)
+
+        row2 = ctk.CTkFrame(mode_frame, fg_color="transparent")
+        row2.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row2, text="Prioridad:", width=100).pack(side="left")
+        self.cb_target_priority = ctk.CTkComboBox(row2, values=["closest", "lowest_hp", "highest_hp", "dangerous"], width=150)
+        self.cb_target_priority.set(self.config.targeting.get("target_priority", "closest"))
+        self.cb_target_priority.pack(side="left", padx=5)
+
+        self.cb_auto_attack = ctk.CTkSwitch(mode_frame, text="Auto-ataque")
+        self.cb_auto_attack.pack(anchor="w", padx=15, pady=3)
+        if self.config.targeting.get("auto_attack", True):
+            self.cb_auto_attack.select()
+
+        self.cb_chase = ctk.CTkSwitch(mode_frame, text="Perseguir monstruos")
+        self.cb_chase.pack(anchor="w", padx=15, pady=(3, 8))
+        if self.config.targeting.get("chase_monsters", True):
+            self.cb_chase.select()
+
+        # --- Hechizos ---
+        spell_frame = ctk.CTkFrame(scroll)
+        spell_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(spell_frame, text="ROTACIÓN DE HECHIZOS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.cb_use_aoe = ctk.CTkSwitch(spell_frame, text="Usar hechizos AOE")
+        self.cb_use_aoe.pack(anchor="w", padx=15, pady=3)
+        if self.config.targeting.get("use_aoe", True):
+            self.cb_use_aoe.select()
+
+        row_aoe = ctk.CTkFrame(spell_frame, fg_color="transparent")
+        row_aoe.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row_aoe, text="Mín. monstruos AOE:", width=160).pack(side="left")
+        self.entry_aoe_min = ctk.CTkEntry(row_aoe, width=60)
+        self.entry_aoe_min.insert(0, str(self.config.targeting.get("aoe_min_monsters", 3)))
+        self.entry_aoe_min.pack(side="left", padx=5)
+
+        preset_row = ctk.CTkFrame(spell_frame, fg_color="transparent")
+        preset_row.pack(fill="x", padx=10, pady=5)
+        ctk.CTkLabel(preset_row, text="Preset:", width=60).pack(side="left")
+        ctk.CTkButton(preset_row, text="🗡️ Knight", width=90, command=lambda: self._load_spell_preset("knight")).pack(side="left", padx=2)
+        ctk.CTkButton(preset_row, text="🔮 Sorcerer", width=90, command=lambda: self._load_spell_preset("sorcerer")).pack(side="left", padx=2)
+        ctk.CTkButton(preset_row, text="🏹 Paladin", width=90, command=lambda: self._load_spell_preset("paladin")).pack(side="left", padx=2)
+        ctk.CTkButton(preset_row, text="🌿 Druid", width=90, command=lambda: self._load_spell_preset("druid")).pack(side="left", padx=2)
+
+        self.spell_list_text = ctk.CTkTextbox(spell_frame, height=100, font=ctk.CTkFont(family="Consolas", size=11))
+        self.spell_list_text.pack(fill="x", padx=10, pady=(3, 8))
+        self.spell_list_text.insert("1.0", "(Sin hechizos configurados)")
+        self.spell_list_text.configure(state="disabled")
+
+        # --- Estado ---
+        state_frame = ctk.CTkFrame(scroll)
+        state_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(state_frame, text="ESTADO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.lbl_targeting_state = ctk.CTkLabel(
+            state_frame,
+            text="Estado: idle | Target: — | Kills: 0 | Casts: 0",
+            font=ctk.CTkFont(size=12),
+        )
+        self.lbl_targeting_state.pack(anchor="w", padx=15, pady=(0, 10))
+
+    def _toggle_targeting(self):
+        enabled = self.cb_targeting_enabled.get()
+        self.config.targeting_enabled = bool(enabled)
+        self.config.save()
+        self.log.info(f"Targeting {'habilitado' if enabled else 'deshabilitado'}")
+
+    def _load_spell_preset(self, vocation: str):
+        self.log.info(f"Cargando preset de hechizos: {vocation}")
+        # Actualizar UI con hechizos del preset
+        preset_map = {
+            "knight": "Exori Gran [F1], Exori [F2], Exori Mas [F3]",
+            "sorcerer": "Exori Vis [F1], Exori Gran Vis [F2], Exevo Vis Hur [F3]",
+            "paladin": "Exori San [F1], Exori Gran Con [F2], Exevo Mas San [F3]",
+            "druid": "Exori Tera [F1], Exori Gran Tera [F2], Exevo Tera Hur [F3]",
+        }
+        text = preset_map.get(vocation, "")
+        self.spell_list_text.configure(state="normal")
+        self.spell_list_text.delete("1.0", "end")
+        self.spell_list_text.insert("1.0", text)
+        self.spell_list_text.configure(state="disabled")
+
+    # ==================================================================
+    # TAB: Looter (v2.2)
+    # ==================================================================
+    def _build_looter_tab(self):
+        tab = self.tab_looter
+        scroll = ctk.CTkScrollableFrame(tab, label_text="💰 LOOTER — Looteo Automático")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # --- Habilitar ---
+        enable_frame = ctk.CTkFrame(scroll)
+        enable_frame.pack(fill="x", padx=5, pady=5)
+
+        self.cb_looter_enabled = ctk.CTkSwitch(
+            enable_frame, text="Looter habilitado",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self._toggle_looter,
+        )
+        self.cb_looter_enabled.pack(anchor="w", padx=15, pady=10)
+
+        # --- Método de looteo ---
+        method_frame = ctk.CTkFrame(scroll)
+        method_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(method_frame, text="MÉTODO DE LOOTEO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        row1 = ctk.CTkFrame(method_frame, fg_color="transparent")
+        row1.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row1, text="Método:", width=80).pack(side="left")
+        self.cb_loot_method = ctk.CTkComboBox(row1, values=["shift_click", "open_body", "right_click"], width=150)
+        self.cb_loot_method.set(self.config.looter.get("loot_method", "shift_click"))
+        self.cb_loot_method.pack(side="left", padx=5)
+
+        row2 = ctk.CTkFrame(method_frame, fg_color="transparent")
+        row2.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row2, text="Rango (tiles):", width=100).pack(side="left")
+        self.entry_loot_range = ctk.CTkEntry(row2, width=60)
+        self.entry_loot_range.insert(0, str(self.config.looter.get("max_range", 2)))
+        self.entry_loot_range.pack(side="left", padx=5)
+
+        self.cb_auto_bp = ctk.CTkSwitch(method_frame, text="Abrir siguiente backpack automáticamente")
+        self.cb_auto_bp.pack(anchor="w", padx=15, pady=(3, 8))
+        if self.config.looter.get("auto_open_next_bp", True):
+            self.cb_auto_bp.select()
+
+        # --- Filtro de items ---
+        filter_frame = ctk.CTkFrame(scroll)
+        filter_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(filter_frame, text="FILTRO DE ITEMS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.cb_pick_gold = ctk.CTkSwitch(filter_frame, text="Recoger Gold Coins")
+        self.cb_pick_gold.pack(anchor="w", padx=15, pady=2)
+        if self.config.looter.get("item_filter", {}).get("pick_gold", True):
+            self.cb_pick_gold.select()
+
+        self.cb_pick_equipment = ctk.CTkSwitch(filter_frame, text="Recoger Equipamiento")
+        self.cb_pick_equipment.pack(anchor="w", padx=15, pady=2)
+        if self.config.looter.get("item_filter", {}).get("pick_equipment", True):
+            self.cb_pick_equipment.select()
+
+        self.cb_pick_unknown = ctk.CTkSwitch(filter_frame, text="Recoger items desconocidos")
+        self.cb_pick_unknown.pack(anchor="w", padx=15, pady=(2, 8))
+
+        # --- Estado ---
+        state_frame = ctk.CTkFrame(scroll)
+        state_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(state_frame, text="ESTADO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.lbl_looter_state = ctk.CTkLabel(
+            state_frame,
+            text="Estado: idle | Pendientes: 0 | Looteados: 0 | BP libres: —",
+            font=ctk.CTkFont(size=12),
+        )
+        self.lbl_looter_state.pack(anchor="w", padx=15, pady=(0, 10))
+
+    def _toggle_looter(self):
+        enabled = self.cb_looter_enabled.get()
+        self.config.looter_enabled = bool(enabled)
+        self.config.save()
+        self.log.info(f"Looter {'habilitado' if enabled else 'deshabilitado'}")
 
     # ==================================================================
     # TAB: Ayuda

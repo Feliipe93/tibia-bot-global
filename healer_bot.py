@@ -5,6 +5,8 @@ El hilo principal queda libre para la GUI (tkinter).
 
 Usa OBS WebSocket para capturar frames directamente de la memoria de OBS,
 sin necesidad de que el proyector sea visible en pantalla.
+
+v2.0+: Integra dispatcher para cavebot, targeting y looter.
 """
 
 import threading
@@ -23,6 +25,7 @@ from screen_capture import ScreenCapture
 from bar_detector import BarDetector
 from key_sender import KeySender
 from debug_visual import DebugVisual
+from dispatcher import BotDispatcher
 
 
 class HealerBot:
@@ -51,6 +54,9 @@ class HealerBot:
         self.debug_visual = DebugVisual(
             enabled=config.get("debug_save_images", True)
         )
+
+        # Dispatcher v2 (cavebot, targeting, looter)
+        self.dispatcher = BotDispatcher(self.config, self.log, self.capture)
 
         # Estado
         self.running: bool = False      # True = hilo activo
@@ -351,6 +357,13 @@ class HealerBot:
                 # --- 5. Curación automática ---
                 if self.active and self.tibia_connected:
                     self._process_healing(hp, mp)
+
+                # --- 5b. Dispatcher v2 (cavebot / targeting / looter) ---
+                if self.active and self.tibia_connected:
+                    try:
+                        self.dispatcher.dispatch_frame(img)
+                    except Exception as e:
+                        self.log.debug(f"Dispatcher error: {e}")
 
                 # --- 6. FPS ---
                 fps_counter += 1

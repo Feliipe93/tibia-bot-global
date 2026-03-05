@@ -41,6 +41,66 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "expected_full_width_ratio": 0.43,
         "scan_height_ratio": 0.10,
     },
+    # ===== v2.0 Cavebot =====
+    "cavebot": {
+        "enabled": False,
+        "cyclic": True,
+        "walk_mode": "click",           # "click" o "arrow"
+        "step_delay": 0.25,
+        "stuck_threshold": 5,
+        "current_route": "",            # Ruta .json cargada
+        "minimap_region": {"x": 0, "y": 0, "w": 106, "h": 109},
+        "game_region": {"x": 0, "y": 0, "w": 480, "h": 352},
+    },
+    # ===== v2.1 Targeting =====
+    "targeting": {
+        "enabled": False,
+        "auto_attack": True,
+        "chase_monsters": True,
+        "attack_mode": "offensive",     # offensive, balanced, defensive
+        "target_priority": "closest",   # closest, lowest_hp, highest_hp, dangerous
+        "attack_delay": 0.5,
+        "max_chase_distance": 5,
+        "use_aoe": True,
+        "aoe_min_monsters": 3,
+        "dangerous_monsters": [],
+        "ignore_monsters": [],
+        "battle_list_region": {"x": 0, "y": 0, "w": 160, "h": 220},
+        "spell_rotation": {
+            "enabled": True,
+            "global_cooldown": 1.0,
+            "spells": [],
+        },
+    },
+    # ===== v2.2 Looter =====
+    "looter": {
+        "enabled": False,
+        "loot_method": "shift_click",   # shift_click, open_body, right_click
+        "loot_delay": 0.3,
+        "max_range": 2,
+        "max_corpse_age": 15.0,
+        "max_loot_attempts": 3,
+        "auto_open_next_bp": True,
+        "inventory_region": {"x": 0, "y": 0, "w": 160, "h": 400},
+        "item_filter": {
+            "pick_gold": True,
+            "pick_platinum": True,
+            "pick_crystal": True,
+            "pick_unknown_items": False,
+            "pick_equipment": True,
+            "pick_stackables": True,
+            "pickup_list": [],
+            "ignore_list": [],
+        },
+    },
+    # ===== Hotkeys globales =====
+    "hotkeys": {
+        "rope": "",
+        "shovel": "",
+        "food": "",
+        "mana_potion": "",
+        "health_potion": "",
+    },
 }
 
 
@@ -195,6 +255,66 @@ class Config:
         ws = self.obs_websocket
         ws["source_name"] = val
         self.data["obs_websocket"] = ws
+
+    # -- Cavebot (v2.0) -----------------------------------------------
+    @property
+    def cavebot(self) -> Dict:
+        return self.data.get("cavebot", DEFAULT_CONFIG["cavebot"])
+
+    @cavebot.setter
+    def cavebot(self, value: Dict) -> None:
+        self.data["cavebot"] = value
+
+    @property
+    def cavebot_enabled(self) -> bool:
+        return self.cavebot.get("enabled", False)
+
+    @cavebot_enabled.setter
+    def cavebot_enabled(self, val: bool) -> None:
+        self.data.setdefault("cavebot", {})["enabled"] = val
+
+    # -- Targeting (v2.1) ----------------------------------------------
+    @property
+    def targeting(self) -> Dict:
+        return self.data.get("targeting", DEFAULT_CONFIG["targeting"])
+
+    @targeting.setter
+    def targeting(self, value: Dict) -> None:
+        self.data["targeting"] = value
+
+    @property
+    def targeting_enabled(self) -> bool:
+        return self.targeting.get("enabled", False)
+
+    @targeting_enabled.setter
+    def targeting_enabled(self, val: bool) -> None:
+        self.data.setdefault("targeting", {})["enabled"] = val
+
+    # -- Looter (v2.2) -------------------------------------------------
+    @property
+    def looter(self) -> Dict:
+        return self.data.get("looter", DEFAULT_CONFIG["looter"])
+
+    @looter.setter
+    def looter(self, value: Dict) -> None:
+        self.data["looter"] = value
+
+    @property
+    def looter_enabled(self) -> bool:
+        return self.looter.get("enabled", False)
+
+    @looter_enabled.setter
+    def looter_enabled(self, val: bool) -> None:
+        self.data.setdefault("looter", {})["enabled"] = val
+
+    # -- Hotkeys -------------------------------------------------------
+    @property
+    def hotkeys(self) -> Dict:
+        return self.data.get("hotkeys", DEFAULT_CONFIG.get("hotkeys", {}))
+
+    @hotkeys.setter
+    def hotkeys(self, value: Dict) -> None:
+        self.data["hotkeys"] = value
 
     # ------------------------------------------------------------------
     # Helpers

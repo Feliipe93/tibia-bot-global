@@ -687,3 +687,935 @@ v2.0 🔜 Cavebot (waypoints, editor visual, rutas cíclicas)
 v2.1 🔜 Targeting/Attacker (battle list, combos, AOE)
 v2.2 🔜 Looter (auto-loot, filtro, drag&drop)
 v3.0 🔜 Sistema completo (anti-AFK, alertas, stats, multi-cliente, dashboard web)
+
+
+
+
+CAVEBOT, LOOTER , ATTACKER
+
+
+
+
+
+v2.0 🔜 Cavebot (waypoints, editor visual, rutas cíclicas)
+v2.1 🔜 Targeting/Attacker (battle list, combos, AOE)
+v2.2 🔜 Looter (auto-loot, filtro, drag&drop) 🚀 PROMPT PARA IA: INTEGRACIÓN DE CAVEBOT, TARGET Y LOOTER AL HEALER BASE
+📋 CONTEXTO INICIAL (IMPORTANTE - LEE PRIMERO)
+Ya tenemos un Healer funcional con el siguiente flujo probado:
+
+text
+OBS WebSocket → Captura frame → Detección HSV → PostMessage a Tibia
+El bot actual:
+
+Lee pixeles vía OBS WebSocket (no proyector visible)
+
+Detecta HP/Mana con rangos HSV
+
+Envía teclas F1-F12 con PostMessage (sin foco)
+
+Tiene GUI completa con customtkinter
+
+Sistema de logs y debug visual
+
+OBJETIVO: Integrar Cavebot (v2.0), Targeting (v2.1) y Looter (v2.2) manteniendo la misma arquitectura, el mismo método de captura OBS WebSocket, y el mismo sistema de envío de acciones.
+
+📁 ESTRUCTURA ACTUAL DEL PROYECTO (BASE)
+text
+bot_ia_claude/
+├── main.py              # Entry point
+├── gui.py               # GUI completa con pestañas
+├── healer_bot.py        # Loop principal del healer
+├── screen_capture.py    # Captura OBS WebSocket
+├── bar_detector.py      # Detección HSV de barras
+├── key_sender.py        # PostMessage a Tibia
+├── window_finder.py     # Búsqueda de ventanas
+├── config.py            # Config JSON
+├── logger.py            # Sistema de logs
+├── debug_visual.py      # Debug imágenes
+├── config.json
+├── requirements.txt
+├── iniciar.bat
+├── logs/
+├── debug/
+└── .venv/
+🧠 FLUJO GENERAL DEL SISTEMA COMPLETO (HEALER + CAVEBOT + TARGET + LOOTER)
+text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           OBS WebSocket (siempre capturando)                │
+│                              (frame cada 0.25s)                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         screen_capture.py (get_frame())                      │
+│                              (devuelve numpy array BGR)                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          dispatcher.py (NUEVO)                               │
+│                                                                              │
+│    Dependiendo del estado activo, envía el frame al módulo correspondiente: │
+│                                                                              │
+│    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                 │
+│    │ HEALER       │    │ CAVEBOT      │    │ TARGET       │                 │
+│    │ (siempre)    │    │ (si activo)  │    │ (si activo)  │                 │
+│    └──────┬───────┘    └──────┬───────┘    └──────┬───────┘                 │
+│           │                   │                   │                          │
+│           ▼                   ▼                   ▼                          │
+│    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                 │
+│    │bar_detector  │    │pathfinder    │    │target_detect │                 │
+│    │(HSV)         │    │(template)    │    │(OCR/battle)  │                 │
+│    └──────┬───────┘    └──────┬───────┘    └──────┬───────┘                 │
+│           │                   │                   │                          │
+│           ▼                   ▼                   ▼                          │
+│    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                 │
+│    │healer_bot    │    │cavebot_engine│    │target_engine │                 │
+│    │(decisiones)  │    │(movimiento)  │    │(ataque)      │                 │
+│    └──────┬───────┘    └──────┬───────┘    └──────┬───────┘                 │
+│           │                   │                   │                          │
+│           └───────────────────┼───────────────────┘                          │
+│                               │                                              │
+│                               ▼                                              │
+│                    ┌─────────────────────┐                                   │
+│                    │   action_dispatcher.py (NUEVO)                          │
+│                    │   Unifica acciones:                                     │
+│                    │   - Enviar tecla (healer)                               │
+│                    │   - Click mouse (cavebot/target/looter)                 │
+│                    │   - Click+arrastrar (looter)                            │
+│                    │   - Mover mouse a coordenadas                           │
+│                    └─────────────────────┘                                   │
+│                                      │                                       │
+│                                      ▼                                       │
+│                    ┌─────────────────────────────────────┐                   │
+│                    │      mouse_click_sender.py (NUEVO)   │                   │
+│                    │      key_sender.py (existente)       │                   │
+│                    │      drag_drop_sender.py (NUEVO)     │                   │
+│                    └─────────────────────────────────────┘                   │
+│                                      │                                       │
+│                                      ▼                                       │
+│                    ┌─────────────────────────────────────┐                   │
+│                    │         Tibia Client (HWND)          │                   │
+│                    │  Recibe clicks y teclas sin foco     │                   │
+│                    └─────────────────────────────────────┘                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+📁 NUEVA ESTRUCTURA DE ARCHIVOS (A AGREGAR)
+text
+bot_ia_claude/
+├── dispatcher.py                 # 🆕 Distribuye frames según modo activo
+├── action_dispatcher.py          # 🆕 Unifica todas las acciones (teclas/clicks)
+├── mouse_click_sender.py         # 🆕 Envío de clicks con PostMessage
+├── drag_drop_sender.py           # 🆕 Arrastrar items (click+move+release)
+│
+├── cavebot/                      # 🆕 Carpeta nueva para cavebot
+│   ├── __init__.py
+│   ├── pathfinder.py             # Detección de posición en minimapa
+│   ├── waypoint_editor.py        # Editor visual de waypoints
+│   ├── cavebot_engine.py         # Lógica de navegación
+│   ├── obstacle_detector.py      # Detección de parcels/fire/paralizar
+│   └── walk_simulator.py         # Simulación de caminata con pathfinding
+│
+├── targeting/                    # 🆕 Carpeta nueva para targeting
+│   ├── __init__.py
+│   ├── battle_list_reader.py     # OCR de battle list
+│   ├── target_detector.py        # Detección de mobs en pantalla
+│   ├── targeting_engine.py       # Lógica de selección de target
+│   └── spell_rotator.py          # Rotación de spells de ataque
+│
+├── looter/                       # 🆕 Carpeta nueva para looter
+│   ├── __init__.py
+│   ├── corpse_detector.py        # Detección de cuerpos en suelo
+│   ├── item_filter.py            # Filtro por nombre de item
+│   ├── looter_engine.py          # Lógica de recolección
+│   └── backpack_manager.py       # Gestión de backpacks (abrir/cambiar)
+│
+├── utils/                        # 🆕 Utilidades comunes
+│   ├── __init__.py
+│   ├── geometry.py               # Cálculos de distancias, puntos
+│   ├── template_matcher.py       # Template matching para minimapa
+│   └── ocr_helper.py             # OCR optimizado para Tibia
+│
+└── assets/                       # 🆕 Imágenes para template matching
+    ├── minimap_icons/            # Iconos de waypoints
+    ├── mob_templates/            # Templates de mobs para OCR
+    └── ui_templates/             # Botones de UI (loot, etc)
+🎯 PARTE 1: CAVEBOT (v2.0) - DETALLES COMPLETOS
+📍 1.1 Detección de Posición Actual (Minimapa)
+IMPORTANTE: El cavebot DEBE usar el mismo frame de OBS WebSocket. No se necesita ventana adicional.
+
+text
+Frame OBS (imagen completa)
+│
+├─▶ Recortar región del minimapa (esquina superior derecha)
+│   Coordenadas típicas: x = ancho-180, y = 20, w=160, h=160
+│
+├─▶ Template Matching con opencv:
+│   - Tener templates precargados del "punto amarillo" que indica posición
+│   - cv2.matchTemplate() con método TM_CCOEFF_NORMED
+│   - Encontrar las coordenadas (x,y) del punto dentro del minimapa
+│
+└─▶ Convertir coordenadas de píxeles a coordenadas de mapa (grid)
+    - Cada tile en Tibia = ~4 píxeles en minimapa (depende de zoom)
+    - Guardar calibración en config.json
+python
+# utils/template_matcher.py (nuevo)
+def find_player_position(minimap_img, player_dot_template):
+    """
+    Encuentra la posición del jugador en el minimapa.
+    
+    minimap_img: numpy array BGR del área del minimapa
+    player_dot_template: template del punto amarillo (cargado de assets/)
+    
+    Retorna: (x_grid, y_grid) o None si no encuentra
+    """
+    # Convertir a grises
+    gray_minimap = cv2.cvtColor(minimap_img, cv2.COLOR_BGR2GRAY)
+    gray_template = cv2.cvtColor(player_dot_template, cv2.COLOR_BGR2GRAY)
+    
+    # Template matching
+    result = cv2.matchTemplate(gray_minimap, gray_template, cv2.TM_CCOEFF_NORMED)
+    _, max_val, _, max_loc = cv2.minMaxLoc(result)
+    
+    if max_val > 0.8:  # threshold de confianza
+        # max_loc es (x_pixel, y_pixel) dentro del minimapa
+        # Convertir a coordenadas de grid (cada tile = 4 píxeles)
+        grid_x = max_loc[0] // 4
+        grid_y = max_loc[1] // 4
+        return (grid_x, grid_y)
+    return None
+🗺️ 1.2 Editor Visual de Waypoints
+El editor debe permitir al usuario definir puntos en el minimapa:
+
+text
+GUI: Nueva pestaña "🗺️ Cavebot"
+
+┌─────────────────────────────────────────────────┐
+│  MODO EDICIÓN: [●] Grabación  [○] Prueba        │
+│                                                  │
+│  Minimapa actual (captura en vivo):              │
+│  ┌─────────────────────────────────────────┐    │
+│  │                                         │    │
+│  │     [Punto 1] → [Punto 2] → [Punto 3]  │    │
+│  │           ↓                    ↓        │    │
+│  │        [Punto 4] ← [Punto 5]           │    │
+│  └─────────────────────────────────────────┘    │
+│                                                  │
+│  Waypoints (clic en minimapa para agregar):     │
+│  ┌─────────────────────────────────────────┐    │
+│  │ #  Tipo     Coord     Acción            │    │
+│  │ 1  Walk    (23,45)   -                  │    │
+│  │ 2  Rope    (23,46)   Usar cuerda        │    │
+│  │ 3  Shovel  (24,46)   Usar pala          │    │
+│  │ 4  Stand   (25,46)   Esperar 2s         │    │
+│  └─────────────────────────────────────────┘    │
+│                                                  │
+│  [💾 Guardar ruta]  [📂 Cargar ruta]  [▶ Iniciar]│
+└─────────────────────────────────────────────────┘
+Tipos de waypoint:
+
+Walk → caminar normalmente
+
+Rope → usar cuerda (enviar tecla configurada + esperar)
+
+Shovel → usar pala
+
+Ladder → subir/bajar escalera
+
+Stairs → escaleras
+
+Stand → esperar X segundos
+
+Refill → ir a refillar (pausar cavebot, activar healer solo)
+
+🚶 1.3 Algoritmo de Navegación
+python
+# cavebot/cavebot_engine.py
+class CavebotEngine:
+    def navigate_to_next_waypoint(self, current_pos, target_pos):
+        """
+        Calcula el siguiente paso para acercarse al waypoint.
+        
+        current_pos: (x_grid, y_grid) posición actual
+        target_pos: (x_grid, y_grid) destino
+        
+        Retorna: dirección a mover (norte, sur, este, oeste) o None si ya llegó
+        """
+        dx = target_pos[0] - current_pos[0]
+        dy = target_pos[1] - current_pos[1]
+        
+        # Priorizar movimiento en X o Y según distancia
+        if abs(dx) > abs(dy):
+            return "este" if dx > 0 else "oeste"
+        else:
+            return "sur" if dy > 0 else "norte"
+    
+    def simulate_walk(self, direction):
+        """
+        Simula caminar en una dirección.
+        
+        En lugar de enviar tecla, el cavebot DEBE usar CLICK MOUSE
+        en la dirección correspondiente del mapa.
+        """
+        # Calcular punto en pantalla para hacer click
+        # El mapa clickeable está en el centro de la pantalla
+        
+        # Ejemplo: click en coordenada según dirección
+        click_x = self.screen_width // 2
+        click_y = self.screen_height // 2
+        
+        if direction == "norte":
+            click_y = self.screen_height // 3
+        elif direction == "sur":
+            click_y = self.screen_height * 2 // 3
+        elif direction == "este":
+            click_x = self.screen_width * 2 // 3
+        elif direction == "oeste":
+            click_x = self.screen_width // 3
+        
+        # Usar action_dispatcher para hacer click
+        action_dispatcher.mouse_click(click_x, click_y, button="left")
+🚧 1.4 Detección de Obstáculos (Evitar Quedar Trapped)
+python
+# cavebot/obstacle_detector.py
+class ObstacleDetector:
+    def check_tile_blocked(self, frame, tile_x, tile_y):
+        """
+        Verifica si un tile específico está bloqueado por:
+        - Parcels (cajas)
+        - Fire fields (campos de fuego)
+        - Energy fields
+        - Poison fields
+        - Magic walls
+        - Creatures (opcional)
+        """
+        # Mapear coordenadas de grid a píxeles en pantalla
+        screen_x, screen_y = self.grid_to_screen(tile_x, tile_y)
+        
+        # Analizar región alrededor de ese tile
+        tile_region = frame[screen_y-10:screen_y+10, screen_x-10:screen_x+10]
+        
+        # Detectar colores característicos:
+        # - Parcel: marrón (BGR ~ [40, 80, 120])
+        # - Fire: naranja/rojo (HSV ver rangos)
+        # - Energy: amarillo brillante
+        # - Poison: verde oscuro
+        
+        return self.has_obstacle_color(tile_region)
+    
+    def find_alternative_path(self, current_pos, target_pos, blocked_tiles):
+        """
+        Encuentra una ruta alternativa evitando tiles bloqueados.
+        Usa algoritmo A* simple.
+        """
+        # Implementar A* pathfinding
+        # Considerar solo movimientos ortogonales (4 direcciones)
+        # Marcar tiles bloqueados como no transitables
+        pass
+🔄 1.5 Rutas Cíclicas
+python
+# cavebot/cavebot_engine.py
+def should_restart_route(self, current_pos, waypoints):
+    """
+    Determina si debe reiniciar la ruta (cuando llega al último waypoint).
+    """
+    last_wp = waypoints[-1]
+    distance_to_last = self.calculate_distance(current_pos, last_wp["coords"])
+    
+    if distance_to_last < 2:  # Llegó al último
+        if self.config["cavebot"]["cyclic"]:
+            return 0  # Volver al primer waypoint
+        else:
+            return -1  # Detener cavebot
+⚔️ PARTE 2: TARGETING (v2.1) - DETALLES COMPLETOS
+📋 2.1 Battle List Reader (OCR)
+python
+# targeting/battle_list_reader.py
+class BattleListReader:
+    def read_battle_list(self, frame):
+        """
+        Lee la battle list (lista de criaturas en combate).
+        
+        La battle list está en la esquina superior izquierda.
+        Formato típico:
+        - Dragon (100%)
+        - Dragon Lord (100%)
+        - Orc (herido)
+        """
+        # Recortar región de battle list
+        battle_region = frame[80:400, 10:200]  # coordenadas aproximadas
+        
+        # Preprocesar para OCR
+        gray = cv2.cvtColor(battle_region, cv2.COLOR_BGR2GRAY)
+        _, thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
+        
+        # Usar Tesseract o EasyOCR
+        import easyocr
+        reader = easyocr.Reader(['en'])
+        results = reader.readtext(thresh)
+        
+        creatures = []
+        for (bbox, text, confidence) in results:
+            if confidence > 0.6:
+                # Extraer nombre y porcentaje de vida
+                # Formato típico: "Dragon (100%)"
+                creatures.append(self.parse_creature_text(text))
+        
+        return creatures
+🎯 2.2 Target Selection Engine
+python
+# targeting/targeting_engine.py
+class TargetingEngine:
+    def select_best_target(self, creatures, priority_list):
+        """
+        Selecciona el mejor target según prioridades configuradas.
+        
+        priority_list: lista de mobs en orden de prioridad
+        Ejemplo: ["Dragon Lord", "Dragon", "Orc", "any"]
+        """
+        # Primero buscar por prioridad exacta
+        for priority in priority_list:
+            if priority == "any":
+                # Cualquier mob, seleccionar el más cercano
+                return self.get_closest_creature(creatures)
+            
+            matching = [c for c in creatures if priority.lower() in c["name"].lower()]
+            if matching:
+                # De los que coinciden, elegir el de menor vida (para matar rápido)
+                return min(matching, key=lambda x: x["hp_percent"])
+        
+        return None
+🔫 2.3 Auto-Attack y Spells
+python
+# targeting/targeting_engine.py
+def attack_target(self, target_name, target_hp):
+    """
+    Decide qué spell usar basado en HP del target y cooldowns.
+    """
+    # Configuración de spells (en config.json)
+    spells = self.config["targeting"]["spells"]
+    
+    # Ordenar por daño (menor a mayor)
+    sorted_spells = sorted(spells, key=lambda x: x["damage"])
+    
+    for spell in sorted_spells:
+        # Verificar si el target tiene suficiente vida para justificar el spell
+        if target_hp > spell["min_hp_threshold"]:
+            # Verificar cooldown
+            if self.is_spell_ready(spell["key"]):
+                # Enviar tecla del spell
+                action_dispatcher.send_key(spell["key"])
+                
+                # Registrar cooldown
+                self.last_spell_time[spell["key"]] = time.time()
+                break
+🧙 2.4 AOE vs Single Target
+python
+# targeting/targeting_engine.py
+def should_use_aoe(self, frame):
+    """
+    Decide si usar spells de área basado en cantidad de mobs en pantalla.
+    """
+    # Detectar cuántos mobs visibles en el área de juego
+    mobs = self.detect_mobs_on_screen(frame)
+    
+    # Si hay más de X mobs, usar AOE
+    aoe_threshold = self.config["targeting"]["aoe_threshold"]
+    
+    if len(mobs) >= aoe_threshold:
+        # Elegir el mejor AOE según mana disponible
+        return self.select_best_aoe()
+    
+    return None  # Seguir con single target
+💰 PARTE 3: LOOTER (v2.2) - DETALLES COMPLETOS
+💀 3.1 Detección de Cuerpos
+python
+# looter/corpse_detector.py
+class CorpseDetector:
+    def find_corpses(self, frame):
+        """
+        Detecta cuerpos en el suelo.
+        
+        Los cuerpos aparecen como:
+        - "You see corpse of a dragon"
+        - Tienen un color característico (marrón oscuro)
+        - Están rodeados de outline blanco al pasar mouse
+        """
+        # Detectar áreas con color de corpse (marrón)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        
+        # Rango marrón para cuerpos
+        brown_min = np.array([10, 50, 50])
+        brown_max = np.array([30, 255, 200])
+        
+        mask = cv2.inRange(hsv, brown_min, brown_max)
+        
+        # Encontrar contornos
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        corpses = []
+        for contour in contours:
+            area = cv2.contourArea(contour)
+            if 50 < area < 500:  # Filtrar por tamaño de corpse
+                x, y, w, h = cv2.boundingRect(contour)
+                corpses.append({
+                    "x": x + w//2,
+                    "y": y + h//2,
+                    "area": area
+                })
+        
+        return corpses
+📦 3.2 Apertura de Cuerpos
+python
+# looter/looter_engine.py
+def open_corpse(self, corpse_x, corpse_y):
+    """
+    Abre un cuerpo haciendo click derecho.
+    """
+    # Click derecho en el cuerpo
+    action_dispatcher.mouse_click(corpse_x, corpse_y, button="right")
+    
+    # Esperar a que se abra la ventana de loot
+    time.sleep(0.5)
+    
+    # Verificar que la ventana de loot se abrió
+    if self.is_loot_window_open():
+        return True
+    
+    # Reintentar si no se abrió
+    return False
+🎯 3.3 Loot Drag & Drop
+python
+# drag_drop_sender.py (nuevo)
+class DragDropSender:
+    def drag_item_to_backpack(self, item_x, item_y, backpack_x, backpack_y):
+        """
+        Simula arrastrar un item desde el cuerpo al backpack.
+        
+        Usa PostMessage con WM_LBUTTONDOWN, WM_MOUSEMOVE, WM_LBUTTONUP
+        """
+        # 1. Click en el item (inicio del drag)
+        self.send_mouse_click(item_x, item_y, "down")
+        
+        # 2. Pequeña pausa para simular drag
+        time.sleep(0.1)
+        
+        # 3. Mover mouse al backpack (con varios pasos para simular trayectoria)
+        steps = 5
+        for i in range(1, steps + 1):
+            intermediate_x = item_x + (backpack_x - item_x) * i // steps
+            intermediate_y = item_y + (backpack_y - item_y) * i // steps
+            self.send_mouse_move(intermediate_x, intermediate_y)
+            time.sleep(0.02)
+        
+        # 4. Soltar en el backpack
+        self.send_mouse_click(backpack_x, backpack_y, "up")
+    
+    def send_mouse_click(self, x, y, state="down"):
+        """
+        Envía mensaje de click directamente a Tibia HWND.
+        """
+        # Calcular lParam: (y << 16) | x
+        lParam = (y << 16) | x
+        
+        if state == "down":
+            msg = win32con.WM_LBUTTONDOWN
+        else:
+            msg = win32con.WM_LBUTTONUP
+        
+        win32api.PostMessage(self.tibia_hwnd, msg, 1, lParam)
+🎛️ 3.4 Filtro de Items
+python
+# looter/item_filter.py
+class ItemFilter:
+    def __init__(self):
+        self.gold_items = ["gold coin", "platinum coin", "crystal coin"]
+        self.valuable_items = [
+            "dragon ham", "royal spear", "battle axe",
+            "demon shield", "dragon scale mail"
+        ]
+        self.ignore_items = ["rope", "shovel", "torch"]
+    
+    def should_loot(self, item_name):
+        """
+        Decide si un item debe ser looteado.
+        """
+        item_lower = item_name.lower()
+        
+        # Siempre lootear gold
+        if any(gold in item_lower for gold in self.gold_items):
+            return True
+        
+        # Lootear items valiosos
+        if any(valuable in item_lower for valuable in self.valuable_items):
+            return True
+        
+        # Ignorar items basura
+        if any(ignore in item_lower for ignore in self.ignore_items):
+            return False
+        
+        # Por defecto, lootear según configuración
+        return self.config["looter"]["loot_unknown_items"]
+🎮 PARTE 4: NUEVAS FUNCIONES DE ACCIÓN
+🖱️ 4.1 Mouse Click Sender
+python
+# mouse_click_sender.py (nuevo)
+class MouseClickSender:
+    def __init__(self, tibia_hwnd):
+        self.tibia_hwnd = tibia_hwnd
+        self.screen_width = 1920  # Detectar automáticamente
+        self.screen_height = 1080
+    
+    def click_at(self, x, y, button="left", double=False):
+        """
+        Envía click en coordenadas ABSOLUTAS de pantalla.
+        IMPORTANTE: Las coordenadas deben ser relativas a la ventana de Tibia.
+        """
+        # Convertir coordenadas de pantalla a cliente
+        client_x, client_y = self.screen_to_client(x, y)
+        
+        # Calcular lParam (empaquetar coordenadas)
+        lParam = (client_y << 16) | client_x
+        
+        # Enviar mensajes según botón
+        if button == "left":
+            down_msg = win32con.WM_LBUTTONDOWN
+            up_msg = win32con.WM_LBUTTONUP
+            wParam = 1  # MK_LBUTTON
+        elif button == "right":
+            down_msg = win32con.WM_RBUTTONDOWN
+            up_msg = win32con.WM_RBUTTONUP
+            wParam = 2  # MK_RBUTTON
+        
+        # Click down
+        win32api.PostMessage(self.tibia_hwnd, down_msg, wParam, lParam)
+        
+        if double:
+            time.sleep(0.1)
+            win32api.PostMessage(self.tibia_hwnd, down_msg, wParam, lParam)
+        
+        time.sleep(0.05)
+        
+        # Click up
+        win32api.PostMessage(self.tibia_hwnd, up_msg, 0, lParam)
+📍 4.2 Mapa Click (para caminar)
+python
+def walk_to_direction(self, direction):
+    """
+    Camina en una dirección haciendo click en el mapa.
+    """
+    center_x = self.screen_width // 2
+    center_y = self.screen_height // 2
+    
+    # Coordenadas de click según dirección
+    if direction == "norte":
+        click_x, click_y = center_x, center_y - 100
+    elif direction == "sur":
+        click_x, click_y = center_x, center_y + 100
+    elif direction == "este":
+        click_x, click_y = center_x + 100, center_y
+    elif direction == "oeste":
+        click_x, click_y = center_x - 100, center_y
+    
+    # Hacer click para caminar
+    self.mouse_click(click_x, click_y)
+    
+    # Esperar a que el personaje se mueva
+    time.sleep(0.5)
+🔧 PARTE 5: CONFIGURACIÓN JSON ACTUALIZADA
+json
+{
+    "healer": { ... },  // Mantener configuración existente
+    
+    "cavebot": {
+        "enabled": false,
+        "current_route": "dragon_lair.json",
+        "cyclic": true,
+        "avoid_obstacles": true,
+        "auto_rope": true,
+        "rope_key": "F4",
+        "shovel_key": "F5",
+        "stand_duration": 2.0,
+        "refill_at_waypoint": 3,
+        "refill_threshold_hp": 30,
+        "refill_threshold_mp": 20
+    },
+    
+    "targeting": {
+        "enabled": false,
+        "priority_list": [
+            "Dragon Lord",
+            "Dragon",
+            "Orc",
+            "any"
+        ],
+        "attack_range": 3,
+        "lure_to_waypoint": false,
+        "spells": [
+            {"name": "exori", "key": "F7", "damage": 150, "min_hp_threshold": 10, "cooldown": 2},
+            {"name": "exori gran", "key": "F8", "damage": 300, "min_hp_threshold": 30, "cooldown": 4},
+            {"name": "exori mas", "key": "F9", "damage": 100, "aoe": true, "min_mobs": 3, "cooldown": 6}
+        ],
+        "aoe_threshold": 3,
+        "auto_mana_for_attack": true,
+        "mana_key": "F3"
+    },
+    
+    "looter": {
+        "enabled": false,
+        "loot_corpses": true,
+        "open_corpses": true,
+        "drag_to_backpack": true,
+        "backpack_slots": 20,
+        "loot_gold": true,
+        "loot_valuables": true,
+        "loot_unknown_items": false,
+        "ignore_list": ["rope", "shovel", "torch", "worm"],
+        "gold_items": ["gold coin", "platinum coin", "crystal coin"],
+        "valuable_items": ["dragon ham", "royal spear", "battle axe"],
+        "auto_open_next_backpack": true,
+        "max_loot_distance": 5
+    },
+    
+    "hotkeys": {
+        "toggle_cavebot": "F7",
+        "toggle_targeting": "F8",
+        "toggle_looter": "F6",
+        "emergency_stop": "F12"
+    }
+}
+📊 PARTE 6: GUI - NUEVAS PESTAÑAS
+Pestaña "🗺️ Cavebot"
+text
+┌─────────────────────────────────────────────────────────────────┐
+│ 🗺️ CAVEBOT                                                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                   MINIMAPA EN VIVO                       │   │
+│  │                   (captura OBS)                          │   │
+│  │                                                          │   │
+│  │          ● [P1] → [P2] → [P3]                           │   │
+│  │                    ↓                                    │   │
+│  │                 [P4] ← [P5]                             │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  ESTADO: ● ACTIVO (Caminando a P2)                              │
+│  Posición actual: (23, 45)  Siguiente: (24, 45)                 │
+│  Distancia: 1 tile  Dirección: ESTE                             │
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ WAYPOINTS                                                │   │
+│  ├─────────────────────────────────────────────────────────┤   │
+│  │ #  Tipo    Coord    Acción                               │   │
+│  │ 1  Walk   (20,30)   -                                    │   │
+│  │ 2  Rope   (20,31)   Usar cuerda                          │   │
+│  │ 3  Stand  (20,32)   Esperar 2s                           │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  [➕ Agregar]  [✏️ Editar]  [❌ Eliminar]  [💾 Guardar ruta]     │
+│  [📂 Cargar]   [▶ Iniciar]  [⏸️ Pausar]  [⏹️ Detener]           │
+└─────────────────────────────────────────────────────────────────┘
+Pestaña "⚔️ Targeting"
+text
+┌─────────────────────────────────────────────────────────────────┐
+│ ⚔️ TARGETING / ATTACKER                                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  BATTLE LIST (en vivo):                                         │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ Dragon Lord (45%)  [● Atacando]                         │   │
+│  │ Dragon (82%)                                             │   │
+│  │ Orc (100%)                                               │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  PRIORIDAD DE MOBS:                                             │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ 1. Dragon Lord                                           │   │
+│  │ 2. Dragon                                                │   │
+│  │ 3. Orc                                                   │   │
+│  │ 4. any                                                   │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│  [⬆️ Subir] [⬇️ Bajar] [➕] [❌]                                  │
+│                                                                  │
+│  SPELLS DE ATAQUE:                                              │
+│  ┌────────────┬──────┬──────────┬─────────┬──────────┐        │
+│  │ Spell      │ Tecla│ Daño     │ HP Mín  │ Cooldown │        │
+│  ├────────────┼──────┼──────────┼─────────┼──────────┤        │
+│  │ exori      │ F7   │ 150      │ 10%     │ 2s       │        │
+│  │ exori gran │ F8   │ 300      │ 30%     │ 4s       │        │
+│  │ exori mas  │ F9   │ 100 (AOE)│ N/A     │ 6s       │        │
+│  └────────────┴──────┴──────────┴─────────┴──────────┘        │
+│                                                                  │
+│  [✓] Usar AOE cuando hay ≥ [3] mobs                             │
+│  [✓] Auto mana para ataque (tecla: [F3 ▼])                      │
+│                                                                  │
+│  [▶ Iniciar Targeting]  [⏸️ Pausar]                             │
+└─────────────────────────────────────────────────────────────────┘
+Pestaña "💰 Looter"
+text
+┌─────────────────────────────────────────────────────────────────┐
+│ 💰 LOOTER                                                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ESTADO: Buscando cuerpos... (0 encontrados)                    │
+│                                                                  │
+│  FILTRO DE ITEMS:                                               │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ SIEMPRE LOOTEAR:                                         │   │
+│  │ ✓ gold coin    ✓ platinum coin    ✓ crystal coin         │   │
+│  │                                                          │   │
+│  │ VALIOSOS:                                                │   │
+│  │ ✓ dragon ham   ✓ royal spear      ✓ battle axe          │   │
+│  │ ✓ demon shield ✓ dragon scale mail                       │   │
+│  │                                                          │   │
+│  │ IGNORAR:                                                 │   │
+│  │ ✗ rope         ✗ shovel          ✗ torch                │   │
+│  │ ✗ worm                                                    │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  [➕ Agregar item]  [❌ Eliminar]  [📝 Editar lista]             │
+│                                                                  │
+│  CONFIGURACIÓN:                                                 │
+│  [✓] Abrir cuerpos automáticamente                              │
+│  [✓] Arrastrar items al backpack                                │
+│  [ ] Lootear items desconocidos                                 │
+│  [✓] Abrir siguiente backpack cuando esté lleno                 │
+│                                                                  │
+│  Distancia máxima de looteo: [5] tiles                         │
+│                                                                  │
+│  [▶ Iniciar Looter]  [⏸️ Pausar]  [📸 Probar detección]        │
+└─────────────────────────────────────────────────────────────────┘
+Pestaña "📊 Estado General"
+text
+┌─────────────────────────────────────────────────────────────────┐
+│ 📊 ESTADO GENERAL (TODOS LOS MÓDULOS)                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌───────────────┬────────────┬────────────┬──────────────┐    │
+│  │ Módulo        │ Estado     │ Última acción               │    │
+│  ├───────────────┼────────────┼────────────┼──────────────┤    │
+│  │ HEALER        │ ● ACTIVO   │ HP 45% → F2 (2s ago)       │    │
+│  │ CAVEBOT       │ ● ACTIVO   │ Caminando a (23,45)        │    │
+│  │ TARGETING     │ ● ACTIVO   │ Atacando Dragon Lord       │    │
+│  │ LOOTER        │ ○ INACTIVO │ -                          │    │
+│  └───────────────┴────────────┴────────────┴──────────────┘    │
+│                                                                  │
+│  POSICIÓN ACTUAL: (23, 45)                                       │
+│  MOBS EN PANTALLA: 3 (Dragon Lord, Dragon, Orc)                 │
+│  CUERPOS CERCA: 2 (a 3 tiles, a 5 tiles)                        │
+│                                                                  │
+│  TIEMPO ACTIVO: 00:15:23                                         │
+│  ACCIONES REALIZADAS: 45 curaciones | 120 pasos | 8 ataques    │
+│                                                                  │
+│  [⏹️ DETENER TODO]  [▶ INICIAR TODO]  [📊 Ver estadísticas]     │
+└─────────────────────────────────────────────────────────────────┘
+🧪 PARTE 7: INTEGRACIÓN CON OBS WEBHOOK (NUEVO CONCEPTO)
+Para acciones que requieren precisión milimétrica (como click en minimapa), considera:
+
+python
+# utils/obs_mouse.py
+class OBSMouseHelper:
+    def get_screen_coords_from_game_coords(self, game_x, game_y):
+        """
+        Convierte coordenadas de juego a coordenadas de pantalla
+        usando OBS para calibrar.
+        """
+        # Tomar screenshot con OBS
+        frame = screen_capture.get_frame()
+        
+        # Buscar punto de referencia (posición del jugador)
+        player_screen_pos = self.find_player_on_screen(frame)
+        player_game_pos = self.get_player_game_position()
+        
+        # Calcular offset
+        offset_x = player_screen_pos[0] - player_game_pos[0]
+        offset_y = player_screen_pos[1] - player_game_pos[1]
+        
+        # Convertir cualquier coordenada de juego a pantalla
+        screen_x = game_x + offset_x
+        screen_y = game_y + offset_y
+        
+        return (screen_x, screen_y)
+📝 PARTE 8: LO QUE DEBE ANALIZAR DEL REPOSITORIO oldbot
+El repositorio oldbot (https://github.com/alfredomtx/oldbot) contiene:
+
+main.cpp - Lógica principal en C++
+
+findobject.cpp/h - Detección de objetos/colores
+
+tcp.cpp/h - Conexiones TCP (probablemente para comunicación)
+
+memory.cpp/h - Lectura de memoria (que NO debemos usar)
+
+win.cpp/h - Funciones de Windows API
+
+📌 IDEAS INTELIGENTES PARA ADOPTAR (adaptadas a nuestro flujo):
+Idea de oldbot  Cómo adaptarla a nuestro flujo OBS
+Detección de colores en findobject.cpp  Ya tenemos mejor detección HSV en bar_detector.py
+Sistema de waypoints en main.cpp    Podemos adoptar la estructura de datos de waypoints
+Pathfinding alrededor de obstáculos Implementar en cavebot/obstacle_detector.py
+Sistema de prioridad de mobs    Usar la lógica de targeting_engine.py
+Auto-loot por nombre de item    Usar item_filter.py con la lista de oldbot
+⚠️ COSAS QUE NO DEBEMOS COPIAR:
+Lectura de memoria (memory.cpp) - BattlEye detecta
+
+Inyección de DLL - Riesgo de ban
+
+Conexiones TCP directas - No necesarias con OBS WebSocket
+
+✅ CHECKLIST PARA LA IA
+Crear estructura de carpetas (cavebot/, targeting/, looter/, utils/)
+
+Implementar dispatcher.py que distribuya frames
+
+Implementar action_dispatcher.py que unifique teclas + clicks
+
+Implementar mouse_click_sender.py (PostMessage para clicks)
+
+Implementar drag_drop_sender.py (arrastrar items)
+
+Implementar pathfinder.py (detección de posición por minimapa)
+
+Implementar waypoint_editor.py (GUI para editar rutas)
+
+Implementar cavebot_engine.py (navegación)
+
+Implementar obstacle_detector.py (evitar parcels/fire)
+
+Implementar battle_list_reader.py (OCR de battle list)
+
+Implementar targeting_engine.py (selección de target)
+
+Implementar spell_rotator.py (rotación de spells)
+
+Implementar corpse_detector.py (detección de cuerpos)
+
+Implementar looter_engine.py (recolección)
+
+Actualizar config.py con nuevas configuraciones
+
+Actualizar gui.py con nuevas pestañas
+
+Actualizar main.py para iniciar todos los módulos
+
+Probar integración con OBS WebSocket existente
+
+🎯 OBJETIVO FINAL
+Un bot completo con:
+
+✅ Healer (existente) - Detecta HP/MP y cura automáticamente
+✅ Cavebot (nuevo) - Camina rutas predefinidas, evita obstáculos
+✅ Targeting (nuevo) - Selecciona y ataca mobs con rotación de spells
+✅ Looter (nuevo) - Recoge items automáticamente con drag & drop
+
+TODO FUNCIONANDO CON:
+
+Misma captura OBS WebSocket (sin proyector visible)
+
+Mismo envío PostMessage (sin foco)
+
+Misma GUI customtkinter (con nuevas pestañas)
+
+Misma estructura de threading
+
+aqui esta el repositorio  agregado al workspace quizas te pueda servir recuerda no corromper nada de lo ya creado 

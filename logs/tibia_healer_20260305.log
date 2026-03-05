@@ -841,3 +841,78 @@
 [15:38:29] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
 [15:38:34] INFO     📊 Cerrando aplicación...
 [15:38:37] INFO     ✅ Bot detenido
+[17:16:51] INFO     ✅ Tibia seleccionado: Tibia Auto Healer
+[17:16:51] INFO     ✅ Tibia encontrado: Tibia Auto Healer
+[17:16:51] INFO     📊 Ventanas Tibia encontradas: 4
+[17:16:51] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[17:16:51] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[17:16:51] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[17:16:51] INFO     📊 Loop principal iniciado
+[17:16:51] INFO     ✅ Bot iniciado
+[17:16:52] INFO     ✅ GUI iniciada correctamente
+[17:17:04] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:17:15] INFO     📊 Cargando preset de hechizos: knight
+[17:17:16] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:17:16] DEBUG    🔍 Debug image guardada (ciclo #40)
+[17:17:29] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:17:42] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:17:42] DEBUG    🔍 Debug image guardada (ciclo #80)
+[17:17:55] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:08] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:08] DEBUG    🔍 Debug image guardada (ciclo #120)
+[17:18:23] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:35] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:35] DEBUG    🔍 Debug image guardada (ciclo #160)
+[17:18:46] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:58] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:18:58] DEBUG    🔍 Debug image guardada (ciclo #200)
+[17:19:12] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:19:28] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:19:28] DEBUG    🔍 Debug image guardada (ciclo #240)
+[17:19:36] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[17:19:42] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:19:58] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:19:58] DEBUG    🔍 Debug image guardada (ciclo #280)
+[17:20:15] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:20:32] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:20:32] DEBUG    🔍 Debug image guardada (ciclo #320)
+[17:20:48] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:21:05] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:21:05] DEBUG    🔍 Debug image guardada (ciclo #360)
+[17:21:19] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:21:35] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:21:35] DEBUG    🔍 Debug image guardada (ciclo #400)
+[17:21:52] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:22:10] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:22:10] DEBUG    🔍 Debug image guardada (ciclo #440)
+[17:22:31] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:22:47] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:22:47] DEBUG    🔍 Debug image guardada (ciclo #480)
+[17:23:02] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:23:18] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:23:18] DEBUG    🔍 Debug image guardada (ciclo #520)
+[17:23:34] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:23:50] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:23:50] DEBUG    🔍 Debug image guardada (ciclo #560)
+[17:24:04] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:24:17] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:24:17] DEBUG    🔍 Debug image guardada (ciclo #600)
+[17:24:32] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:24:47] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:24:47] DEBUG    🔍 Debug image guardada (ciclo #640)
+[17:25:02] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:25:18] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:25:18] DEBUG    🔍 Debug image guardada (ciclo #680)
+[17:25:35] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:25:49] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:25:49] DEBUG    🔍 Debug image guardada (ciclo #720)
+[17:25:55] INFO     📊 Cavebot habilitado
+[17:26:01] INFO     📊 Cavebot deshabilitado
+[17:26:03] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:26:19] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:26:19] DEBUG    🔍 Debug image guardada (ciclo #760)
+[17:26:37] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:26:54] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=EN ESPERA
+[17:26:54] DEBUG    🔍 Debug image guardada (ciclo #800)
+[17:27:07] INFO     📊 Cerrando aplicación...
+[17:27:10] INFO     ✅ Bot detenido
