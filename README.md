@@ -1,11 +1,14 @@
-# ⚔️ Tibia Auto Healer Bot
+# ⚔️ Tibia Auto Bot (Healer + Targeting + Looter)
 
-> Bot de auto-curación para Tibia con detección de barras HP/Mana por visión computarizada, captura vía OBS WebSocket y envío de teclas en segundo plano.
+> Bot multi-módulo para Tibia con detección por visión computarizada (OpenCV), captura vía OBS WebSocket y envío de teclas/clicks en segundo plano.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![Windows](https://img.shields.io/badge/OS-Windows_10/11-0078D6?logo=windows)
 ![OBS](https://img.shields.io/badge/OBS-28+-purple?logo=obsstudio)
 ![Status](https://img.shields.io/badge/Módulo-Healer_✅-success)
+![Status](https://img.shields.io/badge/Módulo-Targeting_⚠️_Beta-yellow)
+![Status](https://img.shields.io/badge/Módulo-Looter_⚠️_Beta-yellow)
+![Status](https://img.shields.io/badge/Módulo-Cavebot_❌_Pendiente-red)
 
 ---
 
@@ -115,25 +118,50 @@ Opera 100% externamente leyendo píxeles de la pantalla y enviando pulsaciones d
 ```
 bot_ia_claude/
 │
-├── main.py              # 🚀 Punto de entrada — verifica deps y lanza GUI
-├── gui.py               # 🖥️ Interfaz gráfica completa (customtkinter)
-├── healer_bot.py        # 🧠 Lógica principal del bot (loop, decisiones, estado)
-├── screen_capture.py    # 📸 Captura de frames vía OBS WebSocket
-├── bar_detector.py      # 🔍 Detección de barras HP/Mana con OpenCV HSV
-├── key_sender.py        # ⌨️ Envío de teclas via PostMessage (Win32)
-├── window_finder.py     # 🪟 Búsqueda de ventanas por título (EnumWindows)
-├── config.py            # ⚙️ Configuración con persistencia JSON
-├── logger.py            # 📝 Sistema de logging con callbacks para GUI
-├── debug_visual.py      # 🔬 Generación de imágenes de debug con anotaciones
+├── main.py                  # 🚀 Punto de entrada — verifica deps y lanza GUI
+├── gui.py                   # 🖥️ Interfaz gráfica 7 pestañas (customtkinter)
+├── healer_bot.py            # 🧠 Orquestador principal (healer + wiring módulos)
+├── dispatcher.py            # 📡 Distribuye frames a healer→targeting→cavebot→looter
+├── screen_capture.py        # 📸 Captura de frames vía OBS WebSocket
+├── screen_calibrator.py     # 🎯 Calibración automática de regiones (template matching)
+├── bar_detector.py          # 🔍 Detección de barras HP/Mana con OpenCV HSV
+├── key_sender.py            # ⌨️ Envío de teclas via PostMessage (Win32)
+├── mouse_click_sender.py    # 🖱️ Envío de clicks via PostMessage (Win32)
+├── window_finder.py         # 🪟 Búsqueda de ventanas por título (EnumWindows)
+├── config.py                # ⚙️ Configuración con persistencia JSON
+├── logger.py                # 📝 Sistema de logging con callbacks para GUI
+├── debug_visual.py          # 🔬 Generación de imágenes de debug
 │
-├── config.json          # 💾 Configuración del usuario (autogenerado)
-├── requirements.txt     # 📦 Dependencias Python
-├── iniciar.bat          # 🏃 Launcher para Windows (doble clic)
-├── README.md            # 📖 Este archivo
+├── targeting/               # ⚔️ Módulo de auto-targeting
+│   ├── targeting_engine.py  #   Motor de ataque (battle list reader + click)
+│   └── battle_list_reader.py#   Template matching de nombres en battle list
 │
-├── logs/                # 📂 Archivos de log por sesión
-├── debug/               # 📂 Capturas de debug con análisis visual
-└── .venv/               # 📂 Entorno virtual Python
+├── looter/                  # 💰 Módulo de auto-loot
+│   └── looter_engine.py     #   Looteo brute-force 9 SQMs (estilo TibiaAuto12)
+│
+├── cavebot/                 # 🗺️ Módulo de navegación (WIP)
+│   └── cavebot_engine.py    #   Waypoints + template matching minimapa
+│
+├── game_data/               # 📊 Base de datos del juego
+│   ├── loader.py            #   Cargador singleton de datos
+│   ├── monsters.json        #   Info de monstruos (HP, exp, loot, etc.)
+│   ├── items.json           #   Info de items del juego
+│   └── npcs.json            #   Info de NPCs
+│
+├── images/                  # 🖼️ Templates para calibración y detección
+│   ├── Targets/Names/       #   PNGs de nombres de monstruos
+│   ├── MonstersAttack/      #   Templates de estado de ataque
+│   └── MapSettings/         #   Marcas del minimapa (cavebot)
+│
+├── config.json              # 💾 Configuración del usuario (autogenerado)
+├── requirements.txt         # 📦 Dependencias Python
+├── iniciar.bat              # 🏃 Launcher para Windows (doble clic)
+├── skills.md                # 📓 Documentación técnica detallada del proyecto
+├── README.md                # 📖 Este archivo
+│
+├── logs/                    # 📂 Archivos de log por sesión
+├── debug/                   # 📂 Capturas de debug con análisis visual
+└── .venv/                   # 📂 Entorno virtual Python
 ```
 
 ---
@@ -487,66 +515,79 @@ Ejecuta **`iniciar.bat`** — automáticamente busca Python, crea el entorno vir
 - [x] Curación de mana con toggle independiente
 - [x] Captura vía OBS WebSocket (funciona sin foco de ventana)
 - [x] Envío de teclas vía PostMessage (funciona sin foco)
+- [x] Envío de clicks via PostMessage (izquierdo/derecho, con modificadores)
 - [x] Auto-filtrado de fuentes de audio en el selector de OBS
-- [x] GUI completa con customtkinter (tema oscuro)
+- [x] GUI completa con customtkinter (tema oscuro, 7 pestañas)
 - [x] Sistema de configuración persistente (JSON)
 - [x] Hotkeys globales (F9 toggle, F10 salir)
 - [x] Sistema de logging con niveles y panel en GUI
 - [x] Debug visual con imágenes anotadas
 - [x] Auto-calibración de posición de barras
+- [x] Calibración automática de regiones (battle list, minimapa, game window, SQMs)
 - [x] Cooldown configurable entre curaciones
+- [x] Dispatcher multi-módulo (healer→targeting→cavebot→looter)
+- [x] Base de datos de monstruos/items/NPCs (`game_data/`)
 - [x] Launcher `.bat` para Windows
 
-### 🔜 v2.0 — Cavebot (Waypoints)
+### ⚠️ v1.1 — Auto-Targeting (Beta — funcional, falta mejorar)
 
-- [ ] **Sistema de Waypoints** — Definir puntos de caminata en el mapa
-  - [ ] Editor visual de walkpoints (click en minimapa)
-  - [ ] Tipos de waypoint: `Walk`, `Rope`, `Shovel`, `Ladder`, `Stairs`, `Stand`
-  - [ ] Navegación automática entre waypoints
-  - [ ] Detección de posición actual por minimapa (template matching / OCR)
-  - [ ] Sistema de rutas cíclicas (ida y vuelta al spawn)
-  - [ ] Pausa automática al detectar otros jugadores en pantalla
-  - [ ] Reconocimiento de tiles bloqueados / muros
+- [x] Detección de monstruos en battle list por template matching (OpenCV)
+- [x] Auto-attack al monstruo detectado (click en battle list)
+- [x] Prioridad de targets configurable por nombre
+- [x] Detección de kills por cambio de conteo en battle list
+- [x] Detección de target perdido (desaparece N frames → busca otro)
+- [x] Re-attack delay configurable para evitar spam de clicks
+- [x] Log separado en pestaña propia de la GUI
+- [ ] **FALTA MEJORAR:** Combos de spells de ataque (exori, exori gran, etc.)
+- [ ] **FALTA MEJORAR:** Conteo de monstruos más robusto (a veces pierde kills)
+- [ ] **FALTA MEJORAR:** A veces no re-ataca al perder target
+- [ ] **FALTA MEJORAR:** AOE vs single target automático
 
-### 🔜 v2.1 — Targeting / Attacker
+### ⚠️ v1.2 — Auto-Loot (Beta — funcional, falta mejorar)
 
-- [ ] **Sistema de Target** — Selección automática de monstruos
-  - [ ] Detección de monstruos en la battle list (OCR / template matching)
-  - [ ] Prioridad de targets configurable por nombre de monstruo
-  - [ ] Auto-attack al target más cercano / más peligroso
-  - [ ] Combos de spells de ataque (ej: `exori` → `exori gran` → `exori mas`)
-  - [ ] Rotación de spells con cooldown individual por spell
-  - [ ] Conteo de monstruos en pantalla para decidir AOE vs single target
+- [x] Looteo brute-force de 9 SQMs adyacentes (estilo TibiaAuto12)
+- [x] Click rápido en cada SQM (~0.05s entre clicks = ~0.5s total)
+- [x] Lootea inmediatamente tras cada kill (no espera a matar todo)
+- [x] NO pausa el targeting durante el looteo
+- [x] Soporta left_click y right_click según config de Tibia
+- [x] Modo "always_loot" (recomendado) y modo "threshold" opcional
+- [x] Log separado en pestaña propia de la GUI
+- [ ] **FALTA MEJORAR:** Detección de dónde cayó el cadáver (ahora clickea todos los SQMs)
+- [ ] **FALTA MEJORAR:** Lectura del canal de loot para confirmar si se loteó
+- [ ] **FALTA MEJORAR:** Filtro de items por nombre (solo lootear items valiosos)
+- [ ] **FALTA MEJORAR:** Drop de items no deseados al piso
+- [ ] **FALTA MEJORAR:** Detección de backpack lleno
 
-### 🔜 v2.2 — Looter
+### ❌ v2.0 — Cavebot (No funcional aún)
 
-- [ ] **Auto-Loot** — Recoger items automáticamente
-  - [ ] Detección de cuerpos / loot en el suelo
-  - [ ] Apertura automática de cuerpos (right-click)
-  - [ ] Filtro de items por nombre (solo recoger items valiosos)
-  - [ ] Drag & drop automático al backpack abierto
-  - [ ] Detección de backpack lleno → abrir siguiente BP
+- [x] Estructura base: waypoints, rutas cíclicas, template matching de marcas
+- [x] Carga/guarda rutas desde JSON
+- [x] Templates de marcas del minimapa cargados
+- [ ] **NO FUNCIONA:** Navegación no es confiable (template matching del minimapa falla)
+- [ ] **PENDIENTE:** Editor visual de waypoints
+- [ ] **PENDIENTE:** Detección de posición actual por minimapa
+- [ ] **PENDIENTE:** Pausa al detectar otros jugadores
+- [ ] **PENDIENTE:** Reconocimiento de tiles bloqueados
 
-### 🔜 v3.0 — Sistema Completo
+### 🔜 v3.0 — Sistema Completo (Futuro)
 
-- [ ] **Anti-AFK** — Movimientos aleatorios periódicos para evitar kick
-- [ ] **Mana Trainer** — Usar spell de training cuando mana > X%
-- [ ] **Alertas** — Notificación sonora o por Discord cuando HP crítico o PK detectado
-- [ ] **Reconexión automática** — Detectar desconexión y re-loguear
-- [ ] **Estadísticas** — Conteo de curaciones, XP/hora, tiempo total de caza
-- [ ] **Profiles** — Guardar/cargar configuraciones por personaje
-- [ ] **Multi-cliente** — Manejar múltiples ventanas de Tibia simultáneamente
-- [ ] **Dashboard web** — Monitoreo remoto desde el celular vía Flask/FastAPI
-- [ ] **Plugin system** — API para módulos personalizados de terceros
+- [ ] Anti-AFK — Movimientos aleatorios periódicos
+- [ ] Mana Trainer — Usar spell de training cuando mana > X%
+- [ ] Alertas — Notificación por Discord cuando HP crítico o PK detectado
+- [ ] Reconexión automática
+- [ ] Estadísticas (XP/hora, curaciones, loot)
+- [ ] Profiles por personaje
+- [ ] Multi-cliente
+- [ ] Dashboard web (Flask/FastAPI)
 
 ### 💡 Ideas Futuras
 
-- [ ] Detección por OCR del nombre del personaje y HP numérico exacto
-- [ ] Integración con Tibia Wiki API para info de monstruos y drops
+- [ ] Detección por OCR del HP numérico exacto
+- [ ] Integración con TibiaData API (info de monstruos y drops en tiempo real)
 - [ ] Mapa interactivo con editor de rutas drag & drop
-- [ ] Machine Learning para detección más robusta de barras, monstruos y items
-- [ ] Screenshot comparativo (frame diff) para detectar cambios: muerte, level up, loot raro
-- [ ] Soporte para Tibia en Linux vía Wine + xdotool (reemplazar PostMessage)
+- [ ] Machine Learning para detección más robusta
+- [ ] Lectura del canal de loot/server log para confirmar kills y loot
+- [ ] Soporte para Tibia en Linux vía Wine + xdotool
 
 ---
 

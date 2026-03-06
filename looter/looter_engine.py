@@ -1,11 +1,13 @@
 """
-looter/looter_engine.py - Motor de looteo inteligente v3.
-Lootea después de kills, con lógica kill-first-then-loot:
-  - Si hay muchas criaturas vivas → espera a que targeting termine
-  - Si quedan pocas o ninguna → lootea los cuerpos
-  - Lootea TODOS los 8 SQMs adyacentes al jugador
-  - Pausa targeting mientras lootea para evitar interferencia
-  - Drop de items no deseados al piso
+looter/looter_engine.py - Motor de looteo v4 (estilo TibiaAuto12).
+Cambios respecto a v3:
+  - Lootea INMEDIATAMENTE tras cada kill (no espera a matar todo)
+  - Click en los 9 SQMs incluyendo centro (brute-force como TibiaAuto12)
+  - Delay mínimo entre clicks (0.05s vs 0.20s anterior)
+  - Cooldown corto entre looteos (0.3s vs 1.5s anterior)
+  - NO pausa el targeting — el loot es rápido (~0.5s para 9 clicks)
+  - always_loot=True por defecto
+  - Eliminado flag _is_looting que pausaba targeting
 """
 
 import time
@@ -16,40 +18,41 @@ import numpy as np
 
 class LooterEngine:
     """
-    Motor de looteo automático inteligente.
+    Motor de looteo automático — estilo TibiaAuto12.
 
-    Lógica "kill first, then loot":
-    - Consulta al targeting cuántas criaturas hay en pantalla
-    - Si criaturas > loot_threshold → NO lootea, deja que targeting trabaje
-    - Si criaturas <= loot_threshold → lootea cuerpos pendientes
-    - Configurable: right_click o left_click según Tibia config
-    - Lootea TODOS los 8 SQMs adyacentes (el cadáver puede caer en cualquiera)
-    - Pausa targeting durante el looteo para evitar click-fight
+    Flujo:
+    1. Targeting detecta kill (conteo de battle list bajó)
+    2. _targeting_with_loot wrapper llama notify_kill()
+    3. En el siguiente frame del dispatcher, process_frame() ve pendientes > 0
+    4. Click rápido en 9 SQMs (~0.05s entre clicks = ~0.5s total)
+    5. Targeting sigue atacando normalmente (NO se pausa)
+
+    El loot es tan rápido que no necesita pausar al targeting.
+    TibiaAuto12 tampoco pausa el combate durante el looteo.
     """
 
     def __init__(self):
         # Estado
         self.enabled: bool = False
-        self.state: str = "idle"  # idle, waiting_kills, waiting_cooldown, looting, dropping
-        self._is_looting: bool = False  # Flag público para que targeting sepa
+        self.state: str = "idle"  # idle, looting, waiting_combat
 
         # SQMs alrededor del jugador (9 posiciones x,y en espacio OBS)
         self.sqms: List[Tuple[int, int]] = []
         self.player_center: Tuple[int, int] = (0, 0)
 
-        # Configuración de looteo
+        # Configuración de looteo — valores TibiaAuto12-style
         self.loot_method: str = "left_click"  # "left_click" o "right_click"
-        self.loot_delay: float = 0.20         # Delay entre clicks en SQMs
-        self.loot_cooldown: float = 1.5       # Cooldown entre sesiones de looteo
-        self.max_loot_sqms: int = 8           # Max SQMs a clickear por kill (default: todos)
+        self.loot_delay: float = 0.05         # Delay entre clicks (muy corto)
+        self.loot_cooldown: float = 0.3       # Cooldown mínimo entre sesiones
+        self.max_loot_sqms: int = 9           # 9 = todos (incluido centro)
 
-        # Configuración kill-first-then-loot
-        self.loot_threshold: int = 2  # Solo lootear si criaturas <= este valor
-        self.always_loot: bool = False  # Si True, ignora threshold y lootea siempre
+        # Configuración threshold (opcional)
+        self.loot_threshold: int = 0  # 0 = lootear siempre inmediatamente
+        self.always_loot: bool = True  # True = ignorar threshold
 
         # Drop items al piso
         self.drop_enabled: bool = False
-        self.drop_items: List[str] = []  # Lista de items a tirar
+        self.drop_items: List[str] = []
         self.drop_delay: float = 0.3
 
         # Callbacks
@@ -57,12 +60,12 @@ class LooterEngine:
         self._left_click_fn: Optional[Callable] = None
         self._log_fn: Optional[Callable] = None
 
-        # Referencia al targeting (para consultar creature count y pausar)
+        # Referencia al targeting (para consultar creature count)
         self._targeting_engine = None
 
-        # Cola de looteo: lista de (x, y, timestamp, monster_name)
-        self._kill_positions: List[Tuple[int, int, float, str]] = []
+        # Cola de kills pendientes de lootear
         self._pending_loots: int = 0
+        self._kill_names: List[str] = []
 
         # Métricas
         self.loot_actions: int = 0
@@ -96,13 +99,13 @@ class LooterEngine:
         """Aplica configuración desde dict."""
         looter = config if isinstance(config, dict) else {}
         self.loot_method = looter.get("loot_method", "left_click")
-        self.loot_delay = looter.get("loot_delay", 0.20)
-        self.loot_cooldown = looter.get("loot_cooldown", 1.5)
-        self.max_loot_sqms = looter.get("max_loot_sqms", 8)
+        self.loot_delay = looter.get("loot_delay", 0.05)
+        self.loot_cooldown = looter.get("loot_cooldown", 0.3)
+        self.max_loot_sqms = looter.get("max_loot_sqms", 9)
 
-        # Kill-first config
-        self.loot_threshold = looter.get("loot_threshold", 2)
-        self.always_loot = looter.get("always_loot", False)
+        # Threshold config
+        self.loot_threshold = looter.get("loot_threshold", 0)
+        self.always_loot = looter.get("always_loot", True)
 
         # Drop config
         self.drop_enabled = looter.get("drop_enabled", False)
@@ -117,29 +120,36 @@ class LooterEngine:
             self._log_fn(f"[Looter] {msg}")
 
     # ==================================================================
+    # API pública
+    # ==================================================================
+    @property
+    def is_looting(self) -> bool:
+        """True si el looter está activamente looteando.
+        NOTE: Ya NO se usa para pausar targeting. Se mantiene solo
+        por compatibilidad y para queries de estado."""
+        return self.state == "looting"
+
+    # ==================================================================
     # Notificación de kills (desde targeting)
     # ==================================================================
     def notify_kill(self, monster_name: str = "", screen_x: int = 0, screen_y: int = 0):
         """
         Llamado cuando el targeting detecta una kill.
-        screen_x/screen_y = posición del player center (donde cayó el cuerpo).
+        Incrementa el contador de pendientes para lootear en el próximo frame.
         """
-        now = time.time()
         self._pending_loots += 1
-        self._kill_positions.append((screen_x, screen_y, now, monster_name))
+        self._kill_names.append(monster_name or "desconocido")
         self._log(f"Kill: {monster_name} — pendientes: {self._pending_loots}")
 
-        # Limpiar posiciones viejas (>45 segundos)
-        self._kill_positions = [
-            (x, y, t, n) for x, y, t, n in self._kill_positions
-            if now - t < 45.0
-        ]
-
     # ==================================================================
-    # Loop principal (llamado por dispatcher)
+    # Loop principal (llamado por dispatcher cada frame)
     # ==================================================================
     def process_frame(self, frame: np.ndarray):
-        """Procesa looteo pendiente con lógica kill-first-then-loot."""
+        """
+        Procesa looteo pendiente.
+        Lógica simple como TibiaAuto12: si hay kills pendientes → lootear.
+        NO pausa targeting — el loot es rápido (~0.5s).
+        """
         if not self.enabled:
             return
 
@@ -150,55 +160,43 @@ class LooterEngine:
 
         now = time.time()
 
-        # --- Kill-first: ¿hay muchas criaturas vivas? ---
+        # --- Threshold opcional: ¿demasiadas criaturas vivas? ---
         if not self.always_loot and self._targeting_engine is not None:
             creature_count = self._targeting_engine.get_creature_count()
-            in_combat = self._targeting_engine.is_in_combat()
-
-            if creature_count > self.loot_threshold:
-                # Muchas criaturas → priorizar combate
-                self.state = "waiting_kills"
-                # Log cada 3 segundos para no spamear
+            if self.loot_threshold > 0 and creature_count > self.loot_threshold:
+                self.state = "waiting_combat"
                 if not hasattr(self, '_last_wait_log'):
                     self._last_wait_log = 0.0
                 if now - self._last_wait_log >= 3.0:
                     self._last_wait_log = now
                     self._log(
-                        f"Esperando combate ({creature_count} criaturas > "
+                        f"Esperando combate ({creature_count} > "
                         f"threshold {self.loot_threshold}) — "
-                        f"{self._pending_loots} loot pendientes"
+                        f"{self._pending_loots} pendientes"
                     )
                     self.skipped_by_combat += 1
                 return
 
-            # Pocas criaturas pero aún en combate activo → esperar un poco
-            if in_combat and creature_count > 0:
-                self.state = "waiting_kills"
-                return
-
-        # --- Cooldown entre sesiones de looteo ---
+        # --- Cooldown mínimo entre looteos ---
         if now - self.last_loot_time < self.loot_cooldown:
-            self.state = "waiting_cooldown"
             return
 
+        # --- Verificar que tenemos SQMs ---
         if not self.sqms:
-            self._log("⚠ Sin SQMs configurados — presiona 'Calibrar'")
+            self._log("⚠ Sin SQMs — presiona 'Calibrar'")
             return
 
-        # --- Ejecutar looteo ---
-        self._is_looting = True
-        try:
-            self._take_loot()
-        finally:
-            self._is_looting = False
-        self._pending_loots = max(0, self._pending_loots - 1)
+        # --- LOOTEAR (rápido, sin pausar targeting) ---
+        self._take_loot()
 
     def _take_loot(self):
         """
-        Lootea cuerpos clickeando en TODOS los SQMs adyacentes al jugador.
-        El cadáver puede caer en cualquier SQM alrededor, así que clickeamos
-        todos los 8 adyacentes (excluyendo el centro = jugador).
-        Esto es similar al método "Click around" del OldBot.
+        Lootea cuerpos clickeando en los SQMs alrededor del jugador.
+        Patrón brute-force idéntico a TibiaAuto12:
+        SW → S → SE → W → Centro → E → NW → N → NE
+
+        Incluye el SQM central (jugador) porque el cadáver puede
+        quedar debajo del personaje.
         """
         click_fn = self._get_click_fn()
         if click_fn is None:
@@ -207,25 +205,31 @@ class LooterEngine:
 
         self.state = "looting"
 
-        # Obtener nombre del kill si existe
-        kname = "desconocido"
-        if self._kill_positions:
-            _, _, _, kname = self._kill_positions.pop(0)
+        # Nombre del monstruo para el log
+        kname = self._kill_names.pop(0) if self._kill_names else "desconocido"
 
-        # Lootear TODOS los SQMs adyacentes (máximo max_loot_sqms)
-        adjacent = self._get_adjacent_sqms(self.max_loot_sqms)
-        if adjacent:
-            self._log(f"Looteando {kname}: {len(adjacent)} SQMs adyacentes")
-            for sx, sy in adjacent:
-                try:
-                    click_fn(sx, sy)
-                except Exception as e:
-                    self._log(f"⚠ Error click en ({sx},{sy}): {e}")
+        # Seleccionar SQMs a clickear (9 = todos incluido centro)
+        sqms_to_click = self._get_loot_sqms()
+
+        if not sqms_to_click:
+            self._log("⚠ Sin SQMs disponibles")
+            self.state = "idle"
+            return
+
+        self._log(f"Looteando {kname}: {len(sqms_to_click)} SQMs")
+
+        # Click rápido en cada SQM (delay mínimo como TibiaAuto12)
+        for sx, sy in sqms_to_click:
+            try:
+                click_fn(sx, sy)
+            except Exception as e:
+                self._log(f"⚠ Error click ({sx},{sy}): {e}")
+            if self.loot_delay > 0:
                 time.sleep(self.loot_delay)
-                self.loot_actions += 1
-        else:
-            self._log("⚠ Sin SQMs adyacentes disponibles")
+            self.loot_actions += 1
 
+        # Actualizar contadores
+        self._pending_loots = max(0, self._pending_loots - 1)
         self.corpses_looted += 1
         self.last_loot_time = time.time()
         self.state = "idle"
@@ -236,63 +240,33 @@ class LooterEngine:
             return self._right_click_fn
         return self._left_click_fn  # default: left_click
 
-    def _get_closest_sqms(
-        self, target_x: int, target_y: int, max_count: int
-    ) -> List[Tuple[int, int]]:
+    def _get_loot_sqms(self) -> List[Tuple[int, int]]:
         """
-        Retorna los SQMs más cercanos a la posición target.
-        Excluye el SQM central (posición del jugador).
+        Retorna los SQMs a clickear para lootear.
+        max_loot_sqms >= 9: todos los 9 SQMs (incluido centro).
+        max_loot_sqms < 9: los primeros N (priorizando adyacentes).
+        Orden: SW(0), S(1), SE(2), W(3), Center(4), E(5), NW(6), N(7), NE(8).
         """
         if not self.sqms:
             return []
 
-        sqm_distances = []
+        valid_sqms = []
         for i, (sx, sy) in enumerate(self.sqms):
             if sx == 0 and sy == 0:
-                continue
-            if i == 4:  # SQM central = jugador
-                continue
-            dist = ((sx - target_x) ** 2 + (sy - target_y) ** 2) ** 0.5
-            sqm_distances.append((dist, sx, sy))
+                continue  # SQM no calibrado
+            valid_sqms.append((sx, sy))
 
-        sqm_distances.sort(key=lambda x: x[0])
-        return [(sx, sy) for _, sx, sy in sqm_distances[:max_count]]
-
-    def _get_adjacent_sqms(self, max_count: int) -> List[Tuple[int, int]]:
-        """Retorna SQMs adyacentes al jugador (excluyendo centro)."""
-        if not self.sqms:
-            return []
-        return [
-            (sx, sy) for i, (sx, sy) in enumerate(self.sqms)
-            if i != 4 and not (sx == 0 and sy == 0)
-        ][:max_count]
+        return valid_sqms[:self.max_loot_sqms]
 
     # ==================================================================
-    # API pública (para que targeting pueda consultar)
-    # ==================================================================
-    @property
-    def is_looting(self) -> bool:
-        """True si el looter está activamente looteando (targeting debe pausarse)."""
-        return self._is_looting
-
-    # ==================================================================
-    # Drop items no deseados al piso
+    # Drop items no deseados (placeholder)
     # ==================================================================
     def drop_unwanted_items(self):
-        """
-        Tira items no deseados al piso.
-        En Tibia con Classic Controls: Ctrl+click en el item del inventario
-        lo tira al piso (o arrastrarlo al game area).
-
-        Por ahora esta función es placeholder — necesita detección de items
-        en el inventario via template matching para funcionar completamente.
-        """
+        """Placeholder para drop de items no deseados."""
         if not self.drop_enabled or not self.drop_items:
             return
-
         self.state = "dropping"
-        self._log(f"Drop items configurado: {self.drop_items}")
-        self._log("⚠ Drop automático requiere detección de inventario (próxima versión)")
+        self._log(f"Drop items: {self.drop_items} (próxima versión)")
         self.state = "idle"
 
     # ==================================================================
@@ -301,41 +275,38 @@ class LooterEngine:
     def start(self):
         self.enabled = True
         self._pending_loots = 0
-        self._kill_positions.clear()
+        self._kill_names.clear()
         self._log("Looter activado")
-        self._log(f"Método: {self.loot_method}")
-        self._log(f"Cooldown: {self.loot_cooldown}s")
+        self._log(f"  Método: {self.loot_method}")
+        self._log(f"  SQMs: {self.max_loot_sqms} (9=todos incl. centro)")
+        self._log(f"  Delay entre clicks: {self.loot_delay}s")
+        self._log(f"  Cooldown entre looteos: {self.loot_cooldown}s")
 
         if self.always_loot:
-            self._log("Modo: lootear siempre (sin esperar combate)")
+            self._log("  Modo: lootear inmediatamente tras cada kill")
         else:
-            self._log(f"Modo: kill-first (lootear cuando criaturas ≤ {self.loot_threshold})")
-
-        if self.drop_enabled:
-            self._log(f"Drop items: {self.drop_items}")
+            self._log(f"  Modo: threshold (lootear si criaturas ≤ {self.loot_threshold})")
 
         if not self.sqms:
             self._log("⚠ Sin SQMs — presiona 'Calibrar' primero")
         else:
-            self._log(f"SQMs: {len(self.sqms)} configurados")
+            self._log(f"  SQMs calibrados: {len(self.sqms)}")
 
     def stop(self):
         self.enabled = False
         self.state = "idle"
         self._pending_loots = 0
-        self._kill_positions.clear()
+        self._kill_names.clear()
         self._log("Looter desactivado")
 
     def get_status(self) -> Dict:
         return {
             "enabled": self.enabled,
             "state": self.state,
-            "is_looting": self._is_looting,
             "pending_loots": self._pending_loots,
             "corpses_looted": self.corpses_looted,
             "loot_actions": self.loot_actions,
             "skipped_by_combat": self.skipped_by_combat,
             "sqms_configured": len(self.sqms),
-            "kill_positions_tracked": len(self._kill_positions),
             "loot_method": self.loot_method,
         }

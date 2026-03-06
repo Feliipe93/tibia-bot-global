@@ -1368,16 +1368,16 @@ class TibiaHealerGUI(ctk.CTk):
                 "1️⃣  Método de looteo: Pon left_click si en Tibia tienes Loot: Left,\n"
                 "     o right_click si tienes Loot: Right (Options → General → Loot).\n"
                 "\n"
-                "2️⃣  Max SQMs: Usa 8 para lootear TODOS los cuadros adyacentes al jugador.\n"
-                "     El cadáver puede caer en cualquier SQM alrededor tuyo.\n"
+                "2️⃣  Max SQMs: Usa 9 para clickear TODOS los cuadros incl. centro.\n"
+                "     El cadáver puede caer en cualquier SQM (como TibiaAuto12).\n"
                 "\n"
-                "3️⃣  Threshold criaturas: Pon 0 si quieres matar TODO antes de lootear.\n"
-                "     Pon 2 si te da igual lootear con 1-2 criaturas cerca.\n"
+                "3️⃣  Lootear siempre (ON): Lootea inmediatamente tras cada kill.\n"
+                "     El targeting NO se pausa — el loot es rápido (~0.5s).\n"
                 "\n"
-                "4️⃣  El Looter PAUSA al Targeting mientras lootea para evitar interferencia.\n"
+                "4️⃣  Cooldown 0.3s: Tiempo mínimo entre looteos consecutivos.\n"
                 "\n"
-                "💡 Recuerda: Primero activa el Targeting con tus monstruos configurados,\n"
-                "   luego activa el Looter. El Looter esperará a que haya kills."
+                "💡 Recuerda: Primero activa el Targeting con tus monstruos,\n"
+                "   luego activa el Looter. Lootea entre kills automáticamente."
             ),
             font=ctk.CTkFont(family="Consolas", size=11),
             text_color="#BDC3C7",
@@ -1416,7 +1416,7 @@ class TibiaHealerGUI(ctk.CTk):
         row_cd.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row_cd, text="Cooldown (s):", width=100).pack(side="left")
         self.entry_loot_cooldown = ctk.CTkEntry(row_cd, width=60)
-        self.entry_loot_cooldown.insert(0, str(self.config.looter.get("loot_cooldown", 1.5)))
+        self.entry_loot_cooldown.insert(0, str(self.config.looter.get("loot_cooldown", 0.3)))
         self.entry_loot_cooldown.pack(side="left", padx=5)
         ctk.CTkLabel(row_cd, text="Espera entre looteos",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
@@ -1426,35 +1426,36 @@ class TibiaHealerGUI(ctk.CTk):
         row_sqm.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row_sqm, text="SQMs por kill:", width=100).pack(side="left")
         self.entry_max_loot_sqms = ctk.CTkEntry(row_sqm, width=60)
-        self.entry_max_loot_sqms.insert(0, str(self.config.looter.get("max_loot_sqms", 8)))
+        self.entry_max_loot_sqms.insert(0, str(self.config.looter.get("max_loot_sqms", 9)))
         self.entry_max_loot_sqms.pack(side="left", padx=5)
-        ctk.CTkLabel(row_sqm, text="Cuántos SQMs clickear por cuerpo (1-8)",
+        ctk.CTkLabel(row_sqm, text="Cuántos SQMs clickear por cuerpo (1-9, 9=todos incl. centro)",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
 
-        # --- Estrategia Kill-First ---
+        # --- Estrategia de looteo ---
         strat_frame = ctk.CTkFrame(scroll)
         strat_frame.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(strat_frame, text="⚔️ ESTRATEGIA DE COMBATE",
+        ctk.CTkLabel(strat_frame, text="⚔️ ESTRATEGIA DE LOOTEO",
                       font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
         ctk.CTkLabel(
             strat_frame,
-            text="Controla cuándo lootear vs cuándo seguir matando.",
+            text="Estilo TibiaAuto12: lootea inmediatamente tras cada kill.\n"
+                 "NO pausa el targeting — el loot es rápido (~0.5s).",
             font=ctk.CTkFont(size=11), text_color="#AAAAAA",
         ).pack(anchor="w", padx=10, pady=(0, 5))
 
         self.cb_always_loot = ctk.CTkSwitch(
             strat_frame,
-            text="Lootear siempre (ignorar combate activo)",
+            text="Lootear siempre (recomendado ON = como TibiaAuto12)",
         )
         self.cb_always_loot.pack(anchor="w", padx=15, pady=3)
-        if self.config.looter.get("always_loot", False):
+        if self.config.looter.get("always_loot", True):
             self.cb_always_loot.select()
 
         row_thresh = ctk.CTkFrame(strat_frame, fg_color="transparent")
         row_thresh.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row_thresh, text="Threshold criaturas:", width=150).pack(side="left")
         self.entry_loot_threshold = ctk.CTkEntry(row_thresh, width=60)
-        self.entry_loot_threshold.insert(0, str(self.config.looter.get("loot_threshold", 2)))
+        self.entry_loot_threshold.insert(0, str(self.config.looter.get("loot_threshold", 0)))
         self.entry_loot_threshold.pack(side="left", padx=5)
         ctk.CTkLabel(
             row_thresh,
@@ -1464,9 +1465,10 @@ class TibiaHealerGUI(ctk.CTk):
 
         ctk.CTkLabel(
             strat_frame,
-            text="Ejemplo: threshold=0 → solo lootea cuando NO hay criaturas\n"
-                 "threshold=1 → lootea si hay 0 o 1 criatura\n"
-                 "threshold=2 → lootea si hay 0, 1 o 2 criaturas",
+            text="Si 'Lootear siempre' está OFF, usa el threshold:\n"
+                 "threshold=0 → solo lootea cuando NO hay criaturas\n"
+                 "threshold=2 → lootea si hay ≤2 criaturas\n"
+                 "RECOMENDADO: dejar 'Lootear siempre' ON",
             font=ctk.CTkFont(size=11), text_color="#777777",
         ).pack(anchor="w", padx=15, pady=(3, 8))
 
@@ -1621,18 +1623,18 @@ class TibiaHealerGUI(ctk.CTk):
         try:
             looter["loot_cooldown"] = float(self.entry_loot_cooldown.get())
         except ValueError:
-            looter["loot_cooldown"] = 1.5
+            looter["loot_cooldown"] = 0.3
         try:
             looter["max_loot_sqms"] = int(self.entry_max_loot_sqms.get())
         except ValueError:
-            looter["max_loot_sqms"] = 8
+            looter["max_loot_sqms"] = 9
 
         # Estrategia kill-first
         looter["always_loot"] = bool(self.cb_always_loot.get())
         try:
             looter["loot_threshold"] = int(self.entry_loot_threshold.get())
         except ValueError:
-            looter["loot_threshold"] = 2
+            looter["loot_threshold"] = 0
 
         # Drop items
         looter["drop_enabled"] = bool(self.cb_drop_enabled.get())

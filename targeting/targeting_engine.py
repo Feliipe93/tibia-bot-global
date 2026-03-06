@@ -131,7 +131,6 @@ class TargetingEngine:
         2. Si hay monstruos y no estamos atacando → click de ataque
         3. Detecta kills por disminución de conteo
         4. Si target desaparece por muchos frames → soltar y buscar otro
-        5. Pausa si el looter está activamente looteando
         """
         if not self.enabled or frame is None:
             return
@@ -140,10 +139,9 @@ class TargetingEngine:
 
         now = time.time()
 
-        # --- Pausar si el looter está looteando ---
-        if self._looter_engine is not None and self._looter_engine.is_looting:
-            self.state = "paused_for_loot"
-            return
+        # NOTE: Ya NO se pausa por looting.
+        # El looter v4 es rápido (~0.5s) y no necesita pausar targeting.
+        # Esto es idéntico a TibiaAuto12 donde el combate nunca se pausa.
 
         # Leer battle list periódicamente
         if now - self.last_search_time < self.search_interval:

@@ -42,7 +42,7 @@
         "scan_height_ratio": 0.1
     },
     "cavebot": {
-        "enabled": false,
+        "enabled": true,
         "cyclic": true,
         "walk_mode": "click",
         "step_delay": 0.25,
