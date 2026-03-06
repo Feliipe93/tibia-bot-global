@@ -1,10 +1,12 @@
 """
-mouse_click_sender.py - Envío de clicks del mouse a Tibia via PostMessage.
+mouse_click_sender.py - Envío de clicks del mouse a Tibia via SendMessage.
 Soporta click izquierdo, derecho, doble click, y modificadores (Shift/Ctrl).
 No requiere que Tibia esté en primer plano.
 
-Basado en el patrón de oldbot: MOUSEMOVE → BUTTONDOWN → BUTTONUP
-con lParam = (x & 0xFFFF) | (y << 16) para coordenadas de cliente.
+Basado en TibiaAuto12/core/SendToClient.py:
+  - MOUSEMOVE con PostMessage (asíncrono)
+  - BUTTONDOWN/UP con SendMessage (síncrono)
+  - lParam = MAKELONG(x, y) para coordenadas de cliente
 """
 
 import time
@@ -128,25 +130,25 @@ class MouseClickSender:
             if ctrl:
                 wparam |= win32con.MK_CONTROL
 
-            # Mover mouse primero (simular trayectoria)
+            # Mover mouse primero (PostMessage asíncrono como TibiaAuto12)
             win32api.PostMessage(
                 self.hwnd, win32con.WM_MOUSEMOVE, 0, lparam
             )
             time.sleep(0.01)
 
-            # Click down
-            win32api.PostMessage(self.hwnd, msg_down, wparam, lparam)
+            # Click down — SendMessage síncrono (como TibiaAuto12)
+            win32api.SendMessage(self.hwnd, msg_down, wparam, lparam)
 
             if double:
                 time.sleep(delay)
-                win32api.PostMessage(self.hwnd, msg_up, 0, lparam)
+                win32api.SendMessage(self.hwnd, msg_up, 0, lparam)
                 time.sleep(0.01)
-                win32api.PostMessage(self.hwnd, msg_dbl, wparam, lparam)
+                win32api.SendMessage(self.hwnd, msg_dbl, wparam, lparam)
 
             time.sleep(delay)
 
-            # Click up
-            win32api.PostMessage(self.hwnd, msg_up, 0, lparam)
+            # Click up — SendMessage síncrono
+            win32api.SendMessage(self.hwnd, msg_up, 0, lparam)
 
             # Registrar
             self.last_click_time = time.time()

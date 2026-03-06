@@ -9,7 +9,7 @@ import threading
 import tkinter as tk
 from datetime import datetime
 from tkinter import filedialog, messagebox
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import customtkinter as ctk
 from PIL import Image, ImageTk
@@ -1928,16 +1928,18 @@ class TibiaHealerGUI(ctk.CTk):
         ctk.CTkLabel(
             guide_frame,
             text=(
-                "1️⃣  Método de looteo: Pon left_click si en Tibia tienes Loot: Left,\n"
+                "1️⃣  Tipo de cuenta: Selecciona Premium o Free Account.\n"
+                "     • Premium: el cliente de Tibia organiza todo — solo necesita el click.\n"
+                "     • Free: todo va a la primera BP. (Futuro: organización manual).\n"
+                "\n"
+                "2️⃣  Método de looteo: Pon left_click si en Tibia tienes Loot: Left,\n"
                 "     o right_click si tienes Loot: Right (Options → General → Loot).\n"
                 "\n"
-                "2️⃣  Max SQMs: Usa 9 para clickear TODOS los cuadros incl. centro.\n"
+                "3️⃣  Max SQMs: Usa 9 para clickear TODOS los cuadros incl. centro.\n"
                 "     El cadáver puede caer en cualquier SQM (como TibiaAuto12).\n"
                 "\n"
-                "3️⃣  Lootear siempre (ON): Lootea inmediatamente tras cada kill.\n"
+                "4️⃣  Lootear siempre (ON): Lootea inmediatamente tras cada kill.\n"
                 "     El targeting NO se pausa — el loot es rápido (~0.5s).\n"
-                "\n"
-                "4️⃣  Cooldown 0.3s: Tiempo mínimo entre looteos consecutivos.\n"
                 "\n"
                 "💡 Recuerda: Primero activa el Targeting con tus monstruos,\n"
                 "   luego activa el Looter. Lootea entre kills automáticamente."
@@ -1974,21 +1976,43 @@ class TibiaHealerGUI(ctk.CTk):
         ctk.CTkLabel(row1, text="← shift_right_click = Quick Loot (recomendado)",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
 
-        # Free account toggle
-        free_row = ctk.CTkFrame(method_frame, fg_color="transparent")
-        free_row.pack(fill="x", padx=10, pady=3)
-        self.cb_free_account = ctk.CTkSwitch(
-            free_row,
-            text="🆓 Free Account (lootea TODO a la BP principal con left_click)",
+        # --- Tipo de cuenta (Premium / Free) ---
+        account_frame = ctk.CTkFrame(method_frame, fg_color="transparent")
+        account_frame.pack(fill="x", padx=10, pady=(5, 3))
+
+        ctk.CTkLabel(account_frame, text="Tipo de cuenta:",
+                      font=ctk.CTkFont(size=12, weight="bold")).pack(anchor="w", pady=(0, 4))
+
+        self._account_type_var = ctk.StringVar(
+            value=self.config.looter.get("account_type",
+                  "free" if self.config.looter.get("free_account", False) else "premium")
         )
-        self.cb_free_account.pack(anchor="w")
-        if self.config.looter.get("free_account", False):
-            self.cb_free_account.select()
-        ctk.CTkLabel(
-            free_row,
-            text="Si eres Free Account, activa esto. Usa left_click siempre (ignora método arriba).",
-            font=ctk.CTkFont(size=10), text_color="#F39C12",
-        ).pack(anchor="w", padx=25)
+
+        premium_row = ctk.CTkFrame(account_frame, fg_color="transparent")
+        premium_row.pack(fill="x")
+        self.rb_premium = ctk.CTkRadioButton(
+            premium_row, text="⭐ Premium Account",
+            variable=self._account_type_var, value="premium",
+            command=self._on_account_type_changed,
+            font=ctk.CTkFont(size=12),
+        )
+        self.rb_premium.pack(side="left")
+        ctk.CTkLabel(premium_row,
+                      text="El cliente organiza TODO el loot automáticamente. Solo necesita el click.",
+                      font=ctk.CTkFont(size=10), text_color="#2ECC71").pack(side="left", padx=10)
+
+        free_row = ctk.CTkFrame(account_frame, fg_color="transparent")
+        free_row.pack(fill="x", pady=(3, 0))
+        self.rb_free = ctk.CTkRadioButton(
+            free_row, text="🆓 Free Account",
+            variable=self._account_type_var, value="free",
+            command=self._on_account_type_changed,
+            font=ctk.CTkFont(size=12),
+        )
+        self.rb_free.pack(side="left")
+        ctk.CTkLabel(free_row,
+                      text="Sin Quick Loot. Todo va a BP principal. (Futuro: organización manual)",
+                      font=ctk.CTkFont(size=10), text_color="#F39C12").pack(side="left", padx=10)
 
         # Cooldown
         row_cd = ctk.CTkFrame(method_frame, fg_color="transparent")
@@ -2170,6 +2194,94 @@ class TibiaHealerGUI(ctk.CTk):
             command=self._save_looter_config,
         ).pack(fill="x", padx=5, pady=8)
 
+        # --- 📸 Herramientas Visuales de Calibración ---
+        visual_frame = ctk.CTkFrame(scroll, border_width=1, border_color="#E67E22")
+        visual_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(visual_frame, text="📸 CALIBRACIÓN VISUAL — Verificar SQMs y Detección",
+                      font=ctk.CTkFont(weight="bold"),
+                      text_color="#E67E22").pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            visual_frame,
+            text=(
+                "Herramientas para verificar que el bot sabe DÓNDE clickear.\n"
+                "Captura la pantalla del juego y muestra un overlay con los SQMs marcados.\n"
+                "También puedes probar la detección de cadáveres si hay un cuerpo visible."
+            ),
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 8))
+
+        # Botones en fila
+        vis_btn_row = ctk.CTkFrame(visual_frame, fg_color="transparent")
+        vis_btn_row.pack(fill="x", padx=10, pady=5)
+
+        ctk.CTkButton(
+            vis_btn_row, text="🎯 Ver SQMs del Looter",
+            width=200, fg_color="#2980B9", hover_color="#3498DB",
+            command=self._preview_loot_sqms,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            vis_btn_row, text="💀 Probar Detección Cadáveres",
+            width=220, fg_color="#8E44AD", hover_color="#9B59B6",
+            command=self._preview_corpse_detection,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            vis_btn_row, text="🔧 Capturar Piso/Suelo",
+            width=180, fg_color="#27AE60", hover_color="#2ECC71",
+            command=self._capture_floor_reference,
+        ).pack(side="left", padx=5)
+
+        # Segunda fila: captura de cadáveres
+        vis_btn_row2 = ctk.CTkFrame(visual_frame, fg_color="transparent")
+        vis_btn_row2.pack(fill="x", padx=10, pady=5)
+
+        ctk.CTkButton(
+            vis_btn_row2, text="📸 Capturar Template de Cadáver",
+            width=260, fg_color="#E67E22", hover_color="#F39C12",
+            command=self._capture_corpse_template,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            vis_btn_row2, text="🔄 Actualizar Templates",
+            width=180,
+            command=self._update_corpse_templates_info,
+        ).pack(side="left", padx=5)
+
+        # Label de templates de cadáveres
+        self.lbl_corpse_templates_info = ctk.CTkLabel(
+            visual_frame,
+            text="Cargando templates de cadáveres...",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        )
+        self.lbl_corpse_templates_info.pack(anchor="w", padx=10, pady=(5, 5))
+        self._update_corpse_templates_info()
+
+        # Info de calibración actual
+        self.lbl_loot_calibration = ctk.CTkLabel(
+            visual_frame,
+            text="⚠ Sin calibrar — presiona 'Calibrar' en la pestaña Principal primero",
+            font=ctk.CTkFont(size=11), text_color="#F39C12",
+            justify="left",
+        )
+        self.lbl_loot_calibration.pack(anchor="w", padx=10, pady=(0, 8))
+
+        ctk.CTkLabel(
+            visual_frame,
+            text=(
+                "💡 CÓMO FUNCIONA EL LOOT:\n"
+                "  • Cuando el Targeting mata un monstruo, notifica al Looter\n"
+                "  • El Looter clickea los 9 SQMs alrededor del personaje (3×3 grid)\n"
+                "  • Esto es el mismo método que usan TibiaAuto12 y TibiaPilotNG\n"
+                "  • La detección de cadáveres (aura/sangre) es un PLUS opcional\n"
+                "  • Si la detección visual falla → usa los 9 SQMs ciegos (siempre funciona)"
+            ),
+            font=ctk.CTkFont(size=10), text_color="#777777",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 10))
+
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
         state_frame.pack(fill="x", padx=5, pady=5)
@@ -2199,7 +2311,9 @@ class TibiaHealerGUI(ctk.CTk):
 
         # Método de looteo
         looter["loot_method"] = self.cb_loot_method.get()
-        looter["free_account"] = bool(self.cb_free_account.get())
+        looter["account_type"] = self._account_type_var.get()
+        # Compatibilidad: mantener free_account bool para backwards compat
+        looter["free_account"] = (self._account_type_var.get() == "free")
         try:
             looter["loot_cooldown"] = float(self.entry_loot_cooldown.get())
         except ValueError:
@@ -2261,6 +2375,749 @@ class TibiaHealerGUI(ctk.CTk):
             self.bot.dispatcher.disable_module("looter")
             self.bot.looter_engine.stop()
         self.log.info(f"Looter {'habilitado' if enabled else 'deshabilitado'}")
+
+    def _on_account_type_changed(self):
+        """Callback cuando cambian los radio buttons Premium/Free."""
+        acct = self._account_type_var.get()
+        is_free = (acct == "free")
+
+        # Habilitar/deshabilitar secciones según tipo de cuenta
+        # Free Account: mostrar opciones de organización (futuro)
+        # Premium: ocultar esas opciones (el cliente lo hace todo)
+
+        # Actualizar tooltips/labels dinámicamente
+        if is_free:
+            self.log.info("Cuenta FREE seleccionada — loot va a BP principal")
+        else:
+            self.log.info("Cuenta PREMIUM seleccionada — el cliente organiza el loot")
+
+    # ------------------------------------------------------------------
+    # Herramientas visuales del Looter
+    # ------------------------------------------------------------------
+    def _preview_loot_sqms(self):
+        """Captura frame de OBS y dibuja los 9 SQMs del looter como overlay."""
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.game_region is None or cal.player_center is None:
+            messagebox.showerror(
+                "Error",
+                "El Game Window no está calibrado.\n"
+                "Presiona 'Calibrar' en la pestaña Principal.",
+            )
+            return
+
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        debug_img = frame.copy()
+        gx1, gy1, gx2, gy2 = cal.game_region
+        px, py = cal.player_center
+        sqm_w, sqm_h = cal.sqm_size
+
+        # Dibujar borde del game window
+        cv2.rectangle(debug_img, (gx1, gy1), (gx2, gy2), (0, 255, 255), 2)
+        cv2.putText(debug_img, "Game Window", (gx1 + 5, gy1 - 8),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+
+        # Dibujar los 9 SQMs
+        sqm_labels = ["SW", "S", "SE", "W", "CENTER", "E", "NW", "N", "NE"]
+        sqm_offsets = [
+            (-1, 1), (0, 1), (1, 1),
+            (-1, 0), (0, 0), (1, 0),
+            (-1, -1), (0, -1), (1, -1),
+        ]
+
+        for i, (dx, dy) in enumerate(sqm_offsets):
+            cx = px + dx * sqm_w
+            cy = py + dy * sqm_h
+            x1 = cx - sqm_w // 2
+            y1 = cy - sqm_h // 2
+            x2 = x1 + sqm_w
+            y2 = y1 + sqm_h
+
+            if i == 4:  # CENTER = player
+                color = (0, 0, 255)  # Rojo
+                thick = 3
+            else:
+                color = (0, 255, 0)  # Verde
+                thick = 2
+
+            cv2.rectangle(debug_img, (x1, y1), (x2, y2), color, thick)
+            # Número del SQM
+            cv2.putText(debug_img, f"{i+1}", (cx - 5, cy - 8),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+            # Label
+            cv2.putText(debug_img, sqm_labels[i], (cx - 10, cy + 12),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.35, (255, 255, 255), 1)
+
+        # Player center marker
+        cv2.drawMarker(debug_img, (px, py), (0, 0, 255), cv2.MARKER_CROSS, 20, 3)
+        cv2.putText(debug_img, "PLAYER", (px - 25, py - 25),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+        # Info text
+        info = f"SQM: {sqm_w}x{sqm_h}px | Center: ({px},{py}) | Game: ({gx1},{gy1})-({gx2},{gy2})"
+        cv2.putText(debug_img, info, (10, 25),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
+
+        # Guardar y mostrar
+        os.makedirs("debug", exist_ok=True)
+        path = os.path.join("debug", "loot_sqms_preview.png")
+        cv2.imwrite(path, debug_img)
+
+        # Mostrar en ventana
+        self._show_preview_window(
+            "🎯 SQMs del Looter — Verificación Visual",
+            path,
+            f"Los 9 SQMs verdes son donde el Looter clickeará.\n"
+            f"El rojo (CENTER) es donde está tu personaje.\n"
+            f"SQM size: {sqm_w}×{sqm_h}px | Player: ({px}, {py})\n\n"
+            f"Si los cuadros NO coinciden con los tiles del juego,\n"
+            f"la calibración del Game Window está incorrecta.",
+        )
+
+        # Actualizar label de calibración
+        self.lbl_loot_calibration.configure(
+            text=f"✅ Calibrado: SQM={sqm_w}×{sqm_h}px, Center=({px},{py}), "
+                 f"Game=({gx1},{gy1})-({gx2},{gy2})",
+            text_color="#55FF55",
+        )
+
+    def _preview_corpse_detection(self):
+        """Captura frame y ejecuta el corpse_detector, mostrando qué detectó."""
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.game_region is None:
+            messagebox.showerror(
+                "Error",
+                "El Game Window no está calibrado.\n"
+                "Presiona 'Calibrar' en la pestaña Principal.",
+            )
+            return
+
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        detector = self.bot.looter_engine.corpse_detector
+
+        # Asegurar que tiene la configuración
+        if detector._game_region is None:
+            gx1, gy1, gx2, gy2 = cal.game_region
+            detector.set_game_region(gx1, gy1, gx2, gy2)
+        if cal.player_center:
+            detector.set_player_center(*cal.player_center)
+        if cal.sqm_size:
+            detector.set_sqm_size(*cal.sqm_size)
+
+        # Ejecutar detección
+        corpses = detector.detect_corpses(frame)
+
+        # Generar overlay de debug
+        debug_img = detector.get_debug_overlay(frame)
+
+        # Además dibujar las máscaras HSV como miniatura
+        gx1, gy1, gx2, gy2 = cal.game_region
+        game_roi = frame[gy1:gy2, gx1:gx2]
+        hsv = cv2.cvtColor(game_roi, cv2.COLOR_BGR2HSV)
+
+        # Máscara de aura (blanco + amarillo)
+        mask_w = cv2.inRange(hsv, detector.aura_white_lower, detector.aura_white_upper)
+        mask_y = cv2.inRange(hsv, detector.aura_yellow_lower, detector.aura_yellow_upper)
+        aura_mask = cv2.bitwise_or(mask_w, mask_y)
+
+        # Máscara de sangre
+        mask_r1 = cv2.inRange(hsv, detector.blood_red_lower1, detector.blood_red_upper1)
+        mask_r2 = cv2.inRange(hsv, detector.blood_red_lower2, detector.blood_red_upper2)
+        mask_g = cv2.inRange(hsv, detector.blood_green_lower, detector.blood_green_upper)
+        blood_mask = cv2.bitwise_or(cv2.bitwise_or(mask_r1, mask_r2), mask_g)
+
+        # Guardar imágenes
+        os.makedirs("debug", exist_ok=True)
+        cv2.imwrite(os.path.join("debug", "corpse_detection_overlay.png"), debug_img)
+        cv2.imwrite(os.path.join("debug", "corpse_aura_mask.png"), aura_mask)
+        cv2.imwrite(os.path.join("debug", "corpse_blood_mask.png"), blood_mask)
+        cv2.imwrite(os.path.join("debug", "corpse_game_roi.png"), game_roi)
+
+        n = len(corpses)
+        path = os.path.join("debug", "corpse_detection_overlay.png")
+        self._show_preview_window(
+            f"💀 Detección de Cadáveres — {n} encontrado(s)",
+            path,
+            f"Cadáveres detectados: {n}\n"
+            f"{'Posiciones: ' + str(corpses) if corpses else 'No se detectaron cadáveres.'}\n\n"
+            f"Imágenes guardadas en debug/:\n"
+            f"  • corpse_detection_overlay.png — Frame con overlay\n"
+            f"  • corpse_aura_mask.png — Máscara de aura (blanco/amarillo)\n"
+            f"  • corpse_blood_mask.png — Máscara de sangre (rojo/verde)\n"
+            f"  • corpse_game_roi.png — Game window recortado\n\n"
+            f"💡 Si hay un cadáver visible y NO lo detectó:\n"
+            f"  1. Revisa corpse_aura_mask.png — ¿se ve el aura?\n"
+            f"  2. Si NO se ve, los umbrales HSV necesitan ajuste\n"
+            f"  3. Si detecta MUCHO ruido, los umbrales son muy amplios\n"
+            f"  4. El fallback ciego (9 SQMs) SIEMPRE funciona como respaldo",
+        )
+
+    def _capture_floor_reference(self):
+        """Captura una imagen de referencia del suelo/piso para futura diferenciación."""
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.game_region is None or cal.player_center is None:
+            messagebox.showerror(
+                "Error",
+                "El Game Window no está calibrado.\n"
+                "Presiona 'Calibrar' en la pestaña Principal.",
+            )
+            return
+
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        px, py = cal.player_center
+        sqm_w, sqm_h = cal.sqm_size
+
+        # Capturar un SQM de piso limpio (el que está debajo del player)
+        # En la mayoría de situaciones, el player está parado en piso normal
+        x1 = px - sqm_w // 2
+        y1 = py - sqm_h // 2
+        x2 = x1 + sqm_w
+        y2 = y1 + sqm_h
+
+        h_f, w_f = frame.shape[:2]
+        x1 = max(0, min(x1, w_f - 1))
+        y1 = max(0, min(y1, h_f - 1))
+        x2 = max(x1 + 1, min(x2, w_f))
+        y2 = max(y1 + 1, min(y2, h_f))
+
+        floor_tile = frame[y1:y2, x1:x2]
+
+        # Guardar
+        os.makedirs(os.path.join("images", "Looter"), exist_ok=True)
+        save_path = os.path.join("images", "Looter", "floor_reference.png")
+        cv2.imwrite(save_path, floor_tile)
+
+        # También guardar los 8 SQMs vecinos como referencia
+        sqm_offsets = [
+            ("N", 0, -1), ("S", 0, 1), ("E", 1, 0), ("W", -1, 0),
+            ("NE", 1, -1), ("NW", -1, -1), ("SE", 1, 1), ("SW", -1, 1),
+        ]
+        saved_tiles = 1
+        for label, dx, dy in sqm_offsets:
+            sx = px + dx * sqm_w - sqm_w // 2
+            sy = py + dy * sqm_h - sqm_h // 2
+            sx2 = sx + sqm_w
+            sy2 = sy + sqm_h
+            sx = max(0, min(sx, w_f - 1))
+            sy = max(0, min(sy, h_f - 1))
+            sx2 = max(sx + 1, min(sx2, w_f))
+            sy2 = max(sy + 1, min(sy2, h_f))
+            tile = frame[sy:sy2, sx:sx2]
+            tile_path = os.path.join("images", "Looter", f"floor_{label}.png")
+            cv2.imwrite(tile_path, tile)
+            saved_tiles += 1
+
+        # Preview compuesto
+        debug_img = frame.copy()
+        for dx, dy in [(-1, -1), (0, -1), (1, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]:
+            sx = px + dx * sqm_w - sqm_w // 2
+            sy = py + dy * sqm_h - sqm_h // 2
+            color = (0, 255, 255) if (dx, dy) == (0, 0) else (255, 200, 0)
+            cv2.rectangle(debug_img, (sx, sy), (sx + sqm_w, sy + sqm_h), color, 2)
+
+        os.makedirs("debug", exist_ok=True)
+        preview_path = os.path.join("debug", "floor_capture_preview.png")
+        cv2.imwrite(preview_path, debug_img)
+
+        self._show_preview_window(
+            "🔧 Referencia de Suelo Capturada",
+            preview_path,
+            f"Se capturaron {saved_tiles} tiles de referencia del suelo.\n"
+            f"Guardados en images/Looter/\n"
+            f"  • floor_reference.png — Tile central (bajo el player)\n"
+            f"  • floor_N.png, floor_S.png, etc. — Tiles vecinos\n\n"
+            f"Tile size: {sqm_w}×{sqm_h}px\n\n"
+            f"💡 PARA QUÉ SIRVE:\n"
+            f"  Estas imágenes permiten al detector comparar el suelo\n"
+            f"  'limpio' vs un SQM con cadáver/items encima.\n"
+            f"  → Captura en un área SIN cadáveres para obtener\n"
+            f"     una buena referencia del piso.",
+        )
+        self.log.ok(f"Referencia de suelo capturada: {saved_tiles} tiles en images/Looter/")
+
+    def _update_corpse_templates_info(self):
+        """Actualiza el label con info de templates de cadáveres disponibles."""
+        corpse_dir = os.path.join("corpse_loot")
+        templates = {}
+        if os.path.isdir(corpse_dir):
+            for fname in os.listdir(corpse_dir):
+                if fname.endswith(".png"):
+                    raw = fname.replace(".png", "")
+                    # snake_case → display
+                    if "_" in raw:
+                        display = " ".join(w.capitalize() for w in raw.split("_"))
+                    else:
+                        display = ""
+                        for i, ch in enumerate(raw):
+                            if ch.isupper() and i > 0 and raw[i - 1].islower():
+                                display += " "
+                            display += ch
+                    img = cv2.imread(os.path.join(corpse_dir, fname))
+                    if img is not None:
+                        templates[display] = (img.shape[1], img.shape[0], fname)
+
+        if not templates:
+            self.lbl_corpse_templates_info.configure(
+                text="❌ No hay templates de cadáveres.\n"
+                     "   Usa '📸 Capturar Template de Cadáver' para agregar.",
+                text_color="#FF6666",
+            )
+            return
+
+        lines = [f"Templates de cadáveres: {len(templates)} disponibles"]
+        for name, (w, h, fname) in sorted(templates.items()):
+            lines.append(f"  💀 {name} — {w}×{h}px ({fname})")
+
+        self.lbl_corpse_templates_info.configure(
+            text="\n".join(lines),
+            text_color="#55FF55",
+        )
+
+    def _capture_corpse_template(self):
+        """Captura frame de OBS y abre ventana de selección drag para recortar cadáver."""
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.game_region is None or cal.player_center is None:
+            messagebox.showerror(
+                "Error",
+                "El Game Window no está calibrado.\n"
+                "Presiona 'Calibrar' en la pestaña Principal.",
+            )
+            return
+
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        # Recortar game window para mostrar solo el área de juego
+        gx1, gy1, gx2, gy2 = cal.game_region
+        h_f, w_f = frame.shape[:2]
+        gx1 = max(0, min(gx1, w_f - 1))
+        gy1 = max(0, min(gy1, h_f - 1))
+        gx2 = max(gx1 + 1, min(gx2, w_f))
+        gy2 = max(gy1 + 1, min(gy2, h_f))
+        game_roi = frame[gy1:gy2, gx1:gx2]
+
+        # Abrir ventana de selección con drag
+        self._open_drag_select_window(game_roi, frame, (gx1, gy1))
+
+    def _open_drag_select_window(
+        self,
+        game_roi: np.ndarray,
+        full_frame: np.ndarray,
+        roi_offset: Tuple[int, int],
+    ):
+        """
+        Abre una ventana donde el usuario puede dibujar un rectángulo
+        sobre el game window para seleccionar el sprite del cadáver.
+        """
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("📸 Seleccionar Cadáver — Dibuja un rectángulo sobre el cuerpo")
+        dialog.focus_force()
+        dialog.grab_set()
+
+        # Estado de la selección
+        state = {
+            "start_x": 0, "start_y": 0,
+            "end_x": 0, "end_y": 0,
+            "dragging": False,
+            "rect_id": None,
+            "selection_done": False,
+        }
+
+        # Convertir imagen para tkinter
+        roi_rgb = cv2.cvtColor(game_roi, cv2.COLOR_BGR2RGB)
+        roi_h, roi_w = roi_rgb.shape[:2]
+
+        # Calcular escala para que quepa en pantalla
+        max_display_w, max_display_h = 1000, 650
+        scale = min(max_display_w / roi_w, max_display_h / roi_h, 1.0)
+        display_w = int(roi_w * scale)
+        display_h = int(roi_h * scale)
+
+        if scale < 1.0:
+            display_rgb = cv2.resize(roi_rgb, (display_w, display_h), interpolation=cv2.INTER_AREA)
+        else:
+            display_rgb = roi_rgb.copy()
+
+        dialog.geometry(f"{display_w + 20}x{display_h + 200}")
+
+        # Instrucciones
+        ctk.CTkLabel(
+            dialog,
+            text="🖱️ Haz clic y arrastra para seleccionar el cadáver/sprite.\n"
+                 "El rectángulo se dibujará en amarillo. Luego haz clic en 'Guardar'.",
+            font=ctk.CTkFont(size=12),
+            text_color="#F1C40F",
+        ).pack(padx=10, pady=(8, 4))
+
+        # Info de escala
+        sqm_w, sqm_h = self.bot.calibrator.sqm_size
+        ctk.CTkLabel(
+            dialog,
+            text=f"SQM: {sqm_w}×{sqm_h}px | Escala display: {scale:.2f}x | "
+                 f"Game Window: {roi_w}×{roi_h}px",
+            font=ctk.CTkFont(size=10), text_color="#888888",
+        ).pack(padx=10, pady=(0, 4))
+
+        # Canvas con la imagen
+        pil_img = Image.fromarray(display_rgb)
+        tk_img = ImageTk.PhotoImage(pil_img)
+
+        canvas = tk.Canvas(dialog, width=display_w, height=display_h,
+                           bg="black", cursor="crosshair")
+        canvas.pack(padx=10, pady=5)
+        canvas.create_image(0, 0, anchor="nw", image=tk_img)
+        canvas._tk_img = tk_img  # keep reference
+
+        # Dibujar grid de SQMs para referencia
+        px_local = self.bot.calibrator.player_center[0] - roi_offset[0]
+        py_local = self.bot.calibrator.player_center[1] - roi_offset[1]
+        for dx in range(-7, 8):
+            for dy in range(-5, 6):
+                sx = int((px_local + dx * sqm_w - sqm_w / 2) * scale)
+                sy = int((py_local + dy * sqm_h - sqm_h / 2) * scale)
+                ex = int((px_local + dx * sqm_w + sqm_w / 2) * scale)
+                ey = int((py_local + dy * sqm_h + sqm_h / 2) * scale)
+                color = "#FF0000" if dx == 0 and dy == 0 else "#333333"
+                canvas.create_rectangle(sx, sy, ex, ey, outline=color, width=1)
+
+        # Label de selección
+        lbl_sel = ctk.CTkLabel(
+            dialog, text="Selección: (ninguna)",
+            font=ctk.CTkFont(size=11),
+        )
+        lbl_sel.pack(pady=2)
+
+        # Eventos de mouse
+        def on_press(event):
+            state["start_x"] = event.x
+            state["start_y"] = event.y
+            state["dragging"] = True
+            if state["rect_id"]:
+                canvas.delete(state["rect_id"])
+
+        def on_drag(event):
+            if not state["dragging"]:
+                return
+            state["end_x"] = event.x
+            state["end_y"] = event.y
+            if state["rect_id"]:
+                canvas.delete(state["rect_id"])
+            state["rect_id"] = canvas.create_rectangle(
+                state["start_x"], state["start_y"],
+                state["end_x"], state["end_y"],
+                outline="#FFFF00", width=2,
+            )
+            # Calcular tamaño real (sin escala)
+            real_w = abs(state["end_x"] - state["start_x"]) / scale
+            real_h = abs(state["end_y"] - state["start_y"]) / scale
+            lbl_sel.configure(text=f"Selección: {real_w:.0f}×{real_h:.0f}px (real)")
+
+        def on_release(event):
+            state["dragging"] = False
+            state["end_x"] = event.x
+            state["end_y"] = event.y
+            state["selection_done"] = True
+
+        canvas.bind("<ButtonPress-1>", on_press)
+        canvas.bind("<B1-Motion>", on_drag)
+        canvas.bind("<ButtonRelease-1>", on_release)
+
+        # Botones
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=8)
+
+        def on_save():
+            if not state["selection_done"]:
+                messagebox.showwarning("Aviso", "Primero dibuja un rectángulo sobre el cadáver.")
+                return
+
+            # Convertir coordenadas de display a coordenadas reales de la ROI
+            x1 = int(min(state["start_x"], state["end_x"]) / scale)
+            y1 = int(min(state["start_y"], state["end_y"]) / scale)
+            x2 = int(max(state["start_x"], state["end_x"]) / scale)
+            y2 = int(max(state["start_y"], state["end_y"]) / scale)
+
+            # Clamp
+            x1 = max(0, min(x1, roi_w - 1))
+            y1 = max(0, min(y1, roi_h - 1))
+            x2 = max(x1 + 1, min(x2, roi_w))
+            y2 = max(y1 + 1, min(y2, roi_h))
+
+            crop = game_roi[y1:y2, x1:x2]
+            if crop.size == 0:
+                messagebox.showerror("Error", "La selección está vacía.")
+                return
+
+            # Pedir nombre de la criatura
+            name = self._ask_corpse_name(crop)
+            if name is None or name.strip() == "":
+                return
+
+            # Guardar
+            corpse_dir = "corpse_loot"
+            os.makedirs(corpse_dir, exist_ok=True)
+
+            # Nombre de archivo: snake_case
+            file_name = name.strip().lower().replace(" ", "_")
+            save_path = os.path.join(corpse_dir, f"{file_name}.png")
+
+            if os.path.exists(save_path):
+                overwrite = messagebox.askyesno(
+                    "Template existente",
+                    f"Ya existe '{file_name}.png'.\n¿Sobrescribir?",
+                )
+                if not overwrite:
+                    return
+
+            cv2.imwrite(save_path, crop)
+            self.log.ok(
+                f"Template de cadáver guardado: {file_name}.png "
+                f"({crop.shape[1]}×{crop.shape[0]}px)"
+            )
+
+            # Recargar templates en el detector
+            try:
+                self.bot.looter_engine.corpse_template_detector.load_templates()
+                self.log.ok("Templates de cadáveres recargados")
+            except Exception as e:
+                self.log.warn(f"Error recargando templates: {e}")
+
+            self._update_corpse_templates_info()
+            dialog.destroy()
+            messagebox.showinfo(
+                "Listo",
+                f"Template guardado: {file_name}.png\n"
+                f"Tamaño: {crop.shape[1]}×{crop.shape[0]}px\n\n"
+                f"El detector lo usará automáticamente para buscar\n"
+                f"cadáveres de {name.strip()} en el game window.",
+            )
+
+        ctk.CTkButton(
+            btn_frame, text="💾 Guardar Template", width=180,
+            fg_color="#27AE60", hover_color="#2ECC71",
+            command=on_save,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="📸 Recapturar Frame", width=160,
+            fg_color="#2980B9", hover_color="#3498DB",
+            command=lambda: self._recapture_in_dialog(dialog, canvas, state, scale, lbl_sel, roi_offset),
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="❌ Cancelar", width=120,
+            fg_color="#C0392B", hover_color="#E74C3C",
+            command=dialog.destroy,
+        ).pack(side="left", padx=5)
+
+    def _recapture_in_dialog(self, dialog, canvas, state, scale, lbl_sel, roi_offset):
+        """Recaptura el frame de OBS sin cerrar la ventana de selección."""
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame.")
+            return
+
+        cal = self.bot.calibrator
+        gx1, gy1, gx2, gy2 = cal.game_region
+        h_f, w_f = frame.shape[:2]
+        gx1 = max(0, min(gx1, w_f - 1))
+        gy1 = max(0, min(gy1, h_f - 1))
+        gx2 = max(gx1 + 1, min(gx2, w_f))
+        gy2 = max(gy1 + 1, min(gy2, h_f))
+        game_roi = frame[gy1:gy2, gx1:gx2]
+
+        roi_rgb = cv2.cvtColor(game_roi, cv2.COLOR_BGR2RGB)
+        roi_h, roi_w = roi_rgb.shape[:2]
+        display_w = int(roi_w * scale)
+        display_h = int(roi_h * scale)
+
+        if scale < 1.0:
+            display_rgb = cv2.resize(roi_rgb, (display_w, display_h), interpolation=cv2.INTER_AREA)
+        else:
+            display_rgb = roi_rgb.copy()
+
+        pil_img = Image.fromarray(display_rgb)
+        tk_img = ImageTk.PhotoImage(pil_img)
+
+        canvas.delete("all")
+        canvas.create_image(0, 0, anchor="nw", image=tk_img)
+        canvas._tk_img = tk_img
+
+        # Redibujar grid
+        sqm_w, sqm_h = cal.sqm_size
+        px_local = cal.player_center[0] - roi_offset[0]
+        py_local = cal.player_center[1] - roi_offset[1]
+        for dx in range(-7, 8):
+            for dy in range(-5, 6):
+                sx = int((px_local + dx * sqm_w - sqm_w / 2) * scale)
+                sy = int((py_local + dy * sqm_h - sqm_h / 2) * scale)
+                ex = int((px_local + dx * sqm_w + sqm_w / 2) * scale)
+                ey = int((py_local + dy * sqm_h + sqm_h / 2) * scale)
+                color = "#FF0000" if dx == 0 and dy == 0 else "#333333"
+                canvas.create_rectangle(sx, sy, ex, ey, outline=color, width=1)
+
+        state["rect_id"] = None
+        state["selection_done"] = False
+        lbl_sel.configure(text="Selección: (recapturado — dibuja de nuevo)")
+        # Guardar referencia al nuevo game_roi para el save
+        canvas._game_roi = game_roi
+        self.log.info("Frame recapturado en ventana de selección")
+
+    def _ask_corpse_name(self, crop: np.ndarray) -> Optional[str]:
+        """Muestra diálogo para nombrar el template de cadáver."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Nombrar Template de Cadáver")
+        dialog.geometry("450x300")
+        dialog.grab_set()
+        dialog.focus_force()
+
+        result = {"value": None}
+
+        ctk.CTkLabel(
+            dialog, text="Template capturado",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(pady=(15, 5))
+
+        ctk.CTkLabel(
+            dialog,
+            text=f"Tamaño: {crop.shape[1]}×{crop.shape[0]}px",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack()
+
+        # Preview
+        try:
+            preview = cv2.resize(crop, (crop.shape[1] * 4, crop.shape[0] * 4),
+                                 interpolation=cv2.INTER_NEAREST)
+            preview_rgb = cv2.cvtColor(preview, cv2.COLOR_BGR2RGB)
+            pil_img = Image.fromarray(preview_rgb)
+            max_w = 400
+            if pil_img.width > max_w:
+                ratio = max_w / pil_img.width
+                pil_img = pil_img.resize(
+                    (int(pil_img.width * ratio), int(pil_img.height * ratio)),
+                    Image.NEAREST,
+                )
+            tk_img = ImageTk.PhotoImage(pil_img)
+            img_label = ctk.CTkLabel(dialog, text="", image=tk_img)
+            img_label.image = tk_img
+            img_label.pack(pady=8)
+        except Exception:
+            ctk.CTkLabel(dialog, text="(Preview no disponible)").pack(pady=8)
+
+        ctk.CTkLabel(
+            dialog,
+            text="Nombre de la criatura (ej: Swamp Troll, Cave Rat):",
+            font=ctk.CTkFont(size=12),
+        ).pack(padx=20, anchor="w")
+
+        entry = ctk.CTkEntry(dialog, width=300, placeholder_text="Nombre de la criatura...")
+        entry.pack(padx=20, pady=5)
+        entry.focus()
+
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=10)
+
+        def on_save():
+            result["value"] = entry.get()
+            dialog.destroy()
+
+        def on_cancel():
+            result["value"] = None
+            dialog.destroy()
+
+        entry.bind("<Return>", lambda e: on_save())
+
+        ctk.CTkButton(
+            btn_frame, text="💾 Guardar", width=120,
+            fg_color="#27AE60", hover_color="#2ECC71",
+            command=on_save,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="❌ Cancelar", width=100,
+            fg_color="#C0392B", hover_color="#E74C3C",
+            command=on_cancel,
+        ).pack(side="left", padx=5)
+
+        dialog.protocol("WM_DELETE_WINDOW", on_cancel)
+        dialog.wait_window()
+        return result["value"]
+
+    def _show_preview_window(self, title: str, image_path: str, description: str):
+        """Muestra una ventana de preview con una imagen y descripción."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title(title)
+        dialog.geometry("900x700")
+        dialog.focus_force()
+
+        # Descripción arriba
+        desc_frame = ctk.CTkFrame(dialog)
+        desc_frame.pack(fill="x", padx=10, pady=(10, 5))
+        ctk.CTkLabel(
+            desc_frame, text=description,
+            font=ctk.CTkFont(family="Consolas", size=11),
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=8)
+
+        # Imagen
+        try:
+            pil_img = Image.open(image_path)
+            # Escalar si es muy grande
+            max_w, max_h = 860, 520
+            ratio = min(max_w / pil_img.width, max_h / pil_img.height)
+            if ratio < 1:
+                new_w = int(pil_img.width * ratio)
+                new_h = int(pil_img.height * ratio)
+                pil_img = pil_img.resize((new_w, new_h), Image.LANCZOS)
+
+            tk_img = ImageTk.PhotoImage(pil_img)
+            img_label = ctk.CTkLabel(dialog, text="", image=tk_img)
+            img_label.image = tk_img
+            img_label.pack(padx=10, pady=5)
+        except Exception as e:
+            ctk.CTkLabel(dialog, text=f"Error cargando imagen: {e}").pack(pady=20)
+
+        # Botón cerrar
+        ctk.CTkButton(
+            dialog, text="Cerrar", width=120,
+            command=dialog.destroy,
+        ).pack(pady=10)
+
+        # Botón abrir carpeta debug
+        ctk.CTkButton(
+            dialog, text="📁 Abrir carpeta debug/",
+            width=180, fg_color="#7F8C8D",
+            command=lambda: os.startfile(os.path.abspath("debug")),
+        ).pack(pady=(0, 10))
 
     # ==================================================================
     # TAB: Ayuda
@@ -2668,8 +3525,23 @@ class TibiaHealerGUI(ctk.CTk):
                          f"Looteados: {ls.get('total_loots', 0)} | "
                          f"Clicks: {ls.get('total_clicks', 0)} | "
                          f"Método: {ls.get('loot_method', '?')} | "
-                         f"SQMs: {ls.get('sqms_configured', 0)}"
+                         f"SQMs: {ls.get('sqms_configured', 0)} | "
+                         f"Tpl: {ls.get('template_detections', 0)} | "
+                         f"HSV: {ls.get('visual_detections', 0)} | "
+                         f"Ciegos: {ls.get('blind_fallbacks', 0)} | "
+                         f"🖼️ {ls.get('corpse_templates', 0)} templates"
                 )
+                # Actualizar label de calibración
+                cal = self.bot.calibrator
+                if cal.game_region and cal.player_center and cal.sqm_size[0] > 0:
+                    gx1, gy1, gx2, gy2 = cal.game_region
+                    px, py = cal.player_center
+                    sw, sh = cal.sqm_size
+                    self.lbl_loot_calibration.configure(
+                        text=f"✅ Calibrado: SQM={sw}×{sh}px, Center=({px},{py}), "
+                             f"Game=({gx1},{gy1})-({gx2},{gy2})",
+                        text_color="#55FF55",
+                    )
             except Exception:
                 pass
 

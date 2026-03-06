@@ -150,7 +150,14 @@ class HealerBot:
         """Click izquierdo con coordenadas escaladas de OBS frame → Tibia client."""
         cx = int(x * self._scale_x)
         cy = int(y * self._scale_y)
-        return self.mouse_sender.left_click(cx, cy)
+        result = self.mouse_sender.left_click(cx, cy)
+        if not result:
+            self.log.warning(
+                f"Click izquierdo FALLÓ en ({cx},{cy}) — "
+                f"hwnd={self.mouse_sender.hwnd}, "
+                f"valid={is_window_valid(self.mouse_sender.hwnd) if self.mouse_sender.hwnd else False}"
+            )
+        return result
 
     def _scaled_right_click(self, x: int, y: int) -> bool:
         """Click derecho con coordenadas escaladas de OBS frame → Tibia client."""
@@ -206,6 +213,9 @@ class HealerBot:
             lambda msg: self.log.info(msg)
         )
         self.looter_engine.corpse_detector.set_log_callback(
+            lambda msg: self.log.info(msg)
+        )
+        self.looter_engine.corpse_template_detector.set_log_callback(
             lambda msg: self.log.info(msg)
         )
         self.looter_engine.set_targeting_engine(self.targeting_engine)
@@ -392,6 +402,15 @@ class HealerBot:
 
             if tibia_found:
                 self.log.ok(f"Tibia encontrado: {self.tibia_title}")
+                self.log.info(
+                    f"  HWND={self.tibia_hwnd} | "
+                    f"Ventanas Tibia encontradas: {len(tibias)}"
+                )
+                for i, t in enumerate(tibias):
+                    self.log.info(
+                        f"  [{i}] hwnd={t['hwnd']} title='{t['title']}' "
+                        f"({t['width']}x{t['height']})"
+                    )
                 self._init_modules()
         else:
             self.tibia_hwnd = None
@@ -605,9 +624,10 @@ class HealerBot:
                         self.last_heal_time = now
                         self.last_heal_key = key
                         self.heal_count += 1
+                        # Log detallado con hwnd para diagnóstico
                         self.log.heal(
                             f"HP={hp * 100:.0f}% < {threshold * 100:.0f}% "
-                            f"→ {key} ({desc})"
+                            f"→ {key} ({desc}) [hwnd={self.key_sender.hwnd}]"
                         )
                     else:
                         self.log.error(

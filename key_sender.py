@@ -1,5 +1,7 @@
 """
-key_sender.py - Envío de teclas a la ventana de Tibia via PostMessage.
+key_sender.py - Envío de teclas a la ventana de Tibia via SendMessage.
+Usa SendMessage (síncrono) en vez de PostMessage (asíncrono) porque
+Tibia ignora PostMessage para teclado (comprobado en TibiaAuto12).
 No requiere que Tibia esté en primer plano.
 Soporta: F1-F12, 0-9, A-Z, Space, Enter, Escape, Tab, y combinaciones Ctrl+key.
 """
@@ -7,6 +9,7 @@ Soporta: F1-F12, 0-9, A-Z, Space, Enter, Escape, Tab, y combinaciones Ctrl+key.
 import time
 import win32api
 import win32con
+import win32gui
 from typing import Optional
 
 # Mapa de teclas a Virtual Key Codes de Windows
@@ -46,7 +49,11 @@ VK_MAP = {
 
 
 class KeySender:
-    """Envía teclas a una ventana de Windows mediante PostMessage."""
+    """
+    Envía teclas a una ventana de Windows mediante SendMessage.
+    Basado en TibiaAuto12/core/SendToClient.py — usa SendMessage (síncrono)
+    con lParam=0 porque Tibia ignora PostMessage para teclado.
+    """
 
     def __init__(self, hwnd: Optional[int] = None):
         self.hwnd = hwnd
@@ -60,10 +67,11 @@ class KeySender:
 
     def send_key(self, key_name: str, delay: float = 0.05) -> bool:
         """
-        Envía una tecla a la ventana de Tibia usando PostMessage.
-        No requiere que la ventana esté en foco/primer plano.
-
-        Soporta combinaciones con Ctrl: "Ctrl+A", "Ctrl+1", etc.
+        Envía una tecla a la ventana de Tibia usando SendMessage (síncrono).
+        Patrón de TibiaAuto12: SendMessage(WM_KEYDOWN, vk, 0) + SendMessage(WM_KEYUP, vk, 0)
+        
+        Para combinaciones Ctrl+key usa keybd_event global para Ctrl
+        + SendMessage para la tecla (patrón híbrido de TibiaAuto12).
 
         Args:
             key_name: Nombre de la tecla ("F1", "A", "Ctrl+1", etc.).
@@ -72,7 +80,7 @@ class KeySender:
         Returns:
             True si se envió correctamente.
         """
-        if self.hwnd is None:
+        if self.hwnd is None or not win32gui.IsWindow(self.hwnd):
             return False
 
         # Detectar modificador Ctrl+
@@ -87,26 +95,23 @@ class KeySender:
             return False
 
         try:
-            scan_code = win32api.MapVirtualKey(vk, 0)
-            lparam_down = (scan_code << 16) | 1
-            lparam_up = (scan_code << 16) | 0xC0000001
-
-            # Si Ctrl, enviar Ctrl down primero
+            # Si Ctrl, usar keybd_event global (patrón TibiaAuto12 PressHotkey)
             if use_ctrl:
-                ctrl_scan = win32api.MapVirtualKey(win32con.VK_CONTROL, 0)
-                ctrl_lparam_down = (ctrl_scan << 16) | 1
-                ctrl_lparam_up = (ctrl_scan << 16) | 0xC0000001
-                win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, win32con.VK_CONTROL, ctrl_lparam_down)
-                time.sleep(0.02)
+                win32api.keybd_event(win32con.VK_CONTROL, 0, 0, 0)
+                time.sleep(0.05)
 
-            win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, vk, lparam_down)
+            # SendMessage síncrono con lParam=0 (como TibiaAuto12)
+            win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, vk, 0)
             time.sleep(delay)
-            win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, vk, lparam_up)
+            win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, vk, 0)
 
-            # Si Ctrl, soltar Ctrl después
+            # Soltar Ctrl
             if use_ctrl:
-                time.sleep(0.02)
-                win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, win32con.VK_CONTROL, ctrl_lparam_up)
+                time.sleep(0.05)
+                win32api.keybd_event(
+                    win32con.VK_CONTROL, 0,
+                    win32con.KEYEVENTF_KEYUP, 0
+                )
 
             self.last_send_time = time.time()
             self.last_key_sent = key_name.upper()
@@ -126,8 +131,14 @@ class KeySender:
         return list(VK_MAP.keys())
 
     def __repr__(self) -> str:
+        title = ""
+        try:
+            if self.hwnd and win32gui.IsWindow(self.hwnd):
+                title = win32gui.GetWindowText(self.hwnd)
+        except Exception:
+            pass
         return (
-            f"<KeySender hwnd={self.hwnd} "
+            f"<KeySender hwnd={self.hwnd} title='{title}' "
             f"last_key='{self.last_key_sent}' "
             f"sends={self.send_count}>"
         )

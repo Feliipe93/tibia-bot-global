@@ -25,7 +25,7 @@ class CorpseDetector:
     Usa detección de color (HSV) para encontrar:
     - Aura de muerte (destello brillante amarillo/blanco)
     - Blood splashes (manchas rojas/verdes en el suelo)
-    
+
     Retorna posiciones de SQMs donde hay cuerpos para que el looter
     clickee directamente ahí en vez de los 9 SQMs ciegos.
     """
@@ -41,30 +41,32 @@ class CorpseDetector:
         self._sqm_size: Tuple[int, int] = (0, 0)  # (width, height) de un SQM
 
         # Detección configuración
-        self.min_aura_area: int = 40         # Área mínima de cluster para ser aura
-        self.max_aura_area: int = 2500       # Área máxima (evitar falsos positivos grandes)
-        self.min_splash_area: int = 30       # Área mínima para blood splash
-        self.max_splash_area: int = 1500     # Área máxima para blood splash
-        self.max_corpse_distance: int = 4    # Max SQMs de distancia del player (solo lootear cerca)
+        self.min_aura_area: int = 120         # Área mínima de cluster para ser aura (era 40—demasiado sensible)
+        self.max_aura_area: int = 2000       # Área máxima (evitar falsos positivos grandes)
+        self.min_splash_area: int = 100       # Área mínima para blood splash (era 30—demasiado sensible)
+        self.max_splash_area: int = 1200     # Área máxima para blood splash
+        self.max_corpse_distance: int = 2    # Max SQMs de distancia del player (era 4—muy lejos)
+        self.max_positions: int = 3           # Máx posiciones a retornar (1 kill = max 3 SQMs)
 
-        # Colores del aura de muerte (HSV ranges)
-        # El aura es un destello brillante: alto valor (V), baja saturación (S)
-        # Blanco brillante: S < 80, V > 200
-        # Amarillo brillante: H=15-40, S=30-150, V > 150
-        self.aura_white_lower = np.array([0, 0, 210])
-        self.aura_white_upper = np.array([180, 80, 255])
-        self.aura_yellow_lower = np.array([15, 30, 160])
-        self.aura_yellow_upper = np.array([40, 180, 255])
+        # Colores del aura de muerte (HSV ranges) - Ajustados para reducir falsos positivos
+        # Blanco brillante: S < 50, V > 230 (más estricto)
+        self.aura_white_lower = np.array([0, 0, 230])
+        self.aura_white_upper = np.array([180, 50, 255])
+        # Amarillo brillante: H=18-35, S=50-170, V > 180 (más estricto)
+        self.aura_yellow_lower = np.array([18, 50, 180])
+        self.aura_yellow_upper = np.array([35, 170, 255])
 
-        # Colores de blood splashes (HSV ranges)
-        # Sangre roja: H=0-10 o 170-180, S>80, V>60
-        # Sangre verde (criaturas verdes): H=35-80, S>60, V>50
-        self.blood_red_lower1 = np.array([0, 80, 60])
-        self.blood_red_upper1 = np.array([10, 255, 255])
-        self.blood_red_lower2 = np.array([170, 80, 60])
+        # Colores de blood splashes (HSV ranges) - Ajustados
+        # Sangre roja: H=0-8 o 172-180, S>120, V>80 (más estricto)
+        self.blood_red_lower1 = np.array([0, 120, 80])
+        self.blood_red_upper1 = np.array([8, 255, 255])
+        self.blood_red_lower2 = np.array([172, 120, 80])
         self.blood_red_upper2 = np.array([180, 255, 255])
-        self.blood_green_lower = np.array([35, 60, 50])
-        self.blood_green_upper = np.array([80, 255, 200])
+        # Sangre verde (criaturas verdes): deshabilitada por ahora (demasiados falsos positivos)
+        # self.blood_green_lower = np.array([35, 100, 60])
+        # self.blood_green_upper = np.array([75, 255, 180])
+        self.blood_green_lower = np.array([40, 100, 60])
+        self.blood_green_upper = np.array([70, 255, 160])
 
         # Cache de detecciones recientes (para no re-detectar el mismo cuerpo)
         self._recent_detections: List[Dict] = []
@@ -97,10 +99,10 @@ class CorpseDetector:
     def detect_corpses(self, frame: np.ndarray) -> List[Tuple[int, int]]:
         """
         Detecta posiciones de cuerpos de criaturas en el game window.
-        
+
         Args:
             frame: Frame completo del OBS (BGR)
-            
+
         Returns:
             Lista de (x, y) posiciones centrales de los cuerpos encontrados,
             en coordenadas del frame completo.
@@ -148,6 +150,10 @@ class CorpseDetector:
         if self._player_center[0] > 0:
             px, py = self._player_center
             all_positions.sort(key=lambda p: (p[0]-px)**2 + (p[1]-py)**2)
+
+        # Limitar cantidad de posiciones (1 kill no deja cuerpos en 7+ SQMs)
+        if len(all_positions) > self.max_positions:
+            all_positions = all_positions[:self.max_positions]
 
         # Actualizar cache
         now = time.time()
@@ -221,13 +227,12 @@ class CorpseDetector:
         # Sangre roja (dos rangos de hue para cubrir el wrap-around)
         mask_red1 = cv2.inRange(hsv_roi, self.blood_red_lower1, self.blood_red_upper1)
         mask_red2 = cv2.inRange(hsv_roi, self.blood_red_lower2, self.blood_red_upper2)
-        mask_red = cv2.bitwise_or(mask_red1, mask_red2)
+        splash_mask = cv2.bitwise_or(mask_red1, mask_red2)
 
-        # Sangre verde
-        mask_green = cv2.inRange(hsv_roi, self.blood_green_lower, self.blood_green_upper)
-
-        # Combinar
-        splash_mask = cv2.bitwise_or(mask_red, mask_green)
+        # Sangre verde DESHABILITADA — genera demasiados falsos positivos en pantanos/grass
+        # Si se necesita, descomentar y ajustar rangos HSV
+        # mask_green = cv2.inRange(hsv_roi, self.blood_green_lower, self.blood_green_upper)
+        # splash_mask = cv2.bitwise_or(splash_mask, mask_green)
 
         # Morph para limpiar
         kernel = np.ones((3, 3), np.uint8)

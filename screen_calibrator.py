@@ -326,8 +326,14 @@ class ScreenCalibrator:
         if x == 0 and y == 0:
             return False
 
-        # La battle list es 155px de ancho y ~415px de alto debajo del header
-        self.battle_region = (x + 8, y, x + 155, y + 415)
+        # El template matchea el HEADER "Battle List" (81x11px).
+        # Los nombres de monstruos están DEBAJO del header.
+        # header_h=11px + separador ~4px = offset vertical reducido
+        # La región de nombres: empieza justo debajo, ~165px ancho, ~400px alto
+        header_h = tpl.shape[0]  # 11px
+        names_offset_y = header_h + 4  # Offset reducido para no excluir primera entrada
+        self.battle_region = (x, y + names_offset_y, x + 165, y + names_offset_y + 400)
+        self._log(f"Battle List header en ({x},{y}), nombres desde y={y + names_offset_y}")
         return True
 
     def _detect_minimap(self, gray: np.ndarray) -> bool:
@@ -504,7 +510,7 @@ class ScreenCalibrator:
     def detect_combat_mode(self, frame: np.ndarray) -> str:
         """
         Detecta el modo de combate actual (chase o stand) desde el frame.
-        
+
         Returns:
             "chase" si Following.png detectado (modo chase activo)
             "stand" si Idle.png detectado (modo stand activo)
@@ -552,7 +558,7 @@ class ScreenCalibrator:
         """
         Encuentra la posición para clickear y ACTIVAR chase mode.
         Busca "NotFollow.png" (el botón inactivo de chase).
-        
+
         Returns:
             (x, y) centro del botón, o None si no se encuentra.
         """
@@ -580,7 +586,7 @@ class ScreenCalibrator:
         """
         Encuentra la posición para clickear y ACTIVAR stand mode.
         Busca "NotIdle.png" (el botón inactivo de stand).
-        
+
         Returns:
             (x, y) centro del botón, o None si no se encuentra.
         """

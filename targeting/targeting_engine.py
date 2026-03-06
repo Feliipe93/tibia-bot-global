@@ -193,7 +193,7 @@ class TargetingEngine:
         """
         Aplica el chase/stand mode apropiado según el perfil de la criatura.
         v3.2: Usa CLICKS en los iconos de la UI de Tibia (no hotkeys).
-        
+
         Lógica (basada en TibiaAuto12 NeedFollow/NeedIdle):
         1. Detecta modo actual (chase/stand) via template matching del frame
         2. Si el modo deseado != modo actual → busca el botón para cambiar y clickea
@@ -326,25 +326,40 @@ class TargetingEngine:
                 self._target_missing_frames = 0
 
         # ========== ¿Necesitamos atacar? ==========
+        # Lógica estilo v1 (commit 389df9f que funcionaba):
+        # - Verificar si ya estamos atacando algo (bordes rojos en battle list)
+        # - Si NO estamos atacando → buscar target y hacer click
+        # - Si SÍ estamos atacando → no re-clickear (pero sí mantener estado)
         already_attacking = self.battle_reader.is_attacking(frame)
 
-        if already_attacking:
-            # YA estamos atacando — NO re-clickear, mantener estado
+        if already_attacking and self.current_target:
+            # YA estamos atacando Y tenemos target — no re-clickear
             self.state = "attacking"
             return
 
-        # NO estamos atacando → buscar target
-        # Si teníamos target y desapareció, usar delay corto
-        # Si es target nuevo, usar delay normal
-        delay = self.re_attack_delay if self.current_target else self.attack_delay
+        # NO estamos atacando (o perdimos el target) → buscar y atacar
+        time_since_attack = now - self.last_attack_time
+        time_since_switch = now - self._last_target_switch
+        delay = self.attack_delay
 
-        if now - self.last_attack_time >= delay:
-            if now - self._last_target_switch < self._target_switch_cooldown:
+        if time_since_attack >= delay:
+            if time_since_switch < self._target_switch_cooldown:
                 return
             target = self._select_target(creatures)
             if target:
+                self._log(
+                    f"→ Atacando: {target.name} en "
+                    f"({target.screen_x},{target.screen_y})"
+                )
                 self._attack_target(frame, target)
                 self.state = "attacking"
+            else:
+                # Log diagnóstico: hay criaturas pero no seleccionó ninguna
+                names = [c.name for c in creatures]
+                self._log(
+                    f"⚠ {len(creatures)} criaturas [{', '.join(names)}] pero "
+                    f"_select_target retornó None"
+                )
 
     def _count_by_name(self, creatures: List[CreatureEntry]) -> Dict[str, int]:
         """Cuenta criaturas POR NOMBRE para kill detection precisa."""
@@ -356,8 +371,9 @@ class TargetingEngine:
 
     def _detect_kills_by_name(self, current_counts: Dict[str, int]):
         """
-        Kill detection v2: compara conteo POR MONSTRUO ESPECÍFICO.
+        Kill detection: compara conteo POR MONSTRUO ESPECÍFICO.
         Si había 3 Rotworm y ahora hay 2 → 1 kill de Rotworm.
+        Detección inmediata (sin requerir múltiples frames de confirmación).
         """
         if not self._prev_counts_by_name:
             return
@@ -375,7 +391,13 @@ class TargetingEngine:
                     self._notify_kill(display_name)
 
     def _notify_kill(self, monster_name: str):
-        """Notifica una kill al looter directamente."""
+        """Notifica una kill al looter directamente y resetea el fallback de ataque."""
+        # IMPORTANTE: Resetear el fallback temporal de is_attacking
+        # Si el monstruo murió, ya NO estamos atacando — el targeting debe buscar nuevo target
+        self.battle_reader._last_attack_click_time = 0.0
+        self.battle_reader._last_attack_click_name = ""
+        self.current_target = None  # Soltar target — buscar otro inmediatamente
+
         if self._looter_engine:
             self._looter_engine.notify_kill(
                 monster_name,

@@ -64,14 +64,14 @@ class BattleListReader:
         self._monster_count: int = 0
         self._is_attacking: bool = False
         self.name_precision: float = 0.80
-        self.attack_precision: float = 0.65  # Bajado de 0.80 → 0.65
+        self.attack_precision: float = 0.65  # Bajado para detectar bordes de ataque más fácilmente
 
         # --- Fallback temporal para is_attacking ---
         # Si hicimos click en un target hace < N segundos Y ese target
         # sigue en la battle list → asumir que estamos atacando
         self._last_attack_click_time: float = 0.0
         self._last_attack_click_name: str = ""
-        self._attack_click_timeout: float = 10.0  # Asumir attacking por 10s después de click (no re-atacar mientras target viva)
+        self._attack_click_timeout: float = 1.5  # Fallback corto: solo 1.5s después de click
 
         # Logging
         self._log_fn: Optional[Callable] = None
@@ -314,7 +314,8 @@ class BattleListReader:
             found[key] = max_val >= self.attack_precision
             best_conf = max(best_conf, max_val)
 
-        # Si encontramos un set completo de bordes → SÍ estamos atacando
+        # Si encontramos al menos 3 bordes de un set → SÍ estamos atacando
+        # (era 2/4 → demasiado permisivo, causaba falsos positivos)
         border_sets = [
             ("LeftRed", "TopRed", "RightRed", "BottomRed"),
             ("LeftBlackRed", "TopBlackRed", "RightBlackRed", "BottomBlackRed"),
@@ -322,8 +323,13 @@ class BattleListReader:
             ("LeftBlackPink", "TopBlackPink", "RightBlackPink", "BottomBlackPink"),
         ]
         for borders in border_sets:
-            if all(found.get(b, False) for b in borders):
+            matches = sum(1 for b in borders if found.get(b, False))
+            if matches >= 2:
                 return True
+        # También: si hay 4+ bordes mezclados de distintos sets → atacando
+        total_matched = sum(1 for v in found.values() if v)
+        if total_matched >= 4:
+            return True
 
         # Log diagnóstico cada ~50 calls
         self._attack_log_counter += 1

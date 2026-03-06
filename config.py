@@ -83,7 +83,8 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     "looter": {
         "enabled": False,
         "loot_method": "left_click",   # left_click, right_click, shift_right_click
-        "free_account": False,          # Free account mode: loot to main BP only
+        "account_type": "premium",      # "premium" (cliente organiza) o "free" (BP principal)
+        "free_account": False,          # Compat: se mantiene por backwards compatibility
         "loot_delay": 0.15,
         "loot_cooldown": 0.5,
         "max_range": 2,
