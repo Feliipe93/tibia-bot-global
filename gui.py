@@ -1117,6 +1117,24 @@ class TibiaHealerGUI(ctk.CTk):
         )
         self.cb_targeting_enabled.pack(anchor="w", padx=15, pady=10)
 
+        # --- Recordatorio ---
+        tip_frame = ctk.CTkFrame(enable_frame, fg_color="#1a2733", border_width=1, border_color="#27AE60")
+        tip_frame.pack(fill="x", padx=10, pady=(0, 8))
+        ctk.CTkLabel(
+            tip_frame,
+            text=(
+                "💡 Recuerda:\n"
+                "• Escribe los monstruos a atacar en la lista de abajo (ej: Cave Rat).\n"
+                "• Presiona 'Calibrar' antes de activar el Targeting.\n"
+                "• El Targeting detectará criaturas y atacará automáticamente.\n"
+                "• Si una criatura huye y desaparece, se soltará el target tras ~1.5s.\n"
+                "• Activa el Looter en su pestaña para recoger el loot después de kills."
+            ),
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=6)
+
         # --- Modo de ataque ---
         mode_frame = ctk.CTkFrame(scroll)
         mode_frame.pack(fill="x", padx=5, pady=5)
@@ -1316,11 +1334,11 @@ class TibiaHealerGUI(ctk.CTk):
         self.spell_list_text.configure(state="disabled")
 
     # ==================================================================
-    # TAB: Looter (v2.2)
+    # TAB: Looter (v3)
     # ==================================================================
     def _build_looter_tab(self):
         tab = self.tab_looter
-        scroll = ctk.CTkScrollableFrame(tab, label_text="💰 LOOTER — Looteo Automático")
+        scroll = ctk.CTkScrollableFrame(tab, label_text="💰 LOOTER — Looteo Automático Inteligente")
         scroll.pack(fill="both", expand=True, padx=10, pady=10)
 
         # --- Habilitar ---
@@ -1334,38 +1352,160 @@ class TibiaHealerGUI(ctk.CTk):
         )
         self.cb_looter_enabled.pack(anchor="w", padx=15, pady=10)
 
+        # --- Guía rápida ---
+        guide_frame = ctk.CTkFrame(scroll, fg_color="#1a2733", border_width=1, border_color="#2980B9")
+        guide_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(
+            guide_frame,
+            text="📖 GUÍA RÁPIDA — Cómo configurar el Looter",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color="#3498DB",
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            guide_frame,
+            text=(
+                "1️⃣  Método de looteo: Pon left_click si en Tibia tienes Loot: Left,\n"
+                "     o right_click si tienes Loot: Right (Options → General → Loot).\n"
+                "\n"
+                "2️⃣  Threshold criaturas: Pon 0 si quieres matar TODO antes de lootear.\n"
+                "     Pon 2 si te da igual lootear con 1-2 criaturas cerca.\n"
+                "\n"
+                "3️⃣  'Lootear siempre': Solo activa si NO te importa el combate\n"
+                "     y quieres lootear todo el tiempo (no recomendado con muchos mobs).\n"
+                "\n"
+                "💡 Recuerda: Primero activa el Targeting con tus monstruos configurados,\n"
+                "   luego activa el Looter. El Looter esperará a que haya kills."
+            ),
+            font=ctk.CTkFont(family="Consolas", size=11),
+            text_color="#BDC3C7",
+            justify="left",
+        ).pack(anchor="w", padx=12, pady=(0, 10))
+
         # --- Método de looteo ---
         method_frame = ctk.CTkFrame(scroll)
         method_frame.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(method_frame, text="MÉTODO DE LOOTEO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(method_frame, text="MÉTODO DE LOOTEO",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            method_frame,
+            text="Elige el mismo método que tienes en Options → General → Loot de Tibia",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
 
         row1 = ctk.CTkFrame(method_frame, fg_color="transparent")
         row1.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row1, text="Método:", width=80).pack(side="left")
         self.cb_loot_method = ctk.CTkComboBox(
             row1,
-            values=["shift_click", "open_body", "right_click", "left_click"],
+            values=["left_click", "right_click"],
             width=150,
         )
-        self.cb_loot_method.set(self.config.looter.get("loot_method", "shift_click"))
+        loot_m = self.config.looter.get("loot_method", "left_click")
+        if loot_m not in ("left_click", "right_click"):
+            loot_m = "left_click"
+        self.cb_loot_method.set(loot_m)
         self.cb_loot_method.pack(side="left", padx=5)
+        ctk.CTkLabel(row1, text="← left_click = Loot:Left en Tibia, right_click = Loot:Right",
+                      font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
 
-        row2 = ctk.CTkFrame(method_frame, fg_color="transparent")
-        row2.pack(fill="x", padx=10, pady=3)
-        ctk.CTkLabel(row2, text="Rango (tiles):", width=100).pack(side="left")
-        self.entry_loot_range = ctk.CTkEntry(row2, width=60)
-        self.entry_loot_range.insert(0, str(self.config.looter.get("max_range", 2)))
-        self.entry_loot_range.pack(side="left", padx=5)
+        # Cooldown
+        row_cd = ctk.CTkFrame(method_frame, fg_color="transparent")
+        row_cd.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row_cd, text="Cooldown (s):", width=100).pack(side="left")
+        self.entry_loot_cooldown = ctk.CTkEntry(row_cd, width=60)
+        self.entry_loot_cooldown.insert(0, str(self.config.looter.get("loot_cooldown", 1.5)))
+        self.entry_loot_cooldown.pack(side="left", padx=5)
+        ctk.CTkLabel(row_cd, text="Espera entre looteos",
+                      font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
 
-        self.cb_auto_bp = ctk.CTkSwitch(method_frame, text="Abrir siguiente backpack automáticamente")
-        self.cb_auto_bp.pack(anchor="w", padx=15, pady=(3, 8))
-        if self.config.looter.get("auto_open_next_bp", True):
-            self.cb_auto_bp.select()
+        # Max SQMs por kill
+        row_sqm = ctk.CTkFrame(method_frame, fg_color="transparent")
+        row_sqm.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row_sqm, text="SQMs por kill:", width=100).pack(side="left")
+        self.entry_max_loot_sqms = ctk.CTkEntry(row_sqm, width=60)
+        self.entry_max_loot_sqms.insert(0, str(self.config.looter.get("max_loot_sqms", 3)))
+        self.entry_max_loot_sqms.pack(side="left", padx=5)
+        ctk.CTkLabel(row_sqm, text="Cuántos SQMs clickear por cuerpo (1-8)",
+                      font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
+
+        # --- Estrategia Kill-First ---
+        strat_frame = ctk.CTkFrame(scroll)
+        strat_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(strat_frame, text="⚔️ ESTRATEGIA DE COMBATE",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            strat_frame,
+            text="Controla cuándo lootear vs cuándo seguir matando.",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        self.cb_always_loot = ctk.CTkSwitch(
+            strat_frame,
+            text="Lootear siempre (ignorar combate activo)",
+        )
+        self.cb_always_loot.pack(anchor="w", padx=15, pady=3)
+        if self.config.looter.get("always_loot", False):
+            self.cb_always_loot.select()
+
+        row_thresh = ctk.CTkFrame(strat_frame, fg_color="transparent")
+        row_thresh.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(row_thresh, text="Threshold criaturas:", width=150).pack(side="left")
+        self.entry_loot_threshold = ctk.CTkEntry(row_thresh, width=60)
+        self.entry_loot_threshold.insert(0, str(self.config.looter.get("loot_threshold", 2)))
+        self.entry_loot_threshold.pack(side="left", padx=5)
+        ctk.CTkLabel(
+            row_thresh,
+            text="← Solo lootear si criaturas en pantalla ≤ este número",
+            font=ctk.CTkFont(size=11), text_color="#888888",
+        ).pack(side="left", padx=8)
+
+        ctk.CTkLabel(
+            strat_frame,
+            text="Ejemplo: threshold=0 → solo lootea cuando NO hay criaturas\n"
+                 "threshold=1 → lootea si hay 0 o 1 criatura\n"
+                 "threshold=2 → lootea si hay 0, 1 o 2 criaturas",
+            font=ctk.CTkFont(size=11), text_color="#777777",
+        ).pack(anchor="w", padx=15, pady=(3, 8))
+
+        # --- Drop items no deseados ---
+        drop_frame = ctk.CTkFrame(scroll)
+        drop_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(drop_frame, text="🗑️ DROP ITEMS NO DESEADOS",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            drop_frame,
+            text="Items que se tirarán al piso automáticamente después de lootear.\n"
+                 "(⚠ Requiere detección de inventario — próxima versión)",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        self.cb_drop_enabled = ctk.CTkSwitch(
+            drop_frame,
+            text="Habilitar drop de items",
+        )
+        self.cb_drop_enabled.pack(anchor="w", padx=15, pady=3)
+        if self.config.looter.get("drop_enabled", False):
+            self.cb_drop_enabled.select()
+
+        drop_row = ctk.CTkFrame(drop_frame, fg_color="transparent")
+        drop_row.pack(fill="x", padx=10, pady=3)
+        ctk.CTkLabel(drop_row, text="Items a tirar:", width=100).pack(side="left")
+        self.entry_drop_items = ctk.CTkEntry(drop_row, width=400,
+                                              placeholder_text="Bone, Torch, Meat, Cheese...")
+        self.entry_drop_items.pack(side="left", padx=5)
+        drop_items_str = self.config.looter.get("drop_items", "")
+        if isinstance(drop_items_str, list):
+            drop_items_str = ", ".join(drop_items_str)
+        if drop_items_str:
+            self.entry_drop_items.insert(0, drop_items_str)
+
+        ctk.CTkFrame(drop_frame, fg_color="transparent", height=8).pack()
 
         # --- Filtro de items ---
         filter_frame = ctk.CTkFrame(scroll)
         filter_frame.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(filter_frame, text="FILTRO DE ITEMS", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(filter_frame, text="FILTRO DE ITEMS",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
 
         item_filter = self.config.looter.get("item_filter", {})
 
@@ -1394,7 +1534,6 @@ class TibiaHealerGUI(ctk.CTk):
         if item_filter.get("pick_unknown_items", False):
             self.cb_pick_unknown.select()
 
-        # Valor mínimo
         val_row = ctk.CTkFrame(filter_frame, fg_color="transparent")
         val_row.pack(fill="x", padx=15, pady=5)
         ctk.CTkLabel(val_row, text="Valor mínimo de item (gp):").pack(side="left")
@@ -1405,12 +1544,12 @@ class TibiaHealerGUI(ctk.CTk):
         # --- Backpack Routing ---
         bp_frame = ctk.CTkFrame(scroll)
         bp_frame.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(bp_frame, text="BACKPACK ROUTING", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(bp_frame, text="BACKPACK ROUTING",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
         ctk.CTkLabel(
             bp_frame,
             text="Asigna cada categoría a un índice de backpack (0=primera, 1=segunda, ...)",
-            font=ctk.CTkFont(size=11),
-            text_color="#AAAAAA",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
         ).pack(anchor="w", padx=10, pady=(0, 5))
 
         bp_routing = self.config.backpack_routing
@@ -1436,7 +1575,6 @@ class TibiaHealerGUI(ctk.CTk):
             ctk.CTkComboBox(row, variable=var, values=bp_values, width=70).pack(side="left", padx=5)
             self._bp_route_vars[cat_key] = var
 
-        # Padding final
         ctk.CTkFrame(bp_frame, fg_color="transparent", height=8).pack()
 
         # --- Guardar looter config ---
@@ -1451,11 +1589,12 @@ class TibiaHealerGUI(ctk.CTk):
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
         state_frame.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(state_frame, text="ESTADO", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(state_frame, text="ESTADO",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
 
         self.lbl_looter_state = ctk.CTkLabel(
             state_frame,
-            text="Estado: idle | Pendientes: 0 | Looteados: 0 | BP libres: —",
+            text="Estado: idle | Pendientes: 0 | Looteados: 0",
             font=ctk.CTkFont(size=12),
         )
         self.lbl_looter_state.pack(anchor="w", padx=15, pady=(0, 10))
@@ -1463,8 +1602,10 @@ class TibiaHealerGUI(ctk.CTk):
         # --- Log del Looter ---
         log_frame_lt = ctk.CTkFrame(scroll)
         log_frame_lt.pack(fill="x", padx=5, pady=5)
-        ctk.CTkLabel(log_frame_lt, text="📋 LOG LOOTER", font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
-        self.log_looter = ctk.CTkTextbox(log_frame_lt, height=120, font=ctk.CTkFont(family="Consolas", size=11))
+        ctk.CTkLabel(log_frame_lt, text="📋 LOG LOOTER",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        self.log_looter = ctk.CTkTextbox(log_frame_lt, height=120,
+                                          font=ctk.CTkFont(family="Consolas", size=11))
         self.log_looter.pack(fill="x", padx=10, pady=(2, 8))
         self.log_looter.configure(state="disabled")
 
@@ -1472,13 +1613,27 @@ class TibiaHealerGUI(ctk.CTk):
         """Guarda toda la configuración del looter desde la GUI."""
         looter = self.config.looter
 
-        # Método
+        # Método de looteo
         looter["loot_method"] = self.cb_loot_method.get()
         try:
-            looter["max_range"] = int(self.entry_loot_range.get())
+            looter["loot_cooldown"] = float(self.entry_loot_cooldown.get())
         except ValueError:
-            pass
-        looter["auto_open_next_bp"] = bool(self.cb_auto_bp.get())
+            looter["loot_cooldown"] = 1.5
+        try:
+            looter["max_loot_sqms"] = int(self.entry_max_loot_sqms.get())
+        except ValueError:
+            looter["max_loot_sqms"] = 3
+
+        # Estrategia kill-first
+        looter["always_loot"] = bool(self.cb_always_loot.get())
+        try:
+            looter["loot_threshold"] = int(self.entry_loot_threshold.get())
+        except ValueError:
+            looter["loot_threshold"] = 2
+
+        # Drop items
+        looter["drop_enabled"] = bool(self.cb_drop_enabled.get())
+        looter["drop_items"] = self.entry_drop_items.get()
 
         # Filtro
         item_filter = looter.setdefault("item_filter", {})
@@ -1848,12 +2003,15 @@ class TibiaHealerGUI(ctk.CTk):
                 # Targeting status
                 ts = self.bot.targeting_engine.get_status()
                 target_txt = ts.get("current_target", "—") or "—"
+                state_str = ts.get("state", "idle")
+                state_icon = {"idle": "💤", "attacking": "⚔️",
+                              "searching": "🔍", "lost_target": "❌"}.get(state_str, "❓")
                 self.lbl_targeting_state.configure(
-                    text=f"Estado: {'activo' if ts['enabled'] else 'idle'} | "
+                    text=f"{state_icon} {state_str} | "
                          f"Target: {target_txt} | "
+                         f"Criaturas: {ts['monster_count']} | "
                          f"Kills: {ts['monsters_killed']} | "
-                         f"Ataques: {ts['total_attacks']} | "
-                         f"Templates: {ts['templates_loaded']}"
+                         f"Ataques: {ts['total_attacks']}"
                 )
             except Exception:
                 pass
@@ -1861,11 +2019,15 @@ class TibiaHealerGUI(ctk.CTk):
             try:
                 # Looter status
                 ls = self.bot.looter_engine.get_status()
+                state_icon = {"idle": "💤", "waiting_kills": "⚔️",
+                              "waiting_cooldown": "⏳", "looting": "💰",
+                              "dropping": "🗑️"}.get(ls['state'], "❓")
                 self.lbl_looter_state.configure(
-                    text=f"Estado: {ls['state']} | "
+                    text=f"{state_icon} {ls['state']} | "
                          f"Pendientes: {ls['pending_loots']} | "
                          f"Looteados: {ls['corpses_looted']} | "
-                         f"SQMs: {ls['sqms_configured']}"
+                         f"Click: {ls['loot_method']} | "
+                         f"Esperas: {ls.get('skipped_by_combat', 0)}"
                 )
             except Exception:
                 pass

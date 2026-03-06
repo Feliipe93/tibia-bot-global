@@ -25,6 +25,7 @@ class TargetingEngine:
         # Estado
         self.enabled: bool = False
         self.current_target: Optional[str] = None  # Nombre del monstruo atacando
+        self.state: str = "idle"  # idle, attacking, searching, lost_target
 
         # Configuración
         self.attack_mode: str = "offensive"
@@ -53,6 +54,14 @@ class TargetingEngine:
         # Última posición de ataque (para el looter)
         self.last_attack_position: Tuple[int, int] = (0, 0)
         self.last_attack_name: str = ""
+
+        # --- Lost target detection ---
+        # Si el target actual desaparece de la battle list por N frames
+        # consecutivos, lo soltamos y buscamos otro.
+        self._target_missing_frames: int = 0
+        self.max_target_missing: int = 8  # ~1.6s a 0.2s/scan → soltar
+        self._target_switch_cooldown: float = 0.5
+        self._last_target_switch: float = 0.0
 
     # ==================================================================
     # Configuración
@@ -112,6 +121,7 @@ class TargetingEngine:
         1. Lee battle list
         2. Si hay monstruos y no estamos atacando → click de ataque
         3. Detecta kills por disminución de conteo
+        4. Si target desaparece por muchos frames → soltar y buscar otro
         """
         if not self.enabled or frame is None:
             return
@@ -126,8 +136,6 @@ class TargetingEngine:
         self.last_search_time = now
 
         # Log periódico de estado (cada ~5 segundos)
-        if int(now) % 5 == 0 and not hasattr(self, '_last_status_log'):
-            self._last_status_log = 0
         if not hasattr(self, '_last_status_log'):
             self._last_status_log = 0
         if now - self._last_status_log >= 5.0:
@@ -135,42 +143,64 @@ class TargetingEngine:
             tpl_count = len(self.battle_reader._name_templates)
             region = self.battle_reader.battle_region
             self._log(
-                f"Estado: templates={tpl_count}, region={region}, "
-                f"attack_list={self.monsters_to_attack}"
+                f"Estado: target={self.current_target}, "
+                f"criaturas={self._prev_count}, "
+                f"templates={tpl_count}, kills={self.monsters_killed}"
             )
 
         # Escanear monstruos en la battle list
         creatures = self.battle_reader.read(frame)
         current_count = len(creatures)
 
-        # Log cuando hay criaturas detectadas (cada 5s)
-        if current_count > 0 and now - self._last_status_log < 1.0:
-            names = [c.name for c in creatures]
-            self._log(f"Criaturas en battle list ({current_count}): {names}")
-
-        # Detectar kills
+        # Detectar kills (conteo bajó)
         if self._prev_count > current_count and current_count >= 0:
             kills = self._prev_count - current_count
             self.monsters_killed += kills
-            self._log(f"¡Monstruo eliminado! Total kills: {self.monsters_killed}")
+            self._log(f"¡Kill! ({kills}) Total kills: {self.monsters_killed}")
         self._prev_count = current_count
 
+        # --- Si no hay criaturas, resetear ---
         if not creatures:
+            if self.current_target:
+                self._log(f"Battle list vacía — target '{self.current_target}' perdido")
             self.current_target = None
+            self.state = "idle"
+            self._target_missing_frames = 0
             return
 
-        # Verificar si ya estamos atacando
+        # --- Verificar si el target actual sigue en battle list ---
+        if self.current_target:
+            target_still_there = any(
+                c.name.lower() == self.current_target.lower()
+                for c in creatures
+            )
+            if not target_still_there:
+                self._target_missing_frames += 1
+                if self._target_missing_frames >= self.max_target_missing:
+                    self._log(
+                        f"Target '{self.current_target}' desapareció de battle list "
+                        f"({self._target_missing_frames} frames) — buscando otro"
+                    )
+                    self.current_target = None
+                    self._target_missing_frames = 0
+                    self.state = "searching"
+            else:
+                self._target_missing_frames = 0
+
+        # --- ¿Necesitamos atacar? ---
         needs_attack = self.battle_reader.is_attacking(frame)
 
         if needs_attack and (now - self.last_attack_time >= self.attack_delay):
-            # Seleccionar objetivo
+            # No estamos atacando → seleccionar y atacar
+            if now - self._last_target_switch < self._target_switch_cooldown:
+                return  # Cooldown entre cambios de target
             target = self._select_target(creatures)
             if target:
                 self._attack_target(frame, target)
+                self.state = "attacking"
         elif not needs_attack:
-            # Ya estamos atacando, no hacer nada
-            if self.current_target and now - self._last_status_log < 1.0:
-                self._log(f"Ya atacando: {self.current_target}")
+            # Ya estamos atacando algo
+            self.state = "attacking"
 
     def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
         """Selecciona el mejor objetivo según prioridad."""
@@ -198,19 +228,39 @@ class TargetingEngine:
             x, y = self.battle_reader.find_target(frame, target.name)
 
         if x != 0 and y != 0:
+            old_target = self.current_target
             self._click_fn(x, y)
             self.current_target = target.name
             self.last_attack_position = (x, y)
             self.last_attack_name = target.name
             self.total_attacks += 1
             self.last_attack_time = time.time()
-            self._log(f"Atacando: {target.name} en ({x},{y})")
+            self._last_target_switch = time.time()
+            self._target_missing_frames = 0
+
+            if old_target != target.name:
+                self._log(f"Nuevo target: {target.name} en ({x},{y})")
+            else:
+                self._log(f"Re-atacando: {target.name} en ({x},{y})")
+
+    # ==================================================================
+    # API pública para otros módulos (looter)
+    # ==================================================================
+    def get_creature_count(self) -> int:
+        """Cuántas criaturas hay actualmente en la battle list."""
+        return self._prev_count
+
+    def is_in_combat(self) -> bool:
+        """True si estamos activamente atacando algo."""
+        return self.current_target is not None and self.state == "attacking"
 
     # ==================================================================
     # Control
     # ==================================================================
     def start(self):
         self.enabled = True
+        self._target_missing_frames = 0
+        self.state = "idle"
         tpl_count = len(self.battle_reader._name_templates)
         region = self.battle_reader.battle_region
         self._log("Targeting activado")
@@ -225,6 +275,8 @@ class TargetingEngine:
     def stop(self):
         self.enabled = False
         self.current_target = None
+        self.state = "idle"
+        self._target_missing_frames = 0
         self._log("Targeting desactivado")
 
     def get_kill_count(self) -> int:
@@ -236,9 +288,11 @@ class TargetingEngine:
     def get_status(self) -> Dict:
         return {
             "enabled": self.enabled,
+            "state": self.state,
             "current_target": self.current_target,
             "monster_count": self._prev_count,
             "monsters_killed": self.monsters_killed,
             "total_attacks": self.total_attacks,
             "templates_loaded": len(self.battle_reader._name_templates),
+            "target_missing_frames": self._target_missing_frames,
         }

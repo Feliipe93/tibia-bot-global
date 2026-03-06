@@ -193,6 +193,7 @@ class HealerBot:
         self.looter_engine.set_log_callback(
             lambda msg: self.log.info(msg)
         )
+        self.looter_engine.set_targeting_engine(self.targeting_engine)
         self.looter_engine.configure(self.config.looter)
 
         # --- Cavebot ---

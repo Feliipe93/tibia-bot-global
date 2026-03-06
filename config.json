@@ -129,7 +129,13 @@
                 "creature_product": 1
             },
             "item_routes": {}
-        }
+        },
+        "loot_cooldown": 1.5,
+        "max_loot_sqms": 3,
+        "always_loot": false,
+        "loot_threshold": 2,
+        "drop_enabled": false,
+        "drop_items": ""
     },
     "npc": {
         "step_delay": 0.8,
