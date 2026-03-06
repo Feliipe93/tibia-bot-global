@@ -204,6 +204,9 @@ class HealerBot:
         )
         self.cavebot_engine.configure(self.config.cavebot)
 
+        # --- Conexiones cruzadas targeting ↔ looter ---
+        self.targeting_engine.set_looter_engine(self.looter_engine)
+
         # --- Conectar targeting → looter (kill notification) ---
         original_process = self.targeting_engine.process_frame
 

@@ -74,7 +74,8 @@
         "dangerous_monsters": [],
         "ignore_monsters": [],
         "attack_list": [
-            "Cave Rat"
+            "Cave Rat",
+            "Rat"
         ],
         "ignore_list": [],
         "priority_list": [],
@@ -131,8 +132,8 @@
             "item_routes": {}
         },
         "loot_cooldown": 1.5,
-        "max_loot_sqms": 3,
-        "always_loot": false,
+        "max_loot_sqms": 8,
+        "always_loot": true,
         "loot_threshold": 2,
         "drop_enabled": false,
         "drop_items": ""

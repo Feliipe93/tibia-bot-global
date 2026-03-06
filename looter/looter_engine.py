@@ -1,8 +1,10 @@
 """
-looter/looter_engine.py - Motor de looteo inteligente v2.
+looter/looter_engine.py - Motor de looteo inteligente v3.
 Lootea después de kills, con lógica kill-first-then-loot:
   - Si hay muchas criaturas vivas → espera a que targeting termine
   - Si quedan pocas o ninguna → lootea los cuerpos
+  - Lootea TODOS los 8 SQMs adyacentes al jugador
+  - Pausa targeting mientras lootea para evitar interferencia
   - Drop de items no deseados al piso
 """
 
@@ -21,13 +23,15 @@ class LooterEngine:
     - Si criaturas > loot_threshold → NO lootea, deja que targeting trabaje
     - Si criaturas <= loot_threshold → lootea cuerpos pendientes
     - Configurable: right_click o left_click según Tibia config
-    - Drop de items no deseados al piso
+    - Lootea TODOS los 8 SQMs adyacentes (el cadáver puede caer en cualquiera)
+    - Pausa targeting durante el looteo para evitar click-fight
     """
 
     def __init__(self):
         # Estado
         self.enabled: bool = False
         self.state: str = "idle"  # idle, waiting_kills, waiting_cooldown, looting, dropping
+        self._is_looting: bool = False  # Flag público para que targeting sepa
 
         # SQMs alrededor del jugador (9 posiciones x,y en espacio OBS)
         self.sqms: List[Tuple[int, int]] = []
@@ -35,9 +39,9 @@ class LooterEngine:
 
         # Configuración de looteo
         self.loot_method: str = "left_click"  # "left_click" o "right_click"
-        self.loot_delay: float = 0.18         # Delay entre clicks en SQMs
+        self.loot_delay: float = 0.20         # Delay entre clicks en SQMs
         self.loot_cooldown: float = 1.5       # Cooldown entre sesiones de looteo
-        self.max_loot_sqms: int = 3           # Max SQMs a clickear por kill
+        self.max_loot_sqms: int = 8           # Max SQMs a clickear por kill (default: todos)
 
         # Configuración kill-first-then-loot
         self.loot_threshold: int = 2  # Solo lootear si criaturas <= este valor
@@ -53,7 +57,7 @@ class LooterEngine:
         self._left_click_fn: Optional[Callable] = None
         self._log_fn: Optional[Callable] = None
 
-        # Referencia al targeting (para consultar creature count)
+        # Referencia al targeting (para consultar creature count y pausar)
         self._targeting_engine = None
 
         # Cola de looteo: lista de (x, y, timestamp, monster_name)
@@ -92,9 +96,9 @@ class LooterEngine:
         """Aplica configuración desde dict."""
         looter = config if isinstance(config, dict) else {}
         self.loot_method = looter.get("loot_method", "left_click")
-        self.loot_delay = looter.get("loot_delay", 0.18)
+        self.loot_delay = looter.get("loot_delay", 0.20)
         self.loot_cooldown = looter.get("loot_cooldown", 1.5)
-        self.max_loot_sqms = looter.get("max_loot_sqms", 3)
+        self.max_loot_sqms = looter.get("max_loot_sqms", 8)
 
         # Kill-first config
         self.loot_threshold = looter.get("loot_threshold", 2)
@@ -182,13 +186,19 @@ class LooterEngine:
             return
 
         # --- Ejecutar looteo ---
-        self._take_loot()
+        self._is_looting = True
+        try:
+            self._take_loot()
+        finally:
+            self._is_looting = False
         self._pending_loots = max(0, self._pending_loots - 1)
 
     def _take_loot(self):
         """
-        Lootea cuerpos. Usa el método configurado (left/right click).
-        Clickea en SQMs cercanos a donde murió el monstruo.
+        Lootea cuerpos clickeando en TODOS los SQMs adyacentes al jugador.
+        El cadáver puede caer en cualquier SQM alrededor, así que clickeamos
+        todos los 8 adyacentes (excluyendo el centro = jugador).
+        Esto es similar al método "Click around" del OldBot.
         """
         click_fn = self._get_click_fn()
         if click_fn is None:
@@ -197,29 +207,24 @@ class LooterEngine:
 
         self.state = "looting"
 
-        # ¿Tenemos posición del kill?
+        # Obtener nombre del kill si existe
+        kname = "desconocido"
         if self._kill_positions:
-            kx, ky, kt, kname = self._kill_positions.pop(0)
-            closest_sqms = self._get_closest_sqms(kx, ky, self.max_loot_sqms)
-            if closest_sqms:
-                self._log(f"Looteando {kname}: {len(closest_sqms)} SQMs")
-                for sx, sy in closest_sqms:
+            _, _, _, kname = self._kill_positions.pop(0)
+
+        # Lootear TODOS los SQMs adyacentes (máximo max_loot_sqms)
+        adjacent = self._get_adjacent_sqms(self.max_loot_sqms)
+        if adjacent:
+            self._log(f"Looteando {kname}: {len(adjacent)} SQMs adyacentes")
+            for sx, sy in adjacent:
+                try:
                     click_fn(sx, sy)
-                    time.sleep(self.loot_delay)
-                    self.loot_actions += 1
-            else:
-                self._log(f"Looteando {kname}: click en ({kx},{ky})")
-                click_fn(kx, ky)
+                except Exception as e:
+                    self._log(f"⚠ Error click en ({sx},{sy}): {e}")
+                time.sleep(self.loot_delay)
                 self.loot_actions += 1
         else:
-            # Sin posición conocida: SQMs adyacentes
-            adjacent = self._get_adjacent_sqms(self.max_loot_sqms)
-            if adjacent:
-                self._log(f"Looteando {len(adjacent)} SQMs adyacentes")
-                for sx, sy in adjacent:
-                    click_fn(sx, sy)
-                    time.sleep(self.loot_delay)
-                    self.loot_actions += 1
+            self._log("⚠ Sin SQMs adyacentes disponibles")
 
         self.corpses_looted += 1
         self.last_loot_time = time.time()
@@ -261,6 +266,14 @@ class LooterEngine:
             (sx, sy) for i, (sx, sy) in enumerate(self.sqms)
             if i != 4 and not (sx == 0 and sy == 0)
         ][:max_count]
+
+    # ==================================================================
+    # API pública (para que targeting pueda consultar)
+    # ==================================================================
+    @property
+    def is_looting(self) -> bool:
+        """True si el looter está activamente looteando (targeting debe pausarse)."""
+        return self._is_looting
 
     # ==================================================================
     # Drop items no deseados al piso
@@ -317,6 +330,7 @@ class LooterEngine:
         return {
             "enabled": self.enabled,
             "state": self.state,
+            "is_looting": self._is_looting,
             "pending_loots": self._pending_loots,
             "corpses_looted": self.corpses_looted,
             "loot_actions": self.loot_actions,

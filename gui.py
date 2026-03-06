@@ -113,6 +113,7 @@ class TibiaHealerGUI(ctk.CTk):
         self._start_status_loop()
 
         self._gui_ready = True
+        self._configure_module_log_tags()
         self._drain_log_queue()
         self.log.ok("GUI iniciada correctamente")
 
@@ -1367,11 +1368,13 @@ class TibiaHealerGUI(ctk.CTk):
                 "1️⃣  Método de looteo: Pon left_click si en Tibia tienes Loot: Left,\n"
                 "     o right_click si tienes Loot: Right (Options → General → Loot).\n"
                 "\n"
-                "2️⃣  Threshold criaturas: Pon 0 si quieres matar TODO antes de lootear.\n"
+                "2️⃣  Max SQMs: Usa 8 para lootear TODOS los cuadros adyacentes al jugador.\n"
+                "     El cadáver puede caer en cualquier SQM alrededor tuyo.\n"
+                "\n"
+                "3️⃣  Threshold criaturas: Pon 0 si quieres matar TODO antes de lootear.\n"
                 "     Pon 2 si te da igual lootear con 1-2 criaturas cerca.\n"
                 "\n"
-                "3️⃣  'Lootear siempre': Solo activa si NO te importa el combate\n"
-                "     y quieres lootear todo el tiempo (no recomendado con muchos mobs).\n"
+                "4️⃣  El Looter PAUSA al Targeting mientras lootea para evitar interferencia.\n"
                 "\n"
                 "💡 Recuerda: Primero activa el Targeting con tus monstruos configurados,\n"
                 "   luego activa el Looter. El Looter esperará a que haya kills."
@@ -1423,7 +1426,7 @@ class TibiaHealerGUI(ctk.CTk):
         row_sqm.pack(fill="x", padx=10, pady=3)
         ctk.CTkLabel(row_sqm, text="SQMs por kill:", width=100).pack(side="left")
         self.entry_max_loot_sqms = ctk.CTkEntry(row_sqm, width=60)
-        self.entry_max_loot_sqms.insert(0, str(self.config.looter.get("max_loot_sqms", 3)))
+        self.entry_max_loot_sqms.insert(0, str(self.config.looter.get("max_loot_sqms", 8)))
         self.entry_max_loot_sqms.pack(side="left", padx=5)
         ctk.CTkLabel(row_sqm, text="Cuántos SQMs clickear por cuerpo (1-8)",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
@@ -1622,7 +1625,7 @@ class TibiaHealerGUI(ctk.CTk):
         try:
             looter["max_loot_sqms"] = int(self.entry_max_loot_sqms.get())
         except ValueError:
-            looter["max_loot_sqms"] = 3
+            looter["max_loot_sqms"] = 8
 
         # Estrategia kill-first
         looter["always_loot"] = bool(self.cb_always_loot.get())
@@ -1821,6 +1824,20 @@ class TibiaHealerGUI(ctk.CTk):
         self.log_text._textbox.tag_configure("ERROR", foreground="#FF3333")
         self.log_text._textbox.tag_configure("CRITICAL", foreground="#FF0000")
 
+    def _configure_module_log_tags(self):
+        """Configura tags de color para los textboxes de log de cada módulo."""
+        for widget_name in ("log_targeting", "log_looter", "log_cavebot"):
+            widget = getattr(self, widget_name, None)
+            if widget:
+                try:
+                    widget._textbox.tag_configure("DEBUG", foreground="#888888")
+                    widget._textbox.tag_configure("INFO", foreground="#00CC66")
+                    widget._textbox.tag_configure("WARNING", foreground="#FFAA00")
+                    widget._textbox.tag_configure("ERROR", foreground="#FF3333")
+                    widget._textbox.tag_configure("CRITICAL", foreground="#FF0000")
+                except Exception:
+                    pass
+
     def _log_callback(self, msg: str, level: str):
         """Callback invocado por BotLogger (puede venir de cualquier hilo)."""
         self._log_queue.put((msg, level))
@@ -1830,16 +1847,21 @@ class TibiaHealerGUI(ctk.CTk):
         try:
             while True:
                 msg, level = self._log_queue.get_nowait()
-                self._append_log(msg, level)
-                # Redirigir a log de módulo si aplica
-                self._route_module_log(msg)
+                # Determinar si es un mensaje de módulo
+                routed = self._route_module_log(msg, level)
+                # Solo enviar al log principal si NO pertenece a un módulo
+                if not routed:
+                    self._append_log(msg, level)
         except queue.Empty:
             pass
         if self._gui_ready:
             self.after(50, self._drain_log_queue)
 
-    def _route_module_log(self, msg: str):
-        """Redirige mensajes a los logs por módulo."""
+    def _route_module_log(self, msg: str, level: str = "INFO") -> bool:
+        """
+        Redirige mensajes a los logs por módulo.
+        Retorna True si el mensaje fue enrutado a un módulo (no debe ir al log principal).
+        """
         try:
             lower = msg.lower()
             target_widget = None
@@ -1851,16 +1873,19 @@ class TibiaHealerGUI(ctk.CTk):
                 target_widget = getattr(self, "log_cavebot", None)
 
             if target_widget:
+                tag = level if level in LOG_COLORS else "INFO"
                 target_widget.configure(state="normal")
-                target_widget._textbox.insert("end", msg + "\n")
+                target_widget._textbox.insert("end", msg + "\n", tag)
                 # Limitar líneas
                 line_count = int(target_widget._textbox.index("end-1c").split(".")[0])
                 if line_count > 500:
                     target_widget._textbox.delete("1.0", "200.0")
                 target_widget._textbox.see("end")
                 target_widget.configure(state="disabled")
+                return True
         except Exception:
             pass
+        return False
 
     def _append_log(self, msg: str, level: str):
         """Agrega un mensaje al panel de logs (thread-safe via after)."""

@@ -40,11 +40,15 @@ class TargetingEngine:
         self._log_fn: Optional[Callable] = None      # log(msg)
         self._key_fn: Optional[Callable] = None      # send_key(key_name)
 
+        # Referencia al looter (para consultar si está looteando)
+        self._looter_engine = None
+
         # Timing
         self.attack_delay: float = 0.4
         self.last_attack_time: float = 0.0
         self.search_interval: float = 0.2
         self.last_search_time: float = 0.0
+        self.re_attack_delay: float = 2.0  # Delay más largo entre re-ataques al mismo target
 
         # Métricas
         self.monsters_killed: int = 0
@@ -78,6 +82,10 @@ class TargetingEngine:
         """fn(msg) - log del módulo."""
         self._log_fn = fn
 
+    def set_looter_engine(self, engine):
+        """Referencia al LooterEngine para consultar si está looteando."""
+        self._looter_engine = engine
+
     def set_battle_region(self, x1, y1, x2, y2):
         """Configura la región de la battle list."""
         self.battle_reader.set_region(x1, y1, x2, y2)
@@ -89,6 +97,7 @@ class TargetingEngine:
         self.auto_attack = targeting.get("auto_attack", True)
         self.chase_monsters = targeting.get("chase_monsters", True)
         self.attack_delay = targeting.get("attack_delay", 0.4)
+        self.re_attack_delay = targeting.get("re_attack_delay", 2.0)
 
         # Listas
         atk = targeting.get("attack_list", [])
@@ -122,6 +131,7 @@ class TargetingEngine:
         2. Si hay monstruos y no estamos atacando → click de ataque
         3. Detecta kills por disminución de conteo
         4. Si target desaparece por muchos frames → soltar y buscar otro
+        5. Pausa si el looter está activamente looteando
         """
         if not self.enabled or frame is None:
             return
@@ -129,6 +139,11 @@ class TargetingEngine:
             return
 
         now = time.time()
+
+        # --- Pausar si el looter está looteando ---
+        if self._looter_engine is not None and self._looter_engine.is_looting:
+            self.state = "paused_for_loot"
+            return
 
         # Leer battle list periódicamente
         if now - self.last_search_time < self.search_interval:
@@ -190,14 +205,22 @@ class TargetingEngine:
         # --- ¿Necesitamos atacar? ---
         needs_attack = self.battle_reader.is_attacking(frame)
 
-        if needs_attack and (now - self.last_attack_time >= self.attack_delay):
+        if needs_attack:
             # No estamos atacando → seleccionar y atacar
-            if now - self._last_target_switch < self._target_switch_cooldown:
-                return  # Cooldown entre cambios de target
-            target = self._select_target(creatures)
-            if target:
-                self._attack_target(frame, target)
-                self.state = "attacking"
+            # Usar attack_delay para nuevos targets, re_attack_delay para re-attacks
+            if self.current_target:
+                # Re-ataque al mismo target: usar delay más largo
+                delay = self.re_attack_delay
+            else:
+                delay = self.attack_delay
+
+            if now - self.last_attack_time >= delay:
+                if now - self._last_target_switch < self._target_switch_cooldown:
+                    return  # Cooldown entre cambios de target
+                target = self._select_target(creatures)
+                if target:
+                    self._attack_target(frame, target)
+                    self.state = "attacking"
         elif not needs_attack:
             # Ya estamos atacando algo
             self.state = "attacking"

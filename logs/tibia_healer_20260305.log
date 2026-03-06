@@ -2561,3 +2561,884 @@
 [21:31:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
 [21:31:46] DEBUG    🔍 Debug image guardada (ciclo #400)
 [21:31:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=6
+[22:03:42] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[22:03:42] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:03:42] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:03:42] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[22:03:42] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:03:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:03:42] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:03:42] INFO     📊 Ventanas Tibia encontradas: 2
+[22:03:42] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:03:42] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:03:42] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[22:03:42] INFO     📊 Loop principal iniciado
+[22:03:42] INFO     ✅ Bot iniciado
+[22:03:43] INFO     ✅ GUI iniciada correctamente
+[22:03:44] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:03:44] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:03:44] INFO     📊 SQMs configurados: 9 posiciones
+[22:03:44] INFO     📊 Player center: (592, 252)
+[22:03:44] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:03:44] INFO     ✅ Calibración completada exitosamente
+[22:04:08] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:04:22] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:04:22] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:04:37] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:04:55] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:04:55] DEBUG    🔍 Debug image guardada (ciclo #80)
+[22:05:11] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:05:12] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:05:12] INFO     ✅ Configuración de Targeting guardada
+[22:05:12] INFO     📊 Módulo 'targeting' habilitado
+[22:05:12] INFO     📊 [Targeting] Targeting activado
+[22:05:12] INFO     📊 [Targeting] Templates cargados: 1 (['Cave Rat'])
+[22:05:12] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:05:12] INFO     📊 [Targeting] Attack list: ['Cave Rat']
+[22:05:12] INFO     📊 Targeting habilitado
+[22:05:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=0
+[22:05:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=0
+[22:05:18] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:05:19] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:21] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:23] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=1, kills=0
+[22:05:23] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:26] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:27] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:28] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:29] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=1, kills=0
+[22:05:30] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:30] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:05:30] DEBUG    🔍 Debug image guardada (ciclo #120)
+[22:05:31] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:05:31] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:05:31] INFO     📊 SQMs configurados: 9 posiciones
+[22:05:31] INFO     📊 Player center: (592, 252)
+[22:05:31] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:05:31] INFO     ✅ Calibración completada exitosamente
+[22:05:31] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:33] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:34] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=1, kills=0
+[22:05:34] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:36] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:38] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:40] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=1, kills=0
+[22:05:40] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:41] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:43] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 1
+[22:05:43] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:43] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:05:46] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=1, kills=1
+[22:05:46] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:47] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 2
+[22:05:47] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 2
+[22:05:48] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:50] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:51] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=1, kills=2
+[22:05:52] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 3
+[22:05:52] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:52] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 3
+[22:05:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:05:54] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:05:56] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 4
+[22:05:56] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:05:56] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 4
+[22:05:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=4
+[22:06:02] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=4
+[22:06:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=4
+[22:06:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=4
+[22:06:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:06:19] DEBUG    🔍 Debug image guardada (ciclo #160)
+[22:06:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=4
+[22:10:03] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[22:10:03] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:10:03] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:10:03] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[22:10:03] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:10:03] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:10:03] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:10:03] INFO     📊 Ventanas Tibia encontradas: 2
+[22:10:03] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:10:03] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:10:03] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[22:10:03] INFO     📊 Loop principal iniciado
+[22:10:03] INFO     ✅ Bot iniciado
+[22:10:04] INFO     ✅ GUI iniciada correctamente
+[22:10:06] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:10:06] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:10:06] INFO     📊 SQMs configurados: 9 posiciones
+[22:10:06] INFO     📊 Player center: (592, 252)
+[22:10:06] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:10:06] INFO     ✅ Calibración completada exitosamente
+[22:10:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:10:43] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:10:43] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:11:01] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:11:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:11:24] DEBUG    🔍 Debug image guardada (ciclo #80)
+[22:11:38] INFO     ✅ Configuración del Looter guardada
+[22:11:38] INFO     📊 Módulo 'looter' habilitado
+[22:11:38] INFO     📊 [Looter] Looter activado
+[22:11:38] INFO     📊 [Looter] Método: left_click
+[22:11:38] INFO     📊 [Looter] Cooldown: 1.5s
+[22:11:38] INFO     📊 [Looter] Modo: lootear siempre (sin esperar combate)
+[22:11:38] INFO     📊 [Looter] SQMs: 9 configurados
+[22:11:38] INFO     📊 Looter habilitado
+[22:11:40] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:11:40] INFO     ✅ Configuración de Targeting guardada
+[22:11:40] INFO     📊 Módulo 'targeting' habilitado
+[22:11:40] INFO     📊 [Targeting] Targeting activado
+[22:11:40] INFO     📊 [Targeting] Templates cargados: 1 (['Cave Rat'])
+[22:11:40] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:11:40] INFO     📊 [Targeting] Attack list: ['Cave Rat']
+[22:11:40] INFO     📊 Targeting habilitado
+[22:11:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=0
+[22:11:41] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:11:43] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:11:43] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:44] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 1
+[22:11:44] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:44] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:11:44] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs
+[22:11:45] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:46] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=1, kills=1
+[22:11:48] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 2
+[22:11:48] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:48] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:11:48] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs
+[22:11:50] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:52] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=1, kills=2
+[22:11:52] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:11:54] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 3
+[22:11:54] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:11:54] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:11:54] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs
+[22:11:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:12:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:12:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:12:07] DEBUG    🔍 Debug image guardada (ciclo #120)
+[22:12:08] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:12:08] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:12:08] INFO     📊 SQMs configurados: 9 posiciones
+[22:12:08] INFO     📊 Player center: (592, 252)
+[22:12:08] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:12:08] INFO     ✅ Calibración completada exitosamente
+[22:12:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:12:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:12:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:12:25] INFO     📊 Cerrando aplicación...
+[22:12:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=3
+[22:15:25] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[22:15:25] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:15:25] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:15:25] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[22:15:25] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:15:25] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:15:25] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:15:25] INFO     📊 Ventanas Tibia encontradas: 3
+[22:15:25] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:15:25] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:15:25] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[22:15:25] INFO     📊 Loop principal iniciado
+[22:15:25] INFO     ✅ Bot iniciado
+[22:15:25] INFO     ✅ GUI iniciada correctamente
+[22:15:27] INFO     📊 Battle region: (1202, 607, 1349, 1022)
+[22:15:27] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:15:27] INFO     📊 SQMs configurados: 9 posiciones
+[22:15:27] INFO     📊 Player center: (592, 252)
+[22:15:27] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:15:27] INFO     ✅ Calibración completada exitosamente
+[22:15:47] INFO     ✅ Configuración del Looter guardada
+[22:15:47] INFO     📊 Módulo 'looter' habilitado
+[22:15:47] INFO     📊 [Looter] Looter activado
+[22:15:47] INFO     📊 [Looter] Método: right_click
+[22:15:47] INFO     📊 [Looter] Cooldown: 1.5s
+[22:15:47] INFO     📊 [Looter] Modo: lootear siempre (sin esperar combate)
+[22:15:47] INFO     📊 [Looter] SQMs: 9 configurados
+[22:15:47] INFO     📊 Looter habilitado
+[22:15:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:15:51] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:15:51] INFO     ✅ Configuración de Targeting guardada
+[22:15:51] INFO     📊 Módulo 'targeting' habilitado
+[22:15:51] INFO     📊 [Targeting] Targeting activado
+[22:15:51] INFO     📊 [Targeting] Templates cargados: 1 (['Cave Rat'])
+[22:15:51] INFO     📊 [Targeting] Battle region: (1202, 607, 1349, 1022)
+[22:15:51] INFO     📊 [Targeting] Attack list: ['Cave Rat']
+[22:15:51] INFO     📊 Targeting habilitado
+[22:15:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=0
+[22:15:51] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,627)
+[22:15:53] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,627)
+[22:15:55] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 1
+[22:15:55] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:15:55] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:15:57] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=1, kills=1
+[22:15:57] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,627)
+[22:15:59] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,627)
+[22:16:01] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 2
+[22:16:01] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:16:01] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:16:01] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:16:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:16:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:16:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:16:13] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:16:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:16:15] INFO     📊 Cerrando aplicación...
+[22:17:10] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[22:17:10] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:17:10] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:17:10] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[22:17:10] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:17:10] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:17:10] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:17:10] INFO     📊 Ventanas Tibia encontradas: 3
+[22:17:10] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:17:10] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:17:10] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[22:17:10] INFO     📊 Loop principal iniciado
+[22:17:10] INFO     ✅ Bot iniciado
+[22:17:11] INFO     ✅ GUI iniciada correctamente
+[22:17:12] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:17:12] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:17:12] INFO     📊 SQMs configurados: 9 posiciones
+[22:17:12] INFO     📊 Player center: (592, 252)
+[22:17:12] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:17:12] INFO     ✅ Calibración completada exitosamente
+[22:17:19] INFO     ✅ Configuración del Looter guardada
+[22:17:19] INFO     📊 Módulo 'looter' habilitado
+[22:17:19] INFO     📊 [Looter] Looter activado
+[22:17:19] INFO     📊 [Looter] Método: right_click
+[22:17:19] INFO     📊 [Looter] Cooldown: 1.5s
+[22:17:19] INFO     📊 [Looter] Modo: lootear siempre (sin esperar combate)
+[22:17:19] INFO     📊 [Looter] SQMs: 9 configurados
+[22:17:19] INFO     📊 Looter habilitado
+[22:17:21] INFO     📊 [Targeting] Templates cargados: 1/1
+[22:17:21] INFO     ✅ Configuración de Targeting guardada
+[22:17:21] INFO     📊 Módulo 'targeting' habilitado
+[22:17:21] INFO     📊 [Targeting] Targeting activado
+[22:17:21] INFO     📊 [Targeting] Templates cargados: 1 (['Cave Rat'])
+[22:17:21] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:17:21] INFO     📊 [Targeting] Attack list: ['Cave Rat']
+[22:17:21] INFO     📊 Targeting habilitado
+[22:17:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=0
+[22:17:22] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:17:24] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:17:25] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 1
+[22:17:25] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:17:26] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:17:28] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=1, kills=1
+[22:17:28] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:17:30] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:17:33] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=1, kills=1
+[22:17:33] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 2
+[22:17:33] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:17:33] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:17:33] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:17:37] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:17:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:17:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:17:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:17:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:18:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:18:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:18:02] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:18:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:18:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=1, kills=2
+[22:18:12] INFO     📊 Módulo 'targeting' deshabilitado
+[22:18:12] INFO     📊 [Targeting] Targeting desactivado
+[22:18:12] INFO     📊 Targeting deshabilitado
+[22:18:12] INFO     📊 [Targeting] Templates cargados: 2/2
+[22:18:12] INFO     ✅ Configuración de Targeting guardada
+[22:18:12] INFO     📊 Módulo 'targeting' habilitado
+[22:18:12] INFO     📊 [Targeting] Targeting activado
+[22:18:12] INFO     📊 [Targeting] Templates cargados: 2 (['Cave Rat', 'Rat'])
+[22:18:12] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:18:12] INFO     📊 [Targeting] Attack list: ['Cave Rat', 'Rat']
+[22:18:12] INFO     📊 Targeting habilitado
+[22:18:17] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:21] INFO     📊 Módulo 'targeting' deshabilitado
+[22:18:21] INFO     📊 [Targeting] Targeting desactivado
+[22:18:21] INFO     📊 Targeting deshabilitado
+[22:18:21] INFO     📊 [Targeting] Templates cargados: 2/2
+[22:18:21] INFO     ✅ Configuración de Targeting guardada
+[22:18:21] INFO     📊 Módulo 'targeting' habilitado
+[22:18:21] INFO     📊 [Targeting] Targeting activado
+[22:18:21] INFO     📊 [Targeting] Templates cargados: 2 (['Cave Rat', 'Rat'])
+[22:18:21] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:18:21] INFO     📊 [Targeting] Attack list: ['Cave Rat', 'Rat']
+[22:18:21] INFO     📊 Targeting habilitado
+[22:18:23] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:18:28] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:35] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:40] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:46] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:18:48] DEBUG    🔍 Debug image guardada (ciclo #80)
+[22:18:52] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:18:57] INFO     📊 [Targeting] Estado: target=None, criaturas=2, templates=2, kills=2
+[22:19:00] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 3
+[22:19:00] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:19:00] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:19:01] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:19:04] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=2, kills=3
+[22:19:04] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 4
+[22:19:04] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:19:04] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:19:04] INFO     📊 [Looter] Looteando Rat: 1 SQMs adyacentes
+[22:19:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:19:14] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:19:15] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=2, kills=4
+[22:19:16] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:19:16] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 5
+[22:19:16] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:19:16] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:19:16] INFO     📊 [Looter] Looteando Rat: 1 SQMs adyacentes
+[22:19:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=5
+[22:19:20] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:19:23] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:19:26] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=2, kills=5
+[22:19:26] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:19:28] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:19:30] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 6
+[22:19:30] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:19:30] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:19:33] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=2, kills=6
+[22:19:33] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:19:36] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 7
+[22:19:36] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:19:36] INFO     📊 [Looter] Looteando Rat: 1 SQMs adyacentes
+[22:19:38] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=2, kills=7
+[22:19:38] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:19:40] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:19:43] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 8
+[22:19:43] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:19:43] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:19:43] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:19:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:19:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:19:48] DEBUG    🔍 Debug image guardada (ciclo #120)
+[22:19:49] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:19:49] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:19:49] INFO     📊 SQMs configurados: 9 posiciones
+[22:19:49] INFO     📊 Player center: (592, 252)
+[22:19:49] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:19:49] INFO     ✅ Calibración completada exitosamente
+[22:19:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:19:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:09] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:20:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:35] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:20:36] DEBUG    🔍 Debug image guardada (ciclo #160)
+[22:20:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=8
+[22:20:40] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,514)
+[22:20:42] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=8
+[22:20:43] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:20:46] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:20:48] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=8
+[22:20:50] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:20:52] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 9
+[22:20:52] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:20:52] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:20:52] INFO     📊 [Looter] Looteando Cave Rat: 1 SQMs adyacentes
+[22:20:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:20:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:05] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:21:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:33] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:21:33] DEBUG    🔍 Debug image guardada (ciclo #200)
+[22:21:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:21:58] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:22:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:22:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:22:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=9
+[22:22:13] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:22:15] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 10
+[22:22:15] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:22:15] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:22:15] INFO     📊 [Looter] Looteando Rat: 1 SQMs adyacentes
+[22:22:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:26] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:22:26] DEBUG    🔍 Debug image guardada (ciclo #240)
+[22:22:27] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:22:27] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:22:27] INFO     📊 SQMs configurados: 9 posiciones
+[22:22:27] INFO     📊 Player center: (592, 252)
+[22:22:27] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:22:27] INFO     ✅ Calibración completada exitosamente
+[22:22:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:22:55] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:23:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:23:13] DEBUG    🔍 Debug image guardada (ciclo #280)
+[22:23:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=10
+[22:23:29] INFO     📊 Cerrando aplicación...
+[22:23:42] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[22:23:42] INFO     📊 [Targeting] Templates cargados: 2/2
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:23:42] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:23:42] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[22:23:42] INFO     📊 [Targeting] Templates cargados: 2/2
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:23:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:23:42] INFO     ✅ Módulos v3 inicializados (targeting, looter, cavebot)
+[22:23:42] INFO     📊 Ventanas Tibia encontradas: 3
+[22:23:42] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:23:42] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:23:42] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[22:23:42] INFO     📊 Loop principal iniciado
+[22:23:42] INFO     ✅ Bot iniciado
+[22:23:42] INFO     ✅ GUI iniciada correctamente
+[22:23:44] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:23:44] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:23:44] INFO     📊 SQMs configurados: 9 posiciones
+[22:23:44] INFO     📊 Player center: (592, 252)
+[22:23:44] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:23:44] INFO     ✅ Calibración completada exitosamente
+[22:24:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:24:15] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:24:15] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:24:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:24:57] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:24:57] DEBUG    🔍 Debug image guardada (ciclo #80)
+[22:25:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:25:30] INFO     📊 Forzando recalibración de regiones...
+[22:25:30] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:25:30] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:25:30] INFO     📊 SQMs configurados: 9 posiciones
+[22:25:30] INFO     📊 Player center: (592, 252)
+[22:25:30] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:25:30] INFO     ✅ Calibración completada exitosamente
+[22:25:31] INFO     ✅ Captura de prueba: 1366x705 px, brillo=72.8
+[22:25:32] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:25:32] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:25:32] INFO     📊 SQMs configurados: 9 posiciones
+[22:25:32] INFO     📊 Player center: (592, 252)
+[22:25:32] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:25:32] INFO     ✅ Calibración completada exitosamente
+[22:25:32] INFO     ✅ Recalibración exitosa
+[22:25:32] INFO     📊 Forzando recalibración de regiones...
+[22:25:34] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:25:34] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:25:34] INFO     📊 SQMs configurados: 9 posiciones
+[22:25:34] INFO     📊 Player center: (592, 252)
+[22:25:34] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:25:34] INFO     ✅ Calibración completada exitosamente
+[22:25:35] INFO     ✅ Captura de prueba: 1366x705 px, brillo=72.8
+[22:25:35] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:25:35] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:25:35] INFO     📊 SQMs configurados: 9 posiciones
+[22:25:35] INFO     📊 Player center: (592, 252)
+[22:25:35] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:25:35] INFO     ✅ Calibración completada exitosamente
+[22:25:35] INFO     ✅ Recalibración exitosa
+[22:25:37] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:25:37] DEBUG    🔍 Debug image guardada (ciclo #120)
+[22:25:38] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:25:38] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:25:38] INFO     📊 SQMs configurados: 9 posiciones
+[22:25:38] INFO     📊 Player center: (592, 252)
+[22:25:38] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:25:38] INFO     ✅ Calibración completada exitosamente
+[22:25:57] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:26:00] INFO     📊 [Targeting] Templates cargados: 2/2
+[22:26:00] INFO     ✅ Configuración de Targeting guardada
+[22:26:00] INFO     📊 Módulo 'targeting' habilitado
+[22:26:00] INFO     📊 [Targeting] Targeting activado
+[22:26:00] INFO     📊 [Targeting] Templates cargados: 2 (['Cave Rat', 'Rat'])
+[22:26:00] INFO     📊 [Targeting] Battle region: (1202, 472, 1349, 887)
+[22:26:00] INFO     📊 [Targeting] Attack list: ['Cave Rat', 'Rat']
+[22:26:00] INFO     📊 Targeting habilitado
+[22:26:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:11] INFO     📊 Forzando recalibración de regiones...
+[22:26:11] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:26:11] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:26:11] INFO     📊 SQMs configurados: 9 posiciones
+[22:26:11] INFO     📊 Player center: (592, 252)
+[22:26:11] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:26:11] INFO     ✅ Calibración completada exitosamente
+[22:26:12] INFO     ✅ Captura de prueba: 1366x705 px, brillo=79.9
+[22:26:12] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:26:12] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:26:12] INFO     📊 SQMs configurados: 9 posiciones
+[22:26:12] INFO     📊 Player center: (592, 252)
+[22:26:12] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:26:12] INFO     ✅ Calibración completada exitosamente
+[22:26:12] INFO     ✅ Recalibración exitosa
+[22:26:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:14] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:26:14] DEBUG    🔍 Debug image guardada (ciclo #160)
+[22:26:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:31] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:26:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:40] INFO     ✅ Configuración del Looter guardada
+[22:26:40] INFO     📊 Módulo 'looter' habilitado
+[22:26:40] INFO     📊 [Looter] Looter activado
+[22:26:40] INFO     📊 [Looter] Método: left_click
+[22:26:40] INFO     📊 [Looter] Cooldown: 1.5s
+[22:26:40] INFO     📊 [Looter] Modo: lootear siempre (sin esperar combate)
+[22:26:40] INFO     📊 [Looter] SQMs: 9 configurados
+[22:26:40] INFO     📊 Looter habilitado
+[22:26:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:46] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=0
+[22:26:49] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:26:51] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=0
+[22:26:51] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:26:52] DEBUG    🔍 Debug image guardada (ciclo #200)
+[22:26:52] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:26:54] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:26:55] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 1
+[22:26:55] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:26:55] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:26:59] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=2, kills=1
+[22:26:59] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:27:01] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 2
+[22:27:01] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:27:01] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:27:04] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=2, kills=2
+[22:27:04] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:27:07] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:27:07] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 3
+[22:27:07] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:27:07] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:27:11] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=3
+[22:27:11] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:27:12] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 4
+[22:27:12] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:27:12] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:27:12] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:27:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:27:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:27:33] DEBUG    🔍 Debug image guardada (ciclo #240)
+[22:27:34] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:27:34] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:27:34] INFO     📊 SQMs configurados: 9 posiciones
+[22:27:34] INFO     📊 Player center: (592, 252)
+[22:27:34] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:27:34] INFO     ✅ Calibración completada exitosamente
+[22:27:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:27:59] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:28:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:16] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:28:16] DEBUG    🔍 Debug image guardada (ciclo #280)
+[22:28:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:28:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:28:58] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:28:58] DEBUG    🔍 Debug image guardada (ciclo #320)
+[22:29:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:29:00] INFO     📊 Módulo 'looter' deshabilitado
+[22:29:00] INFO     📊 [Looter] Looter desactivado
+[22:29:00] INFO     📊 Looter deshabilitado
+[22:29:01] INFO     ✅ Configuración del Looter guardada
+[22:29:01] INFO     📊 Módulo 'looter' habilitado
+[22:29:01] INFO     📊 [Looter] Looter activado
+[22:29:01] INFO     📊 [Looter] Método: left_click
+[22:29:01] INFO     📊 [Looter] Cooldown: 1.5s
+[22:29:01] INFO     📊 [Looter] Modo: lootear siempre (sin esperar combate)
+[22:29:01] INFO     📊 [Looter] SQMs: 9 configurados
+[22:29:01] INFO     📊 Looter habilitado
+[22:29:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=4
+[22:29:07] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:29:09] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:29:11] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=4
+[22:29:11] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 5
+[22:29:11] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:29:11] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:29:11] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:29:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=5
+[22:29:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:29:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=5
+[22:29:25] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:29:27] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=2, kills=5
+[22:29:27] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 6
+[22:29:27] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:29:27] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:29:27] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:29:31] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:29:32] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=6
+[22:29:33] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:29:34] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 7
+[22:29:34] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:29:34] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:29:34] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:29:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=7
+[22:29:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:29:40] DEBUG    🔍 Debug image guardada (ciclo #360)
+[22:29:40] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:29:40] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:29:40] INFO     📊 SQMs configurados: 9 posiciones
+[22:29:40] INFO     📊 Player center: (592, 252)
+[22:29:40] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:29:40] INFO     ✅ Calibración completada exitosamente
+[22:29:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=7
+[22:29:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=7
+[22:29:51] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:29:54] INFO     📊 [Targeting] Estado: target=Rat, criaturas=3, templates=2, kills=7
+[22:29:55] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:29:57] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:30:00] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=2, kills=7
+[22:30:01] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:30:03] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:30:05] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:30:06] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=7
+[22:30:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:30:08] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:30:12] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=7
+[22:30:15] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 8
+[22:30:15] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:30:15] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:30:19] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=2, kills=8
+[22:30:24] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=8
+[22:30:26] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:30:26] DEBUG    🔍 Debug image guardada (ciclo #400)
+[22:30:30] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=8
+[22:30:36] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=8
+[22:30:41] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=8
+[22:30:47] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=4, templates=2, kills=8
+[22:30:51] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:30:51] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 9
+[22:30:51] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:30:51] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:30:55] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=2, kills=9
+[22:31:01] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=2, kills=9
+[22:31:01] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:03] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:06] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:07] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=3, templates=2, kills=9
+[22:31:08] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 10
+[22:31:08] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:08] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:31:08] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:31:12] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=2, templates=2, kills=10
+[22:31:12] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:31:14] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:31:17] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:31:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:31:18] DEBUG    🔍 Debug image guardada (ciclo #440)
+[22:31:18] INFO     📊 [Targeting] Estado: target=Rat, criaturas=2, templates=2, kills=10
+[22:31:20] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:31:21] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 11
+[22:31:21] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:31:21] INFO     📊 [Looter] Looteando Rat: 8 SQMs adyacentes
+[22:31:25] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=2, kills=11
+[22:31:25] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 12
+[22:31:25] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:31:25] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:31:27] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:31:27] INFO     📊 [Looter] Looteando Rat: 8 SQMs adyacentes
+[22:31:31] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=12
+[22:31:31] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:33] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:31:37] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=12
+[22:31:37] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 13
+[22:31:37] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:31:37] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:31:37] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:31:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:31:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:31:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:31:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:31:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:32:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:32:05] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:32:06] DEBUG    🔍 Debug image guardada (ciclo #480)
+[22:32:06] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:32:06] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:32:06] INFO     📊 SQMs configurados: 9 posiciones
+[22:32:06] INFO     📊 Player center: (592, 252)
+[22:32:06] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:32:06] INFO     ✅ Calibración completada exitosamente
+[22:32:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:32:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=13
+[22:32:19] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:32:21] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=2, kills=13
+[22:32:22] INFO     📊 [Targeting] Re-atacando: Rat en (1281,492)
+[22:32:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:32:23] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 14
+[22:32:23] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:32:23] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:32:23] INFO     📊 [Looter] Looteando Rat: 8 SQMs adyacentes
+[22:32:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=14
+[22:32:27] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:32:30] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:32:32] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=14
+[22:32:32] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:32:34] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 15
+[22:32:34] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:32:34] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:32:34] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:32:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=15
+[22:32:38] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:32:42] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:32:43] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=15
+[22:32:43] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 16
+[22:32:43] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:32:43] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:32:43] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:32:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:32:52] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:32:52] DEBUG    🔍 Debug image guardada (ciclo #520)
+[22:32:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:33:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:26] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:33:26] DEBUG    🔍 Debug image guardada (ciclo #560)
+[22:33:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:33:52] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:33:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:23] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:34:24] DEBUG    🔍 Debug image guardada (ciclo #600)
+[22:34:24] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:34:24] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:34:24] INFO     📊 SQMs configurados: 9 posiciones
+[22:34:24] INFO     📊 Player center: (592, 252)
+[22:34:24] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:34:24] INFO     ✅ Calibración completada exitosamente
+[22:34:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=16
+[22:34:30] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:34:32] INFO     📊 [Targeting] Re-atacando: Cave Rat en (1245,492)
+[22:34:33] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 17
+[22:34:33] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:34:33] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:34:33] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:34:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=17
+[22:34:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=17
+[22:34:48] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:34:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=17
+[22:34:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=17
+[22:34:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=17
+[22:34:59] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:35:02] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 18
+[22:35:02] INFO     📊 [Targeting] Battle list vacía — target 'Rat' perdido
+[22:35:02] INFO     📊 [Looter] Kill: Rat — pendientes: 1
+[22:35:02] INFO     📊 [Looter] Looteando Rat: 8 SQMs adyacentes
+[22:35:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:24] INFO     📊 HP=96% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:35:24] DEBUG    🔍 Debug image guardada (ciclo #640)
+[22:35:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:35:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:01] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:36:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=18
+[22:36:28] INFO     📊 [Targeting] Nuevo target: Rat en (1281,492)
+[22:36:32] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:36:32] DEBUG    🔍 Debug image guardada (ciclo #680)
+[22:36:32] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 19
+[22:36:32] INFO     📊 [Targeting] Nuevo target: Cave Rat en (1245,492)
+[22:36:32] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:36:32] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:36:36] INFO     📊 [Targeting] Estado: target=Cave Rat, criaturas=1, templates=2, kills=19
+[22:36:36] INFO     📊 [Targeting] ¡Kill! (1) Total kills: 20
+[22:36:36] INFO     📊 [Targeting] Battle list vacía — target 'Cave Rat' perdido
+[22:36:36] INFO     📊 [Looter] Kill: Cave Rat — pendientes: 1
+[22:36:37] INFO     📊 [Looter] Looteando Cave Rat: 8 SQMs adyacentes
+[22:36:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:36:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:36:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:36:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:36:59] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:37:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:25] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:37:25] DEBUG    🔍 Debug image guardada (ciclo #720)
+[22:37:26] INFO     📊 Battle region: (1202, 472, 1349, 887)
+[22:37:26] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:37:26] INFO     📊 SQMs configurados: 9 posiciones
+[22:37:26] INFO     📊 Player center: (592, 252)
+[22:37:26] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:37:26] INFO     ✅ Calibración completada exitosamente
+[22:37:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
+[22:37:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:37:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=2, kills=20
