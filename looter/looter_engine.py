@@ -1,13 +1,13 @@
 """
-looter/looter_engine.py - Motor de looteo v4 (estilo TibiaAuto12).
-Cambios respecto a v3:
-  - Lootea INMEDIATAMENTE tras cada kill (no espera a matar todo)
-  - Click en los 9 SQMs incluyendo centro (brute-force como TibiaAuto12)
-  - Delay mínimo entre clicks (0.05s vs 0.20s anterior)
-  - Cooldown corto entre looteos (0.3s vs 1.5s anterior)
-  - NO pausa el targeting — el loot es rápido (~0.5s para 9 clicks)
-  - always_loot=True por defecto
-  - Eliminado flag _is_looting que pausaba targeting
+looter/looter_engine.py - Motor de auto-loot v4.
+Mejoras v4:
+  - Detección visual de cuerpos (aura de muerte + blood splashes)
+  - Clickea SOLO en los SQMs donde hay cuerpos reales (no 9 SQMs ciegos)
+  - Fallback inteligente: si no detecta cuerpos → usa SQMs alrededor del player
+  - 3 modos de click: left_click, right_click, shift_right_click
+  - Solo 1 intento rápido por kill, cooldown corto
+  - Free account mode
+Basado en detección visual del efecto de muerte que todos los cuerpos comparten.
 """
 
 import time
@@ -15,298 +15,412 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 
+from looter.corpse_detector import CorpseDetector
+
 
 class LooterEngine:
     """
-    Motor de looteo automático — estilo TibiaAuto12.
-
-    Flujo:
-    1. Targeting detecta kill (conteo de battle list bajó)
-    2. _targeting_with_loot wrapper llama notify_kill()
-    3. En el siguiente frame del dispatcher, process_frame() ve pendientes > 0
-    4. Click rápido en 9 SQMs (~0.05s entre clicks = ~0.5s total)
-    5. Targeting sigue atacando normalmente (NO se pausa)
-
-    El loot es tan rápido que no necesita pausar al targeting.
-    TibiaAuto12 tampoco pausa el combate durante el looteo.
+    Motor de auto-loot v3.
+    Recibe notificaciones de kills del TargetingEngine y ejecuta secuencia de clicks
+    sobre los SQMs alrededor de donde murió el monstruo.
     """
 
     def __init__(self):
         # Estado
         self.enabled: bool = False
-        self.state: str = "idle"  # idle, looting, waiting_combat
+        self.state: str = "idle"     # idle, looting, waiting
+        self._running: bool = False
 
-        # SQMs alrededor del jugador (9 posiciones x,y en espacio OBS)
-        self.sqms: List[Tuple[int, int]] = []
-        self.player_center: Tuple[int, int] = (0, 0)
-
-        # Configuración de looteo — valores TibiaAuto12-style
-        self.loot_method: str = "left_click"  # "left_click" o "right_click"
-        self.loot_delay: float = 0.05         # Delay entre clicks (muy corto)
-        self.loot_cooldown: float = 0.3       # Cooldown mínimo entre sesiones
-        self.max_loot_sqms: int = 9           # 9 = todos (incluido centro)
-
-        # Configuración threshold (opcional)
-        self.loot_threshold: int = 0  # 0 = lootear siempre inmediatamente
-        self.always_loot: bool = True  # True = ignorar threshold
-
-        # Drop items al piso
-        self.drop_enabled: bool = False
-        self.drop_items: List[str] = []
-        self.drop_delay: float = 0.3
-
-        # Callbacks
-        self._right_click_fn: Optional[Callable] = None
+        # Callbacks inyectados
         self._left_click_fn: Optional[Callable] = None
+        self._right_click_fn: Optional[Callable] = None
+        self._shift_right_click_fn: Optional[Callable] = None
         self._log_fn: Optional[Callable] = None
-
-        # Referencia al targeting (para consultar creature count)
         self._targeting_engine = None
 
+        # Posiciones de los 9 SQMs fijos (inyectados por screen_calibrator)
+        # Orden: SW(0), S(1), SE(2), W(3), Center(4), E(5), NW(6), N(7), NE(8)
+        self._sqms: List[Tuple[int, int]] = []
+
+        # Player center y SQM size (para calcular SQMs dinámicos)
+        self._player_center: Tuple[int, int] = (0, 0)
+        self._sqm_size: Tuple[int, int] = (0, 0)
+
         # Cola de kills pendientes de lootear
-        self._pending_loots: int = 0
-        self._kill_names: List[str] = []
+        self._kill_queue: List[Dict] = []
+
+        # Configuración
+        self.loot_method: str = "left_click"
+        self.free_account: bool = False
+        self.loot_delay: float = 0.15        # Delay entre clicks (rápido)
+        self.max_corpse_age: float = 10.0    # Segundos máx para lootear
+        self.max_loot_attempts: int = 1      # Solo 1 intento rápido
+        self.loot_cooldown: float = 0.5      # Cooldown corto entre secuencias
+        self.periodic_loot: bool = False
+        self.periodic_interval: float = 8.0
+        self.max_loot_sqms: int = 9          # Cuántos SQMs clickear (1-9)
+        self.max_range: int = 2
+        self.loot_during_combat: bool = True
+        self.auto_open_next_bp: bool = True
+
+        # Timing interno
+        self._last_loot_time: float = 0.0
+        self._last_periodic_loot: float = 0.0
+        self._loot_start_time: float = 0.0
+        self._current_sqm_idx: int = 0
+        self._last_click_time: float = 0.0
+
+        # SQMs dinámicos para el loot actual (calculados por kill)
+        self._loot_sqms: List[Tuple[int, int]] = []
+
+        # Detector visual de cuerpos (aura de muerte + blood splashes)
+        self.corpse_detector = CorpseDetector()
+        self._last_frame: Optional[np.ndarray] = None  # Frame actual para detección
+        self._use_visual_detection: bool = True  # Usar detección visual (True) o SQMs ciegos (False)
 
         # Métricas
-        self.loot_actions: int = 0
-        self.corpses_looted: int = 0
-        self.skipped_by_combat: int = 0
-        self.last_loot_time: float = 0.0
+        self.total_loots: int = 0
+        self.total_clicks: int = 0
+        self.visual_detections: int = 0  # Veces que usó detección visual
+        self.blind_fallbacks: int = 0    # Veces que usó fallback ciego
+
+        # Status logging
+        self._last_status_log: float = 0.0
 
     # ==================================================================
-    # Configuración
+    # Configuración y callbacks
     # ==================================================================
+    def set_left_click_callback(self, fn: Callable):
+        self._left_click_fn = fn
+
     def set_right_click_callback(self, fn: Callable):
         self._right_click_fn = fn
 
-    def set_left_click_callback(self, fn: Callable):
-        self._left_click_fn = fn
+    def set_shift_right_click_callback(self, fn: Callable):
+        self._shift_right_click_fn = fn
 
     def set_log_callback(self, fn: Callable):
         self._log_fn = fn
 
     def set_targeting_engine(self, engine):
-        """Referencia al TargetingEngine para consultar creature count."""
         self._targeting_engine = engine
 
     def set_sqms(self, sqms: List[Tuple[int, int]]):
-        """Establece los 9 SQMs alrededor del jugador."""
-        self.sqms = sqms
-        if len(sqms) >= 5:
-            self.player_center = sqms[4]
+        """Configura las 9 posiciones de SQMs fijos del game window."""
+        self._sqms = list(sqms)
+        # Extraer player center y sqm_size de las posiciones
+        if len(sqms) >= 9:
+            self._player_center = sqms[4]  # Center
+            # sqm_size = distancia entre Center y E (horizontal)
+            sw = (sqms[5][0] - sqms[4][0], sqms[1][1] - sqms[4][1])
+            self._sqm_size = (abs(sw[0]), abs(sw[1]))
+            # Propagar al corpse detector
+            self.corpse_detector.set_player_center(*self._player_center)
+            self.corpse_detector.set_sqm_size(*self._sqm_size)
+        self._log(f"SQMs configurados: {len(sqms)} posiciones, center={self._player_center}, sqm_size={self._sqm_size}")
+
+    def set_game_region(self, x1: int, y1: int, x2: int, y2: int):
+        """Configura la región del game window para detección visual."""
+        self.corpse_detector.set_game_region(x1, y1, x2, y2)
+        self._log(f"Game region para detección de cuerpos: ({x1},{y1})-({x2},{y2})")
+
+    def set_player_center(self, x: int, y: int):
+        """Establece el centro del jugador manualmente."""
+        self._player_center = (x, y)
+
+    def set_sqm_size(self, w: int, h: int):
+        """Establece el tamaño de un SQM manualmente."""
+        self._sqm_size = (w, h)
 
     def configure(self, config: dict):
-        """Aplica configuración desde dict."""
-        looter = config if isinstance(config, dict) else {}
-        self.loot_method = looter.get("loot_method", "left_click")
-        self.loot_delay = looter.get("loot_delay", 0.05)
-        self.loot_cooldown = looter.get("loot_cooldown", 0.3)
-        self.max_loot_sqms = looter.get("max_loot_sqms", 9)
+        """Aplica configuración desde el dict de config."""
+        cfg = config if isinstance(config, dict) else {}
+        self.loot_method = cfg.get("loot_method", "left_click")
+        self.free_account = cfg.get("free_account", False)
+        self.loot_delay = cfg.get("loot_delay", 0.15)
+        self.max_corpse_age = cfg.get("max_corpse_age", 10.0)
+        self.max_loot_attempts = cfg.get("max_loot_attempts", 1)
+        self.loot_cooldown = cfg.get("loot_cooldown", 0.5)
+        self.periodic_loot = cfg.get("periodic_loot", False)
+        self.periodic_interval = cfg.get("periodic_interval", 8.0)
+        self.max_loot_sqms = cfg.get("max_loot_sqms", 9)
+        self.max_range = cfg.get("max_range", 2)
+        self.loot_during_combat = cfg.get("loot_during_combat", True)
+        self.auto_open_next_bp = cfg.get("auto_open_next_bp", True)
 
-        # Threshold config
-        self.loot_threshold = looter.get("loot_threshold", 0)
-        self.always_loot = looter.get("always_loot", True)
+        # Mapear método viejo a nuevo
+        method_map = {"shift_click": "shift_right_click", "open_body": "right_click"}
+        if self.loot_method in method_map:
+            self.loot_method = method_map[self.loot_method]
 
-        # Drop config
-        self.drop_enabled = looter.get("drop_enabled", False)
-        drop_str = looter.get("drop_items", "")
-        if isinstance(drop_str, str):
-            self.drop_items = [s.strip() for s in drop_str.split(",") if s.strip()]
-        elif isinstance(drop_str, list):
-            self.drop_items = drop_str
+        if self.free_account:
+            self.loot_method = "left_click"
+            self._log("Free account: forzando left_click (todo a BP principal)")
+
+        self._log(f"Configurado: método={self.loot_method}, delay={self.loot_delay}s, sqms={self.max_loot_sqms}")
 
     def _log(self, msg: str):
         if self._log_fn:
             self._log_fn(f"[Looter] {msg}")
 
     # ==================================================================
-    # API pública
+    # Cálculo de SQMs dinámicos
     # ==================================================================
-    @property
-    def is_looting(self) -> bool:
-        """True si el looter está activamente looteando.
-        NOTE: Ya NO se usa para pausar targeting. Se mantiene solo
-        por compatibilidad y para queries de estado."""
-        return self.state == "looting"
+    def _calculate_loot_sqms_around_player(self) -> List[Tuple[int, int]]:
+        """
+        Calcula los SQMs a lootear alrededor del player center.
+        El cuerpo siempre cae en uno de los 9 SQMs del player.
+        Orden: Center primero (más probable), luego espiral.
+        """
+        cx, cy = self._player_center
+        sw, sh = self._sqm_size
+
+        if cx == 0 or sw == 0:
+            # Fallback a SQMs fijos
+            return list(self._sqms)
+
+        # Orden espiral desde el centro: Center, S, N, E, W, SE, SW, NE, NW
+        offsets = [
+            (0, 0),      # Center (más probable — el jugador está sobre el cuerpo)
+            (0, sh),     # S
+            (0, -sh),    # N
+            (sw, 0),     # E
+            (-sw, 0),    # W
+            (sw, sh),    # SE
+            (-sw, sh),   # SW
+            (sw, -sh),   # NE
+            (-sw, -sh),  # NW
+        ]
+
+        sqms = [(cx + dx, cy + dy) for dx, dy in offsets]
+        return sqms[:self.max_loot_sqms]
 
     # ==================================================================
-    # Notificación de kills (desde targeting)
+    # Kill notification (llamado por TargetingEngine)
     # ==================================================================
-    def notify_kill(self, monster_name: str = "", screen_x: int = 0, screen_y: int = 0):
+    def notify_kill(self, monster_name: str, x: int = 0, y: int = 0):
         """
-        Llamado cuando el targeting detecta una kill.
-        Incrementa el contador de pendientes para lootear en el próximo frame.
+        Recibe notificación de kill del TargetingEngine.
+        x, y son coordenadas de la battle list (no del game window).
         """
-        self._pending_loots += 1
-        self._kill_names.append(monster_name or "desconocido")
-        self._log(f"Kill: {monster_name} — pendientes: {self._pending_loots}")
+        self._kill_queue.append({
+            "monster": monster_name,
+            "time": time.time(),
+            "attempts": 0,
+        })
+        self._log(f"Kill recibida: {monster_name} — cola: {len(self._kill_queue)}")
 
     # ==================================================================
-    # Loop principal (llamado por dispatcher cada frame)
+    # Loop principal
     # ==================================================================
     def process_frame(self, frame: np.ndarray):
-        """
-        Procesa looteo pendiente.
-        Lógica simple como TibiaAuto12: si hay kills pendientes → lootear.
-        NO pausa targeting — el loot es rápido (~0.5s).
-        """
-        if not self.enabled:
+        if not self.enabled or frame is None:
             return
 
-        # Sin kills pendientes → nada que hacer
-        if self._pending_loots <= 0:
-            self.state = "idle"
-            return
-
+        # Guardar frame para detección visual de cuerpos
+        self._last_frame = frame
         now = time.time()
 
-        # --- Threshold opcional: ¿demasiadas criaturas vivas? ---
-        if not self.always_loot and self._targeting_engine is not None:
-            creature_count = self._targeting_engine.get_creature_count()
-            if self.loot_threshold > 0 and creature_count > self.loot_threshold:
-                self.state = "waiting_combat"
-                if not hasattr(self, '_last_wait_log'):
-                    self._last_wait_log = 0.0
-                if now - self._last_wait_log >= 3.0:
-                    self._last_wait_log = now
-                    self._log(
-                        f"Esperando combate ({creature_count} > "
-                        f"threshold {self.loot_threshold}) — "
-                        f"{self._pending_loots} pendientes"
-                    )
-                    self.skipped_by_combat += 1
+        # Log periódico (~cada 10s)
+        if now - self._last_status_log >= 10.0:
+            self._last_status_log = now
+            self._log(
+                f"Estado: cola={len(self._kill_queue)}, "
+                f"loot_total={self.total_loots}, visual={self.visual_detections}, "
+                f"ciegos={self.blind_fallbacks}, método={self.loot_method}"
+            )
+
+        # Verificar combate
+        if not self.loot_during_combat and self._targeting_engine:
+            if self._targeting_engine.is_in_combat():
                 return
 
-        # --- Cooldown mínimo entre looteos ---
-        if now - self.last_loot_time < self.loot_cooldown:
+        # Limpiar kills viejas
+        self._cleanup_old_kills(now)
+
+        # ¿En medio de una secuencia de loot?
+        if self.state == "looting":
+            self._continue_loot_sequence(now)
             return
 
-        # --- Verificar que tenemos SQMs ---
-        if not self.sqms:
-            self._log("⚠ Sin SQMs — presiona 'Calibrar'")
+        # Cooldown entre secuencias
+        if now - self._last_loot_time < self.loot_cooldown:
             return
 
-        # --- LOOTEAR (rápido, sin pausar targeting) ---
-        self._take_loot()
-
-    def _take_loot(self):
-        """
-        Lootea cuerpos clickeando en los SQMs alrededor del jugador.
-        Patrón brute-force idéntico a TibiaAuto12:
-        SW → S → SE → W → Centro → E → NW → N → NE
-
-        Incluye el SQM central (jugador) porque el cadáver puede
-        quedar debajo del personaje.
-        """
-        click_fn = self._get_click_fn()
-        if click_fn is None:
-            self._log("⚠ Sin callback de click configurado")
+        # Iniciar loot desde cola
+        if self._kill_queue:
+            self._start_loot_sequence(now)
             return
+
+        # Timer periódico
+        if self.periodic_loot and now - self._last_periodic_loot >= self.periodic_interval:
+            self._start_periodic_loot(now)
+
+    def _cleanup_old_kills(self, now: float):
+        before = len(self._kill_queue)
+        self._kill_queue = [k for k in self._kill_queue if now - k["time"] < self.max_corpse_age]
+        removed = before - len(self._kill_queue)
+        if removed > 0:
+            self._log(f"Kills expiradas: {removed}")
+
+    # ==================================================================
+    # Secuencia de loot
+    # ==================================================================
+    def _start_loot_sequence(self, now: float):
+        if not self._sqms and not self._player_center[0]:
+            self._log("⚠ No hay SQMs configurados — presiona 'Calibrar'")
+            return
+
+        kill = self._kill_queue[0]
+        kill["attempts"] += 1
+
+        if kill["attempts"] > self.max_loot_attempts:
+            removed = self._kill_queue.pop(0)
+            self._log(f"Kill de {removed['monster']} descartada (max intentos)")
+            return
+
+        # ===== DETECCIÓN VISUAL DE CUERPOS =====
+        # Intentar detectar cuerpos en el game window por su aura/sangre
+        detected_corpses = []
+        if self._use_visual_detection and self._last_frame is not None:
+            detected_corpses = self.corpse_detector.detect_corpses(self._last_frame)
+
+        if detected_corpses:
+            # ¡Detectamos cuerpos! Clickear SOLO en esas posiciones
+            self._loot_sqms = detected_corpses
+            self.visual_detections += 1
+            self._log(
+                f"Looteando: {kill['monster']} — "
+                f"{len(detected_corpses)} cuerpos DETECTADOS visualmente"
+            )
+        else:
+            # Fallback: SQMs ciegos alrededor del player
+            self._loot_sqms = self._calculate_loot_sqms_around_player()
+            self.blind_fallbacks += 1
+            self._log(
+                f"Looteando: {kill['monster']} — "
+                f"{len(self._loot_sqms)} SQMs ciegos (no se detectaron cuerpos)"
+            )
 
         self.state = "looting"
+        self._current_sqm_idx = 0
+        self._loot_start_time = now
+        self._last_click_time = 0.0
 
-        # Nombre del monstruo para el log
-        kname = self._kill_names.pop(0) if self._kill_names else "desconocido"
+    def _start_periodic_loot(self, now: float):
+        if not self._sqms and not self._player_center[0]:
+            return
+        self._loot_sqms = self._calculate_loot_sqms_around_player()
+        self.state = "looting"
+        self._current_sqm_idx = 0
+        self._loot_start_time = now
+        self._last_click_time = 0.0
+        self._last_periodic_loot = now
+        self._log("Loot periódico activado")
 
-        # Seleccionar SQMs a clickear (9 = todos incluido centro)
-        sqms_to_click = self._get_loot_sqms()
-
-        if not sqms_to_click:
-            self._log("⚠ Sin SQMs disponibles")
-            self.state = "idle"
+    def _continue_loot_sequence(self, now: float):
+        # Timeout
+        if now - self._loot_start_time > self.max_corpse_age:
+            self._finish_loot_sequence("timeout")
             return
 
-        self._log(f"Looteando {kname}: {len(sqms_to_click)} SQMs")
-
-        # Click rápido en cada SQM (delay mínimo como TibiaAuto12)
-        for sx, sy in sqms_to_click:
-            try:
-                click_fn(sx, sy)
-            except Exception as e:
-                self._log(f"⚠ Error click ({sx},{sy}): {e}")
-            if self.loot_delay > 0:
-                time.sleep(self.loot_delay)
-            self.loot_actions += 1
-
-        # Actualizar contadores
-        self._pending_loots = max(0, self._pending_loots - 1)
-        self.corpses_looted += 1
-        self.last_loot_time = time.time()
-        self.state = "idle"
-
-    def _get_click_fn(self) -> Optional[Callable]:
-        """Retorna la función de click según el método configurado."""
-        if self.loot_method == "right_click":
-            return self._right_click_fn
-        return self._left_click_fn  # default: left_click
-
-    def _get_loot_sqms(self) -> List[Tuple[int, int]]:
-        """
-        Retorna los SQMs a clickear para lootear.
-        max_loot_sqms >= 9: todos los 9 SQMs (incluido centro).
-        max_loot_sqms < 9: los primeros N (priorizando adyacentes).
-        Orden: SW(0), S(1), SE(2), W(3), Center(4), E(5), NW(6), N(7), NE(8).
-        """
-        if not self.sqms:
-            return []
-
-        valid_sqms = []
-        for i, (sx, sy) in enumerate(self.sqms):
-            if sx == 0 and sy == 0:
-                continue  # SQM no calibrado
-            valid_sqms.append((sx, sy))
-
-        return valid_sqms[:self.max_loot_sqms]
-
-    # ==================================================================
-    # Drop items no deseados (placeholder)
-    # ==================================================================
-    def drop_unwanted_items(self):
-        """Placeholder para drop de items no deseados."""
-        if not self.drop_enabled or not self.drop_items:
+        # Delay entre clicks
+        if now - self._last_click_time < self.loot_delay:
             return
-        self.state = "dropping"
-        self._log(f"Drop items: {self.drop_items} (próxima versión)")
+
+        # ¿Terminamos todos los SQMs?
+        if self._current_sqm_idx >= len(self._loot_sqms):
+            self._finish_loot_sequence("completed")
+            return
+
+        # Obtener posición del SQM
+        sx, sy = self._loot_sqms[self._current_sqm_idx]
+
+        # Ejecutar click
+        click_ok = self._execute_loot_click(sx, sy)
+
+        if click_ok:
+            self.total_clicks += 1
+            self._last_click_time = now
+            # Solo log primer y último click
+            if self._current_sqm_idx == 0:
+                self._log(f"Loot click #{self._current_sqm_idx+1}/{len(self._loot_sqms)} en ({sx},{sy})")
+
+        self._current_sqm_idx += 1
+
+    def _execute_loot_click(self, x: int, y: int) -> bool:
+        if self.loot_method == "left_click":
+            if self._left_click_fn:
+                self._left_click_fn(x, y)
+                return True
+        elif self.loot_method == "right_click":
+            if self._right_click_fn:
+                self._right_click_fn(x, y)
+                return True
+        elif self.loot_method == "shift_right_click":
+            if self._shift_right_click_fn:
+                self._shift_right_click_fn(x, y)
+                return True
+            elif self._right_click_fn:
+                self._right_click_fn(x, y)
+                return True
+        return False
+
+    def _finish_loot_sequence(self, reason: str):
         self.state = "idle"
+        self._last_loot_time = time.time()
+        self.total_loots += 1
+
+        if self._kill_queue and reason == "completed":
+            removed = self._kill_queue.pop(0)
+            self._log(f"Loot completado: {removed['monster']} ({len(self._loot_sqms)} clicks)")
+        elif reason == "timeout":
+            if self._kill_queue:
+                removed = self._kill_queue.pop(0)
+                self._log(f"Loot timeout: {removed['monster']}")
+            else:
+                self._log("Loot periódico completado")
+        else:
+            self._log(f"Loot terminado: {reason}")
 
     # ==================================================================
     # Control
     # ==================================================================
     def start(self):
         self.enabled = True
-        self._pending_loots = 0
-        self._kill_names.clear()
-        self._log("Looter activado")
-        self._log(f"  Método: {self.loot_method}")
-        self._log(f"  SQMs: {self.max_loot_sqms} (9=todos incl. centro)")
-        self._log(f"  Delay entre clicks: {self.loot_delay}s")
-        self._log(f"  Cooldown entre looteos: {self.loot_cooldown}s")
-
-        if self.always_loot:
-            self._log("  Modo: lootear inmediatamente tras cada kill")
-        else:
-            self._log(f"  Modo: threshold (lootear si criaturas ≤ {self.loot_threshold})")
-
-        if not self.sqms:
+        self._running = True
+        self.state = "idle"
+        self._kill_queue.clear()
+        self._current_sqm_idx = 0
+        detect_mode = "VISUAL (aura+sangre)" if self._use_visual_detection else "SQMs ciegos"
+        self._log(f"Looter v4 activado — método: {self.loot_method}, detección: {detect_mode}")
+        self._log(f"  SQMs: {len(self._sqms)}, center: {self._player_center}, sqm_size: {self._sqm_size}")
+        self._log(f"  Max SQMs fallback: {self.max_loot_sqms}, delay: {self.loot_delay}s")
+        if not self._sqms and not self._player_center[0]:
             self._log("⚠ Sin SQMs — presiona 'Calibrar' primero")
-        else:
-            self._log(f"  SQMs calibrados: {len(self.sqms)}")
 
     def stop(self):
         self.enabled = False
+        self._running = False
         self.state = "idle"
-        self._pending_loots = 0
-        self._kill_names.clear()
+        self._kill_queue.clear()
         self._log("Looter desactivado")
 
     def get_status(self) -> Dict:
         return {
             "enabled": self.enabled,
             "state": self.state,
-            "pending_loots": self._pending_loots,
-            "corpses_looted": self.corpses_looted,
-            "loot_actions": self.loot_actions,
-            "skipped_by_combat": self.skipped_by_combat,
-            "sqms_configured": len(self.sqms),
             "loot_method": self.loot_method,
+            "free_account": self.free_account,
+            "kill_queue": len(self._kill_queue),
+            "total_loots": self.total_loots,
+            "total_clicks": self.total_clicks,
+            "visual_detections": self.visual_detections,
+            "blind_fallbacks": self.blind_fallbacks,
+            "sqms_configured": len(self._sqms),
+            "player_center": self._player_center,
+            "sqm_size": self._sqm_size,
+            "periodic_loot": self.periodic_loot,
+            "loot_during_combat": self.loot_during_combat,
+            "visual_detection": self._use_visual_detection,
         }

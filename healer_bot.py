@@ -72,6 +72,9 @@ class HealerBot:
         self.cavebot_engine = CavebotEngine()
         self._calibrated = False
 
+        # Wire calibrator log callback for diagnostics
+        self.calibrator.set_log_callback(lambda msg: self.log.info(msg))
+
         # Coordenadas: factores de escala OBS frame → Tibia client
         self._scale_x: float = 1.0
         self._scale_y: float = 1.0
@@ -155,6 +158,12 @@ class HealerBot:
         cy = int(y * self._scale_y)
         return self.mouse_sender.right_click(cx, cy)
 
+    def _scaled_shift_right_click(self, x: int, y: int) -> bool:
+        """Shift+Click derecho con coordenadas escaladas (loot rápido)."""
+        cx = int(x * self._scale_x)
+        cy = int(y * self._scale_y)
+        return self.mouse_sender.click(cx, cy, button="right", shift=True)
+
     def _update_scale_factors(self, frame: np.ndarray):
         """Calcula factores de escala OBS frame → Tibia client coordinates."""
         if frame is None:
@@ -178,6 +187,7 @@ class HealerBot:
         """
         Wires all module callbacks and registers dispatcher handlers.
         Called once when tibia_hwnd is available and mouse_sender has a target.
+        v3.1: targeting v2 notifica kills al looter directamente (sin wrapper).
         """
         # --- Targeting ---
         self.targeting_engine.set_click_callback(self._scaled_left_click)
@@ -185,12 +195,17 @@ class HealerBot:
         self.targeting_engine.set_log_callback(
             lambda msg: self.log.info(msg)
         )
+        self.targeting_engine.set_calibrator(self.calibrator)
         self.targeting_engine.configure(self.config.targeting)
 
         # --- Looter ---
         self.looter_engine.set_right_click_callback(self._scaled_right_click)
         self.looter_engine.set_left_click_callback(self._scaled_left_click)
+        self.looter_engine.set_shift_right_click_callback(self._scaled_shift_right_click)
         self.looter_engine.set_log_callback(
+            lambda msg: self.log.info(msg)
+        )
+        self.looter_engine.corpse_detector.set_log_callback(
             lambda msg: self.log.info(msg)
         )
         self.looter_engine.set_targeting_engine(self.targeting_engine)
@@ -202,42 +217,38 @@ class HealerBot:
         self.cavebot_engine.set_log_callback(
             lambda msg: self.log.info(msg)
         )
+        self.cavebot_engine.set_targeting_engine(self.targeting_engine)
+        self.cavebot_engine.set_hotkeys(self.config.hotkeys)
         self.cavebot_engine.configure(self.config.cavebot)
 
-        # --- Conexiones cruzadas targeting ↔ looter ---
+        # --- Conexiones cruzadas ---
+        # Targeting v2 notifica kills directamente al looter (sin wrapper)
         self.targeting_engine.set_looter_engine(self.looter_engine)
 
-        # --- Conectar targeting → looter (kill notification) ---
-        original_process = self.targeting_engine.process_frame
-
-        def _targeting_with_loot(frame):
-            prev_kills = self.targeting_engine.monsters_killed
-            original_process(frame)
-            new_kills = self.targeting_engine.monsters_killed
-            if new_kills > prev_kills:
-                # Posición del jugador (centro del game area) — ahí estará el cuerpo
-                pc = self.calibrator.player_center
-                px, py = pc if pc else (0, 0)
-                lname = self.targeting_engine.last_attack_name
-                for _ in range(new_kills - prev_kills):
-                    self.looter_engine.notify_kill(lname, px, py)
-        self._targeting_with_loot = _targeting_with_loot
-
         # --- Registrar handlers en dispatcher ---
-        self.dispatcher.register_handler("targeting", self._targeting_with_loot)
+        # Orden: targeting → cavebot → looter (targeting primero para detectar kills)
+        self.dispatcher.register_handler("targeting", self.targeting_engine.process_frame)
         self.dispatcher.register_handler("cavebot", self.cavebot_engine.process_frame)
         self.dispatcher.register_handler("looter", self.looter_engine.process_frame)
 
-        self.log.ok("Módulos v3 inicializados (targeting, looter, cavebot)")
+        self.log.ok("Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)")
 
     def _run_calibration_on_frame(self, frame: np.ndarray) -> bool:
         """
         Calibra regiones del juego usando el frame actual.
         Configura todas las regiones para targeting, looter y cavebot.
+        v3.1: Log reducido — solo muestra error las primeras N veces.
         """
         success = self.calibrator.calibrate(frame)
         if not success:
-            self.log.warning("Calibración fallida - verificar que Tibia sea visible en OBS")
+            # Solo loguear warning las primeras 3 veces y luego cada 20
+            fail_n = self.calibrator._fail_count
+            if fail_n <= 3 or fail_n % 20 == 0:
+                confs = self.calibrator.last_confidences
+                conf_str = ", ".join(f"{k}={v:.2f}" for k, v in confs.items()) if confs else "sin datos"
+                self.log.warning(
+                    f"Calibración fallida #{fail_n} — {self.calibrator.last_error} | {conf_str}"
+                )
             return False
 
         # Pasar regiones a los módulos
@@ -255,6 +266,12 @@ class HealerBot:
         if sqms:
             self.looter_engine.set_sqms(sqms)
             self.log.info(f"SQMs configurados: {len(sqms)} posiciones")
+
+        # Pasar game region al looter para detección visual de cuerpos
+        gr = self.calibrator.game_region
+        if gr:
+            self.looter_engine.set_game_region(*gr)
+            self.log.info(f"Game region para detección de cuerpos: {gr}")
 
         pc = self.calibrator.player_center
         if pc:

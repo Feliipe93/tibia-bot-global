@@ -59,7 +59,8 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "chase_monsters": True,
         "attack_mode": "offensive",     # offensive, balanced, defensive
         "target_priority": "closest",   # closest, lowest_hp, highest_hp, dangerous
-        "attack_delay": 0.5,
+        "attack_delay": 0.3,
+        "re_attack_delay": 0.6,
         "max_chase_distance": 5,
         "use_aoe": True,
         "aoe_min_monsters": 3,
@@ -68,6 +69,9 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "attack_list": [],              # Lista de monstruos a atacar
         "ignore_list": [],              # Lista de monstruos a ignorar
         "priority_list": [],            # Lista de monstruos prioritarios
+        "creature_profiles": {},        # Per-creature config: {name: {chase_mode, attack_mode, ...}}
+        "chase_key": "",               # Hotkey to toggle chase mode in Tibia
+        "stand_key": "",               # Hotkey to toggle stand mode in Tibia
         "battle_list_region": {"x": 0, "y": 0, "w": 160, "h": 220},
         "spell_rotation": {
             "enabled": True,
@@ -78,11 +82,17 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     # ===== v2.2 Looter =====
     "looter": {
         "enabled": False,
-        "loot_method": "shift_click",   # shift_click, open_body, right_click, left_click
-        "loot_delay": 0.3,
+        "loot_method": "left_click",   # left_click, right_click, shift_right_click
+        "free_account": False,          # Free account mode: loot to main BP only
+        "loot_delay": 0.15,
+        "loot_cooldown": 0.5,
         "max_range": 2,
-        "max_corpse_age": 15.0,
-        "max_loot_attempts": 3,
+        "max_corpse_age": 10.0,
+        "max_loot_attempts": 1,
+        "max_loot_sqms": 9,
+        "periodic_loot": False,
+        "periodic_interval": 8.0,
+        "loot_during_combat": True,
         "auto_open_next_bp": True,
         "inventory_region": {"x": 0, "y": 0, "w": 160, "h": 400},
         "item_filter": {

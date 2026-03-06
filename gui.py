@@ -219,7 +219,25 @@ class TibiaHealerGUI(ctk.CTk):
         self.lbl_heals = ctk.CTkLabel(
             info_frame, text="Curaciones: 0", font=ctk.CTkFont(size=12)
         )
-        self.lbl_heals.pack(anchor="w", padx=15, pady=(2, 8))
+        self.lbl_heals.pack(anchor="w", padx=15, pady=(2, 2))
+
+        # --- Indicador de calibración v3.1 ---
+        self.lbl_calibration = ctk.CTkLabel(
+            info_frame,
+            text="🎯 Calibración: Pendiente",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color="#FFAA00",
+        )
+        self.lbl_calibration.pack(anchor="w", padx=15, pady=(2, 2))
+
+        # --- Indicador de módulos activos ---
+        self.lbl_modules_status = ctk.CTkLabel(
+            info_frame,
+            text="📦 Módulos: —",
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        )
+        self.lbl_modules_status.pack(anchor="w", padx=15, pady=(2, 8))
 
     # ==================================================================
     # TAB: Configuración de curación
@@ -1160,10 +1178,22 @@ class TibiaHealerGUI(ctk.CTk):
         if self.config.targeting.get("auto_attack", True):
             self.cb_auto_attack.select()
 
-        self.cb_chase = ctk.CTkSwitch(mode_frame, text="Perseguir monstruos")
-        self.cb_chase.pack(anchor="w", padx=15, pady=(3, 8))
+        self.cb_chase = ctk.CTkSwitch(mode_frame, text="Perseguir monstruos (global)")
+        self.cb_chase.pack(anchor="w", padx=15, pady=(3, 4))
         if self.config.targeting.get("chase_monsters", True):
             self.cb_chase.select()
+
+        # --- Chase/Stand auto-detección (v3.2) ---
+        ctk.CTkLabel(
+            mode_frame,
+            text="🎯 Chase/Stand: Auto-detección por iconos de Tibia\n"
+                 "   El bot detecta automáticamente los iconos de Chase (persona\n"
+                 "   corriendo verde) y Stand (persona parada roja) en la UI\n"
+                 "   de Tibia y clickea para cambiar de modo según el perfil\n"
+                 "   de cada criatura. No necesitas configurar hotkeys.",
+            font=ctk.CTkFont(size=11), text_color="#2ECC71",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(3, 8))
 
         # --- Listas de criaturas ---
         lists_frame = ctk.CTkFrame(scroll)
@@ -1217,6 +1247,94 @@ class TibiaHealerGUI(ctk.CTk):
             text="💀 Detección de skulls: Automática (HSV color analysis). No atacará jugadores sin skull.",
             font=ctk.CTkFont(size=11), text_color="#AAAAAA",
         ).pack(anchor="w", padx=10, pady=(5, 8))
+
+        # --- Templates de criaturas ---
+        tpl_frame = ctk.CTkFrame(scroll)
+        tpl_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(tpl_frame, text="📸 TEMPLATES DE CRIATURAS",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+
+        # Label que muestra templates disponibles
+        self.lbl_templates_info = ctk.CTkLabel(
+            tpl_frame,
+            text="Cargando...",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        )
+        self.lbl_templates_info.pack(anchor="w", padx=10, pady=(0, 5))
+        self._update_templates_info()
+
+        # Botones de captura
+        btn_row = ctk.CTkFrame(tpl_frame, fg_color="transparent")
+        btn_row.pack(fill="x", padx=10, pady=5)
+
+        ctk.CTkButton(
+            btn_row, text="📸 Capturar Templates desde OBS",
+            width=250, fg_color="#2980B9", hover_color="#3498DB",
+            command=self._capture_templates_from_obs,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_row, text="🔄 Actualizar Lista",
+            width=140,
+            command=self._update_templates_info,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkLabel(
+            tpl_frame,
+            text="📸 Capturar: Toma un frame de OBS, detecta los nombres en la Battle List\n"
+                 "   y los guarda como templates PNG automáticamente.\n"
+                 "   Asegúrate de tener criaturas visibles en la Battle List antes de capturar.",
+            font=ctk.CTkFont(size=10), text_color="#777777",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 8))
+
+        # --- Perfiles por criatura ---
+        profile_frame = ctk.CTkFrame(scroll)
+        profile_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(profile_frame, text="🎯 PERFILES POR CRIATURA",
+                      font=ctk.CTkFont(weight="bold")).pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            profile_frame,
+            text=(
+                "Configura comportamiento individual por criatura.\n"
+                "Ejemplo: Rotworm=chase (melee que huye), Amazon=stand (ranged).\n"
+                "Auto = usa la configuración global de arriba."
+            ),
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 5))
+
+        # Creature profile list (scrollable)
+        self._creature_profile_widgets: List[Dict] = []
+        self._profile_container = ctk.CTkFrame(profile_frame, fg_color="transparent")
+        self._profile_container.pack(fill="x", padx=10, pady=2)
+
+        # Load existing profiles
+        existing_profiles = self.config.targeting.get("creature_profiles", {})
+        for name, prof in existing_profiles.items():
+            self._add_creature_profile_row(name, prof)
+
+        # Add new creature profile button
+        add_profile_row = ctk.CTkFrame(profile_frame, fg_color="transparent")
+        add_profile_row.pack(fill="x", padx=10, pady=5)
+        self.entry_new_profile_name = ctk.CTkEntry(
+            add_profile_row, width=150,
+            placeholder_text="Nombre criatura..."
+        )
+        self.entry_new_profile_name.pack(side="left", padx=5)
+        ctk.CTkButton(
+            add_profile_row, text="➕ Agregar Perfil", width=140,
+            command=self._add_new_creature_profile,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkLabel(
+            profile_frame,
+            text="Chase: perseguir criatura (melee/huye) | Stand: quedarse quieto (ranged)\n"
+                 "Auto: usa config global | Prioridad: mayor número = atacar primero",
+            font=ctk.CTkFont(size=10), text_color="#777777",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(2, 8))
 
         # --- Hechizos ---
         spell_frame = ctk.CTkFrame(scroll)
@@ -1277,6 +1395,85 @@ class TibiaHealerGUI(ctk.CTk):
         self.log_targeting.pack(fill="x", padx=10, pady=(2, 8))
         self.log_targeting.configure(state="disabled")
 
+    # --- Creature profile helpers ---
+    def _add_creature_profile_row(self, name: str = "", profile: dict = None):
+        """Agrega una fila de perfil de criatura al editor."""
+        if profile is None:
+            profile = {}
+
+        row = ctk.CTkFrame(self._profile_container, fg_color="#1a2733",
+                           border_width=1, border_color="#2C3E50")
+        row.pack(fill="x", pady=2)
+
+        # Nombre
+        name_entry = ctk.CTkEntry(row, width=120, placeholder_text="Nombre")
+        name_entry.pack(side="left", padx=4, pady=4)
+        if name:
+            name_entry.insert(0, name)
+
+        # Chase mode
+        ctk.CTkLabel(row, text="Chase:", width=45,
+                      font=ctk.CTkFont(size=11)).pack(side="left", padx=(4, 0))
+        chase_var = ctk.StringVar(value=profile.get("chase_mode", "auto"))
+        chase_cb = ctk.CTkComboBox(row, variable=chase_var,
+                                    values=["auto", "chase", "stand"], width=85)
+        chase_cb.pack(side="left", padx=2)
+
+        # Priority
+        ctk.CTkLabel(row, text="Prio:", width=35,
+                      font=ctk.CTkFont(size=11)).pack(side="left", padx=(4, 0))
+        prio_entry = ctk.CTkEntry(row, width=40)
+        prio_entry.pack(side="left", padx=2)
+        prio_entry.insert(0, str(profile.get("priority", 0)))
+
+        # Flees checkbox
+        flees_var = ctk.BooleanVar(value=profile.get("use_chase_on_flee", True))
+        flees_cb = ctk.CTkCheckBox(row, text="Huye", variable=flees_var,
+                                    width=55, font=ctk.CTkFont(size=11))
+        flees_cb.pack(side="left", padx=4)
+
+        # Ranged checkbox
+        ranged_var = ctk.BooleanVar(value=profile.get("is_ranged", False))
+        ranged_cb = ctk.CTkCheckBox(row, text="Ranged", variable=ranged_var,
+                                     width=70, font=ctk.CTkFont(size=11))
+        ranged_cb.pack(side="left", padx=4)
+
+        # Delete button
+        widget_data = {
+            "row": row,
+            "name_entry": name_entry,
+            "chase_var": chase_var,
+            "prio_entry": prio_entry,
+            "flees_var": flees_var,
+            "ranged_var": ranged_var,
+        }
+        ctk.CTkButton(
+            row, text="🗑️", width=32, height=28, fg_color="#7f1d1d",
+            hover_color="#991b1b",
+            command=lambda w=widget_data: self._remove_creature_profile(w),
+        ).pack(side="right", padx=4, pady=4)
+
+        self._creature_profile_widgets.append(widget_data)
+
+    def _add_new_creature_profile(self):
+        """Agrega un nuevo perfil de criatura desde el campo de texto."""
+        name = self.entry_new_profile_name.get().strip()
+        if not name:
+            return
+        # Verificar si ya existe
+        for w in self._creature_profile_widgets:
+            if w["name_entry"].get().strip().lower() == name.lower():
+                self.log.warning(f"Perfil '{name}' ya existe")
+                return
+        self._add_creature_profile_row(name, {"chase_mode": "auto", "priority": 0})
+        self.entry_new_profile_name.delete(0, "end")
+
+    def _remove_creature_profile(self, widget_data: dict):
+        """Elimina una fila de perfil de criatura."""
+        widget_data["row"].destroy()
+        if widget_data in self._creature_profile_widgets:
+            self._creature_profile_widgets.remove(widget_data)
+
     def _save_targeting_config(self):
         """Guarda toda la configuración de targeting desde la GUI."""
         targeting = self.config.targeting
@@ -1291,6 +1488,11 @@ class TibiaHealerGUI(ctk.CTk):
         except ValueError:
             pass
 
+        # Chase/Stand — ahora auto-detectado por iconos, no hotkeys
+        # Mantener valores vacíos para compatibilidad
+        targeting["chase_key"] = ""
+        targeting["stand_key"] = ""
+
         # Listas de criaturas
         def parse_list(text: str) -> list:
             return [s.strip() for s in text.split(",") if s.strip()]
@@ -1299,11 +1501,31 @@ class TibiaHealerGUI(ctk.CTk):
         targeting["ignore_list"] = parse_list(self.entry_ignore_list.get())
         targeting["priority_list"] = parse_list(self.entry_priority_list.get())
 
+        # Creature profiles
+        creature_profiles = {}
+        for w in self._creature_profile_widgets:
+            name = w["name_entry"].get().strip()
+            if not name:
+                continue
+            try:
+                prio = int(w["prio_entry"].get())
+            except ValueError:
+                prio = 0
+            creature_profiles[name] = {
+                "chase_mode": w["chase_var"].get(),
+                "priority": prio,
+                "use_chase_on_flee": w["flees_var"].get(),
+                "is_ranged": w["ranged_var"].get(),
+                "attack_mode": "auto",
+                "flees_at_hp": 0.0,
+            }
+        targeting["creature_profiles"] = creature_profiles
+
         self.config.targeting = targeting
         self.config.save()
         # Re-configure engine with new settings
         self.bot.targeting_engine.configure(targeting)
-        self.log.ok("Configuración de Targeting guardada")
+        self.log.ok(f"Configuración de Targeting guardada ({len(creature_profiles)} perfiles)")
 
     def _toggle_targeting(self):
         enabled = self.cb_targeting_enabled.get()
@@ -1319,6 +1541,347 @@ class TibiaHealerGUI(ctk.CTk):
             self.bot.dispatcher.disable_module("targeting")
             self.bot.targeting_engine.stop()
         self.log.info(f"Targeting {'habilitado' if enabled else 'deshabilitado'}")
+
+    # ------------------------------------------------------------------
+    # Templates de criaturas
+    # ------------------------------------------------------------------
+    def _update_templates_info(self):
+        """Actualiza el label con info de templates disponibles vs necesarios."""
+        names_dir = os.path.join("images", "Targets", "Names")
+
+        # Templates disponibles en disco
+        available = {}
+        if os.path.isdir(names_dir):
+            for fname in os.listdir(names_dir):
+                if fname.endswith(".png"):
+                    raw = fname.replace(".png", "")
+                    # CamelCase → display name  (e.g. "CaveRat" → "Cave Rat")
+                    display = ""
+                    for i, ch in enumerate(raw):
+                        if ch.isupper() and i > 0 and raw[i - 1].islower():
+                            display += " "
+                        display += ch
+                    available[display] = fname
+
+        # Listas del usuario
+        attack_names = [n.strip() for n in self.entry_attack_list.get().split(",") if n.strip()]
+        ignore_names = [n.strip() for n in self.entry_ignore_list.get().split(",") if n.strip()]
+        priority_names = [n.strip() for n in self.entry_priority_list.get().split(",") if n.strip()]
+        all_needed = set(attack_names + ignore_names + priority_names)
+
+        lines = []
+        # Mostrar estado de las necesarias
+        if all_needed:
+            for name in sorted(all_needed):
+                if name in available:
+                    lines.append(f"  ✅ {name}  ({available[name]})")
+                else:
+                    camel = name.replace(" ", "")
+                    lines.append(f"  ❌ {name}  (falta {camel}.png)")
+
+        # Mostrar extras disponibles
+        extras = sorted(set(available.keys()) - all_needed)
+        if extras:
+            lines.append("")
+            lines.append("Otros templates disponibles:")
+            for name in extras:
+                lines.append(f"  📦 {name}")
+
+        if not lines:
+            lines.append("No hay templates ni criaturas configuradas.")
+
+        total_available = len(available)
+        total_needed = len(all_needed)
+        found = sum(1 for n in all_needed if n in available)
+        header = f"Templates: {total_available} disponibles | Necesarios: {found}/{total_needed}\n"
+
+        self.lbl_templates_info.configure(
+            text=header + "\n".join(lines),
+            text_color="#55FF55" if found == total_needed and total_needed > 0 else "#FFAA55",
+        )
+
+    def _capture_templates_from_obs(self):
+        """Captura un frame de OBS, detecta nombres en la Battle List y los guarda como templates."""
+        # Validaciones
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero en la pestaña Principal.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.battle_region is None:
+            messagebox.showerror(
+                "Error",
+                "La Battle List no está calibrada.\n"
+                "Ejecuta la calibración primero (pestaña Principal).",
+            )
+            return
+
+        # Capturar frame
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        # Recortar Battle List ROI
+        bx1, by1, bx2, by2 = cal.battle_region
+        h_frame, w_frame = frame.shape[:2]
+        # Clamp
+        bx1 = max(0, min(bx1, w_frame - 1))
+        by1 = max(0, min(by1, h_frame - 1))
+        bx2 = max(bx1 + 1, min(bx2, w_frame))
+        by2 = max(by1 + 1, min(by2, h_frame))
+        battle_roi = frame[by1:by2, bx1:bx2]
+
+        if battle_roi.size == 0:
+            messagebox.showerror("Error", "La región de Battle List está vacía.")
+            return
+
+        # Convertir a gris para detectar texto
+        gray = cv2.cvtColor(battle_roi, cv2.COLOR_BGR2GRAY)
+
+        # En la battle list, los nombres de criaturas son texto claro sobre fondo oscuro.
+        # El texto tiene un gris ~180-255 y el fondo ~20-60.
+        # Umbralizar para aislar texto brillante
+        _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
+
+        # Encontrar filas con texto (proyección horizontal)
+        row_sums = np.sum(thresh, axis=1)
+        # Normalizar: una fila con texto tendrá sum > 0
+        text_rows = row_sums > (thresh.shape[1] * 255 * 0.02)  # al menos 2% de píxeles blancos
+
+        # Detectar segmentos continuos de filas con texto
+        segments = []
+        in_segment = False
+        start = 0
+        for i, has_text in enumerate(text_rows):
+            if has_text and not in_segment:
+                start = i
+                in_segment = True
+            elif not has_text and in_segment:
+                segments.append((start, i))
+                in_segment = False
+        if in_segment:
+            segments.append((start, len(text_rows)))
+
+        # Filtrar segmentos por altura razonable para nombres (6-16px)
+        name_segments = []
+        for y_start, y_end in segments:
+            height = y_end - y_start
+            if 5 <= height <= 18:
+                name_segments.append((y_start, y_end))
+
+        if not name_segments:
+            messagebox.showinfo(
+                "Sin resultados",
+                "No se detectaron nombres de criaturas en la Battle List.\n\n"
+                "Asegúrate de que:\n"
+                "1. Hay criaturas visibles en la Battle List\n"
+                "2. La calibración es correcta\n"
+                "3. OBS está capturando el juego",
+            )
+            return
+
+        # Para cada segmento detectado, recortar el nombre y pedir al usuario que lo nombre
+        names_dir = os.path.join("images", "Targets", "Names")
+        os.makedirs(names_dir, exist_ok=True)
+        saved_count = 0
+
+        # Lanzar en un hilo para no bloquear — pero los dialogs deben estar en main thread
+        # Así que lo hacemos secuencialmente
+        for idx, (y_start, y_end) in enumerate(name_segments):
+            # Recortar el nombre: toda la anchura de la ROI, pero luego ajustar horizontalmente
+            name_row = gray[y_start:y_end, :]
+            _, name_thresh = cv2.threshold(name_row, 150, 255, cv2.THRESH_BINARY)
+
+            # Encontrar los límites horizontales del texto
+            col_sums = np.sum(name_thresh, axis=0)
+            text_cols = np.where(col_sums > 0)[0]
+            if len(text_cols) == 0:
+                continue
+
+            x_start = max(0, text_cols[0] - 1)
+            x_end = min(name_row.shape[1], text_cols[-1] + 2)
+
+            # Recortar solo el texto
+            name_crop = gray[y_start:y_end, x_start:x_end]
+
+            if name_crop.size == 0:
+                continue
+
+            # Mostrar preview ampliado
+            preview_scale = 6
+            preview = cv2.resize(
+                name_crop,
+                (name_crop.shape[1] * preview_scale, name_crop.shape[0] * preview_scale),
+                interpolation=cv2.INTER_NEAREST,
+            )
+
+            # Guardar preview temporal para mostrar en diálogo
+            preview_path = os.path.join("debug", f"_tpl_preview_{idx}.png")
+            os.makedirs("debug", exist_ok=True)
+            cv2.imwrite(preview_path, preview)
+
+            # Crear diálogo con preview
+            result = self._show_template_name_dialog(
+                preview_path, name_crop, idx + 1, len(name_segments)
+            )
+
+            # Limpiar preview
+            try:
+                os.remove(preview_path)
+            except OSError:
+                pass
+
+            if result is None:
+                # Usuario canceló — salir del loop
+                break
+            if result == "":
+                # Usuario dejó vacío — skip
+                continue
+
+            # Guardar template con nombre CamelCase
+            camel_name = result.strip().replace(" ", "")
+            save_path = os.path.join(names_dir, f"{camel_name}.png")
+
+            # Verificar si ya existe
+            if os.path.exists(save_path):
+                overwrite = messagebox.askyesno(
+                    "Template existente",
+                    f"Ya existe '{camel_name}.png'.\n¿Deseas sobrescribirlo?",
+                )
+                if not overwrite:
+                    continue
+
+            cv2.imwrite(save_path, name_crop)
+            saved_count += 1
+            self.log.ok(f"Template guardado: {camel_name}.png ({name_crop.shape[1]}x{name_crop.shape[0]}px)")
+
+        # Recargar templates en el engine
+        if saved_count > 0:
+            try:
+                attack_list = [n.strip() for n in self.entry_attack_list.get().split(",") if n.strip()]
+                self.bot.targeting_engine.battle_reader.load_monster_templates(attack_list)
+                self.log.ok(f"✅ {saved_count} template(s) guardado(s) y recargado(s)")
+            except Exception as e:
+                self.log.warn(f"Templates guardados pero error al recargar: {e}")
+
+        # Actualizar info
+        self._update_templates_info()
+
+        if saved_count == 0:
+            messagebox.showinfo("Info", "No se guardaron templates nuevos.")
+        else:
+            messagebox.showinfo(
+                "Listo",
+                f"Se guardaron {saved_count} template(s).\n"
+                "Los templates se recargaron automáticamente.",
+            )
+
+    def _show_template_name_dialog(
+        self, preview_path: str, crop: np.ndarray, current: int, total: int
+    ) -> Optional[str]:
+        """Muestra un diálogo para que el usuario nombre un template detectado.
+
+        Returns:
+            str con el nombre, "" para skip, None para cancelar todo.
+        """
+        dialog = ctk.CTkToplevel(self)
+        dialog.title(f"Nombrar Template ({current}/{total})")
+        dialog.geometry("500x350")
+        dialog.resizable(False, False)
+        dialog.grab_set()
+        dialog.focus_force()
+
+        result_var = {"value": None}  # mutable container
+
+        # Info
+        ctk.CTkLabel(
+            dialog,
+            text=f"Template detectado {current} de {total}",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(pady=(15, 5))
+
+        ctk.CTkLabel(
+            dialog,
+            text=f"Tamaño: {crop.shape[1]}×{crop.shape[0]} px",
+            font=ctk.CTkFont(size=11),
+            text_color="#AAAAAA",
+        ).pack()
+
+        # Preview de la imagen
+        try:
+            pil_img = Image.open(preview_path)
+            # Escalar para que sea visible
+            max_w = 450
+            if pil_img.width > max_w:
+                ratio = max_w / pil_img.width
+                pil_img = pil_img.resize(
+                    (int(pil_img.width * ratio), int(pil_img.height * ratio)),
+                    Image.NEAREST,
+                )
+            tk_img = ImageTk.PhotoImage(pil_img)
+            img_label = ctk.CTkLabel(dialog, text="", image=tk_img)
+            img_label.image = tk_img  # keep reference
+            img_label.pack(pady=10)
+        except Exception:
+            ctk.CTkLabel(dialog, text="(Vista previa no disponible)").pack(pady=10)
+
+        # Entry para el nombre
+        ctk.CTkLabel(
+            dialog,
+            text="Nombre de la criatura (ej: Swamp Troll, Cave Rat):",
+            font=ctk.CTkFont(size=12),
+        ).pack(padx=20, anchor="w")
+
+        name_entry = ctk.CTkEntry(dialog, width=350, placeholder_text="Nombre de la criatura...")
+        name_entry.pack(padx=20, pady=5)
+        name_entry.focus()
+
+        # Botones
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=15)
+
+        def on_save():
+            result_var["value"] = name_entry.get()
+            dialog.destroy()
+
+        def on_skip():
+            result_var["value"] = ""
+            dialog.destroy()
+
+        def on_cancel():
+            result_var["value"] = None
+            dialog.destroy()
+
+        def on_enter(event=None):
+            on_save()
+
+        name_entry.bind("<Return>", on_enter)
+
+        ctk.CTkButton(
+            btn_frame, text="💾 Guardar", width=120,
+            fg_color="#27AE60", hover_color="#2ECC71",
+            command=on_save,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="⏭ Saltar", width=100,
+            fg_color="#7F8C8D", hover_color="#95A5A6",
+            command=on_skip,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="❌ Cancelar", width=100,
+            fg_color="#C0392B", hover_color="#E74C3C",
+            command=on_cancel,
+        ).pack(side="left", padx=5)
+
+        # Manejar cierre de ventana
+        dialog.protocol("WM_DELETE_WINDOW", on_cancel)
+
+        # Esperar a que se cierre el diálogo
+        dialog.wait_window()
+        return result_var["value"]
 
     def _load_spell_preset(self, vocation: str):
         self.log.info(f"Cargando preset de hechizos: {vocation}")
@@ -1400,16 +1963,32 @@ class TibiaHealerGUI(ctk.CTk):
         ctk.CTkLabel(row1, text="Método:", width=80).pack(side="left")
         self.cb_loot_method = ctk.CTkComboBox(
             row1,
-            values=["left_click", "right_click"],
-            width=150,
+            values=["left_click", "right_click", "shift_right_click"],
+            width=170,
         )
         loot_m = self.config.looter.get("loot_method", "left_click")
-        if loot_m not in ("left_click", "right_click"):
+        if loot_m not in ("left_click", "right_click", "shift_right_click"):
             loot_m = "left_click"
         self.cb_loot_method.set(loot_m)
         self.cb_loot_method.pack(side="left", padx=5)
-        ctk.CTkLabel(row1, text="← left_click = Loot:Left en Tibia, right_click = Loot:Right",
+        ctk.CTkLabel(row1, text="← shift_right_click = Quick Loot (recomendado)",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
+
+        # Free account toggle
+        free_row = ctk.CTkFrame(method_frame, fg_color="transparent")
+        free_row.pack(fill="x", padx=10, pady=3)
+        self.cb_free_account = ctk.CTkSwitch(
+            free_row,
+            text="🆓 Free Account (lootea TODO a la BP principal con left_click)",
+        )
+        self.cb_free_account.pack(anchor="w")
+        if self.config.looter.get("free_account", False):
+            self.cb_free_account.select()
+        ctk.CTkLabel(
+            free_row,
+            text="Si eres Free Account, activa esto. Usa left_click siempre (ignora método arriba).",
+            font=ctk.CTkFont(size=10), text_color="#F39C12",
+        ).pack(anchor="w", padx=25)
 
         # Cooldown
         row_cd = ctk.CTkFrame(method_frame, fg_color="transparent")
@@ -1620,6 +2199,7 @@ class TibiaHealerGUI(ctk.CTk):
 
         # Método de looteo
         looter["loot_method"] = self.cb_loot_method.get()
+        looter["free_account"] = bool(self.cb_free_account.get())
         try:
             looter["loot_cooldown"] = float(self.entry_loot_cooldown.get())
         except ValueError:
@@ -2025,6 +2605,38 @@ class TibiaHealerGUI(ctk.CTk):
                 text=f"Curaciones: {self.bot.heal_count}"
             )
 
+            # --- Calibración v3.1 ---
+            try:
+                cal = self.bot.calibrator
+                if cal.calibrated:
+                    confs = cal.last_confidences
+                    bl_conf = confs.get("BattleList", 0)
+                    mm_conf = confs.get("MapSettings", 0)
+                    sqm_n = len(cal.sqms)
+                    self.lbl_calibration.configure(
+                        text=f"🎯 Calibración: ✓ OK | BL={bl_conf:.2f} MM={mm_conf:.2f} | SQMs={sqm_n}",
+                        text_color="#2ECC71",
+                    )
+                else:
+                    err = cal.last_error or "pendiente"
+                    fail_n = cal._fail_count
+                    self.lbl_calibration.configure(
+                        text=f"🎯 Calibración: ✗ {err} (fallos: {fail_n})",
+                        text_color="#E74C3C" if fail_n > 0 else "#FFAA00",
+                    )
+            except Exception:
+                pass
+
+            # --- Módulos activos ---
+            try:
+                active = self.bot.dispatcher.get_active_modules()
+                active_str = ", ".join(active) if active else "ninguno"
+                self.lbl_modules_status.configure(
+                    text=f"📦 Módulos activos: {active_str}"
+                )
+            except Exception:
+                pass
+
             # --- Módulos v3 status ---
             try:
                 # Targeting status
@@ -2032,13 +2644,15 @@ class TibiaHealerGUI(ctk.CTk):
                 target_txt = ts.get("current_target", "—") or "—"
                 state_str = ts.get("state", "idle")
                 state_icon = {"idle": "💤", "attacking": "⚔️",
-                              "searching": "🔍", "lost_target": "❌"}.get(state_str, "❓")
+                              "searching": "🔍"}.get(state_str, "❓")
+                tpl_count = ts.get("templates_loaded", 0)
                 self.lbl_targeting_state.configure(
                     text=f"{state_icon} {state_str} | "
                          f"Target: {target_txt} | "
-                         f"Criaturas: {ts['monster_count']} | "
-                         f"Kills: {ts['monsters_killed']} | "
-                         f"Ataques: {ts['total_attacks']}"
+                         f"Criaturas: {ts.get('monster_count', 0)} | "
+                         f"Kills: {ts.get('monsters_killed', 0)} | "
+                         f"Ataques: {ts.get('total_attacks', 0)} | "
+                         f"Templates: {tpl_count}"
                 )
             except Exception:
                 pass
@@ -2046,15 +2660,15 @@ class TibiaHealerGUI(ctk.CTk):
             try:
                 # Looter status
                 ls = self.bot.looter_engine.get_status()
-                state_icon = {"idle": "💤", "waiting_kills": "⚔️",
-                              "waiting_cooldown": "⏳", "looting": "💰",
-                              "dropping": "🗑️"}.get(ls['state'], "❓")
+                state_icon = {"idle": "💤", "waiting": "⏳",
+                              "looting": "💰"}.get(ls.get('state', 'idle'), "❓")
                 self.lbl_looter_state.configure(
-                    text=f"{state_icon} {ls['state']} | "
-                         f"Pendientes: {ls['pending_loots']} | "
-                         f"Looteados: {ls['corpses_looted']} | "
-                         f"Click: {ls['loot_method']} | "
-                         f"Esperas: {ls.get('skipped_by_combat', 0)}"
+                    text=f"{state_icon} {ls.get('state', 'idle')} | "
+                         f"Cola: {ls.get('kill_queue', 0)} | "
+                         f"Looteados: {ls.get('total_loots', 0)} | "
+                         f"Clicks: {ls.get('total_clicks', 0)} | "
+                         f"Método: {ls.get('loot_method', '?')} | "
+                         f"SQMs: {ls.get('sqms_configured', 0)}"
                 )
             except Exception:
                 pass
@@ -2062,11 +2676,14 @@ class TibiaHealerGUI(ctk.CTk):
             try:
                 # Cavebot status
                 cs = self.bot.cavebot_engine.get_status()
+                state_icon = {"idle": "💤", "walking": "🚶", "stuck": "⚠️",
+                              "paused": "⏸️", "executing": "⚡"}.get(cs.get('state', 'idle'), "❓")
                 self.lbl_cavebot_state.configure(
-                    text=f"Estado: {cs['state']} | "
-                         f"WP: {cs['current_wp']}/{cs['total_wps']} | "
-                         f"Pasos: {cs['steps']} | "
-                         f"Marcas: {cs['marks_loaded']}"
+                    text=f"{state_icon} {cs.get('state', 'idle')} | "
+                         f"WP: {cs.get('current_wp', 0)}/{cs.get('total_wps', 0)} | "
+                         f"Pasos: {cs.get('step_count', 0)} | "
+                         f"Ruta: {cs.get('route_name', 'ninguna')} | "
+                         f"Modo: {cs.get('walk_mode', '?')}"
                 )
             except Exception:
                 pass

@@ -1,13 +1,19 @@
 """
-targeting/battle_list_reader.py - Lector de la battle list de Tibia.
+targeting/battle_list_reader.py - Lector de la battle list de Tibia v2.
 Usa template matching (OpenCV) para detectar nombres de monstruos.
+Mejoras v2:
+  - is_attacking() ahora retorna True cuando SÍ estamos atacando (corregido)
+  - count_monsters_by_name() para kill detection por nombre
+  - Deduplicación mejorada de resultados
+  - Mejor logging de estado
 Basado en TibiaAuto12/engine/CaveBot/Scanners.py.
 """
 
 import os
+import time
 import cv2
 import numpy as np
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Callable, Dict, List, Optional, Set, Tuple
 from enum import Enum
 
 IMAGES_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "images")
@@ -44,6 +50,7 @@ class BattleListReader:
     """
     Lector basado en template matching.
     Busca PNGs de nombres de monstruos en la región de la battle list.
+    v3.1: is_attacking() con fallback por tiempo + logging de confianza.
     """
 
     def __init__(self):
@@ -57,10 +64,36 @@ class BattleListReader:
         self._monster_count: int = 0
         self._is_attacking: bool = False
         self.name_precision: float = 0.80
-        self.attack_precision: float = 0.80
+        self.attack_precision: float = 0.65  # Bajado de 0.80 → 0.65
+
+        # --- Fallback temporal para is_attacking ---
+        # Si hicimos click en un target hace < N segundos Y ese target
+        # sigue en la battle list → asumir que estamos atacando
+        self._last_attack_click_time: float = 0.0
+        self._last_attack_click_name: str = ""
+        self._attack_click_timeout: float = 10.0  # Asumir attacking por 10s después de click (no re-atacar mientras target viva)
+
+        # Logging
+        self._log_fn: Optional[Callable] = None
+        self._attack_log_counter: int = 0  # Solo loguear cada N calls
+
         self._load_attack_templates()
 
+    def set_log_callback(self, fn):
+        """fn(msg) para diagnóstico."""
+        self._log_fn = fn
+
+    def _log(self, msg: str):
+        if self._log_fn:
+            self._log_fn(msg)
+
+    def notify_attack_click(self, target_name: str):
+        """Llamado por TargetingEngine cuando hace click en un target."""
+        self._last_attack_click_time = time.time()
+        self._last_attack_click_name = target_name.lower()
+
     def _load_attack_templates(self):
+        """Carga templates de bordes de ataque (rojo/rosa para detectar si estamos atacando)."""
         if not os.path.isdir(ATTACK_DIR):
             return
         for fname in os.listdir(ATTACK_DIR):
@@ -71,6 +104,7 @@ class BattleListReader:
                     self._attack_templates[key] = tpl
 
     def load_monster_templates(self, monster_names: List[str]) -> int:
+        """Carga templates PNG para los monstruos especificados."""
         loaded = 0
         for name in monster_names:
             filename = name.replace(" ", "")
@@ -83,6 +117,7 @@ class BattleListReader:
         return loaded
 
     def load_all_available_templates(self) -> int:
+        """Carga todos los templates PNG disponibles en el directorio."""
         if not os.path.isdir(NAMES_DIR):
             return 0
         loaded = 0
@@ -106,8 +141,11 @@ class BattleListReader:
     def set_region(self, x1, y1, x2, y2):
         self.battle_region = (x1, y1, x2, y2)
 
+    # ==================================================================
+    # Lectura de battle list
+    # ==================================================================
     def read(self, frame: np.ndarray) -> List[CreatureEntry]:
-        """Lee la battle list. Retorna criaturas encontradas."""
+        """Lee la battle list. Retorna criaturas encontradas ordenadas por Y."""
         if self.battle_region is None or frame is None or not self._name_templates:
             return []
 
@@ -123,6 +161,7 @@ class BattleListReader:
         creatures = []
         idx = 0
 
+        # Filtrar templates según attack_list
         templates = {}
         if self.attack_list:
             for name in self.attack_list:
@@ -143,6 +182,7 @@ class BattleListReader:
 
             for pt in zip(*locations[::-1]):
                 cx, cy = pt[0] + tw // 2, pt[1] + th // 2
+                # Deduplicar: no agregar si ya hay una criatura muy cerca
                 is_dup = False
                 for e in creatures:
                     if abs((e.screen_x - x1) - cx) < tw and abs((e.screen_y - y1) - cy) < th:
@@ -157,13 +197,26 @@ class BattleListReader:
                 ))
                 idx += 1
 
+        # Ordenar por Y (más arriba = más cercano en Tibia)
         creatures.sort(key=lambda c: c.screen_y)
         self._creatures = creatures
         self._monster_count = len(creatures)
         return creatures
 
+    def count_monsters_by_name(self, frame: np.ndarray) -> Dict[str, int]:
+        """
+        Cuenta criaturas POR NOMBRE en la battle list.
+        Retorna dict {nombre: cantidad} para kill detection precisa.
+        """
+        creatures = self.read(frame)
+        counts: Dict[str, int] = {}
+        for c in creatures:
+            name = c.name.lower()
+            counts[name] = counts.get(name, 0) + 1
+        return counts
+
     def count_monster(self, frame: np.ndarray, monster_name: str) -> int:
-        """Cuenta instancias de un monstruo en la battle list."""
+        """Cuenta instancias de un monstruo específico en la battle list."""
         if self.battle_region is None or frame is None:
             return 0
         template = self._name_templates.get(monster_name)
@@ -172,7 +225,7 @@ class BattleListReader:
 
         x1, y1, x2, y2 = self.battle_region
         h, w = frame.shape[:2]
-        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        roi = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
         if roi.size == 0:
             return 0
 
@@ -185,33 +238,83 @@ class BattleListReader:
         th, tw = template.shape[:2]
         pts = []
         for pt in zip(*locs[::-1]):
-            if not any(abs(pt[0]-ex)<tw and abs(pt[1]-ey)<th for ex,ey in pts):
+            if not any(abs(pt[0] - ex) < tw and abs(pt[1] - ey) < th for ex, ey in pts):
                 pts.append(pt)
         return len(pts)
 
+    # ==================================================================
+    # Detección de estado de ataque
+    # ==================================================================
     def is_attacking(self, frame: np.ndarray) -> bool:
         """
-        True = NO estamos atacando (necesitamos hacer click).
-        False = YA estamos atacando (hay selección activa).
+        CORREGIDO v3.1: Retorna True si YA estamos atacando algo.
+        Retorna False si NO estamos atacando (necesitamos hacer click).
+
+        Detecta el borde rojo/rosa alrededor de la criatura atacada en battle list.
+        FALLBACK: Si hicimos click en un target hace < 3s Y ese target sigue en la
+        battle list, asumimos que estamos atacando (para evitar re-click spam).
         """
-        if self.battle_region is None or frame is None or not self._attack_templates:
+        if self.battle_region is None or frame is None:
+            return False
+
+        # --- Intento 1: Template matching de bordes de ataque ---
+        template_attacking = self._check_attack_borders(frame)
+
+        if template_attacking:
+            self._is_attacking = True
             return True
+
+        # --- Intento 2: Fallback temporal ---
+        # Si hicimos click en un target recientemente Y ese target sigue en la battle list
+        now = time.time()
+        time_since_click = now - self._last_attack_click_time
+        if (time_since_click < self._attack_click_timeout
+                and self._last_attack_click_name):
+            # Verificar que el target sigue en la battle list
+            target_still_there = any(
+                c.name.lower() == self._last_attack_click_name
+                for c in self._creatures
+            )
+            if target_still_there:
+                self._is_attacking = True
+                # Log solo cada ~20 calls para no spamear
+                self._attack_log_counter += 1
+                if self._attack_log_counter % 20 == 1:
+                    self._log(
+                        f"[BattleReader] is_attacking=True (fallback temporal: "
+                        f"'{self._last_attack_click_name}' clickeado hace {time_since_click:.1f}s)"
+                    )
+                return True
+
+        self._is_attacking = False
+        return False
+
+    def _check_attack_borders(self, frame: np.ndarray) -> bool:
+        """
+        Verifica si hay bordes de ataque (rojo/rosa) en la battle list.
+        Retorna True si se detecta un set completo de 4 bordes.
+        """
+        if not self._attack_templates:
+            return False
 
         x1, y1, x2, y2 = self.battle_region
         h, w = frame.shape[:2]
-        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        roi = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
         if roi.size == 0:
-            return True
+            return False
 
         roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         found = {}
+        best_conf = 0.0
         for key, tpl in self._attack_templates.items():
             if roi_gray.shape[0] < tpl.shape[0] or roi_gray.shape[1] < tpl.shape[1]:
                 continue
             res = cv2.matchTemplate(roi_gray, tpl, cv2.TM_CCOEFF_NORMED)
             _, max_val, _, _ = cv2.minMaxLoc(res)
             found[key] = max_val >= self.attack_precision
+            best_conf = max(best_conf, max_val)
 
+        # Si encontramos un set completo de bordes → SÍ estamos atacando
         border_sets = [
             ("LeftRed", "TopRed", "RightRed", "BottomRed"),
             ("LeftBlackRed", "TopBlackRed", "RightBlackRed", "BottomBlackRed"),
@@ -220,12 +323,18 @@ class BattleListReader:
         ]
         for borders in border_sets:
             if all(found.get(b, False) for b in borders):
-                self._is_attacking = True
-                return False
+                return True
 
-        self._is_attacking = False
-        return True
+        # Log diagnóstico cada ~50 calls
+        self._attack_log_counter += 1
+        if self._attack_log_counter % 50 == 1 and self._attack_templates:
+            matched = [k for k, v in found.items() if v]
+            self._log(
+                f"[BattleReader] Bordes de ataque: best_conf={best_conf:.3f}, "
+                f"matched={matched or 'ninguno'} (threshold={self.attack_precision})"
+            )
 
+        return False
     def find_target(self, frame: np.ndarray, monster_name: str) -> Tuple[int, int]:
         """Busca un monstruo y retorna posición absoluta para click. (0,0) si no hay."""
         if self.battle_region is None or frame is None:
@@ -236,7 +345,7 @@ class BattleListReader:
 
         x1, y1, x2, y2 = self.battle_region
         h, w = frame.shape[:2]
-        roi = frame[max(0,y1):min(h,y2), max(0,x1):min(w,x2)]
+        roi = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
         if roi.size == 0:
             return 0, 0
 
@@ -251,6 +360,9 @@ class BattleListReader:
             return x1 + max_loc[0] + tw // 2 - 10, y1 + max_loc[1] + th // 2
         return 0, 0
 
+    # ==================================================================
+    # Propiedades y helpers
+    # ==================================================================
     @property
     def creatures(self):
         return self._creatures

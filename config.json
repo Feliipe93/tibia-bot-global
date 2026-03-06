@@ -68,17 +68,37 @@
         "attack_mode": "offensive",
         "target_priority": "closest",
         "attack_delay": 0.5,
+        "re_attack_delay": 0.6,
         "max_chase_distance": 5,
         "use_aoe": true,
         "aoe_min_monsters": 3,
         "dangerous_monsters": [],
         "ignore_monsters": [],
         "attack_list": [
+            "Swamp Troll",
             "Cave Rat",
-            "Rat"
+            "Rat",
+            "Spider"
         ],
-        "ignore_list": [],
-        "priority_list": [],
+        "ignore_list": [
+            "Swampling",
+            "Bat"
+        ],
+        "priority_list": [
+            "Swamp Troll"
+        ],
+        "creature_profiles": {
+            "Dog": {
+                "chase_mode": "chase",
+                "priority": 100,
+                "use_chase_on_flee": true,
+                "is_ranged": false,
+                "attack_mode": "auto",
+                "flees_at_hp": 0.0
+            }
+        },
+        "chase_key": "",
+        "stand_key": "",
         "battle_list_region": {
             "x": 0,
             "y": 0,
@@ -94,10 +114,16 @@
     "looter": {
         "enabled": true,
         "loot_method": "left_click",
-        "loot_delay": 0.3,
+        "free_account": true,
+        "loot_delay": 0.15,
+        "loot_cooldown": 0.5,
         "max_range": 2,
-        "max_corpse_age": 15.0,
-        "max_loot_attempts": 3,
+        "max_corpse_age": 10.0,
+        "max_loot_attempts": 1,
+        "max_loot_sqms": 9,
+        "periodic_loot": false,
+        "periodic_interval": 8.0,
+        "loot_during_combat": true,
         "auto_open_next_bp": true,
         "inventory_region": {
             "x": 0,
@@ -131,8 +157,6 @@
             },
             "item_routes": {}
         },
-        "loot_cooldown": 1.5,
-        "max_loot_sqms": 8,
         "always_loot": true,
         "loot_threshold": 2,
         "drop_enabled": false,
