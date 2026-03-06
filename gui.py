@@ -2222,6 +2222,12 @@ class TibiaHealerGUI(ctk.CTk):
         ).pack(side="left", padx=5)
 
         ctk.CTkButton(
+            vis_btn_row, text="🧪 Test Manual Loot",
+            width=180, fg_color="#E74C3C", hover_color="#C0392B",
+            command=self._test_manual_loot,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
             vis_btn_row, text="💀 Probar Detección Cadáveres",
             width=220, fg_color="#8E44AD", hover_color="#9B59B6",
             command=self._preview_corpse_detection,
@@ -3118,6 +3124,65 @@ class TibiaHealerGUI(ctk.CTk):
             width=180, fg_color="#7F8C8D",
             command=lambda: os.startfile(os.path.abspath("debug")),
         ).pack(pady=(0, 10))
+
+    def _test_manual_loot(self):
+        """Ejecuta una prueba manual del loot para verificar coordenadas."""
+        if not self.bot.looter_engine.enabled:
+            messagebox.showwarning(
+                "Looter deshabilitado",
+                "El Looter no está habilitado.\n"
+                "Actívalo primero con el switch 'Looter habilitado'."
+            )
+            return
+        
+        # Obtener información de debug antes del test
+        debug_info = self.bot.looter_engine.debug_coordinates()
+        
+        # Mostrar información previa
+        info_text = (
+            f"🧪 TEST MANUAL DE LOOT\n\n"
+            f"SQMs disponibles: {debug_info['sqms_available']}\n"
+            f"Usando SQMs fijos: {'SÍ' if debug_info['using_fixed_sqms'] else 'NO'}\n"
+            f"Player center: {debug_info['player_center']}\n"
+            f"SQM size: {debug_info['sqm_size']}\n"
+            f"Max loot SQMs: {debug_info['max_loot_sqms']}\n\n"
+            f"Coordenadas calculadas:\n"
+        )
+        
+        for i, coord in enumerate(debug_info['calculated_loot_sqms']):
+            info_text += f"  {i+1}. {coord}\n"
+        
+        info_text += (
+            f"\n¿Ejecutar {len(debug_info['calculated_loot_sqms'])} clicks de prueba?\n\n"
+            f"⚠ Asegúrate de que Tibia esté visible y el cursor\n"
+            f"no interfiera con el área de juego."
+        )
+        
+        # Confirmar ejecución
+        if not messagebox.askyesno("Confirmar Test", info_text):
+            return
+        
+        # Ejecutar test
+        success = self.bot.looter_engine.test_loot_clicks("MANUAL_TEST")
+        
+        if success:
+            self.log.info("🧪 Test manual de loot iniciado — revisa el log del Looter")
+            messagebox.showinfo(
+                "Test ejecutado",
+                "Test de loot ejecutado correctamente.\n\n"
+                "Revisa:\n"
+                "• Los clicks se ejecutaron en las posiciones correctas\n"
+                "• El log del Looter muestra las coordenadas usadas\n"
+                "• No hay errores en el log principal\n\n"
+                "Si los clicks van a posiciones incorrectas,\n"
+                "recalibra presionando 'Calibrar' en la pestaña Principal."
+            )
+        else:
+            messagebox.showerror(
+                "Error en test",
+                "No se pudo ejecutar el test de loot.\n"
+                "Verifica que el looter esté correctamente configurado."
+            )
 
     # ==================================================================
     # TAB: Ayuda

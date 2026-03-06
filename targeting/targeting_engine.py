@@ -291,7 +291,7 @@ class TargetingEngine:
         current_total = len(creatures)
 
         # ========== KILL DETECTION por nombre (v2) ==========
-        self._detect_kills_by_name(current_counts)
+        self._detect_kills_by_name(current_counts, frame)
 
         # Actualizar conteo previo
         self._prev_counts_by_name = current_counts.copy()
@@ -369,11 +369,12 @@ class TargetingEngine:
             counts[name] = counts.get(name, 0) + 1
         return counts
 
-    def _detect_kills_by_name(self, current_counts: Dict[str, int]):
+    def _detect_kills_by_name(self, current_counts: Dict[str, int], frame=None):
         """
         Kill detection: compara conteo POR MONSTRUO ESPECÍFICO.
         Si había 3 Rotworm y ahora hay 2 → 1 kill de Rotworm.
         Detección inmediata (sin requerir múltiples frames de confirmación).
+        v7: Pasa el frame al looter para detección visual de cadáveres.
         """
         if not self._prev_counts_by_name:
             return
@@ -388,10 +389,11 @@ class TargetingEngine:
                 self._log(f"¡Kill! {display_name} x{kills} — Total: {self.monsters_killed}")
 
                 for _ in range(kills):
-                    self._notify_kill(display_name)
+                    self._notify_kill(display_name, frame)
 
-    def _notify_kill(self, monster_name: str):
-        """Notifica una kill al looter directamente y resetea el fallback de ataque."""
+    def _notify_kill(self, monster_name: str, frame=None):
+        """Notifica una kill al looter directamente y resetea el fallback de ataque.
+        v7: Pasa el frame actual para que el looter pueda detectar cadáveres visualmente."""
         # IMPORTANTE: Resetear el fallback temporal de is_attacking
         # Si el monstruo murió, ya NO estamos atacando — el targeting debe buscar nuevo target
         self.battle_reader._last_attack_click_time = 0.0
@@ -403,6 +405,7 @@ class TargetingEngine:
                 monster_name,
                 self.last_attack_position[0],
                 self.last_attack_position[1],
+                frame=frame,
             )
 
     def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
