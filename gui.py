@@ -6,6 +6,7 @@ Contiene las 4 secciones principales + pestaña de Ayuda.
 import os
 import queue
 import threading
+import time
 import tkinter as tk
 from datetime import datetime
 from tkinter import filedialog, messagebox
@@ -22,6 +23,7 @@ from logger import BotLogger
 from healer_bot import HealerBot
 from window_finder import find_tibia_windows
 from key_sender import KeySender
+from simple_walking import SimpleWalkRecorder, DIRECTION_ARROWS
 
 # Tema
 ctk.set_appearance_mode("dark")
@@ -67,6 +69,13 @@ class TibiaHealerGUI(ctk.CTk):
         # Listas de ventanas para dropdowns
         self._tibia_windows: List[Dict] = []
 
+        # Simple Walking recorder
+        self.walk_recorder = SimpleWalkRecorder()
+        self.walk_recorder.set_log_callback(self._sw_log)
+        self.walk_recorder.set_on_step_recorded(self._sw_on_step_recorded)
+        self.walk_recorder.set_on_playback_step(self._sw_on_playback_step)
+        self.walk_recorder.set_on_cycle_complete(self._sw_on_cycle_complete)
+
         # ----------------------------------------------------------
         # Configuración de la ventana principal
         # ----------------------------------------------------------
@@ -82,6 +91,8 @@ class TibiaHealerGUI(ctk.CTk):
         self.tabview.pack(fill="both", expand=True, padx=8, pady=(8, 4))
 
         self.tab_main = self.tabview.add("🏠 Principal")
+        self.tab_simple_walking = self.tabview.add("🚶 Simple Walking")
+        self.tab_test = self.tabview.add("🧪 Test")
         self.tab_config = self.tabview.add("⚙️ Configuración")
         self.tab_windows = self.tabview.add("🪟 Ventanas")
         self.tab_cavebot = self.tabview.add("🗺️ Cavebot")
@@ -92,6 +103,8 @@ class TibiaHealerGUI(ctk.CTk):
 
         # Construir cada sección
         self._build_main_tab()
+        self._build_simple_walking_tab()
+        self._build_test_tab()
         self._build_config_tab()
         self._build_windows_tab()
         self._build_cavebot_tab()
@@ -116,7 +129,14 @@ class TibiaHealerGUI(ctk.CTk):
 
         self._gui_ready = True
         self._configure_module_log_tags()
+        self._configure_sw_log_tags()
         self._drain_log_queue()
+
+        # Conectar el walk recorder al key_sender del bot
+        self.walk_recorder.set_send_key_callback(
+            lambda key: self.bot.key_sender.send_key(key)
+        )
+
         self.log.ok("GUI iniciada correctamente")
 
     def _auto_connect_obs(self):
@@ -3731,6 +3751,512 @@ class TibiaHealerGUI(ctk.CTk):
         return result["name"]
 
     # ==================================================================
+    # TAB: Simple Walking (grabador/reproductor de flechas)
+    # ==================================================================
+    def _build_simple_walking_tab(self):
+        tab = self.tab_simple_walking
+
+        # --- Header ---
+        header = ctk.CTkFrame(tab, fg_color="transparent")
+        header.pack(fill="x", padx=10, pady=(10, 5))
+
+        ctk.CTkLabel(
+            header,
+            text="🚶 SIMPLE WALKING — Grabador de Ruta",
+            font=ctk.CTkFont(size=16, weight="bold"),
+        ).pack(side="left")
+
+        # --- Botones de control ---
+        ctrl_frame = ctk.CTkFrame(tab)
+        ctrl_frame.pack(fill="x", padx=10, pady=5)
+
+        btn_row = ctk.CTkFrame(ctrl_frame, fg_color="transparent")
+        btn_row.pack(fill="x", padx=10, pady=8)
+
+        self.btn_sw_record = ctk.CTkButton(
+            btn_row,
+            text="🔴 Grabar",
+            width=160,
+            height=40,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            fg_color="#E74C3C",
+            hover_color="#C0392B",
+            command=self._sw_toggle_record,
+        )
+        self.btn_sw_record.pack(side="left", padx=(0, 10))
+
+        self.btn_sw_play = ctk.CTkButton(
+            btn_row,
+            text="▶ Reproducir",
+            width=160,
+            height=40,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            fg_color="#2ECC71",
+            hover_color="#27AE60",
+            command=self._sw_toggle_play,
+        )
+        self.btn_sw_play.pack(side="left", padx=(0, 10))
+
+        self.btn_sw_clear = ctk.CTkButton(
+            btn_row,
+            text="🗑️ Limpiar",
+            width=100,
+            height=40,
+            fg_color="#95A5A6",
+            hover_color="#7F8C8D",
+            command=self._sw_clear,
+        )
+        self.btn_sw_clear.pack(side="left", padx=(0, 10))
+
+        # --- Guardar / Cargar ---
+        file_row = ctk.CTkFrame(ctrl_frame, fg_color="transparent")
+        file_row.pack(fill="x", padx=10, pady=(0, 8))
+
+        ctk.CTkButton(
+            file_row, text="💾 Guardar ruta", width=130,
+            fg_color="#3498DB", hover_color="#2980B9",
+            command=self._sw_save,
+        ).pack(side="left", padx=(0, 5))
+
+        ctk.CTkButton(
+            file_row, text="📂 Cargar ruta", width=130,
+            fg_color="#3498DB", hover_color="#2980B9",
+            command=self._sw_load,
+        ).pack(side="left", padx=(0, 10))
+
+        # Estado
+        self.lbl_sw_status = ctk.CTkLabel(
+            file_row,
+            text="Estado: Detenido | Pasos: 0 | Ciclos: 0",
+            font=ctk.CTkFont(size=12),
+            text_color="#FFAA00",
+        )
+        self.lbl_sw_status.pack(side="left", padx=10)
+
+        # --- Waypoints grabados ---
+        wp_frame = ctk.CTkFrame(tab)
+        wp_frame.pack(fill="both", expand=True, padx=10, pady=(5, 2))
+
+        ctk.CTkLabel(
+            wp_frame,
+            text="📍 Waypoints Grabados",
+            font=ctk.CTkFont(size=13, weight="bold"),
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        self.sw_waypoints_text = ctk.CTkTextbox(
+            wp_frame, height=160,
+            font=ctk.CTkFont(family="Consolas", size=11),
+        )
+        self.sw_waypoints_text.pack(fill="both", expand=True, padx=8, pady=(0, 8))
+        self.sw_waypoints_text.configure(state="disabled")
+        # Tags de color para resaltar waypoint activo
+        self.sw_waypoints_text._textbox.tag_configure("active", background="#2E4053", foreground="#F1C40F")
+        self.sw_waypoints_text._textbox.tag_configure("normal", foreground="#BDC3C7")
+        self.sw_waypoints_text._textbox.tag_configure("header", foreground="#3498DB")
+
+        # --- Logger mini ---
+        log_frame = ctk.CTkFrame(tab)
+        log_frame.pack(fill="x", padx=10, pady=(2, 8))
+
+        log_header = ctk.CTkFrame(log_frame, fg_color="transparent")
+        log_header.pack(fill="x", padx=5, pady=(5, 2))
+
+        ctk.CTkLabel(
+            log_header,
+            text="📋 Walking Log",
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left")
+
+        ctk.CTkButton(
+            log_header, text="Limpiar", width=60, height=24,
+            command=self._sw_clear_log,
+        ).pack(side="right", padx=3)
+
+        self.sw_log_text = ctk.CTkTextbox(
+            log_frame, height=120,
+            font=ctk.CTkFont(family="Consolas", size=10),
+        )
+        self.sw_log_text.pack(fill="x", padx=5, pady=(2, 5))
+        self.sw_log_text.configure(state="disabled")
+
+    def _configure_sw_log_tags(self):
+        """Configura tags de color para el log del simple walking."""
+        try:
+            self.sw_log_text._textbox.tag_configure("INFO", foreground="#00CC66")
+            self.sw_log_text._textbox.tag_configure("WARNING", foreground="#FFAA00")
+            self.sw_log_text._textbox.tag_configure("ERROR", foreground="#FF3333")
+        except Exception:
+            pass
+
+    # --- Simple Walking: callbacks y acciones ---
+    def _sw_log(self, msg: str):
+        """Agrega mensaje al log del Simple Walking (thread-safe)."""
+        try:
+            self.after(0, self._sw_log_append, msg)
+        except Exception:
+            pass
+
+    def _sw_log_append(self, msg: str):
+        ts = time.strftime("%H:%M:%S")
+        tag = "INFO"
+        if "⚠️" in msg or "WARN" in msg:
+            tag = "WARNING"
+        elif "❌" in msg or "ERROR" in msg:
+            tag = "ERROR"
+        self.sw_log_text.configure(state="normal")
+        self.sw_log_text._textbox.insert("end", f"[{ts}] {msg}\n", tag)
+        # Limitar líneas
+        count = int(self.sw_log_text._textbox.index("end-1c").split(".")[0])
+        if count > 500:
+            self.sw_log_text._textbox.delete("1.0", "100.0")
+        self.sw_log_text._textbox.see("end")
+        self.sw_log_text.configure(state="disabled")
+
+    def _sw_on_step_recorded(self, step):
+        """Callback cuando se graba un paso — actualiza la lista de waypoints."""
+        try:
+            self.after(0, self._sw_refresh_waypoints)
+            self.after(0, self._sw_update_status)
+        except Exception:
+            pass
+
+    def _sw_on_playback_step(self, index: int, cycle: int):
+        """Callback en cada paso de reproducción — resalta waypoint activo."""
+        try:
+            self.after(0, self._sw_highlight_waypoint, index)
+            self.after(0, self._sw_update_status)
+        except Exception:
+            pass
+
+    def _sw_on_cycle_complete(self, cycle_number: int):
+        """Callback al completar un ciclo."""
+        try:
+            self.after(0, self._sw_update_status)
+        except Exception:
+            pass
+
+    def _sw_toggle_record(self):
+        if self.walk_recorder.is_playing:
+            self.walk_recorder.stop_playback()
+            self._sw_update_play_btn(False)
+
+        if self.walk_recorder.is_recording:
+            self.walk_recorder.stop_recording()
+            self.btn_sw_record.configure(
+                text="🔴 Grabar", fg_color="#E74C3C", hover_color="#C0392B"
+            )
+        else:
+            self.walk_recorder.start_recording()
+            self.btn_sw_record.configure(
+                text="⏹ Detener Grabación", fg_color="#F39C12", hover_color="#E67E22"
+            )
+        self._sw_update_status()
+
+    def _sw_toggle_play(self):
+        if self.walk_recorder.is_recording:
+            self.walk_recorder.stop_recording()
+            self.btn_sw_record.configure(
+                text="🔴 Grabar", fg_color="#E74C3C", hover_color="#C0392B"
+            )
+
+        if self.walk_recorder.is_playing:
+            self.walk_recorder.stop_playback()
+            self._sw_update_play_btn(False)
+        else:
+            self.walk_recorder.start_playback()
+            self._sw_update_play_btn(True)
+        self._sw_update_status()
+
+    def _sw_update_play_btn(self, playing: bool):
+        if playing:
+            self.btn_sw_play.configure(
+                text="⏹ Detener", fg_color="#E74C3C", hover_color="#C0392B"
+            )
+        else:
+            self.btn_sw_play.configure(
+                text="▶ Reproducir", fg_color="#2ECC71", hover_color="#27AE60"
+            )
+
+    def _sw_clear(self):
+        if self.walk_recorder.is_recording:
+            self.walk_recorder.stop_recording()
+            self.btn_sw_record.configure(
+                text="🔴 Grabar", fg_color="#E74C3C", hover_color="#C0392B"
+            )
+        if self.walk_recorder.is_playing:
+            self.walk_recorder.stop_playback()
+            self._sw_update_play_btn(False)
+        self.walk_recorder.clear()
+        self._sw_refresh_waypoints()
+        self._sw_update_status()
+
+    def _sw_save(self):
+        if not self.walk_recorder.steps:
+            return
+        path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON", "*.json")],
+            initialdir=os.path.join(os.path.dirname(__file__), "routes"),
+            initialfile="walk_route.json",
+        )
+        if path:
+            self.walk_recorder.save(path)
+
+    def _sw_load(self):
+        path = filedialog.askopenfilename(
+            filetypes=[("JSON", "*.json")],
+            initialdir=os.path.join(os.path.dirname(__file__), "routes"),
+        )
+        if path:
+            self.walk_recorder.load(path)
+            self._sw_refresh_waypoints()
+            self._sw_update_status()
+
+    def _sw_clear_log(self):
+        self.sw_log_text.configure(state="normal")
+        self.sw_log_text._textbox.delete("1.0", "end")
+        self.sw_log_text.configure(state="disabled")
+
+    def _sw_refresh_waypoints(self):
+        """Reconstruye la lista visual de waypoints."""
+        self.sw_waypoints_text.configure(state="normal")
+        self.sw_waypoints_text._textbox.delete("1.0", "end")
+
+        if not self.walk_recorder.steps:
+            self.sw_waypoints_text._textbox.insert("1.0", "(sin pasos grabados)\n", "normal")
+        else:
+            self.sw_waypoints_text._textbox.insert(
+                "end",
+                f"{'#':<5} {'Dirección':<14} {'Delay (s)':<10}\n",
+                "header",
+            )
+            self.sw_waypoints_text._textbox.insert("end", "─" * 32 + "\n", "header")
+            for s in self.walk_recorder.steps:
+                arrow = DIRECTION_ARROWS.get(s.direction, s.direction)
+                line = f"{s.index + 1:<5} {arrow:<14} {s.delay:.2f}\n"
+                self.sw_waypoints_text._textbox.insert("end", line, "normal")
+
+        self.sw_waypoints_text._textbox.see("end")
+        self.sw_waypoints_text.configure(state="disabled")
+
+    def _sw_highlight_waypoint(self, index: int):
+        """Resalta el waypoint activo en la lista."""
+        self.sw_waypoints_text.configure(state="normal")
+        tb = self.sw_waypoints_text._textbox
+        # Quitar resaltado previo
+        tb.tag_remove("active", "1.0", "end")
+        # Las primeras 2 líneas son header; los waypoints empiezan en línea 3
+        line_num = index + 3  # +2 header, +1 porque tkinter es 1-indexed
+        total_lines = int(tb.index("end-1c").split(".")[0])
+        if 1 <= line_num <= total_lines:
+            tb.tag_add("active", f"{line_num}.0", f"{line_num}.end")
+            tb.see(f"{line_num}.0")
+        self.sw_waypoints_text.configure(state="disabled")
+
+    def _sw_update_status(self):
+        """Actualiza la etiqueta de estado del Simple Walking."""
+        st = self.walk_recorder.get_status()
+        if st["is_recording"]:
+            state_txt = "🔴 Grabando"
+            color = "#E74C3C"
+        elif st["is_playing"]:
+            state_txt = f"▶ Reproduciendo (WP {st['current_index'] + 1}/{st['total_steps']})"
+            color = "#2ECC71"
+        else:
+            state_txt = "⏹ Detenido"
+            color = "#FFAA00"
+
+        self.lbl_sw_status.configure(
+            text=f"Estado: {state_txt} | Pasos: {st['total_steps']} | Ciclos: {st['cycle_count']}",
+            text_color=color,
+        )
+
+    # ==================================================================
+    # TAB: Test (pruebas de flechas y funciones)
+    # ==================================================================
+    def _build_test_tab(self):
+        tab = self.tab_test
+        scroll = ctk.CTkScrollableFrame(tab, label_text="🧪 TEST — Pruebas de Funciones")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # --- Flechas direccionales ---
+        arrows_frame = ctk.CTkFrame(scroll)
+        arrows_frame.pack(fill="x", padx=5, pady=5)
+
+        ctk.CTkLabel(
+            arrows_frame,
+            text="🎮 Flechas Direccionales",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        ctk.CTkLabel(
+            arrows_frame,
+            text="Presiona los botones para enviar flechas al cliente de Tibia",
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        ).pack(anchor="w", padx=10, pady=(0, 6))
+
+        # Cuadrícula de flechas (estilo D-pad)
+        pad_frame = ctk.CTkFrame(arrows_frame, fg_color="transparent")
+        pad_frame.pack(padx=10, pady=(0, 10))
+
+        btn_size = 70
+        btn_font = ctk.CTkFont(size=22, weight="bold")
+
+        # Fila 1: UP centrado
+        row1 = ctk.CTkFrame(pad_frame, fg_color="transparent")
+        row1.pack()
+        ctk.CTkFrame(row1, width=btn_size, height=1, fg_color="transparent").pack(side="left")
+        ctk.CTkButton(
+            row1, text="↑", width=btn_size, height=btn_size, font=btn_font,
+            fg_color="#2C3E50", hover_color="#34495E",
+            command=lambda: self._test_send_arrow("UP"),
+        ).pack(side="left", padx=2, pady=2)
+        ctk.CTkFrame(row1, width=btn_size, height=1, fg_color="transparent").pack(side="left")
+
+        # Fila 2: LEFT, (espacio), RIGHT
+        row2 = ctk.CTkFrame(pad_frame, fg_color="transparent")
+        row2.pack()
+        ctk.CTkButton(
+            row2, text="←", width=btn_size, height=btn_size, font=btn_font,
+            fg_color="#2C3E50", hover_color="#34495E",
+            command=lambda: self._test_send_arrow("LEFT"),
+        ).pack(side="left", padx=2, pady=2)
+        ctk.CTkFrame(row2, width=btn_size, height=btn_size, fg_color="transparent").pack(side="left", padx=2, pady=2)
+        ctk.CTkButton(
+            row2, text="→", width=btn_size, height=btn_size, font=btn_font,
+            fg_color="#2C3E50", hover_color="#34495E",
+            command=lambda: self._test_send_arrow("RIGHT"),
+        ).pack(side="left", padx=2, pady=2)
+
+        # Fila 3: DOWN centrado
+        row3 = ctk.CTkFrame(pad_frame, fg_color="transparent")
+        row3.pack()
+        ctk.CTkFrame(row3, width=btn_size, height=1, fg_color="transparent").pack(side="left")
+        ctk.CTkButton(
+            row3, text="↓", width=btn_size, height=btn_size, font=btn_font,
+            fg_color="#2C3E50", hover_color="#34495E",
+            command=lambda: self._test_send_arrow("DOWN"),
+        ).pack(side="left", padx=2, pady=2)
+        ctk.CTkFrame(row3, width=btn_size, height=1, fg_color="transparent").pack(side="left")
+
+        # Resultado del test
+        self.lbl_test_arrow_result = ctk.CTkLabel(
+            arrows_frame,
+            text="",
+            font=ctk.CTkFont(size=12),
+            text_color="#95A5A6",
+        )
+        self.lbl_test_arrow_result.pack(anchor="w", padx=10, pady=(0, 8))
+
+        # --- Teclas rápidas ---
+        keys_frame = ctk.CTkFrame(scroll)
+        keys_frame.pack(fill="x", padx=5, pady=(10, 5))
+
+        ctk.CTkLabel(
+            keys_frame,
+            text="⌨️ Teclas de Función",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        fkeys_row = ctk.CTkFrame(keys_frame, fg_color="transparent")
+        fkeys_row.pack(fill="x", padx=10, pady=(0, 8))
+
+        for fk in ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"]:
+            ctk.CTkButton(
+                fkeys_row, text=fk, width=50, height=32,
+                font=ctk.CTkFont(size=11),
+                fg_color="#2C3E50", hover_color="#34495E",
+                command=lambda k=fk: self._test_send_key(k),
+            ).pack(side="left", padx=1, pady=2)
+
+        # --- Teclas numéricas ---
+        numkeys_frame = ctk.CTkFrame(scroll)
+        numkeys_frame.pack(fill="x", padx=5, pady=(10, 5))
+
+        ctk.CTkLabel(
+            numkeys_frame,
+            text="🔢 Teclas Numéricas",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        numkeys_row = ctk.CTkFrame(numkeys_frame, fg_color="transparent")
+        numkeys_row.pack(fill="x", padx=10, pady=(0, 8))
+
+        for nk in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+            ctk.CTkButton(
+                numkeys_row, text=nk, width=45, height=32,
+                font=ctk.CTkFont(size=11),
+                fg_color="#2C3E50", hover_color="#34495E",
+                command=lambda k=nk: self._test_send_key(k),
+            ).pack(side="left", padx=1, pady=2)
+
+        # --- Test log ---
+        test_log_frame = ctk.CTkFrame(scroll)
+        test_log_frame.pack(fill="x", padx=5, pady=(10, 5))
+
+        log_header = ctk.CTkFrame(test_log_frame, fg_color="transparent")
+        log_header.pack(fill="x", padx=5, pady=(5, 2))
+
+        ctk.CTkLabel(
+            log_header,
+            text="📋 Test Log",
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left")
+
+        ctk.CTkButton(
+            log_header, text="Limpiar", width=60, height=24,
+            command=self._test_clear_log,
+        ).pack(side="right", padx=3)
+
+        self.test_log_text = ctk.CTkTextbox(
+            test_log_frame, height=200,
+            font=ctk.CTkFont(family="Consolas", size=11),
+        )
+        self.test_log_text.pack(fill="x", padx=5, pady=(2, 5))
+        self.test_log_text.configure(state="disabled")
+        self.test_log_text._textbox.tag_configure("OK", foreground="#00CC66")
+        self.test_log_text._textbox.tag_configure("FAIL", foreground="#FF3333")
+        self.test_log_text._textbox.tag_configure("INFO", foreground="#3498DB")
+
+    # --- Test: helpers ---
+    def _test_send_arrow(self, key_name: str):
+        """Envía una flecha direccional al cliente de Tibia."""
+        self._test_send_key(key_name)
+
+    def _test_send_key(self, key_name: str):
+        """Envía una tecla al cliente de Tibia y muestra resultado."""
+        if not self.bot.tibia_connected:
+            self._test_log(f"⚠️ Tibia no conectado — no se puede enviar '{key_name}'", "FAIL")
+            self.lbl_test_arrow_result.configure(
+                text="⚠️ Tibia no conectado", text_color="#E74C3C"
+            )
+            return
+        ok = self.bot.key_sender.send_key(key_name)
+        if ok:
+            self._test_log(f"✅ Tecla '{key_name}' enviada correctamente", "OK")
+            self.lbl_test_arrow_result.configure(
+                text=f"✅ Enviado: {key_name}", text_color="#2ECC71"
+            )
+        else:
+            self._test_log(f"❌ Fallo al enviar tecla '{key_name}'", "FAIL")
+            self.lbl_test_arrow_result.configure(
+                text=f"❌ Fallo: {key_name}", text_color="#E74C3C"
+            )
+
+    def _test_log(self, msg: str, tag: str = "INFO"):
+        ts = time.strftime("%H:%M:%S")
+        self.test_log_text.configure(state="normal")
+        self.test_log_text._textbox.insert("end", f"[{ts}] {msg}\n", tag)
+        self.test_log_text._textbox.see("end")
+        self.test_log_text.configure(state="disabled")
+
+    def _test_clear_log(self):
+        self.test_log_text.configure(state="normal")
+        self.test_log_text._textbox.delete("1.0", "end")
+        self.test_log_text.configure(state="disabled")
+
+    # ==================================================================
     # TAB: Screen View (visualizador OBS en tiempo real)
     # ==================================================================
     def _build_screenview_tab(self):
@@ -4597,6 +5123,11 @@ class TibiaHealerGUI(ctk.CTk):
         """Limpieza al cerrar la aplicación."""
         self.log.info("Cerrando aplicación...")
         self._unregister_hotkeys()
+        # Detener walk recorder
+        if self.walk_recorder.is_recording:
+            self.walk_recorder.stop_recording()
+        if self.walk_recorder.is_playing:
+            self.walk_recorder.stop_playback()
         if self._update_job:
             self.after_cancel(self._update_job)
         self.bot.cleanup()
