@@ -2279,16 +2279,72 @@ class TibiaHealerGUI(ctk.CTk):
         ctk.CTkLabel(
             visual_frame,
             text=(
-                "💡 CÓMO FUNCIONA EL LOOT:\n"
-                "  • Cuando el Targeting mata un monstruo, notifica al Looter\n"
-                "  • El Looter clickea los 9 SQMs alrededor del personaje (3×3 grid)\n"
-                "  • Esto es el mismo método que usan TibiaAuto12 y TibiaPilotNG\n"
-                "  • La detección de cadáveres (aura/sangre) es un PLUS opcional\n"
-                "  • Si la detección visual falla → usa los 9 SQMs ciegos (siempre funciona)"
+                "💡 CÓMO FUNCIONA EL LOOT (v11):\n"
+                "  1. PRIORIDAD: Detección por sprite del cadáver (template matching)\n"
+                "     → El bot busca la FOTO del cuerpo muerto en el game screen\n"
+                "     → Clickea exactamente donde encontró el cadáver\n"
+                "  2. FALLBACK: SQMs ciegos (siempre funciona)\n"
+                "     → Clickea los 5 SQMs alrededor del personaje (center + cardinales)\n\n"
+                "  💎 Captura fotos de los CADÁVERES para que el bot los detecte"
             ),
             font=ctk.CTkFont(size=10), text_color="#777777",
             justify="left",
         ).pack(anchor="w", padx=10, pady=(0, 10))
+
+        # --- 💀 Captura de Sprites de Cadáveres ---
+        tracker_frame = ctk.CTkFrame(scroll, border_width=1, border_color="#E74C3C")
+        tracker_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(tracker_frame, text="💀 CORPSE SPRITES — Captura de Cadáveres (v11)",
+                      font=ctk.CTkFont(weight="bold"),
+                      text_color="#E74C3C").pack(anchor="w", padx=10, pady=(8, 4))
+        ctk.CTkLabel(
+            tracker_frame,
+            text=(
+                "Captura una foto del CADÁVER de la criatura (32×32px) para que el\n"
+                "bot pueda encontrarlo en el game screen después de matarla.\n"
+                "Sin sprites, el bot usa SQMs ciegos (5 clicks alrededor tuyo).\n"
+                "CON sprites, el bot clickea EXACTAMENTE sobre el cuerpo muerto.\n\n"
+                "🖱️ Mata una criatura, luego captura la foto del cuerpo en el suelo.\n"
+                "📷 Se guarda en images/Looter/Corpses/"
+            ),
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 8))
+
+        # Botones del corpse sprite
+        tracker_btn_row = ctk.CTkFrame(tracker_frame, fg_color="transparent")
+        tracker_btn_row.pack(fill="x", padx=10, pady=5)
+
+        ctk.CTkButton(
+            tracker_btn_row, text="💀 Capturar Sprite de Cadáver",
+            width=260, fg_color="#E74C3C", hover_color="#C0392B",
+            command=self._capture_corpse_sprite,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            tracker_btn_row, text="🔄 Ver Sprites Cargados",
+            width=180,
+            command=self._update_sprites_info,
+        ).pack(side="left", padx=5)
+
+        # Label de sprites cargados
+        self.lbl_sprites_info = ctk.CTkLabel(
+            tracker_frame,
+            text="Cargando sprites...",
+            font=ctk.CTkFont(size=11), text_color="#AAAAAA",
+            justify="left",
+        )
+        self.lbl_sprites_info.pack(anchor="w", padx=10, pady=(5, 5))
+        self._update_sprites_info()
+
+        # Estado del detector
+        self.lbl_tracker_status = ctk.CTkLabel(
+            tracker_frame,
+            text="Detector: Sin sprites cargados",
+            font=ctk.CTkFont(size=11), text_color="#F39C12",
+            justify="left",
+        )
+        self.lbl_tracker_status.pack(anchor="w", padx=10, pady=(0, 8))
 
         # --- Estado ---
         state_frame = ctk.CTkFrame(scroll)
@@ -2372,16 +2428,16 @@ class TibiaHealerGUI(ctk.CTk):
     def _toggle_looter(self):
         enabled = self.cb_looter_enabled.get()
         self.config.looter_enabled = bool(enabled)
-        self.config.save()
         # Wire to dispatcher + engine
         if enabled:
-            # Aplicar configuración actual de la GUI antes de activar
+            # Aplicar configuración actual de la GUI y activar
             self._save_looter_config()
             self.bot.dispatcher.enable_module("looter")
             self.bot.looter_engine.start()
         else:
             self.bot.dispatcher.disable_module("looter")
             self.bot.looter_engine.stop()
+            self.config.save()
         self.log.info(f"Looter {'habilitado' if enabled else 'deshabilitado'}")
 
     def _on_account_type_changed(self):
@@ -3187,6 +3243,445 @@ class TibiaHealerGUI(ctk.CTk):
             )
 
     # ==================================================================
+    # Corpse Sprite Detection - Captura de Sprites de Cadáveres (v11)
+    # ==================================================================
+    def _update_sprites_info(self):
+        """Actualiza el label con info de sprites de cadáveres disponibles."""
+        from looter.corpse_sprite_detector import CORPSE_SPRITES_DIR
+        sprites = {}
+        if os.path.isdir(CORPSE_SPRITES_DIR):
+            for fname in os.listdir(CORPSE_SPRITES_DIR):
+                if fname.lower().endswith(".png"):
+                    base = fname.replace(".png", "").replace(".PNG", "")
+                    # Separar variantes: "Rotworm_2" → "Rotworm"
+                    parts = base.rsplit("_", 1)
+                    if len(parts) == 2 and parts[1].isdigit():
+                        display_name = parts[0]
+                    else:
+                        display_name = base
+                    img = cv2.imread(os.path.join(CORPSE_SPRITES_DIR, fname))
+                    if img is not None:
+                        if display_name not in sprites:
+                            sprites[display_name] = []
+                        sprites[display_name].append(
+                            (img.shape[1], img.shape[0], fname)
+                        )
+
+        if not sprites:
+            self.lbl_sprites_info.configure(
+                text="❌ No hay sprites de cadáveres capturados.\n"
+                     "   Mata una criatura y usa '💀 Capturar Sprite de Cadáver'\n"
+                     "   para que el bot pueda encontrar los cuerpos muertos.",
+                text_color="#FF6666",
+            )
+            return
+
+        total = sum(len(v) for v in sprites.values())
+        lines = [f"✅ Sprites de cadáveres: {total} sprites de {len(sprites)} criaturas"]
+        for name, variants in sorted(sprites.items()):
+            for w, h, fname in variants:
+                lines.append(f"  💀 {name} — {w}×{h}px ({fname})")
+
+        self.lbl_sprites_info.configure(
+            text="\n".join(lines),
+            text_color="#55FF55",
+        )
+
+    def _capture_corpse_sprite(self):
+        """
+        Captura un sprite de cadáver desde el game screen.
+        Abre ventana interactiva donde el usuario hace clic en el cuerpo
+        muerto para capturar un recorte de 32x32 centrado en el punto de clic.
+        """
+        if not self.bot.capture.is_connected:
+            messagebox.showerror("Error", "No hay conexión a OBS.\nConéctate primero.")
+            return
+
+        cal = self.bot.calibrator
+        if cal.game_region is None or cal.player_center is None:
+            messagebox.showerror(
+                "Error",
+                "El Game Window no está calibrado.\n"
+                "Presiona 'Calibrar' en la pestaña Principal.",
+            )
+            return
+
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame de OBS.")
+            return
+
+        # Recortar game window
+        gx1, gy1, gx2, gy2 = cal.game_region
+        h_f, w_f = frame.shape[:2]
+        gx1 = max(0, min(gx1, w_f - 1))
+        gy1 = max(0, min(gy1, h_f - 1))
+        gx2 = max(gx1 + 1, min(gx2, w_f))
+        gy2 = max(gy1 + 1, min(gy2, h_f))
+        game_roi = frame[gy1:gy2, gx1:gx2]
+
+        self._open_sprite_capture_window(game_roi, frame, (gx1, gy1))
+
+    def _open_sprite_capture_window(
+        self,
+        game_roi: np.ndarray,
+        full_frame: np.ndarray,
+        roi_offset: Tuple[int, int],
+    ):
+        """
+        Abre ventana donde el usuario hace clic en una criatura para
+        capturar un sprite de 32×32 (o tamaño customizable).
+        """
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("💀 Capturar Sprite de Cadáver — Haz clic sobre el cuerpo")
+        dialog.focus_force()
+        dialog.grab_set()
+
+        # Estado
+        state = {
+            "click_x": 0, "click_y": 0,
+            "sprite_size": 32,
+            "preview_id": None,
+            "click_done": False,
+        }
+
+        # Convertir imagen para tkinter
+        roi_rgb = cv2.cvtColor(game_roi, cv2.COLOR_BGR2RGB)
+        roi_h, roi_w = roi_rgb.shape[:2]
+
+        # Escala para display
+        max_display_w, max_display_h = 1000, 650
+        scale = min(max_display_w / roi_w, max_display_h / roi_h, 1.0)
+        display_w = int(roi_w * scale)
+        display_h = int(roi_h * scale)
+
+        if scale < 1.0:
+            display_rgb = cv2.resize(roi_rgb, (display_w, display_h),
+                                      interpolation=cv2.INTER_AREA)
+        else:
+            display_rgb = roi_rgb.copy()
+
+        dialog.geometry(f"{display_w + 20}x{display_h + 400}")
+        dialog.resizable(True, True)
+        dialog.minsize(400, 400)
+
+        # Instrucciones
+        ctk.CTkLabel(
+            dialog,
+            text=(
+                "🖱️ Haz clic EXACTAMENTE sobre el CUERPO MUERTO de la criatura.\n"
+                "Se recortará un cuadrado centrado en donde hagas clic.\n"
+                "Puedes ajustar el tamaño del recorte abajo."
+            ),
+            font=ctk.CTkFont(size=12),
+            text_color="#E74C3C",
+        ).pack(padx=10, pady=(8, 4))
+
+        # Controles de tamaño
+        size_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        size_frame.pack(fill="x", padx=10, pady=4)
+
+        ctk.CTkLabel(size_frame, text="Tamaño del sprite:").pack(side="left", padx=5)
+        size_var = ctk.StringVar(value="32")
+        size_combo = ctk.CTkComboBox(
+            size_frame, values=["24", "32", "48", "64"],
+            variable=size_var, width=80,
+        )
+        size_combo.pack(side="left", padx=5)
+        ctk.CTkLabel(size_frame, text="px",
+                      font=ctk.CTkFont(size=11)).pack(side="left")
+
+        def on_size_change(*_):
+            try:
+                state["sprite_size"] = int(size_var.get())
+            except ValueError:
+                state["sprite_size"] = 32
+        size_var.trace_add("write", on_size_change)
+
+        # Info
+        sqm_w, sqm_h = self.bot.calibrator.sqm_size
+        ctk.CTkLabel(
+            dialog,
+            text=f"SQM: {sqm_w}×{sqm_h}px | Escala: {scale:.2f}x | "
+                 f"Game: {roi_w}×{roi_h}px | Default sprite: 32×32px",
+            font=ctk.CTkFont(size=10), text_color="#888888",
+        ).pack(padx=10, pady=(0, 4))
+
+        # Canvas con imagen
+        pil_img = Image.fromarray(display_rgb)
+        tk_img = ImageTk.PhotoImage(pil_img)
+
+        canvas = tk.Canvas(dialog, width=display_w, height=display_h,
+                           bg="black", cursor="crosshair")
+        canvas.pack(padx=10, pady=5)
+        canvas.create_image(0, 0, anchor="nw", image=tk_img)
+        canvas._tk_img = tk_img
+
+        # Grid de SQMs
+        px_local = self.bot.calibrator.player_center[0] - roi_offset[0]
+        py_local = self.bot.calibrator.player_center[1] - roi_offset[1]
+        for dx in range(-4, 5):
+            for dy in range(-3, 4):
+                sx = int((px_local + dx * sqm_w - sqm_w / 2) * scale)
+                sy = int((py_local + dy * sqm_h - sqm_h / 2) * scale)
+                ex = int((px_local + dx * sqm_w + sqm_w / 2) * scale)
+                ey = int((py_local + dy * sqm_h + sqm_h / 2) * scale)
+                color = "#FF0000" if dx == 0 and dy == 0 else "#333333"
+                canvas.create_rectangle(sx, sy, ex, ey, outline=color, width=1)
+
+        # Label de preview
+        lbl_preview = ctk.CTkLabel(
+            dialog, text="Haz clic en una criatura...",
+            font=ctk.CTkFont(size=11),
+        )
+        lbl_preview.pack(pady=2)
+
+        # Preview del sprite capturado
+        sprite_preview_label = ctk.CTkLabel(dialog, text="")
+        sprite_preview_label.pack(pady=2)
+
+        def on_click(event):
+            # Coordenadas reales en el ROI
+            real_x = int(event.x / scale)
+            real_y = int(event.y / scale)
+            state["click_x"] = real_x
+            state["click_y"] = real_y
+            state["click_done"] = True
+
+            size = state["sprite_size"]
+            half = size // 2
+
+            # Dibujar cuadrado de preview en el canvas
+            if state["preview_id"]:
+                canvas.delete(state["preview_id"])
+
+            # Convertir a coords de display
+            dx1 = int((real_x - half) * scale)
+            dy1 = int((real_y - half) * scale)
+            dx2 = int((real_x + half) * scale)
+            dy2 = int((real_y + half) * scale)
+            state["preview_id"] = canvas.create_rectangle(
+                dx1, dy1, dx2, dy2, outline="#00FF00", width=2,
+            )
+
+            lbl_preview.configure(
+                text=f"Sprite: ({real_x},{real_y}) — {size}×{size}px | "
+                     f"Click 'Guardar' para guardar"
+            )
+
+            # Mostrar preview del sprite recortado
+            x1c = max(0, real_x - half)
+            y1c = max(0, real_y - half)
+            x2c = min(roi_w, real_x + half)
+            y2c = min(roi_h, real_y + half)
+            crop = game_roi[y1c:y2c, x1c:x2c]
+            if crop.size > 0:
+                # Escalar para preview (×3)
+                preview = cv2.resize(crop, (size * 3, size * 3),
+                                      interpolation=cv2.INTER_NEAREST)
+                preview_rgb = cv2.cvtColor(preview, cv2.COLOR_BGR2RGB)
+                pil_preview = Image.fromarray(preview_rgb)
+                tk_preview = ImageTk.PhotoImage(pil_preview)
+                sprite_preview_label.configure(image=tk_preview)
+                sprite_preview_label._tk_img = tk_preview
+
+        canvas.bind("<Button-1>", on_click)
+
+        # Botones
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=8)
+
+        def on_save():
+            if not state["click_done"]:
+                messagebox.showwarning("Aviso",
+                                        "Primero haz clic sobre la criatura.")
+                return
+
+            size = state["sprite_size"]
+            half = size // 2
+            real_x = state["click_x"]
+            real_y = state["click_y"]
+
+            x1 = max(0, real_x - half)
+            y1 = max(0, real_y - half)
+            x2 = min(roi_w, real_x + half)
+            y2 = min(roi_h, real_y + half)
+
+            crop = game_roi[y1:y2, x1:x2]
+            if crop.size == 0:
+                messagebox.showerror("Error", "La captura está vacía.")
+                return
+
+            # Pedir nombre de la criatura
+            name = self._ask_sprite_name(crop)
+            if name is None or name.strip() == "":
+                return
+
+            # Guardar como sprite de cadáver
+            from looter.corpse_sprite_detector import CorpseSpriteDetector
+            variant = CorpseSpriteDetector.get_next_variant_number(name.strip())
+            save_path = CorpseSpriteDetector.save_corpse_sprite(
+                crop, name.strip(), variant
+            )
+
+            self.log.ok(
+                f"Sprite de cadáver guardado: {os.path.basename(save_path)} "
+                f"({crop.shape[1]}×{crop.shape[0]}px)"
+            )
+
+            # Recargar sprites en el corpse sprite detector del looter
+            try:
+                self.bot.looter_engine.corpse_sprite_detector.load_templates()
+                self.log.ok("Sprites de cadáveres recargados en el Looter")
+            except Exception as e:
+                self.log.warning(f"Error recargando sprites: {e}")
+
+            self._update_sprites_info()
+            dialog.destroy()
+            messagebox.showinfo(
+                "Listo",
+                f"Sprite de cadáver guardado: {os.path.basename(save_path)}\n"
+                f"Tamaño: {crop.shape[1]}×{crop.shape[0]}px\n\n"
+                f"El Looter buscará este sprite en el game screen\n"
+                f"después de matar un(a) '{name.strip()}'.\n"
+                f"Cuando lo encuentre, clickeará exactamente\n"
+                f"sobre el cadáver para lootear.",
+            )
+
+        ctk.CTkButton(
+            btn_frame, text="💾 Guardar Sprite", width=180,
+            fg_color="#27AE60", hover_color="#2ECC71",
+            command=on_save,
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="📸 Recapturar", width=160,
+            fg_color="#2980B9", hover_color="#3498DB",
+            command=lambda: self._recapture_sprite_dialog(
+                dialog, canvas, state, scale, lbl_preview,
+                sprite_preview_label, roi_offset
+            ),
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, text="❌ Cancelar", width=120,
+            fg_color="#C0392B", hover_color="#E74C3C",
+            command=dialog.destroy,
+        ).pack(side="left", padx=5)
+
+    def _recapture_sprite_dialog(self, dialog, canvas, state, scale,
+                                   lbl_preview, sprite_preview_label,
+                                   roi_offset):
+        """Recaptura el frame sin cerrar la ventana de captura de sprites."""
+        frame = self.bot.capture.capture_source()
+        if frame is None:
+            messagebox.showerror("Error", "No se pudo capturar frame.")
+            return
+
+        cal = self.bot.calibrator
+        gx1, gy1, gx2, gy2 = cal.game_region
+        h_f, w_f = frame.shape[:2]
+        gx1 = max(0, min(gx1, w_f - 1))
+        gy1 = max(0, min(gy1, h_f - 1))
+        gx2 = max(gx1 + 1, min(gx2, w_f))
+        gy2 = max(gy1 + 1, min(gy2, h_f))
+        game_roi = frame[gy1:gy2, gx1:gx2]
+
+        roi_rgb = cv2.cvtColor(game_roi, cv2.COLOR_BGR2RGB)
+        roi_h, roi_w = roi_rgb.shape[:2]
+        display_w = int(roi_w * scale)
+        display_h = int(roi_h * scale)
+
+        if scale < 1.0:
+            display_rgb = cv2.resize(roi_rgb, (display_w, display_h),
+                                      interpolation=cv2.INTER_AREA)
+        else:
+            display_rgb = roi_rgb.copy()
+
+        pil_img = Image.fromarray(display_rgb)
+        tk_img = ImageTk.PhotoImage(pil_img)
+
+        canvas.delete("all")
+        canvas.create_image(0, 0, anchor="nw", image=tk_img)
+        canvas._tk_img = tk_img
+        canvas._game_roi = game_roi
+
+        # Redibujar grid
+        sqm_w, sqm_h = cal.sqm_size
+        px_local = cal.player_center[0] - roi_offset[0]
+        py_local = cal.player_center[1] - roi_offset[1]
+        for dx in range(-4, 5):
+            for dy in range(-3, 4):
+                sx = int((px_local + dx * sqm_w - sqm_w / 2) * scale)
+                sy = int((py_local + dy * sqm_h - sqm_h / 2) * scale)
+                ex = int((px_local + dx * sqm_w + sqm_w / 2) * scale)
+                ey = int((py_local + dy * sqm_h + sqm_h / 2) * scale)
+                color = "#FF0000" if dx == 0 and dy == 0 else "#333333"
+                canvas.create_rectangle(sx, sy, ex, ey, outline=color, width=1)
+
+        state["preview_id"] = None
+        state["click_done"] = False
+        lbl_preview.configure(text="Recapturado — haz clic en el CUERPO MUERTO")
+
+    def _ask_sprite_name(self, sprite: np.ndarray) -> Optional[str]:
+        """Diálogo para pedir el nombre de la criatura del sprite capturado."""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Nombre de la Criatura")
+        dialog.geometry("400x250")
+        dialog.focus_force()
+        dialog.grab_set()
+        dialog.resizable(False, False)
+
+        result = {"name": None}
+
+        ctk.CTkLabel(
+            dialog,
+            text="Ingresa el nombre de la criatura:",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(padx=20, pady=(15, 5))
+
+        # Preview del sprite
+        preview = cv2.resize(sprite, (64, 64), interpolation=cv2.INTER_NEAREST)
+        preview_rgb = cv2.cvtColor(preview, cv2.COLOR_BGR2RGB)
+        pil_preview = Image.fromarray(preview_rgb)
+        tk_preview = ImageTk.PhotoImage(pil_preview)
+        preview_label = ctk.CTkLabel(dialog, image=tk_preview, text="")
+        preview_label.pack(pady=5)
+        preview_label._tk_img = tk_preview
+
+        ctk.CTkLabel(
+            dialog,
+            text="Ejemplo: Rotworm, Cave Rat, Swamp Troll",
+            font=ctk.CTkFont(size=10), text_color="#888888",
+        ).pack(padx=20, pady=(0, 5))
+
+        entry = ctk.CTkEntry(dialog, width=300, placeholder_text="Nombre de la criatura...")
+        entry.pack(padx=20, pady=5)
+        entry.focus_set()
+
+        def on_ok():
+            result["name"] = entry.get()
+            dialog.destroy()
+
+        def on_cancel():
+            dialog.destroy()
+
+        def on_enter(event):
+            on_ok()
+
+        entry.bind("<Return>", on_enter)
+
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(pady=10)
+        ctk.CTkButton(btn_frame, text="✅ Guardar", width=120,
+                        fg_color="#27AE60", command=on_ok).pack(side="left", padx=5)
+        ctk.CTkButton(btn_frame, text="❌ Cancelar", width=120,
+                        fg_color="#C0392B", command=on_cancel).pack(side="left", padx=5)
+
+        dialog.wait_window()
+        return result["name"]
+
+    # ==================================================================
     # TAB: Screen View (visualizador OBS en tiempo real)
     # ==================================================================
     def _build_screenview_tab(self):
@@ -3229,7 +3724,7 @@ class TibiaHealerGUI(ctk.CTk):
             overlay_frame,
             variable=self._sv_overlay_var,
             values=["Ninguno", "Game Region", "Battle Region",
-                    "SQMs", "Player Center", "Todo"],
+                    "SQMs", "Player Center", "Minimap", "Todo"],
             width=160,
         ).pack(side="left", padx=6)
 
@@ -3276,13 +3771,19 @@ class TibiaHealerGUI(ctk.CTk):
         self._sv_loop()
 
     def _sv_loop(self):
-        """Loop de refresco del Screen View (~2 fps para no sobrecargar la GUI)."""
+        """Loop de refresco del Screen View (~1 fps para no sobrecargar la GUI)."""
         try:
             if self._sv_live_var.get():
-                self._sv_refresh()
+                # Solo refrescar si la pestaña Screen View está visible
+                try:
+                    current_tab = self.tabview.get()
+                except Exception:
+                    current_tab = ""
+                if current_tab == "🖥️ Screen View":
+                    self._sv_refresh()
         except Exception:
             pass
-        # Programar siguiente tick (500 ms = 2 fps)
+        # Programar siguiente tick (500 ms = ~2 fps)
         self._sv_refresh_job = self.after(500, self._sv_loop)
 
     def _sv_capture_once(self):
@@ -3380,8 +3881,125 @@ class TibiaHealerGUI(ctk.CTk):
                     except Exception:
                         pass
 
+                # Minimap overlay
+                if overlay in ("Minimap", "Todo"):
+                    mr = cal.map_region
+                    if mr:
+                        mx1, my1, mx2, my2 = mr
+                        # Rectángulo del minimap
+                        cv2.rectangle(display, (mx1, my1), (mx2, my2),
+                                      (255, 200, 0), 2)
+                        cv2.putText(display, "Minimap",
+                                    (mx1 + 4, my1 - 6),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.5, (255, 200, 0), 1)
+
+                        # Centro del minimap (posición del jugador)
+                        mcx = (mx1 + mx2) // 2
+                        mcy = (my1 + my2) // 2
+                        cv2.drawMarker(display, (mcx, mcy),
+                                       (0, 255, 255), cv2.MARKER_CROSS,
+                                       12, 2)
+                        cv2.putText(display, "You",
+                                    (mcx + 8, mcy - 6),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.35, (0, 255, 255), 1)
+
+                        # Buscar marcas del cavebot en el minimap
+                        try:
+                            cb = self.bot.cavebot_engine
+                            if cb.waypoints and cb._mark_templates:
+                                minimap_roi = frame[my1:my2, mx1:mx2]
+                                if minimap_roi.size > 0:
+                                    mm_gray = cv2.cvtColor(
+                                        minimap_roi, cv2.COLOR_BGR2GRAY
+                                    )
+                                    # Buscar TODAS las marcas usadas en la ruta
+                                    seen_marks = set()
+                                    for wp in cb.waypoints:
+                                        seen_marks.add(wp.mark)
+                                    for mark_name in seen_marks:
+                                        tpl = cb._mark_templates.get(mark_name)
+                                        if tpl is None:
+                                            continue
+                                        th, tw = tpl.shape[:2]
+                                        if (mm_gray.shape[0] < th or
+                                                mm_gray.shape[1] < tw):
+                                            continue
+                                        res = cv2.matchTemplate(
+                                            mm_gray, tpl,
+                                            cv2.TM_CCOEFF_NORMED
+                                        )
+                                        # Detectar múltiples coincidencias
+                                        locs = np.where(res >= 0.70)
+                                        found = set()
+                                        for py, px in zip(*locs):
+                                            # Agrupar detecciones cercanas
+                                            key = (px // 8, py // 8)
+                                            if key in found:
+                                                continue
+                                            found.add(key)
+                                            ax = mx1 + px + tw // 2
+                                            ay = my1 + py + th // 2
+                                            # Es el waypoint actual?
+                                            cur = cb._current_waypoint()
+                                            is_cur = (
+                                                cur is not None
+                                                and cur.mark == mark_name
+                                            )
+                                            clr = (
+                                                (0, 255, 0) if is_cur
+                                                else (200, 150, 255)
+                                            )
+                                            cv2.circle(
+                                                display, (ax, ay),
+                                                6, clr, 2
+                                            )
+                                            cv2.putText(
+                                                display, mark_name[:5],
+                                                (ax + 7, ay + 4),
+                                                cv2.FONT_HERSHEY_SIMPLEX,
+                                                0.3, clr, 1,
+                                            )
+                        except Exception:
+                            pass
+
+                        # Mini-zoom del minimap (esquina inferior izquierda)
+                        try:
+                            mm_crop = frame[my1:my2, mx1:mx2]
+                            if mm_crop.size > 0:
+                                zoom = 2
+                                zoomed = cv2.resize(
+                                    mm_crop,
+                                    (mm_crop.shape[1] * zoom,
+                                     mm_crop.shape[0] * zoom),
+                                    interpolation=cv2.INTER_NEAREST,
+                                )
+                                zh, zw = zoomed.shape[:2]
+                                # Colocar en esquina inferior-izquierda
+                                dh, dw = display.shape[:2]
+                                zy = dh - zh - 10
+                                zx = 10
+                                if zy > 0 and zx + zw < dw:
+                                    # Borde
+                                    cv2.rectangle(
+                                        display,
+                                        (zx - 2, zy - 2),
+                                        (zx + zw + 1, zy + zh + 1),
+                                        (255, 200, 0), 1,
+                                    )
+                                    display[zy:zy + zh, zx:zx + zw] = zoomed
+                                    cv2.putText(
+                                        display, "Minimap x2",
+                                        (zx + 4, zy - 6),
+                                        cv2.FONT_HERSHEY_SIMPLEX,
+                                        0.4, (255, 200, 0), 1,
+                                    )
+                        except Exception:
+                            pass
+
             except Exception:
-                pass  # calibrador no listo aún → no dibuja overlay
+                pass
 
         # ── Escalar al tamaño del canvas ──────────────────────────────────
         cw = self._sv_canvas.winfo_width()
@@ -3599,7 +4217,8 @@ class TibiaHealerGUI(ctk.CTk):
     def _drain_log_queue(self):
         """Procesa mensajes pendientes en el hilo principal de tkinter."""
         try:
-            while True:
+            # Máximo 8 mensajes por tick para no bloquear la GUI
+            for _ in range(8):
                 msg, level = self._log_queue.get_nowait()
                 # Determinar si es un mensaje de módulo
                 routed = self._route_module_log(msg, level)
@@ -3609,7 +4228,7 @@ class TibiaHealerGUI(ctk.CTk):
         except queue.Empty:
             pass
         if self._gui_ready:
-            self.after(50, self._drain_log_queue)
+            self.after(80, self._drain_log_queue)
 
     def _route_module_log(self, msg: str, level: str = "INFO") -> bool:
         """
@@ -3693,7 +4312,7 @@ class TibiaHealerGUI(ctk.CTk):
     def _start_status_loop(self):
         """Loop periódico para actualizar la GUI."""
         self._update_status_display()
-        self._update_job = self.after(250, self._start_status_loop)
+        self._update_job = self.after(750, self._start_status_loop)
 
     def _update_status_display(self):
         """Actualiza todos los widgets de estado desde datos del bot."""

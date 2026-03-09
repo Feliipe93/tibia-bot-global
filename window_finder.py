@@ -20,6 +20,12 @@ def find_tibia_windows() -> List[Dict]:
     # Palabras que identifican el bot propio (NO son el juego)
     BOT_TITLE_KEYWORDS = ["tibia auto healer", "bot healer", "auto healer"]
 
+    # Palabras que identifican navegadores web u otras apps (NO son el cliente Tibia)
+    BROWSER_KEYWORDS = [
+        "brave", "chrome", "firefox", "edge", "opera", "safari", "vivaldi",
+        "free multiplayer online", "community", ".zip", "notepad", "explorer",
+    ]
+
     results = []
 
     def callback(hwnd, _):
@@ -39,7 +45,11 @@ def find_tibia_windows() -> List[Dict]:
         # Filtrar ventanas muy pequeñas (splash screens, tooltips)
         if w > 300 and h > 200:
             # is_game: True si sigue el patrón "Tibia - Personaje"
+            # y NO es un navegador web ni otra app
             is_game = title_lower.startswith("tibia -")
+            is_browser = any(k in title_lower for k in BROWSER_KEYWORDS)
+            if is_browser:
+                is_game = False
             results.append({
                 "hwnd": hwnd,
                 "title": title,

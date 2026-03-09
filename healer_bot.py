@@ -85,6 +85,7 @@ class HealerBot:
         self.active: bool = False       # True = curando activamente
         self.thread: Optional[threading.Thread] = None
         self.lock = threading.Lock()
+        self._click_lock = threading.Lock()  # Mutex para serializar clicks (targeting vs looter)
 
         # Ventanas
         self.tibia_hwnd: Optional[int] = None
@@ -149,33 +150,36 @@ class HealerBot:
     # ==================================================================
     def _scaled_left_click(self, x: int, y: int) -> bool:
         """Click izquierdo con coordenadas escaladas de OBS frame → Tibia client."""
-        cx = int(x * self._scale_x)
-        cy = int(y * self._scale_y)
-        result = self.mouse_sender.left_click(cx, cy)
-        if not result:
-            self.log.warning(
-                f"Click izquierdo FALLÓ — OBS({x},{y}) → client({cx},{cy}) "
-                f"[scale x={self._scale_x:.3f} y={self._scale_y:.3f}] "
-                f"hwnd={self.mouse_sender.hwnd}, "
-                f"valid={is_window_valid(self.mouse_sender.hwnd) if self.mouse_sender.hwnd else False}"
-            )
-        else:
-            self.log.debug(
-                f"Click OK — OBS({x},{y}) → client({cx},{cy}) hwnd={self.mouse_sender.hwnd}"
-            )
-        return result
+        with self._click_lock:
+            cx = int(x * self._scale_x)
+            cy = int(y * self._scale_y)
+            result = self.mouse_sender.left_click(cx, cy)
+            if not result:
+                self.log.warning(
+                    f"Click izquierdo FALLÓ — OBS({x},{y}) → client({cx},{cy}) "
+                    f"[scale x={self._scale_x:.3f} y={self._scale_y:.3f}] "
+                    f"hwnd={self.mouse_sender.hwnd}, "
+                    f"valid={is_window_valid(self.mouse_sender.hwnd) if self.mouse_sender.hwnd else False}"
+                )
+            else:
+                self.log.debug(
+                    f"Click OK — OBS({x},{y}) → client({cx},{cy}) hwnd={self.mouse_sender.hwnd}"
+                )
+            return result
 
     def _scaled_right_click(self, x: int, y: int) -> bool:
         """Click derecho con coordenadas escaladas de OBS frame → Tibia client."""
-        cx = int(x * self._scale_x)
-        cy = int(y * self._scale_y)
-        return self.mouse_sender.right_click(cx, cy)
+        with self._click_lock:
+            cx = int(x * self._scale_x)
+            cy = int(y * self._scale_y)
+            return self.mouse_sender.right_click(cx, cy)
 
     def _scaled_shift_right_click(self, x: int, y: int) -> bool:
         """Shift+Click derecho con coordenadas escaladas (loot rápido)."""
-        cx = int(x * self._scale_x)
-        cy = int(y * self._scale_y)
-        return self.mouse_sender.click(cx, cy, button="right", shift=True)
+        with self._click_lock:
+            cx = int(x * self._scale_x)
+            cy = int(y * self._scale_y)
+            return self.mouse_sender.click(cx, cy, button="right", shift=True)
 
     def _update_scale_factors(self, frame: np.ndarray):
         """Calcula factores de escala OBS frame → Tibia client coordinates."""
@@ -293,6 +297,9 @@ class HealerBot:
         if pc:
             self.log.info(f"Player center: {pc}")
 
+        # v10: Actualizar calibración del creature tracker en targeting
+        self.targeting_engine.update_tracker_calibration()
+
         # Actualizar factores de escala OBS → Tibia client
         self._update_scale_factors(frame)
 
@@ -386,8 +393,33 @@ class HealerBot:
         saved_title = self.config.get("tibia_window_title", "")
 
         if tibias:
-            # Si hay un título guardado, buscar coincidencia
-            if saved_title:
+            # Separar: ventanas del juego real vs otras (navegadores, etc.)
+            game_windows = [t for t in tibias if t.get("is_game", False)]
+
+            # PRIORIDAD 1: Si hay ventanas del juego real, usar la primera
+            # (ya están ordenadas por is_game primero en window_finder)
+            if game_windows:
+                # Si hay título guardado, buscar entre las game windows
+                if saved_title:
+                    for t in game_windows:
+                        if saved_title.lower() in t["title"].lower():
+                            self.tibia_hwnd = t["hwnd"]
+                            self.tibia_title = t["title"]
+                            self.key_sender.set_target(t["hwnd"])
+                            self.mouse_sender.set_target(t["hwnd"])
+                            tibia_found = True
+                            break
+                # Si no coincidió, usar la primera game window
+                if not tibia_found:
+                    t = game_windows[0]
+                    self.tibia_hwnd = t["hwnd"]
+                    self.tibia_title = t["title"]
+                    self.key_sender.set_target(t["hwnd"])
+                    self.mouse_sender.set_target(t["hwnd"])
+                    tibia_found = True
+
+            # PRIORIDAD 2: Si no hay game windows, buscar por título guardado
+            if not tibia_found and saved_title:
                 for t in tibias:
                     if saved_title.lower() in t["title"].lower():
                         self.tibia_hwnd = t["hwnd"]
@@ -395,9 +427,13 @@ class HealerBot:
                         self.key_sender.set_target(t["hwnd"])
                         self.mouse_sender.set_target(t["hwnd"])
                         tibia_found = True
+                        self.log.warning(
+                            f"⚠ Usando ventana no-game: {t['title']} "
+                            f"(no se encontraron ventanas del cliente Tibia)"
+                        )
                         break
 
-            # Si no se encontró la guardada, usar la primera
+            # PRIORIDAD 3: Fallback a la primera ventana con 'tibia'
             if not tibia_found:
                 t = tibias[0]
                 self.tibia_hwnd = t["hwnd"]
@@ -477,6 +513,8 @@ class HealerBot:
         self.log.info("Loop principal iniciado")
         fps_counter = 0
         fps_timer = time.time()
+        _capture_fail_count = 0       # contador de fallos consecutivos
+        _black_screen_fail_count = 0  # contador de pantallas negras consecutivas
 
         while self.running:
             try:
@@ -495,22 +533,38 @@ class HealerBot:
                 img = self.capture.capture_source()
 
                 if img is None:
-                    error = self.capture.last_error
-                    self.log.warning(f"Captura fallida: {error}")
-                    time.sleep(0.5)
+                    _capture_fail_count += 1
+                    # Solo loguear cada 10 fallos para no saturar la GUI
+                    if _capture_fail_count <= 3 or _capture_fail_count % 10 == 0:
+                        error = self.capture.last_error
+                        self.log.warning(
+                            f"Captura fallida ({_capture_fail_count}x): {error}"
+                        )
+                    # Backoff: empieza en 0.5s, sube hasta 3s
+                    backoff = min(0.5 + (_capture_fail_count * 0.3), 3.0)
+                    time.sleep(backoff)
                     continue
 
+                # Captura OK → resetear contador de fallos
+                _capture_fail_count = 0
+
                 if self.capture.is_black_screen():
-                    brightness = self.capture.last_brightness
-                    self.log.warning(
-                        f"Pantalla negra detectada (brillo={brightness:.1f}) "
-                        "— ¿Fuente OBS inactiva?"
-                    )
+                    _black_screen_fail_count += 1
+                    if _black_screen_fail_count <= 3 or _black_screen_fail_count % 10 == 0:
+                        brightness = self.capture.last_brightness
+                        self.log.warning(
+                            f"Pantalla negra ({_black_screen_fail_count}x, "
+                            f"brillo={brightness:.1f}) — ¿Fuente OBS inactiva?"
+                        )
                     self.hp_percent = None
                     self.mp_percent = None
                     self._notify_status()
-                    time.sleep(1.0)
+                    backoff = min(1.0 + (_black_screen_fail_count * 0.5), 5.0)
+                    time.sleep(backoff)
                     continue
+
+                # Pantalla OK → resetear contador
+                _black_screen_fail_count = 0
 
                 # --- 2b. Guardar frame para GUI preview ---
                 self.last_frame = img

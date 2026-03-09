@@ -1,28 +1,24 @@
 """
-looter/looter_engine.py - Motor de auto-loot v9.
+looter/looter_engine.py - Motor de auto-loot v11.
 
-Cambios v9 (GameScreenDetector + SQMs ciegos como fallback):
+Cambios v11 (Corpse Sprite Detection):
   Novedad principal:
-    - Integra GameScreenDetector (game_screen_detector.py) para detectar
-      VISUALMENTE dónde cayó el cadáver usando frame diff o color HSV.
-    - Si la detección visual falla → fallback a SQMs ciegos (igual que v8).
-    - La región del game window se calcula proporcionalmente (ref 1366×768)
-      y se sobreescribe con el valor exacto del screen_calibrator si está.
-    - Se relaja la guarda de calibración: ahora también arranca si el GSD
-      ya tiene el tamaño de frame (no depende de sqms ni player_center).
+    - Detección de cadáveres por TEMPLATE MATCHING de sprites capturados.
+    - El usuario captura fotos 32x32 de los cadáveres desde la GUI.
+    - Al matar, el bot busca ESE sprite en el game screen y clickea exacto.
 
-  Flujo de detección por kill:
-    1. notify_kill() recibe el frame del momento del kill.
-    2. Llama a gsd.update_reference_frame(frame) ANTES de dormir.
-    3. El thread de loot llama a gsd.find_corpse_position(last_frame)
-       DESPUÉS de dormir 0.10 s (el cadáver ya apareció).
-    4. Si devuelve posición → click exacto ahí.
-    5. Si devuelve None → SQMs ciegos (center + cardinales).
+  Prioridad de looteo:
+    1. Corpse Sprite Detection (template matching del cadáver) → clicks exactos
+    2. SQMs ciegos (center + 4 cardinales) → fallback que siempre funciona
 
-  Sin cambios en:
-    - healer_bot.py  (NO tocado)
-    - targeting_engine.py  (NO tocado)
-    - Interfaz pública: set_sqms, set_game_region, notify_kill, process_frame.
+  Mejoras vs v10:
+    - Espera 0.30s después del kill para que el cadáver aparezca (era 0.10s)
+    - Usa frame FRESCO (post-kill) para buscar el cadáver
+    - Busca MÚLTIPLES cadáveres del mismo tipo (no solo 1)
+    - Cada cadáver encontrado = 1 click preciso en su posición
+    - Fallback SIEMPRE incluye 5 clicks (center + 4 cardinales)
+
+  Sin cambios en interfaz pública: set_sqms, set_game_region, process_frame.
 """
 
 import time
@@ -34,13 +30,14 @@ import numpy as np
 from looter.corpse_detector import CorpseDetector
 from looter.corpse_template_detector import CorpseTemplateDetector
 from looter.game_screen_detector import GameScreenDetector
+from looter.corpse_sprite_detector import CorpseSpriteDetector
 
 
 class LooterEngine:
     """
-    Motor de auto-loot v9.
+    Motor de auto-loot v11.
     Recibe notificaciones de kills y ejecuta clicks en thread separado.
-    v9: Intenta detección visual (frame diff / HSV) antes de SQMs ciegos.
+    v11: Busca cadáveres por sprite template matching, fallback a SQMs ciegos.
     """
 
     def __init__(self):
@@ -66,14 +63,14 @@ class LooterEngine:
         # Configuración
         self.loot_method: str = "left_click"
         self.account_type: str = "premium"
-        self.loot_delay: float = 0.05       # v8: más rápido (era 0.08)
+        self.loot_delay: float = 0.15       # delay entre clicks (Tibia necesita ≥150ms)
         self.max_corpse_age: float = 10.0
         self.loot_cooldown: float = 0.3
         self.periodic_loot: bool = False
         self.periodic_interval: float = 8.0
-        self.max_loot_sqms: int = 5          # v8: 5 (center + 4 cardinales)
-        self.max_loot_clicks: int = 5        # v8: 5 clicks max por kill
-        self.max_range: int = 1              # v8: 1 SQM (chase mode = adyacente)
+        self.max_loot_sqms: int = 5          # center + 4 cardinales
+        self.max_loot_clicks: int = 5        # clicks max por kill
+        self.max_range: int = 1              # 1 SQM (chase mode = adyacente)
         self.loot_during_combat: bool = True
         self.auto_open_next_bp: bool = True
         self.always_loot: bool = True
@@ -87,22 +84,31 @@ class LooterEngine:
         self._loot_thread: Optional[threading.Thread] = None
 
         # Detectores visuales — mantenidos para compatibilidad con healer_bot
-        # corpse_detector y corpse_template_detector: interfaz de compatibilidad
         self.corpse_detector = CorpseDetector()
         self.corpse_template_detector = CorpseTemplateDetector()
         self._last_frame: Optional[np.ndarray] = None
-        self._use_visual_detection: bool = False  # v8 legacy flag
+        self._use_visual_detection: bool = False  # legacy flag
 
-        # v9: GameScreenDetector — detección visual de cadáveres
+        # v9: GameScreenDetector — mantenido por compatibilidad
         self.game_screen_detector = GameScreenDetector()
-        self._use_game_screen_detection: bool = True  # v9: HABILITADO
+        self._use_game_screen_detection: bool = False  # v11: DESHABILITADO
+
+        # v11: Corpse Sprite Detector — MÉTODO PRINCIPAL
+        self.corpse_sprite_detector = CorpseSpriteDetector()
+        self._use_sprite_detection: bool = True  # v11: HABILITADO
+        self.sprite_loot_clicks: int = 0  # clicks exitosos con sprite detection
+
+        # v10 legacy: death_position (mantenido por compatibilidad de interfaz)
+        self._death_position: Optional[Tuple[int, int]] = None
+        self._use_death_position: bool = False  # v11: DESHABILITADO
+        self.death_position_loots: int = 0
 
         # Métricas
         self.total_loots: int = 0
         self.total_clicks: int = 0
         self.template_detections: int = 0    # legacy
         self.visual_detections: int = 0      # legacy
-        self.gsd_detections: int = 0         # v9: detecciones exitosas de GSD
+        self.gsd_detections: int = 0         # legacy
         self.blind_fallbacks: int = 0        # veces que se usaron SQMs ciegos
         self.thread_loots: int = 0           # loots ejecutados en thread
 
@@ -123,8 +129,9 @@ class LooterEngine:
 
     def set_log_callback(self, fn: Callable):
         self._log_fn = fn
-        # Propagar el log al GSD también
+        # Propagar el log al GSD y al sprite detector
         self.game_screen_detector.set_log_callback(fn)
+        self.corpse_sprite_detector.set_log_callback(fn)
 
     def set_targeting_engine(self, engine):
         self._targeting_engine = engine
@@ -143,14 +150,17 @@ class LooterEngine:
             self.corpse_template_detector.set_sqm_size(*self._sqm_size)
             # v9: propagar player center al GSD
             self.game_screen_detector.set_player_center(*self._player_center)
-            # Log detallado de los SQMs para v9
+            # v11: propagar al sprite detector
+            self.corpse_sprite_detector.set_player_center(*self._player_center)
+            self.corpse_sprite_detector.set_sqm_size(*self._sqm_size)
+            # Log detallado de los SQMs para v11
             self._log(f"SQMs configurados: {len(sqms)} posiciones")
             self._log(f"  Center (idx 4): {self._player_center}")
             self._log(f"  SQM size: {self._sqm_size}")
             self._log(f"  Cardinales: S={sqms[1]}, N={sqms[7]}, E={sqms[5]}, W={sqms[3]}")
         else:
             self._log(f"SQMs parciales: {len(sqms)} posiciones (necesito 9 para modo fijo)")
-        
+
 
     def set_game_region(self, x1: int, y1: int, x2: int, y2: int):
         """Configura la región del game window."""
@@ -158,6 +168,8 @@ class LooterEngine:
         self.corpse_template_detector.set_game_region(x1, y1, x2, y2)
         # v9: propagar al GSD para que use la región exacta del calibrator
         self.game_screen_detector.set_game_region_from_calibrator(x1, y1, x2, y2)
+        # v11: propagar al sprite detector
+        self.corpse_sprite_detector.set_game_region(x1, y1, x2, y2)
 
     def set_player_center(self, x: int, y: int):
         self._player_center = (x, y)
@@ -175,12 +187,13 @@ class LooterEngine:
             self.account_type = "free"
         else:
             self.account_type = "premium"
-        self.loot_delay = cfg.get("loot_delay", 0.05)
+        self.loot_delay = max(cfg.get("loot_delay", 0.15), 0.15)  # mínimo 150ms
         self.max_corpse_age = cfg.get("max_corpse_age", 10.0)
         self.loot_cooldown = cfg.get("loot_cooldown", 0.3)
         self.periodic_loot = cfg.get("periodic_loot", False)
         self.periodic_interval = cfg.get("periodic_interval", 8.0)
-        self.max_loot_sqms = cfg.get("max_loot_sqms", 5)
+        raw_sqms = cfg.get("max_loot_sqms", 5)
+        self.max_loot_sqms = max(int(raw_sqms), 5)  # mínimo 5 (center + 4 cardinales)
         self.max_loot_clicks = cfg.get("max_loot_clicks", 5)
         self.max_range = cfg.get("max_range", 1)
         self.loot_during_combat = cfg.get("loot_during_combat", True)
@@ -208,16 +221,16 @@ class LooterEngine:
     def _calculate_loot_sqms(self) -> List[Tuple[int, int]]:
         """
         Calcula los SQMs a lootear alrededor del player center.
-        
+
         v8: MÉTODO ÚNICO Y PRINCIPAL — siempre funciona.
-        
+
         En Tibia con chase mode, al matar una criatura el cuerpo cae en:
         - Tu propio SQM (si te paraste encima al matarla)
         - Un SQM adyacente cardinal (N/S/E/W) o diagonal
-        
+
         IMPORTANTE: Las coordenadas están en escala de frame OBS.
         healer_bot._scaled_left_click() se encarga del escalado final.
-        
+
         Orden: Center → S → N → E → W (los más probables en chase mode).
         Solo 5 clicks para cubrir el 95% de los casos.
         """
@@ -227,14 +240,14 @@ class LooterEngine:
             # Reordenar para v8: Center primero, luego cardinales
             center = self._sqms[4]      # Index 4 = Center
             s = self._sqms[1]           # Index 1 = S
-            n = self._sqms[7]           # Index 7 = N  
+            n = self._sqms[7]           # Index 7 = N
             e = self._sqms[5]           # Index 5 = E
             w = self._sqms[3]           # Index 3 = W
-            
+
             # Orden optimizado v8
             sqms = [center, s, n, e, w]
             return sqms[:self.max_loot_sqms]
-        
+
         # Fallback: calcular dinámicamente si no hay SQMs fijos
         cx, cy = self._player_center
         sw, sh = self._sqm_size
@@ -259,15 +272,17 @@ class LooterEngine:
     # Kill notification — LOOT EN THREAD SEPARADO
     # ==================================================================
     def notify_kill(self, monster_name: str, x: int = 0, y: int = 0,
-                    frame: Optional[np.ndarray] = None):
+                    frame: Optional[np.ndarray] = None,
+                    death_position: Optional[Tuple[int, int]] = None):
         """
         Recibe notificación de kill del TargetingEngine.
-        v9: Guarda frame de referencia para GSD, luego lanza thread.
+        v11: Lanza thread que espera al cadáver y busca por sprite.
 
         Args:
             monster_name: Nombre del monstruo matado
-            x, y: Coordenadas del último ataque (battle list — no usadas)
-            frame: Frame OBS en el momento del kill (para detección visual)
+            x, y: Coordenadas del último ataque (battle list)
+            frame: Frame OBS en el momento del kill (referencia)
+            death_position: Legacy v10 (no se usa en v11)
         """
         if not self.enabled:
             return
@@ -276,25 +291,17 @@ class LooterEngine:
             self._log(f"Kill ignorada (sin callback de click): {monster_name}")
             return
 
-        # v9: también permitir si GSD ya tiene tamaño de frame
-        gsd_ready = self.game_screen_detector.is_ready()
         has_sqms = bool(self._sqms)
         has_center = self._player_center != (0, 0)
 
-        if not has_sqms and not has_center and not gsd_ready:
+        if not has_sqms and not has_center:
             self._log(f"Kill ignorada (sin calibración): {monster_name}")
             return
 
-        # v9: guardar frame de referencia ANTES de lanzar el thread
-        # El thread dormirá 0.10s → en ese tiempo el cadáver aparece
-        ref_frame = frame if frame is not None else self._last_frame
-        if ref_frame is not None and self._use_game_screen_detection:
-            self.game_screen_detector.update_reference_frame(ref_frame)
-
-        # Si ya hay un loot en curso, esperar a que termine (no apilar)
+        # Si ya hay un loot en curso, NO bloquear — simplemente loguear y lanzar
+        # El _loot_lock dentro de _loot_in_thread se encarga de serializar
         if self._loot_thread and self._loot_thread.is_alive():
-            self._log(f"Kill de {monster_name} — esperando loot anterior...")
-            self._loot_thread.join(timeout=2.0)
+            self._log(f"Kill de {monster_name} — loot anterior en curso, encolando")
 
         # Lanzar loot en thread separado
         self._loot_thread = threading.Thread(
@@ -312,45 +319,55 @@ class LooterEngine:
     def _loot_in_thread(self, monster_name: str):
         """
         Ejecuta la secuencia COMPLETA de loot en un thread daemon.
-        v9: Intenta detección visual (GSD) → fallback a SQMs ciegos.
+        v11: Prioridad: sprite detection → SQMs ciegos.
+
+        IMPORTANTE: Espera 0.30s ANTES de buscar el cadáver para que
+        el sprite del cadáver aparezca en pantalla después de la muerte.
+        Luego usa el frame MÁS RECIENTE (self._last_frame) que el
+        dispatcher actualiza cada frame en process_frame().
         """
         try:
             with self._loot_lock:
                 self.state = "looting"
                 self.thread_loots += 1
 
-                # Pequeña pausa para que el cadáver aparezca en pantalla
-                time.sleep(0.10)
+                # ═══ ESPERA para que aparezca el cadáver ═══
+                # En Tibia, el cadáver aparece ~0.2-0.3s después de morir
+                time.sleep(0.30)
 
-                # ── v9: intentar detección visual del cadáver ──────────────
+                # ═══ PRIORIDAD 1: Sprite Detection del cadáver ═══
                 positions: List[Tuple[int, int]] = []
-                gsd_used = False
+                source_method = "unknown"
 
-                if self._use_game_screen_detection and self._last_frame is not None:
-                    gsd_pos = self.game_screen_detector.find_corpse_position(
-                        self._last_frame, monster_name
+                if (self._use_sprite_detection and
+                        self.corpse_sprite_detector.has_template(monster_name) and
+                        self._last_frame is not None):
+                    # Usar el frame MÁS RECIENTE (actualizado por process_frame)
+                    fresh_frame = self._last_frame
+                    matches = self.corpse_sprite_detector.find_corpses(
+                        fresh_frame, monster_name, max_results=5
                     )
-                    if gsd_pos is not None:
-                        # GSD detectó el cadáver — click exacto ahí
-                        positions = [gsd_pos]
-                        gsd_used = True
-                        self.gsd_detections += 1
+                    if matches:
+                        positions = [(x, y) for x, y, conf in matches]
+                        source_method = "sprite_detection"
+                        self.sprite_loot_clicks += len(positions)
+                        best_conf = matches[0][2]
                         self._log(
-                            f"GSD detectó cadáver en OBS{gsd_pos} → click exacto"
+                            f"🎯 Sprite: {len(matches)} cadáver(es) de "
+                            f"{monster_name} encontrado(s), "
+                            f"mejor conf={best_conf:.3f}"
+                        )
+                    else:
+                        self._log(
+                            f"Sprite: No se encontró cadáver de {monster_name} "
+                            f"(template exists, 0 matches)"
                         )
 
-                # ── Fallback: SQMs ciegos ──────────────────────────────────
+                # ═══ PRIORIDAD 2 (FALLBACK): SQMs ciegos ═══
                 if not positions:
                     positions = self._calculate_loot_sqms()
                     self.blind_fallbacks += 1
-                    source = "SQMs_fijos" if len(self._sqms) >= 9 else "dinámico"
-
-                    # Último recurso: SQMs proporcionales del GSD
-                    if not positions and self.game_screen_detector.is_ready():
-                        positions = self.game_screen_detector.get_proportional_sqms(
-                            self.max_loot_sqms
-                        )
-                        source = "GSD_proporcional"
+                    source_method = "SQMs_ciegos"
 
                     if not positions:
                         self._log(f"Sin SQMs para lootear {monster_name}")
@@ -358,22 +375,23 @@ class LooterEngine:
                         return
 
                     self._log(
-                        f"GSD sin detección → fallback {source}, "
-                        f"player_center={self._player_center}"
+                        f"Fallback SQMs ciegos: {len(positions)} posiciones, "
+                        f"center={self._player_center}"
                     )
 
-                # Limitar clicks
+                # ═══ EJECUTAR CLICKS ═══
                 clicks_target = min(len(positions), self.max_loot_clicks)
                 positions = positions[:clicks_target]
 
                 coords_str = " → ".join(f"({x},{y})" for x, y in positions)
-                metodo = "GSD_visual" if gsd_used else "ciegos"
                 self._log(
-                    f"Looteando: {monster_name} — {metodo} "
+                    f"Looteando: {monster_name} — {source_method} "
                     f"{clicks_target} clicks: {coords_str}"
                 )
 
-                # Ejecutar clicks
+                # Espera pre-loot: dar tiempo a que el targeting deje de clickear
+                time.sleep(0.10)
+
                 clicks_done = 0
                 for i, (sx, sy) in enumerate(positions):
                     if not self.enabled:
@@ -382,7 +400,7 @@ class LooterEngine:
                     if ok:
                         clicks_done += 1
                         self.total_clicks += 1
-                    # Delay entre clicks (excepto el último)
+                    # Delay entre clicks (Tibia necesita ≥150ms para registrar)
                     if i < clicks_target - 1:
                         time.sleep(self.loot_delay)
 
@@ -390,7 +408,8 @@ class LooterEngine:
                 self._last_loot_time = time.time()
                 self.state = "idle"
                 self._log(
-                    f"Loot OK: {monster_name} — {clicks_done}/{clicks_target} clicks"
+                    f"Loot OK: {monster_name} — {clicks_done}/{clicks_target} clicks "
+                    f"({source_method})"
                 )
 
         except Exception as e:
@@ -433,7 +452,7 @@ class LooterEngine:
                 except Exception as e:
                     self._log(f"Error en right_click fallback({x},{y}): {e}")
                     return False
-        
+
         self._log(f"Sin callback para método {self.loot_method}")
         return False
 
@@ -461,9 +480,9 @@ class LooterEngine:
         if now - self._last_status_log >= 15.0:
             self._last_status_log = now
             self._log(
-                f"v9 Estado: loots={self.total_loots}, "
+                f"v11 Estado: loots={self.total_loots}, "
                 f"clicks={self.total_clicks}, "
-                f"gsd={self.gsd_detections}, "
+                f"sprite={self.sprite_loot_clicks}, "
                 f"ciegos={self.blind_fallbacks}, "
                 f"método={self.loot_method}"
             )
@@ -493,27 +512,31 @@ class LooterEngine:
         self.state = "idle"
         # Cargar templates para compatibilidad (no se usan para detección)
         self.corpse_template_detector.load_templates()
-        self._log(f"Looter v9 activado — GSD visual + SQMs ciegos (fallback)")
+        # v11: Cargar sprites de cadáveres
+        sprite_count = self.corpse_sprite_detector.load_templates()
+        sprite_names = self.corpse_sprite_detector.get_loaded_names()
+
+        self._log(f"Looter v11 activado — Sprite Detection + SQMs ciegos (fallback)")
         self._log(f"  Método click: {self.loot_method}, cuenta: {self.account_type}")
         self._log(f"  SQMs calibrados: {len(self._sqms)} posiciones")
-        self._log(f"  GSD listo: {self.game_screen_detector.is_ready()}")
+        if sprite_count > 0:
+            self._log(f"  🎯 Sprites de cadáveres: {sprite_count} ({sprite_names})")
+        else:
+            self._log(f"  ⚠ Sin sprites de cadáveres — usando SQMs ciegos")
+            self._log(f"    💡 Captura sprites en la pestaña Looter para loot preciso")
+        self._log(f"  Prioridad: Sprite Detection → SQMs ciegos")
         if len(self._sqms) >= 9:
             center = self._sqms[4]
             self._log(f"  SQMs fijos: Center={center}, usando índices [4,1,7,5,3]")
         else:
             self._log(f"  SQMs dinámicos: center={self._player_center}, sqm_size={self._sqm_size}")
         self._log(f"  Max clicks: {self.max_loot_clicks}, delay: {self.loot_delay}s")
-        self._log(f"  Detección GSD: {'HABILITADA' if self._use_game_screen_detection else 'DESHABILITADA'}")
 
         # Verificar calibración
-        gsd_ok = self.game_screen_detector.is_ready()
-        if len(self._sqms) < 9 and self._player_center == (0, 0) and not gsd_ok:
-            self._log("⚠ ADVERTENCIA: Sin calibración completa — presiona 'Calibrar' primero")
-            self._log("  El loot funcionará cuando se calibren las coordenadas")
+        if len(self._sqms) < 9 and self._player_center == (0, 0):
+            self._log("⚠ ADVERTENCIA: Sin calibración — presiona 'Calibrar' primero")
         elif len(self._sqms) >= 9:
-            self._log("✓ Calibración OK — usando SQMs fijos del screen_calibrator")
-        elif gsd_ok:
-            self._log("✓ GSD OK — usando proporciones de game window")
+            self._log("✓ Calibración OK — SQMs fijos del screen_calibrator")
 
     def stop(self):
         self.enabled = False
@@ -522,9 +545,10 @@ class LooterEngine:
         # Esperar a que termine el thread de loot si hay uno activo
         if self._loot_thread and self._loot_thread.is_alive():
             self._loot_thread.join(timeout=1.0)
-        self._log("Looter v9 desactivado")
+        self._log("Looter v11 desactivado")
 
     def get_status(self) -> Dict:
+        sprite_status = self.corpse_sprite_detector.get_status()
         return {
             "enabled": self.enabled,
             "state": self.state,
@@ -533,9 +557,11 @@ class LooterEngine:
             "kill_queue": 0,
             "total_loots": self.total_loots,
             "total_clicks": self.total_clicks,
+            "sprite_loot_clicks": self.sprite_loot_clicks,
             "template_detections": self.template_detections,
             "visual_detections": self.visual_detections,
             "gsd_detections": self.gsd_detections,
+            "death_position_loots": self.death_position_loots,
             "blind_fallbacks": self.blind_fallbacks,
             "thread_loots": self.thread_loots,
             "corpse_templates": len(self.corpse_template_detector._templates),
@@ -547,6 +573,8 @@ class LooterEngine:
             "visual_detection": self._use_visual_detection,
             "gsd_ready": self.game_screen_detector.is_ready(),
             "gsd_enabled": self._use_game_screen_detection,
+            "sprite_detection_enabled": self._use_sprite_detection,
+            "sprite_detector": sprite_status,
         }
 
     def debug_coordinates(self) -> Dict:
@@ -570,17 +598,17 @@ class LooterEngine:
         if not self.enabled:
             self._log("Test ignorado — looter deshabilitado")
             return False
-        
+
         if not self._left_click_fn:
             self._log("Test ignorado — sin callback de click")
             return False
-        
+
         # Calcular posiciones
         positions = self._calculate_loot_sqms()
         if not positions:
             self._log("Test ignorado — sin SQMs calculados")
             return False
-        
+
         # Ejecutar test en thread separado (igual que loot real)
         self._log(f"🧪 TEST LOOT iniciado — {len(positions)} SQMs")
         thread = threading.Thread(

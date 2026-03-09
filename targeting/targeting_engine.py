@@ -17,6 +17,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 import numpy as np
 
 from targeting.battle_list_reader import BattleListReader, CreatureEntry
+from targeting.creature_tracker import CreatureTracker
 
 
 # Default creature profile
@@ -40,6 +41,7 @@ class TargetingEngine:
 
     def __init__(self):
         self.battle_reader = BattleListReader()
+        self.creature_tracker = CreatureTracker()
 
         # Estado
         self.enabled: bool = False
@@ -100,6 +102,11 @@ class TargetingEngine:
         self._target_switch_cooldown: float = 0.3
         self._last_target_switch: float = 0.0
 
+        # --- Post-kill cooldown ---
+        # Después de un kill, esperar antes de re-atacar para que el looter lootee
+        self._last_kill_time: float = 0.0
+        self._post_kill_cooldown: float = 0.3  # 0.3s de gracia para el looter (reducido de 0.8)
+
         # --- Status logging ---
         self._last_status_log: float = 0.0
 
@@ -125,6 +132,14 @@ class TargetingEngine:
     def set_calibrator(self, calibrator):
         """Referencia al ScreenCalibrator para detectar chase/stand mode."""
         self._calibrator = calibrator
+        # Propagar regiones al creature_tracker cuando estén disponibles
+        if calibrator is not None:
+            if hasattr(calibrator, 'game_region') and calibrator.game_region:
+                self.creature_tracker.set_game_region(*calibrator.game_region)
+            if hasattr(calibrator, 'player_center') and calibrator.player_center:
+                self.creature_tracker.set_player_center(*calibrator.player_center)
+            if hasattr(calibrator, 'sqm_size') and calibrator.sqm_size:
+                self.creature_tracker.set_sqm_size(*calibrator.sqm_size)
 
     def set_battle_region(self, x1, y1, x2, y2):
         """Configura la región de la battle list."""
@@ -178,6 +193,9 @@ class TargetingEngine:
         # Also wire to battle_reader for diagnostics
         if not self.battle_reader._log_fn and self._log_fn:
             self.battle_reader.set_log_callback(self._log_fn)
+        # Wire creature_tracker log
+        if not self.creature_tracker._log_fn and self._log_fn:
+            self.creature_tracker.set_log_callback(self._log_fn)
 
     # ==================================================================
     # Per-creature profile helpers
@@ -291,11 +309,28 @@ class TargetingEngine:
         current_total = len(creatures)
 
         # ========== KILL DETECTION por nombre (v2) ==========
+        kills_before = self.monsters_killed
         self._detect_kills_by_name(current_counts, frame)
+        kills_happened = self.monsters_killed > kills_before
 
         # Actualizar conteo previo
         self._prev_counts_by_name = current_counts.copy()
         self._prev_total_count = current_total
+
+        # Si hubo kill(s) → RETURN EARLY para dar tiempo al looter
+        if kills_happened:
+            self._last_kill_time = now
+            return
+
+        # Cooldown post-kill: no atacar mientras el looter está looteando
+        if now - self._last_kill_time < self._post_kill_cooldown:
+            return
+
+        # Si el looter está activamente looteando, no enviar clicks para evitar
+        # race conditions en el mouse (targeting y looter comparten el sender)
+        if (self._looter_engine is not None
+                and getattr(self._looter_engine, "state", "idle") == "looting"):
+            return
 
         # ========== Sin criaturas → idle ==========
         if not creatures:
@@ -335,6 +370,8 @@ class TargetingEngine:
         if already_attacking and self.current_target:
             # YA estamos atacando Y tenemos target — no re-clickear
             self.state = "attacking"
+            # v10: Rastrear posición del target en el game screen
+            self._track_target_position(frame, creatures)
             return
 
         # Si tenemos un target activo y sigue en la battle list → no re-clickear
@@ -346,6 +383,8 @@ class TargetingEngine:
             )
             if target_active:
                 self.state = "attacking"
+                # v10: Rastrear posición del target en el game screen
+                self._track_target_position(frame, creatures)
                 return
 
         # NO estamos atacando (o perdimos el target) → buscar y atacar
@@ -404,12 +443,24 @@ class TargetingEngine:
 
     def _notify_kill(self, monster_name: str, frame=None):
         """Notifica una kill al looter directamente y resetea el fallback de ataque.
-        v7: Pasa el frame actual para que el looter pueda detectar cadáveres visualmente."""
+        v7: Pasa el frame actual para que el looter pueda detectar cadáveres visualmente.
+        v10: Pasa la posición de muerte del game screen para click preciso."""
+        # v10: Obtener posición de muerte del creature tracker
+        death_position = self.creature_tracker.get_death_position()
+        if death_position:
+            self._log(
+                f"Posición de muerte detectada: OBS{death_position} "
+                f"(método: {self.creature_tracker._last_method})"
+            )
+
         # IMPORTANTE: Resetear el fallback temporal de is_attacking
         # Si el monstruo murió, ya NO estamos atacando — el targeting debe buscar nuevo target
         self.battle_reader._last_attack_click_time = 0.0
         self.battle_reader._last_attack_click_name = ""
         self.current_target = None  # Soltar target — buscar otro inmediatamente
+
+        # Resetear el tracker (el target murió)
+        self.creature_tracker.reset()
 
         if self._looter_engine:
             self._looter_engine.notify_kill(
@@ -417,6 +468,7 @@ class TargetingEngine:
                 self.last_attack_position[0],
                 self.last_attack_position[1],
                 frame=frame,
+                death_position=death_position,
             )
 
     def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
@@ -453,6 +505,7 @@ class TargetingEngine:
     def _attack_target(self, frame: np.ndarray, target: CreatureEntry):
         """Hace click en el monstruo en la battle list para atacarlo."""
         if not self._click_fn:
+            self._log("⚠ Sin callback de click — no se puede atacar")
             return
 
         x, y = target.screen_x, target.screen_y
@@ -466,7 +519,9 @@ class TargetingEngine:
             if old_target != target.name:
                 self._apply_chase_mode_for_creature(target.name, frame)
 
-            self._click_fn(x, y)
+            result = self._click_fn(x, y)
+            if result is False:
+                self._log(f"⚠ Click FALLÓ en ({x},{y}) para {target.name}")
             self.current_target = target.name
             self.last_attack_position = (x, y)
             self.last_attack_name = target.name
@@ -482,6 +537,47 @@ class TargetingEngine:
                 self._log(f"Atacando: {target.name} en ({x},{y})")
             else:
                 self._log(f"Re-atacando: {target.name}")
+
+    # ==================================================================
+    # v10: Tracking de posición en game screen
+    # ==================================================================
+    def _track_target_position(self, frame: np.ndarray, creatures: List[CreatureEntry]):
+        """
+        Rastrea la posición del target actual en el game screen.
+        Llamado cada frame mientras estamos atacando.
+        """
+        if not self.current_target or frame is None:
+            return
+
+        # Encontrar el índice del target actual en la battle list
+        target_index = 0
+        for i, c in enumerate(creatures):
+            if c.name.lower() == self.current_target.lower():
+                target_index = i
+                break
+
+        # Delegar al creature tracker
+        pos = self.creature_tracker.track(frame, self.current_target, target_index)
+        if pos and self.creature_tracker._last_method == "sprite":
+            # Solo loguear detecciones por sprite (las inferidas son muy frecuentes)
+            if self.creature_tracker.sprite_detections % 50 == 1:
+                self._log(
+                    f"Tracker: {self.current_target} en OBS{pos} "
+                    f"(conf={self.creature_tracker._last_confidence:.2f})"
+                )
+
+    def update_tracker_calibration(self):
+        """
+        Actualiza la calibración del creature tracker con las regiones actuales.
+        Llamado cuando se completa una re-calibración.
+        """
+        if self._calibrator:
+            if self._calibrator.game_region:
+                self.creature_tracker.set_game_region(*self._calibrator.game_region)
+            if self._calibrator.player_center:
+                self.creature_tracker.set_player_center(*self._calibrator.player_center)
+            if self._calibrator.sqm_size:
+                self.creature_tracker.set_sqm_size(*self._calibrator.sqm_size)
 
     # ==================================================================
     # API pública
@@ -510,7 +606,7 @@ class TargetingEngine:
         self.state = "idle"
         tpl_count = len(self.battle_reader._name_templates)
         region = self.battle_reader.battle_region
-        self._log("Targeting v3 activado")
+        self._log("Targeting v3 + Tracker v10 activado")
         self._log(f"  Templates: {tpl_count} ({list(self.battle_reader._name_templates.keys())})")
         self._log(f"  Battle region: {region}")
         self._log(f"  Attack list: {self.monsters_to_attack}")
@@ -523,6 +619,14 @@ class TargetingEngine:
             self._log("⚠ Sin templates — configura monstruos y guarda")
         if region is None:
             self._log("⚠ Sin battle region — presiona 'Calibrar' primero")
+        # v10: Cargar sprites y actualizar calibración del tracker
+        self.update_tracker_calibration()
+        sprites = self.creature_tracker.load_sprite_templates(self.monsters_to_attack or None)
+        if sprites > 0:
+            self._log(f"  Tracker: {sprites} sprites cargados para tracking visual")
+        else:
+            self._log("  Tracker: Sin sprites — usando inferencia por battle list")
+            self._log("    💡 Captura sprites en la pestaña Looter para mejor precisión")
 
     def stop(self):
         self.enabled = False
@@ -540,6 +644,7 @@ class TargetingEngine:
         return self._prev_total_count
 
     def get_status(self) -> Dict:
+        tracker_status = self.creature_tracker.get_status()
         return {
             "enabled": self.enabled,
             "state": self.state,
@@ -552,4 +657,5 @@ class TargetingEngine:
             "counts_by_name": self._prev_counts_by_name.copy(),
             "creature_profiles": len(self.creature_profiles),
             "current_chase_mode": self._current_chase_mode,
+            "tracker": tracker_status,
         }
