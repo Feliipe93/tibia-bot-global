@@ -337,6 +337,17 @@ class TargetingEngine:
             self.state = "attacking"
             return
 
+        # Si tenemos un target activo y sigue en la battle list → no re-clickear
+        # (el juego ya está procesando el ataque)
+        if self.current_target:
+            target_active = any(
+                c.name.lower() == self.current_target.lower()
+                for c in creatures
+            )
+            if target_active:
+                self.state = "attacking"
+                return
+
         # NO estamos atacando (o perdimos el target) → buscar y atacar
         time_since_attack = now - self.last_attack_time
         time_since_switch = now - self._last_target_switch

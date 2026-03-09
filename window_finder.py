@@ -14,30 +14,45 @@ def find_tibia_windows() -> List[Dict]:
     La ventana de Tibia se llama 'Tibia - NombreDelPersonaje'.
 
     Retorna una lista de diccionarios con info de cada ventana encontrada.
+    Las ventanas del propio bot ('Tibia Auto Healer') se excluyen.
+    Las ventanas con patrón 'Tibia - ' (juego real) tienen prioridad.
     """
+    # Palabras que identifican el bot propio (NO son el juego)
+    BOT_TITLE_KEYWORDS = ["tibia auto healer", "bot healer", "auto healer"]
+
     results = []
 
     def callback(hwnd, _):
         if not win32gui.IsWindowVisible(hwnd):
             return
         title = win32gui.GetWindowText(hwnd)
-        if "tibia" in title.lower():
-            rect = win32gui.GetWindowRect(hwnd)
-            x, y, x2, y2 = rect
-            w = x2 - x
-            h = y2 - y
-            # Filtrar ventanas muy pequeñas (splash screens, tooltips)
-            if w > 300 and h > 200:
-                results.append({
-                    "hwnd": hwnd,
-                    "title": title,
-                    "x": x,
-                    "y": y,
-                    "width": w,
-                    "height": h,
-                })
+        title_lower = title.lower()
+        if "tibia" not in title_lower:
+            return
+        # Excluir ventanas del bot propio
+        if any(k in title_lower for k in BOT_TITLE_KEYWORDS):
+            return
+        rect = win32gui.GetWindowRect(hwnd)
+        x, y, x2, y2 = rect
+        w = x2 - x
+        h = y2 - y
+        # Filtrar ventanas muy pequeñas (splash screens, tooltips)
+        if w > 300 and h > 200:
+            # is_game: True si sigue el patrón "Tibia - Personaje"
+            is_game = title_lower.startswith("tibia -")
+            results.append({
+                "hwnd": hwnd,
+                "title": title,
+                "x": x,
+                "y": y,
+                "width": w,
+                "height": h,
+                "is_game": is_game,
+            })
 
     win32gui.EnumWindows(callback, None)
+    # Ordenar: primero las ventanas del juego real (patrón "Tibia - ")
+    results.sort(key=lambda r: (not r.get("is_game", False), r["title"]))
     return results
 
 

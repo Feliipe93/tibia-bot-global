@@ -9856,3 +9856,1491 @@
 [13:04:05] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
 [13:04:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=11
 [13:04:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=11
+[13:04:17] INFO     📊 [Looter] v8 Estado: loots=11, clicks=55, threads=11, método=left_click
+[13:04:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=11
+[13:04:21] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:04:21] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:04:25] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=11
+[13:04:28] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 12
+[13:04:28] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:04:28] INFO     📊 [Targeting] → Atacando: Rat en (1281,492)
+[13:04:28] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:04:28] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:04:28] INFO     📊 [Targeting] Atacando: Rat en (1281,492)
+[13:04:28] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:04:31] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=12
+[13:04:33] INFO     📊 [Looter] v8 Estado: loots=12, clicks=60, threads=12, método=left_click
+[13:04:37] INFO     📊 [Targeting] Estado: target=Rat, criaturas=2, templates=3, kills=12
+[13:04:38] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:04:38] DEBUG    🔍 Debug image guardada (ciclo #280)
+[13:04:43] INFO     📊 [Targeting] Estado: target=Rat, criaturas=3, templates=3, kills=12
+[13:04:49] INFO     📊 [Targeting] Estado: target=Rat, criaturas=3, templates=3, kills=12
+[13:04:49] INFO     📊 [Looter] v8 Estado: loots=12, clicks=60, threads=12, método=left_click
+[13:15:34] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[13:15:34] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:15:34] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:15:34] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:15:34] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[13:15:34] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[13:15:34] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[13:15:34] INFO     📊   HWND=1119450 | Ventanas Tibia encontradas: 2
+[13:15:34] INFO     📊   [0] hwnd=1119450 title='Tibia - Pastero codode bronze' (1382x744)
+[13:15:34] INFO     📊   [1] hwnd=66592 title='Explicación de bots con OBS para Tibia - DeepSeek - Brave' (1382x744)
+[13:15:34] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:15:34] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:15:34] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:15:34] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[13:15:34] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[13:15:34] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[13:15:34] INFO     📊 Ventanas Tibia encontradas: 2
+[13:15:34] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[13:15:34] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[13:15:34] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[13:15:34] INFO     📊 Loop principal iniciado
+[13:15:34] INFO     ✅ Bot iniciado
+[13:15:35] INFO     ✅ GUI iniciada correctamente
+[13:15:36] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:15:36] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:15:36] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:15:37] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:15:37] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:15:37] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:15:37] INFO     📊   ✗ right_opt1: confianza=0.565 < 0.6 (fallido)
+[13:15:37] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:15:37] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[13:15:37] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:15:37] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:15:37] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.565 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.867
+[13:15:37] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:15:37] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:15:37] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:15:37] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:15:37] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:15:37] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:15:37] INFO     📊 SQMs configurados: 9 posiciones
+[13:15:37] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:15:37] INFO     📊 Player center: (592, 252)
+[13:15:37] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:15:37] INFO     ✅ Calibración completada exitosamente
+[13:15:43] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:15:43] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:15:43] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[13:15:43] INFO     📊 Módulo 'targeting' habilitado
+[13:15:43] INFO     📊 [Targeting] Targeting v3 activado
+[13:15:43] INFO     📊 [Targeting]   Templates: 3 (['Swamp Troll', 'Cave Rat', 'Rat'])
+[13:15:43] INFO     📊 [Targeting]   Battle region: (1194, 487, 1359, 887)
+[13:15:43] INFO     📊 [Targeting]   Attack list: ['Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[13:15:43] INFO     📊 [Targeting]   Delays: attack=0.8s re-attack=1.2s
+[13:15:43] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[13:15:43] INFO     📊 Targeting habilitado
+[13:15:44] ERROR    ❌ Error en módulo 'targeting': cannot access local variable 'current_total' where it is not associated with a value
+[13:15:45] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:15:45] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:15:45] INFO     ✅ Configuración del Looter guardada
+[13:15:45] INFO     📊 Módulo 'looter' habilitado
+[13:15:45] INFO     📊 [CorpseTpl] Template cargado: Swamp Troll (57×58px)
+[13:15:45] INFO     📊 [CorpseTpl] Total templates de cadáveres: 1
+[13:15:45] INFO     📊 [Looter] Looter v8 activado — SOLO SQMs ciegos (thread separado)
+[13:15:45] INFO     📊 [Looter]   Método click: left_click, cuenta: free
+[13:15:45] INFO     📊 [Looter]   SQMs calibrados: 9 posiciones
+[13:15:45] INFO     📊 [Looter]   SQMs fijos: Center=(592, 252), usando índices [4,1,7,5,3]
+[13:15:45] INFO     📊 [Looter]   Max clicks: 5, delay: 0.05s
+[13:15:45] INFO     📊 [Looter]   Detección visual: DESHABILITADA (TPL=0.25 conf, HSV=falsos positivos)
+[13:15:45] INFO     📊 [Looter] ✓ Calibración OK — usando SQMs fijos del screen_calibrator
+[13:15:45] INFO     📊 Looter habilitado
+[13:15:45] INFO     📊 [Looter] v8 Estado: loots=0, clicks=0, threads=0, método=left_click
+[13:16:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:16:01] INFO     📊 [Looter] v8 Estado: loots=0, clicks=0, threads=0, método=left_click
+[13:16:11] INFO     📊 Módulo 'targeting' deshabilitado
+[13:16:11] INFO     📊 [Targeting] Targeting desactivado
+[13:16:11] INFO     📊 Targeting deshabilitado
+[13:16:14] INFO     📊 Módulo 'looter' deshabilitado
+[13:16:14] INFO     📊 [Looter] Looter v8 desactivado
+[13:16:14] INFO     📊 Looter deshabilitado
+[13:16:15] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:16:16] DEBUG    🔍 Debug image guardada (ciclo #40)
+[13:16:35] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:16:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:16:56] DEBUG    🔍 Debug image guardada (ciclo #80)
+[13:17:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:17:30] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:17:30] DEBUG    🔍 Debug image guardada (ciclo #120)
+[13:17:30] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:17:30] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:17:30] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:17:30] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:17:30] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:17:30] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:17:30] INFO     📊   ✗ right_opt1: confianza=0.596 < 0.6 (fallido)
+[13:17:30] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:17:30] INFO     📊   ✓ right_opt3: confianza=0.786 >= 0.6 en (1190,545)
+[13:17:30] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:17:30] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:17:30] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.596 | right_opt2=1.000 | right_opt3=0.786 | right_opt4=0.643 | EndLocation=0.867
+[13:17:30] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:17:30] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:17:30] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:17:30] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:17:30] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:17:30] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:17:30] INFO     📊 SQMs configurados: 9 posiciones
+[13:17:30] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:17:30] INFO     📊 Player center: (592, 252)
+[13:17:30] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:17:30] INFO     ✅ Calibración completada exitosamente
+[13:17:59] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:18:25] INFO     📊 Cerrando aplicación...
+[13:18:28] INFO     ✅ Bot detenido
+[13:18:40] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[13:18:40] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:18:40] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:18:40] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:18:40] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[13:18:40] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[13:18:40] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[13:18:40] INFO     📊   HWND=1119450 | Ventanas Tibia encontradas: 3
+[13:18:40] INFO     📊   [0] hwnd=1119450 title='Tibia - Pastero codode bronze' (1382x744)
+[13:18:40] INFO     📊   [1] hwnd=1247104 title='Tibia Auto Healer' (993x519)
+[13:18:40] INFO     📊   [2] hwnd=66592 title='Explicación de bots con OBS para Tibia - DeepSeek - Brave' (1382x744)
+[13:18:40] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:18:40] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:18:40] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:18:40] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[13:18:40] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[13:18:40] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[13:18:40] INFO     📊 Ventanas Tibia encontradas: 3
+[13:18:40] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[13:18:40] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[13:18:40] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[13:18:40] INFO     📊 Loop principal iniciado
+[13:18:40] INFO     ✅ Bot iniciado
+[13:18:40] INFO     ✅ GUI iniciada correctamente
+[13:18:41] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:18:41] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:18:41] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:18:41] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:18:41] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:18:41] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:18:42] INFO     📊   ✗ right_opt1: confianza=0.596 < 0.6 (fallido)
+[13:18:42] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:18:42] INFO     📊   ✓ right_opt3: confianza=0.758 >= 0.6 en (1190,600)
+[13:18:42] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:18:42] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:18:42] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.596 | right_opt2=1.000 | right_opt3=0.758 | right_opt4=0.643 | EndLocation=0.867
+[13:18:42] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:18:42] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:18:42] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:18:42] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:18:42] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:18:42] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:18:42] INFO     📊 SQMs configurados: 9 posiciones
+[13:18:42] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:18:42] INFO     📊 Player center: (592, 252)
+[13:18:42] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:18:42] INFO     ✅ Calibración completada exitosamente
+[13:18:48] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[13:18:48] INFO     📊 [Targeting] Templates cargados: 3/4
+[13:18:48] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[13:18:48] INFO     📊 Módulo 'targeting' habilitado
+[13:18:48] INFO     📊 [Targeting] Targeting v3 activado
+[13:18:48] INFO     📊 [Targeting]   Templates: 3 (['Swamp Troll', 'Cave Rat', 'Rat'])
+[13:18:48] INFO     📊 [Targeting]   Battle region: (1194, 487, 1359, 887)
+[13:18:48] INFO     📊 [Targeting]   Attack list: ['Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[13:18:48] INFO     📊 [Targeting]   Delays: attack=0.8s re-attack=1.2s
+[13:18:48] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[13:18:48] INFO     📊 Targeting habilitado
+[13:18:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=0
+[13:18:48] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,513)
+[13:18:49] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,513)
+[13:18:54] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=0
+[13:18:59] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=0
+[13:19:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:19:05] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=0
+[13:19:10] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=0
+[13:19:15] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=0
+[13:19:18] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 1
+[13:19:18] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,513)
+[13:19:19] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,513)
+[13:19:20] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=1
+[13:19:22] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:19:22] DEBUG    🔍 Debug image guardada (ciclo #40)
+[13:19:25] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=1
+[13:19:27] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 2
+[13:19:27] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,513)
+[13:19:27] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,513)
+[13:19:29] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[13:19:29] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[13:19:29] INFO     ✅ Configuración del Looter guardada
+[13:19:29] INFO     📊 Módulo 'looter' habilitado
+[13:19:29] INFO     📊 [CorpseTpl] Template cargado: Swamp Troll (57×58px)
+[13:19:29] INFO     📊 [CorpseTpl] Total templates de cadáveres: 1
+[13:19:29] INFO     📊 [Looter] Looter v8 activado — SOLO SQMs ciegos (thread separado)
+[13:19:29] INFO     📊 [Looter]   Método click: left_click, cuenta: free
+[13:19:29] INFO     📊 [Looter]   SQMs calibrados: 9 posiciones
+[13:19:29] INFO     📊 [Looter]   SQMs fijos: Center=(592, 252), usando índices [4,1,7,5,3]
+[13:19:29] INFO     📊 [Looter]   Max clicks: 5, delay: 0.05s
+[13:19:29] INFO     📊 [Looter]   Detección visual: DESHABILITADA (TPL=0.25 conf, HSV=falsos positivos)
+[13:19:29] INFO     📊 [Looter] ✓ Calibración OK — usando SQMs fijos del screen_calibrator
+[13:19:29] INFO     📊 Looter habilitado
+[13:19:30] INFO     📊 [Looter] v8 Estado: loots=0, clicks=0, threads=0, método=left_click
+[13:19:32] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=2
+[13:19:32] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 3
+[13:19:32] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:19:32] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,513)
+[13:19:32] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,513)
+[13:19:32] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:19:32] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:19:32] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:19:38] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=3
+[13:19:43] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=3
+[13:19:45] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 4
+[13:19:45] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:19:45] INFO     📊 [Targeting] → Atacando: Rat en (1281,492)
+[13:19:45] INFO     📊   ✗ NotFollow: confianza=0.642 < 0.65 (fallido)
+[13:19:45] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:19:45] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:19:45] INFO     📊 [Targeting] Atacando: Rat en (1281,492)
+[13:19:45] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:19:46] INFO     📊 [Looter] v8 Estado: loots=2, clicks=10, threads=2, método=left_click
+[13:19:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:19:49] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:19:54] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:00] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:01] INFO     📊 [Looter] v8 Estado: loots=2, clicks=10, threads=2, método=left_click
+[13:20:06] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:08] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:20:08] DEBUG    🔍 Debug image guardada (ciclo #80)
+[13:20:11] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:17] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:17] INFO     📊 [Looter] v8 Estado: loots=2, clicks=10, threads=2, método=left_click
+[13:20:23] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=3, kills=4
+[13:20:23] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 5
+[13:20:23] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[13:20:23] INFO     📊 [Looter] Looteando: Rat — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:20:23] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:20:23] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks
+[13:20:26] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:20:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:33] INFO     📊 [Looter] v8 Estado: loots=3, clicks=15, threads=3, método=left_click
+[13:20:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:48] INFO     📊 [Looter] v8 Estado: loots=3, clicks=15, threads=3, método=left_click
+[13:20:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:20:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:20:56] DEBUG    🔍 Debug image guardada (ciclo #120)
+[13:20:56] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:20:56] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:20:56] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:20:56] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:20:56] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:20:56] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:20:56] INFO     📊   ✓ right_opt1: confianza=0.630 >= 0.6 en (1196,10)
+[13:20:56] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:20:56] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[13:20:56] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:20:56] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:20:56] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.630 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.867
+[13:20:56] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:20:56] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:20:56] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:20:56] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:20:56] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:20:56] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:20:56] INFO     📊 SQMs configurados: 9 posiciones
+[13:20:56] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:20:56] INFO     📊 Player center: (592, 252)
+[13:20:56] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:20:56] INFO     ✅ Calibración completada exitosamente
+[13:21:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:21:04] INFO     📊 [Looter] v8 Estado: loots=3, clicks=15, threads=3, método=left_click
+[13:21:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:21:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[13:21:14] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:21:16] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:21:17] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:21:17] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=5
+[13:21:19] INFO     📊 [Looter] v8 Estado: loots=3, clicks=15, threads=3, método=left_click
+[13:21:23] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=5
+[13:21:25] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 6
+[13:21:25] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:21:25] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:21:25] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:21:26] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:21:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:21:34] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:21:34] DEBUG    🔍 Debug image guardada (ciclo #160)
+[13:21:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:21:35] INFO     📊 [Looter] v8 Estado: loots=4, clicks=20, threads=4, método=left_click
+[13:21:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:21:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:21:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:21:50] INFO     📊 [Looter] v8 Estado: loots=4, clicks=20, threads=4, método=left_click
+[13:21:51] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:21:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:06] INFO     📊 [Looter] v8 Estado: loots=4, clicks=20, threads=4, método=left_click
+[13:22:10] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:22:10] DEBUG    🔍 Debug image guardada (ciclo #200)
+[13:22:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:23] INFO     📊 [Looter] v8 Estado: loots=4, clicks=20, threads=4, método=left_click
+[13:22:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[13:22:38] INFO     📊 [Looter] v8 Estado: loots=4, clicks=20, threads=4, método=left_click
+[13:22:39] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:22:39] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:22:40] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:22:42] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=6
+[13:22:47] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=6
+[13:22:47] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 7
+[13:22:47] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:22:47] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:22:47] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:22:47] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:22:52] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=7
+[13:22:53] INFO     📊 [Looter] v8 Estado: loots=5, clicks=25, threads=5, método=left_click
+[13:22:54] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:22:54] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:22:58] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=7
+[13:23:01] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 8
+[13:23:01] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:23:01] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:23:01] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:23:01] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:23:01] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:23:02] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:23:03] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:23:03] DEBUG    🔍 Debug image guardada (ciclo #240)
+[13:23:03] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:23:03] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:23:03] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:23:03] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:23:03] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:23:03] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:23:03] INFO     📊   ✗ right_opt1: confianza=0.581 < 0.6 (fallido)
+[13:23:04] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:23:04] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[13:23:04] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:23:04] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:23:04] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.581 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.867
+[13:23:04] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:23:04] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:23:04] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:23:04] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:23:04] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:23:04] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:23:04] INFO     📊 SQMs configurados: 9 posiciones
+[13:23:04] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:23:04] INFO     📊 Player center: (592, 252)
+[13:23:04] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:23:04] INFO     ✅ Calibración completada exitosamente
+[13:23:04] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=8
+[13:23:06] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 9
+[13:23:06] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:23:07] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:23:07] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:23:07] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:23:08] INFO     📊 [Looter] v8 Estado: loots=7, clicks=35, threads=7, método=left_click
+[13:23:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=9
+[13:23:13] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:23:13] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:23:15] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=9
+[13:23:21] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=9
+[13:23:21] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 10
+[13:23:21] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:23:21] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:23:21] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:23:21] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:23:21] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:23:21] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:23:24] INFO     📊 [Looter] v8 Estado: loots=8, clicks=40, threads=8, método=left_click
+[13:23:26] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:23:26] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=10
+[13:23:28] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 11
+[13:23:28] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:23:28] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:23:28] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:23:28] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:23:31] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:23:31] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:23:32] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=11
+[13:23:39] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=11
+[13:23:39] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:23:45] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=11
+[13:23:51] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=11
+[13:23:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:23:53] DEBUG    🔍 Debug image guardada (ciclo #280)
+[13:23:55] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:23:56] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:01] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:07] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:12] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:24:13] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:24:18] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:23] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:28] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:24:31] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:37] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:42] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:44] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:24:48] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:50] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:24:50] DEBUG    🔍 Debug image guardada (ciclo #320)
+[13:24:53] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:58] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:24:59] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:25:04] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:25:09] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:25:11] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:25:14] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:25:15] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:25:19] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:25:25] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=11
+[13:25:30] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:25:32] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:25:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:25:33] DEBUG    🔍 Debug image guardada (ciclo #360)
+[13:25:33] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:25:33] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:25:33] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:25:34] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:25:34] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:25:34] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:25:34] INFO     📊   ✓ right_opt1: confianza=0.618 >= 0.6 en (1196,62)
+[13:25:34] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:25:34] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[13:25:34] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:25:34] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:25:34] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:25:34] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:25:34] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:25:34] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:25:34] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:25:34] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:25:34] INFO     📊 SQMs configurados: 9 posiciones
+[13:25:34] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:25:34] INFO     📊 Player center: (592, 252)
+[13:25:34] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:25:34] INFO     ✅ Calibración completada exitosamente
+[13:25:35] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:25:41] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:25:46] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:25:47] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:25:52] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:25:57] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:26:03] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:03] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:26:09] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:15] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:19] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:26:20] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:27] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:30] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:26:30] DEBUG    🔍 Debug image guardada (ciclo #400)
+[13:26:33] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:35] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:26:39] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:46] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:50] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:26:52] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:26:59] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:27:04] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:27:05] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:27:06] INFO     📊 [Looter] v8 Estado: loots=9, clicks=45, threads=9, método=left_click
+[13:27:11] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:27:16] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=11
+[13:27:19] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 12
+[13:27:19] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:27:19] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:27:19] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:27:19] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:27:20] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:27:20] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:27:21] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=12
+[13:27:22] INFO     📊 [Looter] v8 Estado: loots=10, clicks=50, threads=10, método=left_click
+[13:27:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:27:24] DEBUG    🔍 Debug image guardada (ciclo #440)
+[13:27:25] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 13
+[13:27:25] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:27:25] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:27:25] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:27:25] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:27:25] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:27:25] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:27:27] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=13
+[13:27:28] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 14
+[13:27:28] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:27:28] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:27:28] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:27:28] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:27:29] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:27:29] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:27:33] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=14
+[13:27:35] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 15
+[13:27:35] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[13:27:35] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[13:27:35] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[13:27:36] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[13:27:37] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:27:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:27:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:27:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:27:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:27:52] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:27:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:28:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:28:06] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:28:06] DEBUG    🔍 Debug image guardada (ciclo #480)
+[13:28:06] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:28:06] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:28:06] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:28:06] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[13:28:06] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:28:06] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:28:07] INFO     📊   ✓ right_opt1: confianza=0.726 >= 0.6 en (1196,44)
+[13:28:07] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:28:07] INFO     📊   ✓ right_opt3: confianza=0.758 >= 0.6 en (1190,504)
+[13:28:07] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:28:07] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:28:07] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:28:07] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:28:07] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:28:07] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:28:07] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:28:07] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:28:07] INFO     📊 SQMs configurados: 9 posiciones
+[13:28:07] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:28:07] INFO     📊 Player center: (592, 252)
+[13:28:07] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:28:07] INFO     ✅ Calibración completada exitosamente
+[13:28:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:28:08] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:28:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:28:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=15
+[13:28:17] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[13:28:17] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[13:28:23] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:23] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:28:29] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:28:29] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:35] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:39] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:28:41] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:46] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:52] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:28:54] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:28:54] DEBUG    🔍 Debug image guardada (ciclo #520)
+[13:28:54] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:28:57] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:03] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:08] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:09] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:29:14] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[13:29:14] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:19] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:24] INFO     📊 Forzando recalibración de regiones...
+[13:29:24] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:29:24] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:29:24] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:29:24] INFO     📊   ✓ left_opt1: confianza=0.690 >= 0.6 en (852,12)
+[13:29:24] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:29:24] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:29:24] INFO     📊   ✓ right_opt1: confianza=0.700 >= 0.6 en (1196,49)
+[13:29:24] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:29:24] INFO     📊   ✓ right_opt3: confianza=0.761 >= 0.6 en (1190,545)
+[13:29:24] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:29:24] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:29:24] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:29:24] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:29:24] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:29:24] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:29:24] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:29:24] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:29:24] INFO     📊 SQMs configurados: 9 posiciones
+[13:29:24] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:29:24] INFO     📊 Player center: (592, 252)
+[13:29:24] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:29:24] INFO     ✅ Calibración completada exitosamente
+[13:29:25] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:25] INFO     📊 [Looter] v8 Estado: loots=13, clicks=65, threads=13, método=left_click
+[13:29:25] INFO     ✅ Captura de prueba: 1366x705 px, brillo=77.2
+[13:29:25] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:29:25] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:29:25] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:29:25] INFO     📊   ✓ left_opt1: confianza=0.690 >= 0.6 en (852,12)
+[13:29:25] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:29:25] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:29:25] INFO     📊   ✓ right_opt1: confianza=0.700 >= 0.6 en (1196,49)
+[13:29:25] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:29:25] INFO     📊   ✓ right_opt3: confianza=0.758 >= 0.6 en (1190,600)
+[13:29:25] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:29:25] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:29:25] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:29:25] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:29:25] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:29:25] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:29:25] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:29:25] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:29:25] INFO     📊 SQMs configurados: 9 posiciones
+[13:29:25] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:29:25] INFO     📊 Player center: (592, 252)
+[13:29:25] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:29:25] INFO     ✅ Calibración completada exitosamente
+[13:29:25] INFO     ✅ Recalibración exitosa
+[13:29:26] INFO     📊 Forzando recalibración de regiones...
+[13:29:26] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:29:26] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:29:26] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:29:26] INFO     📊   ✓ left_opt1: confianza=0.690 >= 0.6 en (852,12)
+[13:29:26] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:29:26] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:29:26] INFO     📊   ✓ right_opt1: confianza=0.700 >= 0.6 en (1196,49)
+[13:29:26] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:29:26] INFO     📊   ✓ right_opt3: confianza=0.761 >= 0.6 en (1190,545)
+[13:29:26] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:29:26] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:29:26] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:29:26] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:29:26] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:29:26] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:29:26] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:29:26] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:29:26] INFO     📊 SQMs configurados: 9 posiciones
+[13:29:26] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:29:26] INFO     📊 Player center: (592, 252)
+[13:29:26] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:29:26] INFO     ✅ Calibración completada exitosamente
+[13:29:27] INFO     ✅ Captura de prueba: 1366x705 px, brillo=77.2
+[13:29:27] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:29:27] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:29:27] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:29:27] INFO     📊   ✓ left_opt1: confianza=0.690 >= 0.6 en (852,12)
+[13:29:27] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:29:27] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:29:27] INFO     📊   ✓ right_opt1: confianza=0.700 >= 0.6 en (1196,49)
+[13:29:27] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:29:27] INFO     📊   ✓ right_opt3: confianza=0.758 >= 0.6 en (1190,600)
+[13:29:27] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:29:27] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:29:27] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:29:27] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:29:27] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:29:27] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:29:27] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:29:27] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:29:27] INFO     📊 SQMs configurados: 9 posiciones
+[13:29:27] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:29:27] INFO     📊 Player center: (592, 252)
+[13:29:27] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:29:27] INFO     ✅ Calibración completada exitosamente
+[13:29:27] INFO     ✅ Recalibración exitosa
+[13:29:27] INFO     📊 Forzando recalibración de regiones...
+[13:29:28] INFO     ✅ Captura de prueba: 1366x705 px, brillo=77.2
+[13:29:28] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[13:29:28] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[13:29:28] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[13:29:28] INFO     📊   ✓ left_opt1: confianza=0.690 >= 0.6 en (852,12)
+[13:29:28] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[13:29:28] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[13:29:28] INFO     📊   ✓ right_opt1: confianza=0.700 >= 0.6 en (1196,49)
+[13:29:28] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[13:29:28] INFO     📊   ✓ right_opt3: confianza=0.761 >= 0.6 en (1190,545)
+[13:29:28] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[13:29:29] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[13:29:29] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[13:29:29] INFO     📊 Map region: (1199, 5, 1304, 113)
+[13:29:29] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[13:29:29] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[13:29:29] INFO     📊 [Looter]   SQM size: (78, 45)
+[13:29:29] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[13:29:29] INFO     📊 SQMs configurados: 9 posiciones
+[13:29:29] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[13:29:29] INFO     📊 Player center: (592, 252)
+[13:29:29] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[13:29:29] INFO     ✅ Calibración completada exitosamente
+[13:29:29] INFO     ✅ Recalibración exitosa
+[13:29:30] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=15
+[13:29:34] INFO     📊 Cerrando aplicación...
+[13:29:37] INFO     ✅ Bot detenido
+[18:34:21] INFO     ✅ Tibia seleccionado: Tibia
+[18:34:21] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:34:21] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:34:21] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:34:21] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:34:21] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2+coord)
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:34:21] INFO     ✅ Tibia encontrado: Tibia
+[18:34:21] INFO     📊   HWND=1050158 | Ventanas Tibia encontradas: 2
+[18:34:21] INFO     📊   [0] hwnd=1050158 title='Tibia' (1382x744)
+[18:34:21] INFO     📊   [1] hwnd=66592 title='Tibia - Free Multiplayer Online Role Playing Game - Account - Brave' (1382x744)
+[18:34:21] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:34:21] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:34:21] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:34:21] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:34:21] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2+coord)
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:34:21] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:34:21] INFO     📊 Ventanas Tibia encontradas: 2
+[18:34:21] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:34:21] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:34:21] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:34:21] INFO     📊 Loop principal iniciado
+[18:34:21] INFO     ✅ Bot iniciado
+[18:34:23] INFO     📊   ✗ BattleList: confianza=0.469 < 0.7 (fallido)
+[18:34:24] INFO     📊   ✗ MapSettings: confianza=0.391 < 0.65 (fallido)
+[18:34:24] INFO     📊   ✓ left_opt1: confianza=0.638 >= 0.6 en (338,588)
+[18:34:24] INFO     📊   ✗ left_opt2: confianza=0.561 < 0.6 (fallido)
+[18:34:24] INFO     📊   ✓ left_opt3: confianza=0.758 >= 0.6 en (189,452)
+[18:34:24] INFO     📊   ✓ right_opt1: confianza=0.621 >= 0.6 en (99,469)
+[18:34:24] INFO     📊   ✗ right_opt2: confianza=0.585 < 0.6 (fallido)
+[18:34:24] INFO     📊   ✓ right_opt3: confianza=0.717 >= 0.6 en (527,314)
+[18:34:24] INFO     📊   ✗ right_opt4: confianza=0.499 < 0.6 (fallido)
+[18:34:24] INFO     📊   ✓ EndLocation: confianza=0.596 >= 0.55 en (790,689)
+[18:34:24] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_183424.png
+[18:34:24] INFO     📊 [Calibrator] #1: BL=✗ MM=✗ GW=✓ | BattleList=0.469 | MapSettings=0.391 | left_opt1=0.638 | left_opt2=0.561 | left_opt3=0.758 | right_opt1=0.621 | right_opt2=0.585 | right_opt3=0.717 | right_opt4=0.499 | EndLocation=0.596
+[18:34:24] WARNING  ⚠️ Calibración fallida #1 — No se encontró la Battle List | BattleList=0.47, MapSettings=0.39, left_opt1=0.64, left_opt2=0.56, left_opt3=0.76, right_opt1=0.62, right_opt2=0.59, right_opt3=0.72, right_opt4=0.50, EndLocation=0.60
+[18:34:25] INFO     ✅ GUI iniciada correctamente
+[18:34:27] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:34:27] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:34:27] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:34:28] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (305,210)
+[18:34:28] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:34:28] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:34:28] INFO     📊   ✓ right_opt1: confianza=0.650 >= 0.6 en (252,163)
+[18:34:28] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:34:28] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:34:28] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:34:28] INFO     📊   ✓ EndLocation: confianza=0.868 >= 0.55 en (627,503)
+[18:34:28] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.650 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.868
+[18:34:28] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:34:28] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:34:28] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:34:28] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:34:28] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:34:28] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:34:28] INFO     📊 SQMs configurados: 9 posiciones
+[18:34:28] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:34:28] INFO     📊 Player center: (592, 252)
+[18:34:28] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:34:28] INFO     ✅ Calibración completada exitosamente
+[18:35:01] INFO     ✅ Tibia seleccionado: Tibia Auto Healer
+[18:35:01] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:35:01] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:35:01] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:35:01] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:35:01] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2+coord)
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:35:01] INFO     ✅ Tibia encontrado: Tibia Auto Healer
+[18:35:01] INFO     📊   HWND=1184848 | Ventanas Tibia encontradas: 3
+[18:35:01] INFO     📊   [0] hwnd=1184848 title='Tibia Auto Healer' (993x519)
+[18:35:01] INFO     📊   [1] hwnd=1050158 title='Tibia - Pastero codode bronze' (1382x744)
+[18:35:01] INFO     📊   [2] hwnd=66592 title='Tibia - Free Multiplayer Online Role Playing Game - Account - Brave' (1382x744)
+[18:35:01] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:35:01] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:35:01] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:35:01] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:35:01] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2+coord)
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:35:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:35:01] INFO     📊 Ventanas Tibia encontradas: 3
+[18:35:01] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:35:01] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:35:01] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:35:01] INFO     📊 Loop principal iniciado
+[18:35:01] INFO     ✅ Bot iniciado
+[18:35:02] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:35:02] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:35:02] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:35:03] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (305,210)
+[18:35:03] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:35:03] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:35:03] INFO     📊   ✓ right_opt1: confianza=0.650 >= 0.6 en (252,163)
+[18:35:03] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:35:03] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:35:03] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:35:03] INFO     📊   ✓ EndLocation: confianza=0.868 >= 0.55 en (627,503)
+[18:35:03] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.650 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.868
+[18:35:03] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:35:03] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:35:03] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:35:03] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:35:03] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:35:03] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:35:03] INFO     📊 SQMs configurados: 9 posiciones
+[18:35:03] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:35:03] INFO     📊 Player center: (592, 252)
+[18:35:03] INFO     📊 Escala OBS(1366x705) → Tibia(960x480): x=0.703 y=0.681
+[18:35:03] INFO     ✅ Calibración completada exitosamente
+[18:35:04] INFO     ✅ GUI iniciada correctamente
+[18:35:30] INFO     📊 HP=99% (VERDE) | MP=2% | Estado=EN ESPERA
+[18:36:05] INFO     📊 HP=99% (VERDE) | MP=2% | Estado=EN ESPERA
+[18:36:42] INFO     📊 HP=99% (VERDE) | MP=2% | Estado=EN ESPERA
+[18:36:43] DEBUG    🔍 Debug image guardada (ciclo #40)
+[18:37:42] INFO     📊 HP=99% (VERDE) | MP=2% | Estado=EN ESPERA
+[18:37:42] DEBUG    🔍 Debug image guardada (ciclo #40)
+[18:37:43] WARNING  ⚠️ Captura fallida: Illegal frame
+[18:37:43] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:44] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:44] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:45] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:45] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:46] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:46] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:47] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:47] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:48] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:49] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:49] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:50] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:50] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:51] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:51] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:52] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:52] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:53] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:53] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:54] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:54] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:55] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:55] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:56] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:56] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:57] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:58] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:58] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:59] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:37:59] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:00] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:00] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:01] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:01] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:02] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:02] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:03] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:03] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:04] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:04] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:05] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:05] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:06] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:06] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:07] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:07] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:08] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:09] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:09] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:10] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:10] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:11] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:11] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:12] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:12] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:13] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:13] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:14] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:14] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:15] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:15] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:16] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:17] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:17] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:18] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:18] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:19] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:19] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:20] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:20] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:21] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:21] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:22] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:22] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:23] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:23] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:24] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:24] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:25] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:25] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:26] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:26] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:27] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:27] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:28] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:29] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:29] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:30] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:30] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:31] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:31] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:32] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:32] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:33] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:33] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:34] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:34] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:35] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:35] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:36] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:36] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:37] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:37] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:38] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:38] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:39] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:39] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:40] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:41] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:41] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:42] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:42] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:43] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:43] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:44] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:44] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:45] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:45] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:46] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:46] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:47] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:47] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:38:48] WARNING  ⚠️ Captura fallida: rsv is not implemented, yet
+[18:39:02] INFO     📊 HP=42% (AMARILLO) | MP=99% | Estado=EN ESPERA
+[18:39:08] ERROR    ❌ Coordenadas de calibración inválidas — usa solo números
+[18:40:02] INFO     📊 HP=42% (AMARILLO) | MP=99% | Estado=EN ESPERA
+[18:40:03] DEBUG    🔍 Debug image guardada (ciclo #80)
+[18:41:41] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[18:41:41] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:41:41] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:41:41] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:41:41] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:41:41] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[18:41:41] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[18:41:41] INFO     📊   HWND=1050158 | Ventanas Tibia encontradas: 3
+[18:41:41] INFO     📊   [0] hwnd=1050158 title='Tibia - Pastero codode bronze' (1382x744)
+[18:41:41] INFO     📊   [1] hwnd=787396 title='Tibia Auto Healer' (993x519)
+[18:41:41] INFO     📊   [2] hwnd=66592 title='Tibia - Free Multiplayer Online Role Playing Game - Account - Brave' (1382x744)
+[18:41:41] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:41:41] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:41:41] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:41:41] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[18:41:41] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[18:41:41] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[18:41:41] INFO     📊 Ventanas Tibia encontradas: 3
+[18:41:41] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[18:41:41] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[18:41:41] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[18:41:41] INFO     📊 Loop principal iniciado
+[18:41:41] INFO     ✅ Bot iniciado
+[18:41:42] INFO     ✅ GUI iniciada correctamente
+[18:41:43] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:41:43] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:41:43] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:41:44] INFO     📊   ✓ left_opt1: confianza=0.603 >= 0.6 en (326,229)
+[18:41:44] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:41:44] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:41:44] INFO     📊   ✓ right_opt1: confianza=0.727 >= 0.6 en (1196,56)
+[18:41:44] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:41:44] INFO     📊   ✓ right_opt3: confianza=0.758 >= 0.6 en (1190,600)
+[18:41:44] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:41:44] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:41:44] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.603 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.727 | right_opt2=1.000 | right_opt3=0.758 | right_opt4=0.643 | EndLocation=0.867
+[18:41:44] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:41:44] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:41:44] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:41:44] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:41:44] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:41:44] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:41:44] INFO     📊 SQMs configurados: 9 posiciones
+[18:41:44] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:41:44] INFO     📊 Player center: (592, 252)
+[18:41:44] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:41:44] INFO     ✅ Calibración completada exitosamente
+[18:41:59] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:41:59] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:41:59] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[18:41:59] INFO     📊 Módulo 'targeting' habilitado
+[18:41:59] INFO     📊 [Targeting] Targeting v3 activado
+[18:41:59] INFO     📊 [Targeting]   Templates: 3 (['Swamp Troll', 'Cave Rat', 'Rat'])
+[18:41:59] INFO     📊 [Targeting]   Battle region: (1194, 487, 1359, 887)
+[18:41:59] INFO     📊 [Targeting]   Attack list: ['Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[18:41:59] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[18:41:59] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[18:41:59] INFO     📊 Targeting habilitado
+[18:41:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=0
+[18:41:59] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:41:59] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:42:00] INFO     📊 Módulo 'targeting' deshabilitado
+[18:42:00] INFO     📊 [Targeting] Targeting desactivado
+[18:42:00] INFO     📊 Targeting deshabilitado
+[18:42:05] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:42:05] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:42:05] INFO     ✅ Configuración del Looter guardada
+[18:42:05] INFO     📊 Módulo 'looter' habilitado
+[18:42:05] INFO     📊 [CorpseTpl] Template cargado: Swamp Troll (57×58px)
+[18:42:05] INFO     📊 [CorpseTpl] Total templates de cadáveres: 1
+[18:42:05] INFO     📊 [Looter] Looter v8 activado — SOLO SQMs ciegos (thread separado)
+[18:42:05] INFO     📊 [Looter]   Método click: left_click, cuenta: free
+[18:42:05] INFO     📊 [Looter]   SQMs calibrados: 9 posiciones
+[18:42:05] INFO     📊 [Looter]   SQMs fijos: Center=(592, 252), usando índices [4,1,7,5,3]
+[18:42:05] INFO     📊 [Looter]   Max clicks: 5, delay: 0.05s
+[18:42:05] INFO     📊 [Looter]   Detección visual: DESHABILITADA (TPL=0.25 conf, HSV=falsos positivos)
+[18:42:05] INFO     📊 [Looter] ✓ Calibración OK — usando SQMs fijos del screen_calibrator
+[18:42:05] INFO     📊 Looter habilitado
+[18:42:06] INFO     📊 [Looter] v8 Estado: loots=0, clicks=0, threads=0, método=left_click
+[18:42:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:42:08] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:42:08] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:42:08] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[18:42:08] INFO     📊 Módulo 'targeting' habilitado
+[18:42:08] INFO     📊 [Targeting] Targeting v3 activado
+[18:42:08] INFO     📊 [Targeting]   Templates: 3 (['Swamp Troll', 'Cave Rat', 'Rat'])
+[18:42:08] INFO     📊 [Targeting]   Battle region: (1194, 487, 1359, 887)
+[18:42:08] INFO     📊 [Targeting]   Attack list: ['Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[18:42:08] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[18:42:08] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[18:42:08] INFO     📊 Targeting habilitado
+[18:42:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=0
+[18:42:08] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:42:08] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:42:12] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 1
+[18:42:12] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:42:12] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:42:12] INFO     📊 [Looter] Looteando: Swamp Troll — 5 SQMs: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[18:42:12] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:42:12] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:42:13] INFO     📊 [Looter] Loot OK: Swamp Troll — 5/5 clicks
+[18:42:14] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=1
+[18:42:15] INFO     📊 Módulo 'targeting' deshabilitado
+[18:42:15] INFO     📊 [Targeting] Targeting desactivado
+[18:42:15] INFO     📊 Targeting deshabilitado
+[18:42:17] INFO     📊 Módulo 'looter' deshabilitado
+[18:42:17] INFO     📊 [Looter] Looter v8 desactivado
+[18:42:17] INFO     📊 Looter deshabilitado
+[18:42:37] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:42:37] DEBUG    🔍 Debug image guardada (ciclo #40)
+[18:43:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:43:25] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:43:25] DEBUG    🔍 Debug image guardada (ciclo #80)
+[18:43:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:44:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:44:12] DEBUG    🔍 Debug image guardada (ciclo #120)
+[18:44:12] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:44:12] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:44:12] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:44:12] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[18:44:12] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:44:13] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:44:13] INFO     📊   ✓ right_opt1: confianza=0.753 >= 0.6 en (1196,56)
+[18:44:13] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:44:13] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:44:13] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:44:13] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:44:13] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.753 | right_opt2=1.000 | right_opt3=0.793 | right_opt4=0.643 | EndLocation=0.867
+[18:44:13] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:44:13] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:44:13] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:44:13] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:44:13] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:44:13] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:44:13] INFO     📊 SQMs configurados: 9 posiciones
+[18:44:13] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:44:13] INFO     📊 Player center: (592, 252)
+[18:44:13] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:44:13] INFO     ✅ Calibración completada exitosamente
+[18:44:38] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:45:04] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:45:04] DEBUG    🔍 Debug image guardada (ciclo #160)
+[18:45:29] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:45:55] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:45:55] DEBUG    🔍 Debug image guardada (ciclo #200)
+[18:46:01] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[18:46:01] INFO     📊 [Targeting] Templates cargados: 3/4
+[18:46:01] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[18:46:01] INFO     📊 Módulo 'targeting' habilitado
+[18:46:01] INFO     📊 [Targeting] Targeting v3 activado
+[18:46:01] INFO     📊 [Targeting]   Templates: 3 (['Swamp Troll', 'Cave Rat', 'Rat'])
+[18:46:01] INFO     📊 [Targeting]   Battle region: (1194, 487, 1359, 887)
+[18:46:01] INFO     📊 [Targeting]   Attack list: ['Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[18:46:01] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[18:46:01] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[18:46:01] INFO     📊 Targeting habilitado
+[18:46:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=1
+[18:46:01] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:46:02] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:46:04] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[18:46:04] INFO     📊 [Looter] Configurado: método=left_click, delay=0.05s, max_clicks=5, cuenta=free
+[18:46:04] INFO     ✅ Configuración del Looter guardada
+[18:46:04] INFO     📊 Módulo 'looter' habilitado
+[18:46:04] INFO     📊 [CorpseTpl] Template cargado: Swamp Troll (57×58px)
+[18:46:04] INFO     📊 [CorpseTpl] Total templates de cadáveres: 1
+[18:46:04] INFO     📊 [Looter] Looter v8 activado — SOLO SQMs ciegos (thread separado)
+[18:46:04] INFO     📊 [Looter]   Método click: left_click, cuenta: free
+[18:46:04] INFO     📊 [Looter]   SQMs calibrados: 9 posiciones
+[18:46:04] INFO     📊 [Looter]   SQMs fijos: Center=(592, 252), usando índices [4,1,7,5,3]
+[18:46:04] INFO     📊 [Looter]   Max clicks: 5, delay: 0.05s
+[18:46:04] INFO     📊 [Looter]   Detección visual: DESHABILITADA (TPL=0.25 conf, HSV=falsos positivos)
+[18:46:04] INFO     📊 [Looter] ✓ Calibración OK — usando SQMs fijos del screen_calibrator
+[18:46:04] INFO     📊 Looter habilitado
+[18:46:06] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 2
+[18:46:06] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:46:06] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:46:06] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:46:06] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:46:06] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:46:06] INFO     📊 [Looter] v8 Estado: loots=1, clicks=5, threads=2, método=left_click
+[18:46:06] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:46:07] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=2
+[18:46:10] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 3
+[18:46:10] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:46:10] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:46:10] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:46:10] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:46:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:21] INFO     📊 [Looter] v8 Estado: loots=3, clicks=7, threads=3, método=left_click
+[18:46:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:46:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:37] INFO     📊 [Looter] v8 Estado: loots=3, clicks=7, threads=3, método=left_click
+[18:46:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:46:48] DEBUG    🔍 Debug image guardada (ciclo #240)
+[18:46:48] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:46:48] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:46:48] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:46:48] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[18:46:48] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:46:48] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:46:48] INFO     📊   ✓ right_opt1: confianza=0.676 >= 0.6 en (1196,58)
+[18:46:48] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:46:48] INFO     📊   ✓ right_opt3: confianza=0.772 >= 0.6 en (1190,545)
+[18:46:48] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:46:49] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:46:49] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.676 | right_opt2=1.000 | right_opt3=0.772 | right_opt4=0.643 | EndLocation=0.867
+[18:46:49] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:46:49] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:46:49] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:46:49] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:46:49] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:46:49] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:46:49] INFO     📊 SQMs configurados: 9 posiciones
+[18:46:49] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:46:49] INFO     📊 Player center: (592, 252)
+[18:46:49] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:46:49] INFO     ✅ Calibración completada exitosamente
+[18:46:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:46:53] INFO     📊 [Looter] v8 Estado: loots=3, clicks=7, threads=3, método=left_click
+[18:46:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:10] INFO     📊 [Looter] v8 Estado: loots=3, clicks=7, threads=3, método=left_click
+[18:47:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:19] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:47:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:25] INFO     📊 [Looter] v8 Estado: loots=3, clicks=7, threads=3, método=left_click
+[18:47:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=3
+[18:47:33] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:47:33] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:47:39] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=3
+[18:47:39] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 4
+[18:47:39] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:47:39] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:47:39] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:47:39] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:47:40] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:47:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:47:50] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:47:50] DEBUG    🔍 Debug image guardada (ciclo #280)
+[18:47:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:47:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:47:55] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:48:02] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:11] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:48:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:48:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:26] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:48:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:43] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:48:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:48:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:48:53] DEBUG    🔍 Debug image guardada (ciclo #320)
+[18:48:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:49:01] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:49:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:49:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:49:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:49:16] INFO     📊 [Looter] v8 Estado: loots=4, clicks=8, threads=4, método=left_click
+[18:49:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=4
+[18:49:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:49:25] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:49:25] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:49:27] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=4
+[18:49:31] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 5
+[18:49:31] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:49:31] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:49:31] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:49:31] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:49:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:49:32] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:49:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:49:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:49:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:49:48] DEBUG    🔍 Debug image guardada (ciclo #360)
+[18:49:48] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:49:48] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:49:48] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:49:48] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[18:49:48] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:49:48] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:49:48] INFO     📊   ✓ right_opt1: confianza=0.712 >= 0.6 en (1196,54)
+[18:49:48] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:49:48] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:49:48] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:49:49] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:49:49] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:49:49] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:49:49] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:49:49] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:49:49] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:49:49] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:49:49] INFO     📊 SQMs configurados: 9 posiciones
+[18:49:49] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:49:49] INFO     📊 Player center: (592, 252)
+[18:49:49] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:49:49] INFO     ✅ Calibración completada exitosamente
+[18:49:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:49:49] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:49:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:05] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:50:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:50:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:20] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:50:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:35] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:50:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:40] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:50:40] DEBUG    🔍 Debug image guardada (ciclo #400)
+[18:50:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:50:51] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:50:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:51:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:07] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:51:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:22] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:51:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:38] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:51:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:51:42] DEBUG    🔍 Debug image guardada (ciclo #440)
+[18:51:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:51:55] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:51:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:10] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:52:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:26] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:52:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:52:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:41] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:52:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:52:57] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:52:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:53:01] DEBUG    🔍 Debug image guardada (ciclo #480)
+[18:53:01] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:53:01] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:53:01] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:53:01] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[18:53:01] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:53:01] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:53:01] INFO     📊   ✓ right_opt1: confianza=0.715 >= 0.6 en (277,186)
+[18:53:01] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:53:01] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:53:01] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:53:01] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:53:01] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:53:01] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:53:01] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:53:01] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:53:01] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:53:01] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:53:01] INFO     📊 SQMs configurados: 9 posiciones
+[18:53:01] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:53:01] INFO     📊 Player center: (592, 252)
+[18:53:01] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:53:01] INFO     ✅ Calibración completada exitosamente
+[18:53:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:12] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:53:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=5
+[18:53:28] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:53:29] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:53:29] INFO     📊 [Looter] v8 Estado: loots=5, clicks=9, threads=5, método=left_click
+[18:53:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:53:33] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 6
+[18:53:33] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:53:33] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:53:33] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:53:33] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:53:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:53:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:53:44] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:53:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:53:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:53:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:00] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:54:02] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:54:03] DEBUG    🔍 Debug image guardada (ciclo #520)
+[18:54:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:15] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:54:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:54:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:30] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:54:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:45] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:54:51] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:54:52] DEBUG    🔍 Debug image guardada (ciclo #560)
+[18:54:52] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:54:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:01] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:55:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:16] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:55:17] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:55:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:33] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:55:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:47] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:55:47] DEBUG    🔍 Debug image guardada (ciclo #600)
+[18:55:47] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[18:55:47] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[18:55:47] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[18:55:47] INFO     📊   ✓ left_opt1: confianza=0.637 >= 0.6 en (766,623)
+[18:55:47] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[18:55:47] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[18:55:47] INFO     📊   ✓ right_opt1: confianza=0.715 >= 0.6 en (277,186)
+[18:55:47] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[18:55:48] INFO     📊   ✓ right_opt3: confianza=0.793 >= 0.6 en (1190,545)
+[18:55:48] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[18:55:48] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[18:55:48] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[18:55:48] INFO     📊 Map region: (1199, 5, 1304, 113)
+[18:55:48] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[18:55:48] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[18:55:48] INFO     📊 [Looter]   SQM size: (78, 45)
+[18:55:48] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[18:55:48] INFO     📊 SQMs configurados: 9 posiciones
+[18:55:48] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[18:55:48] INFO     📊 Player center: (592, 252)
+[18:55:48] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[18:55:48] INFO     ✅ Calibración completada exitosamente
+[18:55:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:55:49] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:55:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:56:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:56:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:56:06] INFO     📊 [Looter] v8 Estado: loots=6, clicks=10, threads=6, método=left_click
+[18:56:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=3, kills=6
+[18:56:13] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:56:13] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:56:18] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=3, templates=3, kills=6
+[18:56:18] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 7
+[18:56:18] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:56:18] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:56:18] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:56:18] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:56:18] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:56:18] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:56:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:56:21] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 8
+[18:56:21] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:56:21] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:56:21] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:56:21] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:56:21] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:56:21] INFO     📊 [Looter] v8 Estado: loots=7, clicks=11, threads=8, método=left_click
+[18:56:21] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:56:23] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=1, templates=3, kills=8
+[18:56:30] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=2, templates=3, kills=8
+[18:56:36] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=8
+[18:56:36] INFO     📊 [Targeting] ¡Kill! Swamp Troll x1 — Total: 9
+[18:56:36] INFO     📊 [Looter] Kill: Swamp Troll — loot lanzado en thread
+[18:56:36] INFO     📊 [Targeting] → Atacando: Swamp Troll en (1252,491)
+[18:56:36] INFO     📊 [Looter] Looteando: Swamp Troll — 1 SQMs: (592,252)
+[18:56:36] INFO     📊 [Looter]   Método: SQMs_fijos, player_center=(592, 252), sqm_size=(78, 45)
+[18:56:36] INFO     📊 [Targeting] Atacando: Swamp Troll en (1252,491)
+[18:56:36] INFO     📊 [Looter] Loot OK: Swamp Troll — 1/1 clicks
+[18:56:37] INFO     📊 [Looter] v8 Estado: loots=9, clicks=13, threads=9, método=left_click
+[18:56:41] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=9
+[18:56:47] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=9
+[18:56:52] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[18:56:52] DEBUG    🔍 Debug image guardada (ciclo #640)
+[18:56:52] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=9
+[18:56:52] INFO     📊 [Looter] v8 Estado: loots=9, clicks=13, threads=9, método=left_click
+[18:57:00] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=9
+[18:57:06] INFO     📊 Cerrando aplicación...
+[18:57:09] INFO     📊 [Targeting] Estado: target=Swamp Troll, criaturas=4, templates=3, kills=9
+[18:57:09] INFO     📊 [Looter] v8 Estado: loots=9, clicks=13, threads=9, método=left_click
+[18:57:10] INFO     ✅ Bot detenido

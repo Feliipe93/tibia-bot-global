@@ -71,7 +71,7 @@ class BattleListReader:
         # sigue en la battle list → asumir que estamos atacando
         self._last_attack_click_time: float = 0.0
         self._last_attack_click_name: str = ""
-        self._attack_click_timeout: float = 1.5  # Fallback corto: solo 1.5s después de click
+        self._attack_click_timeout: float = 30.0  # Cubrir todo el combate hasta que muera
 
         # Logging
         self._log_fn: Optional[Callable] = None
@@ -306,16 +306,25 @@ class BattleListReader:
         roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         found = {}
         best_conf = 0.0
+
+        # Umbral más alto para templates pequeños (2-4px) para evitar falsos positivos
+        # Los bordes de 2-4px dan match fácilmente con cualquier borde de UI
+        SMALL_THRESHOLD = 0.92  # Muy estricto para templates micro (<8px)
+        NORMAL_THRESHOLD = self.attack_precision
+
         for key, tpl in self._attack_templates.items():
             if roi_gray.shape[0] < tpl.shape[0] or roi_gray.shape[1] < tpl.shape[1]:
                 continue
             res = cv2.matchTemplate(roi_gray, tpl, cv2.TM_CCOEFF_NORMED)
             _, max_val, _, _ = cv2.minMaxLoc(res)
-            found[key] = max_val >= self.attack_precision
+            # Templates muy pequeños (bordes de 2-4px) requieren threshold más alto
+            min_dim = min(tpl.shape[0], tpl.shape[1])
+            threshold = SMALL_THRESHOLD if min_dim < 8 else NORMAL_THRESHOLD
+            found[key] = max_val >= threshold
             best_conf = max(best_conf, max_val)
 
-        # Si encontramos al menos 3 bordes de un set → SÍ estamos atacando
-        # (era 2/4 → demasiado permisivo, causaba falsos positivos)
+        # Requiere los 4 bordes de un mismo set para confirmar ataque (antes era 2/4)
+        # Esto evita falsos positivos por bordes de la UI del cliente
         border_sets = [
             ("LeftRed", "TopRed", "RightRed", "BottomRed"),
             ("LeftBlackRed", "TopBlackRed", "RightBlackRed", "BottomBlackRed"),
@@ -324,12 +333,8 @@ class BattleListReader:
         ]
         for borders in border_sets:
             matches = sum(1 for b in borders if found.get(b, False))
-            if matches >= 2:
+            if matches >= 4:  # TODOS los 4 bordes del set deben coincidir
                 return True
-        # También: si hay 4+ bordes mezclados de distintos sets → atacando
-        total_matched = sum(1 for v in found.values() if v)
-        if total_matched >= 4:
-            return True
 
         # Log diagnóstico cada ~50 calls
         self._attack_log_counter += 1
@@ -337,7 +342,7 @@ class BattleListReader:
             matched = [k for k, v in found.items() if v]
             self._log(
                 f"[BattleReader] Bordes de ataque: best_conf={best_conf:.3f}, "
-                f"matched={matched or 'ninguno'} (threshold={self.attack_precision})"
+                f"matched={matched or 'ninguno'} (threshold_small={SMALL_THRESHOLD}, threshold_normal={NORMAL_THRESHOLD})"
             )
 
         return False

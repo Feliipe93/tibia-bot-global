@@ -104,6 +104,7 @@ class HealerBot:
         self.last_heal_time: float = 0.0
         self.last_heal_key: str = ""
         self.errors: List[str] = []
+        self.last_frame: Optional[np.ndarray] = None  # Último frame capturado (para GUI preview)
 
         # Callbacks para actualizar la GUI (se establecen desde gui.py)
         self._on_status_update: Optional[Callable] = None
@@ -153,9 +154,14 @@ class HealerBot:
         result = self.mouse_sender.left_click(cx, cy)
         if not result:
             self.log.warning(
-                f"Click izquierdo FALLÓ en ({cx},{cy}) — "
+                f"Click izquierdo FALLÓ — OBS({x},{y}) → client({cx},{cy}) "
+                f"[scale x={self._scale_x:.3f} y={self._scale_y:.3f}] "
                 f"hwnd={self.mouse_sender.hwnd}, "
                 f"valid={is_window_valid(self.mouse_sender.hwnd) if self.mouse_sender.hwnd else False}"
+            )
+        else:
+            self.log.debug(
+                f"Click OK — OBS({x},{y}) → client({cx},{cy}) hwnd={self.mouse_sender.hwnd}"
             )
         return result
 
@@ -506,6 +512,9 @@ class HealerBot:
                     time.sleep(1.0)
                     continue
 
+                # --- 2b. Guardar frame para GUI preview ---
+                self.last_frame = img
+
                 # --- 3. Detectar HP y Mana ---
                 hp, mp = self.detector.detect(img)
                 with self.lock:
@@ -566,6 +575,7 @@ class HealerBot:
                 # --- 5c. Dispatcher v3 (targeting / cavebot / looter) ---
                 # Los módulos tienen sus propios toggles individuales en la GUI.
                 # No requieren que el healer esté ACTIVO (F9).
+                # El dispatcher tiene timeout por módulo para evitar congelamiento.
                 if self.tibia_connected and self._calibrated:
                     try:
                         self.dispatcher.dispatch_frame(img)

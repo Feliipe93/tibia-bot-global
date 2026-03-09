@@ -87,6 +87,7 @@ class TibiaHealerGUI(ctk.CTk):
         self.tab_cavebot = self.tabview.add("🗺️ Cavebot")
         self.tab_targeting = self.tabview.add("⚔️ Targeting")
         self.tab_looter = self.tabview.add("💰 Looter")
+        self.tab_screenview = self.tabview.add("🖥️ Screen View")
         self.tab_help = self.tabview.add("❓ Ayuda")
 
         # Construir cada sección
@@ -96,6 +97,7 @@ class TibiaHealerGUI(ctk.CTk):
         self._build_cavebot_tab()
         self._build_targeting_tab()
         self._build_looter_tab()
+        self._build_screenview_tab()
         self._build_help_tab()
 
         # ----------------------------------------------------------
@@ -3134,10 +3136,10 @@ class TibiaHealerGUI(ctk.CTk):
                 "Actívalo primero con el switch 'Looter habilitado'."
             )
             return
-        
+
         # Obtener información de debug antes del test
         debug_info = self.bot.looter_engine.debug_coordinates()
-        
+
         # Mostrar información previa
         info_text = (
             f"🧪 TEST MANUAL DE LOOT\n\n"
@@ -3148,23 +3150,23 @@ class TibiaHealerGUI(ctk.CTk):
             f"Max loot SQMs: {debug_info['max_loot_sqms']}\n\n"
             f"Coordenadas calculadas:\n"
         )
-        
+
         for i, coord in enumerate(debug_info['calculated_loot_sqms']):
             info_text += f"  {i+1}. {coord}\n"
-        
+
         info_text += (
             f"\n¿Ejecutar {len(debug_info['calculated_loot_sqms'])} clicks de prueba?\n\n"
             f"⚠ Asegúrate de que Tibia esté visible y el cursor\n"
             f"no interfiera con el área de juego."
         )
-        
+
         # Confirmar ejecución
         if not messagebox.askyesno("Confirmar Test", info_text):
             return
-        
+
         # Ejecutar test
         success = self.bot.looter_engine.test_loot_clicks("MANUAL_TEST")
-        
+
         if success:
             self.log.info("🧪 Test manual de loot iniciado — revisa el log del Looter")
             messagebox.showinfo(
@@ -3183,6 +3185,254 @@ class TibiaHealerGUI(ctk.CTk):
                 "No se pudo ejecutar el test de loot.\n"
                 "Verifica que el looter esté correctamente configurado."
             )
+
+    # ==================================================================
+    # TAB: Screen View (visualizador OBS en tiempo real)
+    # ==================================================================
+    def _build_screenview_tab(self):
+        tab = self.tab_screenview
+
+        # ── Controles superiores ──────────────────────────────────────────
+        ctrl_frame = ctk.CTkFrame(tab, fg_color="transparent")
+        ctrl_frame.pack(fill="x", padx=10, pady=(8, 4))
+
+        ctk.CTkLabel(
+            ctrl_frame,
+            text="🖥️ Screen View — Frame OBS en tiempo real",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(side="left")
+
+        # Toggle de actualización en vivo
+        self._sv_live_var = ctk.BooleanVar(value=True)
+        ctk.CTkCheckBox(
+            ctrl_frame,
+            text="▶ En vivo",
+            variable=self._sv_live_var,
+        ).pack(side="right", padx=8)
+
+        # Botón captura única
+        ctk.CTkButton(
+            ctrl_frame,
+            text="📸 Captura ahora",
+            width=130,
+            command=self._sv_capture_once,
+        ).pack(side="right", padx=4)
+
+        # ── Selector de overlay ───────────────────────────────────────────
+        overlay_frame = ctk.CTkFrame(tab, fg_color="transparent")
+        overlay_frame.pack(fill="x", padx=10, pady=(0, 4))
+
+        ctk.CTkLabel(overlay_frame, text="Overlay:").pack(side="left")
+
+        self._sv_overlay_var = ctk.StringVar(value="Ninguno")
+        ctk.CTkOptionMenu(
+            overlay_frame,
+            variable=self._sv_overlay_var,
+            values=["Ninguno", "Game Region", "Battle Region",
+                    "SQMs", "Player Center", "Todo"],
+            width=160,
+        ).pack(side="left", padx=6)
+
+        # FPS del visor
+        self._sv_fps_var = ctk.StringVar(value="Velocidad: 2 fps")
+        ctk.CTkLabel(
+            overlay_frame,
+            textvariable=self._sv_fps_var,
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        ).pack(side="right", padx=6)
+
+        # ── Canvas / imagen principal ─────────────────────────────────────
+        canvas_outer = ctk.CTkFrame(tab)
+        canvas_outer.pack(fill="both", expand=True, padx=10, pady=(2, 4))
+
+        self._sv_canvas = tk.Canvas(
+            canvas_outer,
+            bg="#1a1a1a",
+            highlightthickness=0,
+        )
+        self._sv_canvas.pack(fill="both", expand=True)
+        self._sv_imgtk = None   # referencia para evitar GC
+        self._sv_frame_count = 0
+        self._sv_last_fps_time = 0.0
+        self._sv_displayed_fps = 0.0
+
+        # ── Barra de info inferior ────────────────────────────────────────
+        info_bar = ctk.CTkFrame(tab, fg_color="transparent")
+        info_bar.pack(fill="x", padx=10, pady=(0, 6))
+
+        self._sv_info_var = ctk.StringVar(
+            value="Sin frame — conecta OBS y selecciona una fuente"
+        )
+        ctk.CTkLabel(
+            info_bar,
+            textvariable=self._sv_info_var,
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        ).pack(side="left")
+
+        # ── Iniciar el loop de refresco ───────────────────────────────────
+        self._sv_refresh_job = None
+        self._sv_loop()
+
+    def _sv_loop(self):
+        """Loop de refresco del Screen View (~2 fps para no sobrecargar la GUI)."""
+        try:
+            if self._sv_live_var.get():
+                self._sv_refresh()
+        except Exception:
+            pass
+        # Programar siguiente tick (500 ms = 2 fps)
+        self._sv_refresh_job = self.after(500, self._sv_loop)
+
+    def _sv_capture_once(self):
+        """Fuerza una captura inmediata aunque el live esté pausado."""
+        self._sv_refresh()
+
+    def _sv_refresh(self):
+        """Obtiene el último frame del bot y lo muestra con overlay opcional."""
+        import time as _time
+
+        frame = getattr(self.bot, "last_frame", None)
+        if frame is None:
+            self._sv_info_var.set(
+                "Sin frame — conecta OBS y selecciona una fuente"
+            )
+            return
+
+        # Dibujar overlays antes de escalar (copia para no modificar el original)
+        display = frame.copy()
+        overlay = self._sv_overlay_var.get()
+
+        if overlay != "Ninguno":
+            try:
+                cal = self.bot.calibrator
+
+                # Game Region (screen_calibrator)
+                if overlay in ("Game Region", "Todo"):
+                    gr = cal.game_region
+                    if gr:
+                        x1, y1, x2, y2 = gr
+                        cv2.rectangle(display, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                        cv2.putText(display, "Game", (x1 + 4, y1 + 18),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 0), 1)
+
+                # Battle Region
+                if overlay in ("Battle Region", "Todo"):
+                    br = cal.battle_region
+                    if br:
+                        bx1, by1, bx2, by2 = br
+                        cv2.rectangle(display, (bx1, by1), (bx2, by2),
+                                      (0, 100, 255), 2)
+                        cv2.putText(display, "Battle List",
+                                    (bx1 + 4, by1 + 18),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.5, (0, 100, 255), 1)
+
+                # Player Center
+                if overlay in ("Player Center", "Todo"):
+                    pc = cal.player_center
+                    if pc:
+                        cx, cy = pc
+                        cv2.circle(display, (cx, cy), 10, (255, 255, 0), 2)
+                        cv2.circle(display, (cx, cy), 3, (255, 255, 0), -1)
+                        cv2.putText(display, "Player", (cx + 12, cy - 4),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.45, (255, 255, 0), 1)
+
+                # SQMs (9 posiciones calibradas)
+                if overlay in ("SQMs", "Todo"):
+                    sqms = cal.sqms
+                    if sqms:
+                        for idx, (sx, sy) in enumerate(sqms):
+                            # Centro = naranja, resto = cyan
+                            color = (0, 200, 255) if idx != 4 else (0, 100, 255)
+                            cv2.rectangle(
+                                display,
+                                (sx - 10, sy - 10), (sx + 10, sy + 10),
+                                color, 1,
+                            )
+                            cv2.putText(display, str(idx), (sx - 4, sy + 4),
+                                        cv2.FONT_HERSHEY_SIMPLEX,
+                                        0.35, color, 1)
+
+                # GSD region proporcional (si el looter la calculó)
+                if overlay in ("Game Region", "Todo"):
+                    try:
+                        gsd = self.bot.looter_engine.game_screen_detector
+                        if gsd._frame_w > 0:
+                            gx1 = gsd._game_x1
+                            gy1 = gsd._game_y1
+                            gx2 = gsd._game_x2
+                            gy2 = gsd._game_y2
+                            cv2.rectangle(
+                                display, (gx1, gy1), (gx2, gy2),
+                                (255, 0, 200), 1,
+                            )
+                            label_src = ("Cal" if gsd._calibrator_region_set
+                                         else "Prop")
+                            cv2.putText(
+                                display, f"GSD({label_src})",
+                                (gx1 + 4, gy2 - 6),
+                                cv2.FONT_HERSHEY_SIMPLEX,
+                                0.4, (255, 0, 200), 1,
+                            )
+                    except Exception:
+                        pass
+
+            except Exception:
+                pass  # calibrador no listo aún → no dibuja overlay
+
+        # ── Escalar al tamaño del canvas ──────────────────────────────────
+        cw = self._sv_canvas.winfo_width()
+        ch = self._sv_canvas.winfo_height()
+        if cw < 10 or ch < 10:
+            # Canvas aún no tiene tamaño real (primer render)
+            self.after(100, self._sv_refresh)
+            return
+
+        fh, fw = display.shape[:2]
+        scale = min(cw / fw, ch / fh)
+        nw = int(fw * scale)
+        nh = int(fh * scale)
+        resized = cv2.resize(display, (nw, nh),
+                             interpolation=cv2.INTER_LINEAR)
+
+        # BGR → RGB → PIL → ImageTk
+        rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
+        pil_img = Image.fromarray(rgb)
+        imgtk = ImageTk.PhotoImage(image=pil_img)
+
+        # Dibujar en canvas centrado
+        self._sv_imgtk = imgtk   # evitar GC
+        x_off = (cw - nw) // 2
+        y_off = (ch - nh) // 2
+        self._sv_canvas.delete("all")
+        self._sv_canvas.create_image(x_off, y_off, anchor="nw", image=imgtk)
+
+        # ── Actualizar info bar ───────────────────────────────────────────
+        self._sv_frame_count += 1
+        now = _time.time()
+        if self._sv_last_fps_time == 0:
+            self._sv_last_fps_time = now
+        elapsed = now - self._sv_last_fps_time
+        if elapsed >= 2.0:
+            self._sv_displayed_fps = self._sv_frame_count / elapsed
+            self._sv_frame_count = 0
+            self._sv_last_fps_time = now
+
+        obs_src = getattr(self.bot.capture, "source_name", "?") or "?"
+        try:
+            gsd_ready = "✅" if self.bot.looter_engine.game_screen_detector.is_ready() else "⏳"
+        except Exception:
+            gsd_ready = "?"
+        cal_ok = "✅" if self.bot.calibrator.calibrated else "⏳"
+        self._sv_info_var.set(
+            f"Frame: {fw}×{fh}px → Vista: {nw}×{nh}px | "
+            f"Fuente OBS: {obs_src} | "
+            f"Cal: {cal_ok} | GSD: {gsd_ready} | "
+            f"{self._sv_displayed_fps:.1f} fps vis."
+        )
 
     # ==================================================================
     # TAB: Ayuda

@@ -174,7 +174,12 @@ class BotDispatcher:
 
             try:
                 self.module_states[module_name] = ModuleState.RUNNING
-                handler(frame)
+                # Timeout por módulo: evitar que un handler lento bloquee los demás
+                t = threading.Thread(target=handler, args=(frame,), daemon=True)
+                t.start()
+                t.join(timeout=1.5)  # Max 1.5s por módulo
+                if t.is_alive():
+                    self.log.warning(f"Módulo '{module_name}' timeout (>1.5s) — saltando")
                 self.module_states[module_name] = ModuleState.ENABLED
                 results[module_name] = True
             except Exception as e:

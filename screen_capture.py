@@ -136,7 +136,12 @@ class ScreenCapture:
             return None
 
         try:
-            with self._lock:
+            # Timeout de 3s para evitar congelamiento si OBS no responde
+            acquired = self._lock.acquire(timeout=3.0)
+            if not acquired:
+                self._last_error = "Timeout esperando lock de captura (OBS bloqueado)"
+                return None
+            try:
                 resp = self._client.get_source_screenshot(
                     name=name,
                     img_format="png",
@@ -144,6 +149,8 @@ class ScreenCapture:
                     height=None,
                     quality=-1,
                 )
+            finally:
+                self._lock.release()
 
             # resp.image_data contiene "data:image/png;base64,<BASE64>"
             image_data: str = resp.image_data
@@ -256,8 +263,13 @@ class ScreenCapture:
         if not self.is_connected:
             return ""
         try:
-            with self._lock:
+            acquired = self._lock.acquire(timeout=3.0)
+            if not acquired:
+                return ""
+            try:
                 resp = self._client.get_version()
+            finally:
+                self._lock.release()
             return f"OBS {resp.obs_version} (WebSocket {resp.obs_web_socket_version})"
         except Exception:
             return ""
