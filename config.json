@@ -159,8 +159,9 @@
             },
             "item_routes": {}
         },
-        "max_loot_clicks": 5,
+        "max_loot_clicks": 9,
         "always_loot": false,
+        "loot_mode": "basic",
         "loot_threshold": 0,
         "drop_enabled": false,
         "drop_items": ""

@@ -68,8 +68,8 @@ class LooterEngine:
         self.loot_cooldown: float = 0.3
         self.periodic_loot: bool = False
         self.periodic_interval: float = 8.0
-        self.max_loot_sqms: int = 5          # center + 4 cardinales
-        self.max_loot_clicks: int = 5        # clicks max por kill
+        self.max_loot_sqms: int = 9          # center + 4 cardinales + 4 diagonales
+        self.max_loot_clicks: int = 9        # clicks max por kill (1 por SQM)
         self.max_range: int = 1              # 1 SQM (chase mode = adyacente)
         self.loot_during_combat: bool = True
         self.auto_open_next_bp: bool = True
@@ -93,9 +93,9 @@ class LooterEngine:
         self.game_screen_detector = GameScreenDetector()
         self._use_game_screen_detection: bool = False  # v11: DESHABILITADO
 
-        # v11: Corpse Sprite Detector — MÉTODO PRINCIPAL
+        # v11: Corpse Sprite Detector — MÉTODO AVANZADO (requiere sprites capturados)
         self.corpse_sprite_detector = CorpseSpriteDetector()
-        self._use_sprite_detection: bool = True  # v11: HABILITADO
+        self._use_sprite_detection: bool = False  # False=básico por default, True=avanzado
         self.sprite_loot_clicks: int = 0  # clicks exitosos con sprite detection
 
         # v10 legacy: death_position (mantenido por compatibilidad de interfaz)
@@ -192,13 +192,19 @@ class LooterEngine:
         self.loot_cooldown = cfg.get("loot_cooldown", 0.3)
         self.periodic_loot = cfg.get("periodic_loot", False)
         self.periodic_interval = cfg.get("periodic_interval", 8.0)
-        raw_sqms = cfg.get("max_loot_sqms", 5)
-        self.max_loot_sqms = max(int(raw_sqms), 5)  # mínimo 5 (center + 4 cardinales)
-        self.max_loot_clicks = cfg.get("max_loot_clicks", 5)
+        raw_sqms = cfg.get("max_loot_sqms", 9)
+        self.max_loot_sqms = max(int(raw_sqms), 1)  # mínimo 1
+        # max_loot_clicks debe ser >= max_loot_sqms para no truncar
+        raw_clicks = cfg.get("max_loot_clicks", 9)
+        self.max_loot_clicks = max(int(raw_clicks), self.max_loot_sqms)
         self.max_range = cfg.get("max_range", 1)
         self.loot_during_combat = cfg.get("loot_during_combat", True)
         self.auto_open_next_bp = cfg.get("auto_open_next_bp", True)
         self.always_loot = cfg.get("always_loot", True)
+
+        # Modo de detección: "basic" = SQMs ciegos siempre, "advanced" = sprite detection
+        loot_mode = cfg.get("loot_mode", "basic")
+        self._use_sprite_detection = (loot_mode == "advanced")
 
         method_map = {"shift_click": "shift_right_click", "open_body": "right_click"}
         if self.loot_method in method_map:
@@ -208,8 +214,10 @@ class LooterEngine:
             self._log(f"Cuenta PREMIUM — el cliente organiza el loot automáticamente")
         else:
             self._log(f"Cuenta FREE — loot va a BP principal")
+        mode_str = "AVANZADO (sprite detection)" if self._use_sprite_detection else "BÁSICO (SQMs ciegos)"
         self._log(f"Configurado: método={self.loot_method}, delay={self.loot_delay}s, "
-                  f"max_clicks={self.max_loot_clicks}, cuenta={self.account_type}")
+                  f"max_clicks={self.max_loot_clicks}, cuenta={self.account_type}, "
+                  f"modo={mode_str}")
 
     def _log(self, msg: str):
         if self._log_fn:
@@ -236,16 +244,20 @@ class LooterEngine:
         """
         # Usar SQMs fijos del calibrator si están disponibles (más preciso)
         if len(self._sqms) >= 9:
-            # Los SQMs están en orden: SW, S, SE, W, Center, E, NW, N, NE
-            # Reordenar para v8: Center primero, luego cardinales
+            # Los SQMs están en orden: SW(0), S(1), SE(2), W(3), Center(4), E(5), NW(6), N(7), NE(8)
+            # Reordenar: Center primero, cardinales, luego diagonales
             center = self._sqms[4]      # Index 4 = Center
             s = self._sqms[1]           # Index 1 = S
             n = self._sqms[7]           # Index 7 = N
             e = self._sqms[5]           # Index 5 = E
             w = self._sqms[3]           # Index 3 = W
+            sw = self._sqms[0]          # Index 0 = SW
+            se = self._sqms[2]          # Index 2 = SE
+            nw = self._sqms[6]          # Index 6 = NW
+            ne = self._sqms[8]          # Index 8 = NE
 
-            # Orden optimizado v8
-            sqms = [center, s, n, e, w]
+            # 9 SQMs: Center → cardinales → diagonales
+            sqms = [center, s, n, e, w, sw, se, nw, ne]
             return sqms[:self.max_loot_sqms]
 
         # Fallback: calcular dinámicamente si no hay SQMs fijos
@@ -255,14 +267,17 @@ class LooterEngine:
         if cx == 0 or sw == 0:
             return []
 
-        # Orden optimizado para chase mode:
-        # Center primero (más probable), luego cardinales
+        # 9 SQMs: Center → cardinales → diagonales
         offsets = [
-            (0, 0),      # Center — cuerpo cae aquí si te paraste encima
-            (0, sh),     # S  — muy común en chase mode
-            (0, -sh),    # N
-            (sw, 0),     # E
-            (-sw, 0),    # W
+            (0, 0),       # Center — cuerpo cae aquí si te paraste encima
+            (0, sh),      # S  — muy común en chase mode
+            (0, -sh),     # N
+            (sw, 0),      # E
+            (-sw, 0),     # W
+            (-sw, sh),    # SW
+            (sw, sh),     # SE
+            (-sw, -sh),   # NW
+            (sw, -sh),    # NE
         ]
 
         sqms = [(cx + dx, cy + dy) for dx, dy in offsets]

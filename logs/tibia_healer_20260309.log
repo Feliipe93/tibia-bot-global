@@ -6412,3 +6412,1372 @@
 [08:13:02] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
 [08:13:02] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
 [08:13:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:13] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:15] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:13:15] DEBUG    🔍 Debug image guardada (ciclo #320)
+[08:13:16] INFO     📊 [Looter] v11 Estado: loots=8, clicks=40, sprite=0, ciegos=8, método=left_click
+[08:13:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:30] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:13:31] INFO     📊 [Looter] v11 Estado: loots=8, clicks=40, sprite=0, ciegos=8, método=left_click
+[08:13:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:13:46] DEBUG    🔍 Debug image guardada (ciclo #360)
+[08:13:46] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:13:46] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:13:46] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:13:46] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:13:46] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:13:47] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:13:47] INFO     📊   ✗ right_opt1: confianza=0.590 < 0.6 (fallido)
+[08:13:47] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:13:47] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:13:47] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:13:47] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:13:47] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:13:47] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:13:47] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:13:47] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:13:47] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:13:47] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:13:47] INFO     📊 SQMs configurados: 9 posiciones
+[08:13:47] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:13:47] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:13:47] INFO     📊 Player center: (592, 252)
+[08:13:47] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:13:47] INFO     ✅ Calibración completada exitosamente
+[08:13:47] INFO     📊 [Looter] v11 Estado: loots=8, clicks=40, sprite=0, ciegos=8, método=left_click
+[08:13:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:13:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:14:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:14:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:14:03] INFO     📊 [Looter] v11 Estado: loots=8, clicks=40, sprite=0, ciegos=8, método=left_click
+[08:14:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=10
+[08:14:07] INFO     📊 [Targeting] → Atacando: Rat en (1263,492)
+[08:14:07] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:14:07] DEBUG    🔍 Click OK — OBS(1263,492) → client(1263,492) hwnd=662162
+[08:14:07] INFO     📊 [Targeting] Atacando: Rat en (1263,492)
+[08:14:12] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=10
+[08:14:14] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 11
+[08:14:14] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:14:14] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:14:14] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:14:14] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:14:14] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:14:15] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:14:15] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:14:15] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:14:15] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:14:16] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:14:16] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:14:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:14:17] DEBUG    🔍 Debug image guardada (ciclo #400)
+[08:14:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=11
+[08:14:19] INFO     📊 [Looter] v11 Estado: loots=9, clicks=45, sprite=0, ciegos=9, método=left_click
+[08:14:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=11
+[08:14:25] INFO     📊 [Targeting] → Atacando: Rat en (1263,492)
+[08:14:25] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:14:25] DEBUG    🔍 Click OK — OBS(1263,492) → client(1263,492) hwnd=662162
+[08:14:25] INFO     📊 [Targeting] Atacando: Rat en (1263,492)
+[08:14:26] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.965, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[08:14:27] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=11
+[08:14:29] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 12
+[08:14:29] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:14:29] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:14:29] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:14:29] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:14:29] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:14:29] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:14:29] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:14:30] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:14:30] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:14:30] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:14:30] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:14:31] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:14:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:14:34] INFO     📊 [Looter] v11 Estado: loots=10, clicks=50, sprite=0, ciegos=10, método=left_click
+[08:14:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:14:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:14:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:14:46] DEBUG    🔍 Debug image guardada (ciclo #440)
+[08:14:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:14:49] INFO     📊 [Looter] v11 Estado: loots=10, clicks=50, sprite=0, ciegos=10, método=left_click
+[08:14:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:05] INFO     📊 [Looter] v11 Estado: loots=10, clicks=50, sprite=0, ciegos=10, método=left_click
+[08:15:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:15:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:20] INFO     📊 [Looter] v11 Estado: loots=10, clicks=50, sprite=0, ciegos=10, método=left_click
+[08:15:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:15:21] DEBUG    🔍 Debug image guardada (ciclo #480)
+[08:15:21] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:15:21] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:15:21] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:15:21] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:15:21] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:15:21] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:15:21] INFO     📊   ✗ right_opt1: confianza=0.590 < 0.6 (fallido)
+[08:15:21] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:15:21] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:15:22] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:15:22] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:15:22] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:15:22] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:15:22] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:15:22] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:15:22] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:15:22] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:15:22] INFO     📊 SQMs configurados: 9 posiciones
+[08:15:22] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:15:22] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:15:22] INFO     📊 Player center: (592, 252)
+[08:15:22] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:15:22] INFO     ✅ Calibración completada exitosamente
+[08:15:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:36] INFO     📊 [Looter] v11 Estado: loots=10, clicks=50, sprite=0, ciegos=10, método=left_click
+[08:15:38] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:15:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=12
+[08:15:42] INFO     📊 [Targeting] → Atacando: Rat en (1263,492)
+[08:15:42] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:15:42] DEBUG    🔍 Click OK — OBS(1263,492) → client(1263,492) hwnd=662162
+[08:15:42] INFO     📊 [Targeting] Atacando: Rat en (1263,492)
+[08:15:43] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=12
+[08:15:49] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=12
+[08:15:49] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 13
+[08:15:49] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:15:49] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:15:49] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:15:50] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:15:50] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:15:50] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:15:50] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:15:50] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:15:51] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:15:51] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:15:51] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:15:52] INFO     📊 [Looter] v11 Estado: loots=11, clicks=55, sprite=0, ciegos=11, método=left_click
+[08:15:53] INFO     📊 [Targeting] → Atacando: Rat en (1227,492)
+[08:15:53] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:15:53] DEBUG    🔍 Click OK — OBS(1227,492) → client(1227,492) hwnd=662162
+[08:15:53] INFO     📊 [Targeting] Atacando: Rat en (1227,492)
+[08:15:54] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=13
+[08:15:55] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:15:55] DEBUG    🔍 Debug image guardada (ciclo #520)
+[08:15:55] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 14
+[08:15:55] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:15:55] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:15:55] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:15:56] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:15:56] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:15:56] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:15:56] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:15:56] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:15:57] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:15:57] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:15:57] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:15:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:07] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:16:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:16:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:23] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:16:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:16:28] DEBUG    🔍 Debug image guardada (ciclo #560)
+[08:16:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:38] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:16:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:47] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:16:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:16:54] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:16:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:09] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:17:09] DEBUG    🔍 Debug image guardada (ciclo #600)
+[08:17:09] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:17:09] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:17:09] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:17:09] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:17:09] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:17:09] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:17:09] INFO     📊   ✗ right_opt1: confianza=0.593 < 0.6 (fallido)
+[08:17:09] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:17:09] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:17:09] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:17:09] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:17:09] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:17:09] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:17:09] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:17:09] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:17:09] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:17:09] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:17:09] INFO     📊 SQMs configurados: 9 posiciones
+[08:17:09] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:17:09] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:17:09] INFO     📊 Player center: (592, 252)
+[08:17:09] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:17:09] INFO     ✅ Calibración completada exitosamente
+[08:17:09] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:17:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:25] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:17:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:31] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:17:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:40] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:17:46] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:50] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:17:50] DEBUG    🔍 Debug image guardada (ciclo #640)
+[08:17:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:17:56] INFO     📊 [Looter] v11 Estado: loots=12, clicks=60, sprite=0, ciegos=12, método=left_click
+[08:18:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=14
+[08:18:06] INFO     📊 [Targeting] → Atacando: Rat en (1227,492)
+[08:18:06] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:18:06] DEBUG    🔍 Click OK — OBS(1227,492) → client(1227,492) hwnd=662162
+[08:18:06] INFO     📊 [Targeting] Atacando: Rat en (1227,492)
+[08:18:07] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=14
+[08:18:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:18:07] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 15
+[08:18:07] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:18:07] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:18:07] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:18:08] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:18:08] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:18:08] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:18:08] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:18:08] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:18:09] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:18:09] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:18:09] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:18:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:12] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:18:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:25] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:18:25] DEBUG    🔍 Debug image guardada (ciclo #680)
+[08:18:27] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:18:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:42] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:18:42] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:18:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:18:58] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:19:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:19:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:19:03] DEBUG    🔍 Debug image guardada (ciclo #720)
+[08:19:03] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:19:03] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:19:03] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:19:03] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:19:03] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:19:03] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:19:03] INFO     📊   ✗ right_opt1: confianza=0.590 < 0.6 (fallido)
+[08:19:03] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:19:03] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:19:03] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:19:03] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:19:03] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:19:03] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:19:03] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:19:03] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:19:03] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:19:03] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:19:03] INFO     📊 SQMs configurados: 9 posiciones
+[08:19:03] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:19:03] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:19:03] INFO     📊 Player center: (592, 252)
+[08:19:03] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:19:03] INFO     ✅ Calibración completada exitosamente
+[08:19:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:19:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:19:13] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:19:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=15
+[08:19:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:19:22] INFO     📊 [Targeting] → Atacando: Rat en (1263,492)
+[08:19:22] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:19:22] DEBUG    🔍 Click OK — OBS(1263,492) → client(1263,492) hwnd=662162
+[08:19:22] INFO     📊 [Targeting] Atacando: Rat en (1263,492)
+[08:19:23] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=15
+[08:19:28] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=15
+[08:19:29] INFO     📊 [Looter] v11 Estado: loots=13, clicks=65, sprite=0, ciegos=13, método=left_click
+[08:19:33] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.965, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[08:19:34] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=15
+[08:19:37] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 16
+[08:19:37] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:19:37] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:19:37] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:19:38] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:19:38] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:19:38] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:19:38] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:19:38] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:19:39] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:19:39] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:19:39] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:19:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:19:39] DEBUG    🔍 Debug image guardada (ciclo #760)
+[08:19:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=16
+[08:19:42] INFO     📊 [Targeting] → Atacando: Rat en (1227,492)
+[08:19:42] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:19:42] DEBUG    🔍 Click OK — OBS(1227,492) → client(1227,492) hwnd=662162
+[08:19:42] INFO     📊 [Targeting] Atacando: Rat en (1227,492)
+[08:19:44] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 17
+[08:19:44] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:19:44] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:19:44] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:19:44] INFO     📊 [Looter] v11 Estado: loots=14, clicks=70, sprite=0, ciegos=14, método=left_click
+[08:19:44] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:19:44] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:19:44] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:19:45] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:19:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:19:45] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:19:45] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:19:45] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:19:45] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:19:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:19:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:19:59] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:20:01] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:20:02] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:15] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:20:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:20:21] DEBUG    🔍 Debug image guardada (ciclo #800)
+[08:20:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:31] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:20:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:38] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:20:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:47] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:20:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:20:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:20:56] DEBUG    🔍 Debug image guardada (ciclo #840)
+[08:20:56] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:20:56] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:20:56] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:20:57] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:20:57] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:20:57] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:20:57] INFO     📊   ✓ right_opt1: confianza=0.652 >= 0.6 en (1249,21)
+[08:20:57] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:20:57] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:20:57] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:20:57] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:20:57] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:20:57] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:20:57] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:20:57] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:20:57] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:20:57] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:20:57] INFO     📊 SQMs configurados: 9 posiciones
+[08:20:57] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:20:57] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:20:57] INFO     📊 Player center: (592, 252)
+[08:20:57] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:20:57] INFO     ✅ Calibración completada exitosamente
+[08:20:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:02] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:21:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:14] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:21:17] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:21:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:31] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:21:31] DEBUG    🔍 Debug image guardada (ciclo #880)
+[08:21:32] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:21:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=17
+[08:21:45] INFO     📊 [Targeting] → Atacando: Rat en (1227,492)
+[08:21:45] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[08:21:45] DEBUG    🔍 Click OK — OBS(1227,492) → client(1227,492) hwnd=662162
+[08:21:45] INFO     📊 [Targeting] Atacando: Rat en (1227,492)
+[08:21:48] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=4, kills=17
+[08:21:48] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 18
+[08:21:48] INFO     📊 [Tracker] Posición de muerte: OBS(592, 252) (método=inferred, conf=0.50)
+[08:21:48] INFO     📊 [Targeting] Posición de muerte detectada: OBS(592, 252) (método: inferred)
+[08:21:48] INFO     📊 [Looter] Kill: Rat — loot lanzado en thread
+[08:21:48] INFO     📊 [Looter] v11 Estado: loots=15, clicks=75, sprite=0, ciegos=15, método=left_click
+[08:21:48] INFO     📊 [Looter] Fallback SQMs ciegos: 5 posiciones, center=(592, 252)
+[08:21:48] INFO     📊 [Looter] Looteando: Rat — SQMs_ciegos 5 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252)
+[08:21:49] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:21:49] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:21:49] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:21:49] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:21:50] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:21:50] INFO     📊 [Looter] Loot OK: Rat — 5/5 clicks (SQMs_ciegos)
+[08:21:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:21:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:21:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:04] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:22:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:09] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:22:10] DEBUG    🔍 Debug image guardada (ciclo #920)
+[08:22:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:19] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:22:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:22:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:34] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:22:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:22:41] DEBUG    🔍 Debug image guardada (ciclo #960)
+[08:22:41] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:22:41] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:22:41] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:22:41] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:22:41] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:22:41] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:22:41] INFO     📊   ✓ right_opt1: confianza=0.683 >= 0.6 en (1196,20)
+[08:22:41] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:22:41] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:22:41] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:22:42] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:22:42] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:22:42] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:22:42] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:22:42] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:22:42] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:22:42] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:22:42] INFO     📊 SQMs configurados: 9 posiciones
+[08:22:42] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:22:42] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:22:42] INFO     📊 Player center: (592, 252)
+[08:22:42] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:22:42] INFO     ✅ Calibración completada exitosamente
+[08:22:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:51] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:22:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:22:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:23:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:06] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:23:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:23:18] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[08:23:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:21] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:23:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:32] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:23:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:36] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:23:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:50] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:23:50] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[08:23:52] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:23:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:23:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:07] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:24:10] INFO     📊 HP=67% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:24:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:23] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:24:26] INFO     📊 HP=67% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:24:26] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[08:24:26] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:24:27] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:24:27] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:24:27] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:24:27] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:24:27] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:24:27] INFO     📊   ✗ right_opt1: confianza=0.579 < 0.6 (fallido)
+[08:24:27] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:24:27] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:24:27] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:24:27] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:24:27] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:24:27] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:24:27] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:24:27] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:24:27] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:24:27] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:24:27] INFO     📊 SQMs configurados: 9 posiciones
+[08:24:27] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:24:27] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:24:27] INFO     📊 Player center: (592, 252)
+[08:24:27] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:24:27] INFO     ✅ Calibración completada exitosamente
+[08:24:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:38] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:38] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:24:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:44] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:24:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:24:54] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:24:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:03] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:25:03] DEBUG    🔍 Debug image guardada (ciclo #1120)
+[08:25:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:09] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:25:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:25:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:24] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:25:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:25:33] DEBUG    🔍 Debug image guardada (ciclo #1160)
+[08:25:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:39] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:25:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:25:52] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:25:55] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:25:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:01] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:26:07] DEBUG    🔍 Debug image guardada (ciclo #1200)
+[08:26:07] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:26:07] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:26:07] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:26:07] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:26:07] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:26:07] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:26:07] INFO     📊   ✗ right_opt1: confianza=0.579 < 0.6 (fallido)
+[08:26:07] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:26:07] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:26:07] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:26:07] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:26:07] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:26:07] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:26:07] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:26:07] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:26:07] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:26:07] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:26:07] INFO     📊 SQMs configurados: 9 posiciones
+[08:26:07] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:26:07] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:26:07] INFO     📊 Player center: (592, 252)
+[08:26:07] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:26:07] INFO     ✅ Calibración completada exitosamente
+[08:26:07] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:11] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:26:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:18] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:26:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:26] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:26:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:40] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:26:40] DEBUG    🔍 Debug image guardada (ciclo #1240)
+[08:26:42] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:26:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:52] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:26:57] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:27:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:27:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:13] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:27:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:15] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:27:15] DEBUG    🔍 Debug image guardada (ciclo #1280)
+[08:27:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:28] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:27:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:27:30] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:41] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:43] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:27:43] DEBUG    🔍 Debug image guardada (ciclo #1320)
+[08:27:43] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:27:43] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:27:43] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:27:43] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:27:43] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:27:43] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:27:43] INFO     📊   ✗ right_opt1: confianza=0.577 < 0.6 (fallido)
+[08:27:43] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:27:43] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:27:44] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:27:44] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:27:44] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:27:44] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:27:44] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:27:44] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:27:44] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:27:44] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:27:44] INFO     📊 SQMs configurados: 9 posiciones
+[08:27:44] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:27:44] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:27:44] INFO     📊 Player center: (592, 252)
+[08:27:44] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:27:44] INFO     ✅ Calibración completada exitosamente
+[08:27:44] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:27:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:52] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:27:59] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:28:01] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:28:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:15] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:28:19] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:28:19] DEBUG    🔍 Debug image guardada (ciclo #1360)
+[08:28:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:30] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:28:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:28:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:45] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:28:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:28:48] DEBUG    🔍 Debug image guardada (ciclo #1400)
+[08:28:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:28:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:01] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:29:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:05] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:29:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:16] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:29:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:29:18] DEBUG    🔍 Debug image guardada (ciclo #1440)
+[08:29:18] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:29:18] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:29:18] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:29:19] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:29:19] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:29:19] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:29:19] INFO     📊   ✗ right_opt1: confianza=0.580 < 0.6 (fallido)
+[08:29:19] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:29:19] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:29:19] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:29:19] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:29:19] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:29:19] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:29:19] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:29:19] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:29:19] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:29:19] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:29:19] INFO     📊 SQMs configurados: 9 posiciones
+[08:29:19] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:29:19] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:29:19] INFO     📊 Player center: (592, 252)
+[08:29:19] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:29:19] INFO     ✅ Calibración completada exitosamente
+[08:29:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:32] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:29:34] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:29:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:48] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:29:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:29:53] DEBUG    🔍 Debug image guardada (ciclo #1480)
+[08:29:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:29:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:04] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:30:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:20] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:30:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:30:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:35] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:30:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:30:41] DEBUG    🔍 Debug image guardada (ciclo #1520)
+[08:30:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:51] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:30:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:30:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:04] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:31:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:07] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:31:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:22] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:31:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:31:27] DEBUG    🔍 Debug image guardada (ciclo #1560)
+[08:31:28] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:31:28] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:31:28] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:31:28] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:31:28] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:31:28] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:31:28] INFO     📊   ✗ right_opt1: confianza=0.580 < 0.6 (fallido)
+[08:31:28] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:31:28] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:31:28] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:31:28] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:31:28] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:31:28] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:31:28] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:31:28] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:31:28] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:31:28] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:31:28] INFO     📊 SQMs configurados: 9 posiciones
+[08:31:28] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:31:28] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:31:28] INFO     📊 Player center: (592, 252)
+[08:31:28] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:31:28] INFO     ✅ Calibración completada exitosamente
+[08:31:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:38] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:31:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:45] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:45] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:31:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:31:53] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:31:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:32:00] DEBUG    🔍 Debug image guardada (ciclo #1600)
+[08:32:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:08] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:32:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:32:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:23] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:32:25] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:32:26] DEBUG    🔍 Debug image guardada (ciclo #1640)
+[08:32:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:39] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:32:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:32:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:54] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:32:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:32:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:32:56] DEBUG    🔍 Debug image guardada (ciclo #1680)
+[08:32:57] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:32:57] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:32:57] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:32:57] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:32:57] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:32:57] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:32:57] INFO     📊   ✗ right_opt1: confianza=0.580 < 0.6 (fallido)
+[08:32:57] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:32:57] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:32:57] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:32:57] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:32:57] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:32:57] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:32:57] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:32:57] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:32:57] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:32:57] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:32:57] INFO     📊 SQMs configurados: 9 posiciones
+[08:32:57] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:32:57] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:32:57] INFO     📊 Player center: (592, 252)
+[08:32:57] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:32:57] INFO     ✅ Calibración completada exitosamente
+[08:33:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:09] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:33:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:33:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:16] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:33:23] DEBUG    🔍 Debug image guardada (ciclo #1720)
+[08:33:25] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:33:27] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:33:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=18
+[08:33:40] INFO     📊 [Looter] v11 Estado: loots=16, clicks=80, sprite=0, ciegos=16, método=left_click
+[08:33:41] INFO     📊 Cerrando aplicación...
+[08:33:44] INFO     ✅ Bot detenido
+[08:33:48] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[08:33:48] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[08:33:48] INFO     📊 [Targeting] Templates cargados: 4/5
+[08:33:48] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[08:33:48] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[08:33:49] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[08:33:49] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[08:33:49] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[08:33:49] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[08:33:49] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[08:33:49] INFO     📊   HWND=662162 | Ventanas Tibia encontradas: 2
+[08:33:49] INFO     📊   [0] hwnd=662162 title='Tibia - Pastero codode bronze' (1382x744)
+[08:33:49] INFO     📊   [1] hwnd=197720 title='Tibia auto-clicker script conversion to Windows Python - Claude - Brave' (1382x744)
+[08:33:49] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[08:33:49] INFO     📊 [Targeting] Templates cargados: 4/5
+[08:33:49] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[08:33:49] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[08:33:50] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[08:33:50] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[08:33:50] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[08:33:50] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[08:33:50] INFO     📊 Ventanas Tibia encontradas: 2
+[08:33:50] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[08:33:51] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[08:33:52] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[08:33:52] INFO     📊 Loop principal iniciado
+[08:33:52] INFO     ✅ Bot iniciado
+[08:33:54] INFO     ✅ GUI iniciada correctamente
+[08:33:55] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:35:07] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[08:35:07] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[08:35:07] INFO     📊 [Targeting] Templates cargados: 4/5
+[08:35:07] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[08:35:07] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[08:35:07] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[08:35:07] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[08:35:07] INFO     📊   HWND=662162 | Ventanas Tibia encontradas: 2
+[08:35:07] INFO     📊   [0] hwnd=662162 title='Tibia - Pastero codode bronze' (1382x744)
+[08:35:07] INFO     📊   [1] hwnd=197720 title='Tibia auto-clicker script conversion to Windows Python - Claude - Brave' (1382x744)
+[08:35:07] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[08:35:07] INFO     📊 [Targeting] Templates cargados: 4/5
+[08:35:07] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[08:35:07] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[08:35:07] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[08:35:07] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[08:35:07] INFO     📊 Ventanas Tibia encontradas: 2
+[08:35:07] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[08:35:07] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[08:35:07] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[08:35:07] INFO     📊 Loop principal iniciado
+[08:35:07] INFO     ✅ Bot iniciado
+[08:35:08] INFO     ✅ GUI iniciada correctamente
+[08:35:09] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:35:09] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:35:09] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:35:09] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:35:09] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:35:09] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:35:09] INFO     📊   ✗ right_opt1: confianza=0.579 < 0.6 (fallido)
+[08:35:09] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:35:09] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:35:09] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:35:10] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:35:10] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.579 | right_opt2=1.000 | right_opt3=0.775 | right_opt4=0.643 | EndLocation=0.867
+[08:35:10] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:35:10] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:35:10] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:35:10] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:35:10] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:35:10] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:35:10] INFO     📊 SQMs configurados: 9 posiciones
+[08:35:10] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:35:10] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:35:10] INFO     📊 Player center: (592, 252)
+[08:35:10] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:35:10] INFO     ✅ Calibración completada exitosamente
+[08:35:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:35:36] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:35:36] DEBUG    🔍 Debug image guardada (ciclo #40)
+[08:35:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:36:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:36:00] DEBUG    🔍 Debug image guardada (ciclo #80)
+[08:36:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:36:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:36:27] DEBUG    🔍 Debug image guardada (ciclo #120)
+[08:36:27] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:36:27] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:36:28] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:36:28] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:36:28] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:36:28] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:36:28] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:36:28] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:36:28] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:36:28] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:36:28] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:36:28] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.582 | right_opt2=1.000 | right_opt3=0.775 | right_opt4=0.643 | EndLocation=0.867
+[08:36:28] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:36:28] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:36:28] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:36:28] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:36:28] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:36:28] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:36:28] INFO     📊 SQMs configurados: 9 posiciones
+[08:36:28] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:36:28] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:36:28] INFO     📊 Player center: (592, 252)
+[08:36:28] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:36:28] INFO     ✅ Calibración completada exitosamente
+[08:36:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:37:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:37:14] DEBUG    🔍 Debug image guardada (ciclo #160)
+[08:37:40] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:38:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:38:18] DEBUG    🔍 Debug image guardada (ciclo #200)
+[08:38:47] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:39:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:39:07] DEBUG    🔍 Debug image guardada (ciclo #240)
+[08:39:07] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:39:07] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:39:07] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:39:07] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:39:07] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:39:07] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:39:07] INFO     📊   ✓ right_opt1: confianza=0.621 >= 0.6 en (1248,21)
+[08:39:07] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:39:07] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:39:07] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:39:07] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:39:07] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.621 | right_opt2=1.000 | right_opt3=0.775 | right_opt4=0.643 | EndLocation=0.867
+[08:39:07] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:39:07] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:39:07] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:39:07] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:39:07] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:39:07] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:39:07] INFO     📊 SQMs configurados: 9 posiciones
+[08:39:07] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:39:07] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:39:07] INFO     📊 Player center: (592, 252)
+[08:39:07] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:39:07] INFO     ✅ Calibración completada exitosamente
+[08:39:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:39:46] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:39:46] DEBUG    🔍 Debug image guardada (ciclo #280)
+[08:40:04] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:40:10] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[08:40:10] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[08:40:10] INFO     ✅ Configuración del Looter guardada
+[08:40:10] INFO     📊 Módulo 'looter' habilitado
+[08:40:10] INFO     📊 [CorpseTpl] Template cargado: Swamp Troll (57×58px)
+[08:40:10] INFO     📊 [CorpseTpl] Total templates de cadáveres: 1
+[08:40:10] INFO     📊 [Looter] Looter v11 activado — Sprite Detection + SQMs ciegos (fallback)
+[08:40:10] INFO     📊 [Looter]   Método click: left_click, cuenta: free
+[08:40:10] INFO     📊 [Looter]   SQMs calibrados: 9 posiciones
+[08:40:10] INFO     📊 [Looter]   ⚠ Sin sprites de cadáveres — usando SQMs ciegos
+[08:40:10] INFO     📊 [Looter]     💡 Captura sprites en la pestaña Looter para loot preciso
+[08:40:10] INFO     📊 [Looter]   Prioridad: Sprite Detection → SQMs ciegos
+[08:40:10] INFO     📊 [Looter]   SQMs fijos: Center=(592, 252), usando índices [4,1,7,5,3]
+[08:40:10] INFO     📊 [Looter]   Max clicks: 9, delay: 0.15s
+[08:40:10] INFO     📊 [Looter] ✓ Calibración OK — SQMs fijos del screen_calibrator
+[08:40:10] INFO     📊 Looter habilitado
+[08:40:10] INFO     📊 [Looter] v11 Estado: loots=0, clicks=0, sprite=0, ciegos=0, método=left_click
+[08:40:21] INFO     📊 [Looter] 🧪 TEST LOOT iniciado — 9 SQMs
+[08:40:21] INFO     📊 🧪 Test manual de loot iniciado — revisa el log del Looter
+[08:40:21] INFO     📊 [Looter] Fallback SQMs ciegos: 9 posiciones, center=(592, 252)
+[08:40:21] INFO     📊 [Looter] Looteando: TEST-MANUAL_TEST — SQMs_ciegos 9 clicks: (592,252) → (592,297) → (592,207) → (670,252) → (514,252) → (514,297) → (670,297) → (514,207) → (670,207)
+[08:40:21] DEBUG    🔍 Click OK — OBS(592,252) → client(592,252) hwnd=662162
+[08:40:21] DEBUG    🔍 Click OK — OBS(592,297) → client(592,297) hwnd=662162
+[08:40:22] DEBUG    🔍 Click OK — OBS(592,207) → client(592,207) hwnd=662162
+[08:40:22] DEBUG    🔍 Click OK — OBS(670,252) → client(670,252) hwnd=662162
+[08:40:22] DEBUG    🔍 Click OK — OBS(514,252) → client(514,252) hwnd=662162
+[08:40:22] DEBUG    🔍 Click OK — OBS(514,297) → client(514,297) hwnd=662162
+[08:40:23] DEBUG    🔍 Click OK — OBS(670,297) → client(670,297) hwnd=662162
+[08:40:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:40:23] DEBUG    🔍 Click OK — OBS(514,207) → client(514,207) hwnd=662162
+[08:40:23] DEBUG    🔍 Debug image guardada (ciclo #320)
+[08:40:23] DEBUG    🔍 Click OK — OBS(670,207) → client(670,207) hwnd=662162
+[08:40:23] INFO     📊 [Looter] Loot OK: TEST-MANUAL_TEST — 9/9 clicks (SQMs_ciegos)
+[08:40:26] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:40:41] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:40:44] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:40:56] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:41:04] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:41:04] DEBUG    🔍 Debug image guardada (ciclo #360)
+[08:41:04] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:41:04] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:41:04] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:41:04] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:41:04] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:41:04] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:41:04] INFO     📊   ✓ right_opt1: confianza=0.602 >= 0.6 en (1248,22)
+[08:41:04] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:41:04] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:41:05] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:41:05] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:41:05] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:41:05] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:41:05] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:41:05] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:41:05] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:41:05] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:41:05] INFO     📊 SQMs configurados: 9 posiciones
+[08:41:05] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:41:05] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:41:05] INFO     📊 Player center: (592, 252)
+[08:41:05] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:41:05] INFO     ✅ Calibración completada exitosamente
+[08:41:12] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:41:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:41:27] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:41:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:41:41] DEBUG    🔍 Debug image guardada (ciclo #400)
+[08:41:43] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:41:44] INFO     ✅ Referencia de suelo capturada: 9 tiles en images/Looter/
+[08:41:58] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:41:59] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:42:14] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:42:14] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:42:14] DEBUG    🔍 Debug image guardada (ciclo #440)
+[08:42:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:42:29] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:42:41] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:42:42] DEBUG    🔍 Debug image guardada (ciclo #480)
+[08:42:42] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:42:42] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:42:42] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:42:42] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:42:42] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:42:42] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:42:42] INFO     📊   ✓ right_opt1: confianza=0.602 >= 0.6 en (1248,22)
+[08:42:42] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:42:42] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:42:42] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:42:42] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:42:42] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:42:42] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:42:42] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:42:42] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:42:42] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:42:42] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:42:42] INFO     📊 SQMs configurados: 9 posiciones
+[08:42:42] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:42:42] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:42:42] INFO     📊 Player center: (592, 252)
+[08:42:42] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:42:42] INFO     ✅ Calibración completada exitosamente
+[08:42:44] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:42:58] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:43:00] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:43:15] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:43:16] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:43:16] DEBUG    🔍 Debug image guardada (ciclo #520)
+[08:43:30] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:43:36] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:43:45] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:43:52] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:43:52] DEBUG    🔍 Debug image guardada (ciclo #560)
+[08:44:01] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:44:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:44:16] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:44:29] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:44:29] DEBUG    🔍 Debug image guardada (ciclo #600)
+[08:44:30] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:44:30] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:44:30] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:44:30] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:44:30] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:44:30] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:44:30] INFO     📊   ✓ right_opt1: confianza=0.602 >= 0.6 en (1248,22)
+[08:44:30] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:44:30] INFO     📊   ✓ right_opt3: confianza=0.775 >= 0.6 en (1190,620)
+[08:44:30] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:44:30] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:44:30] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:44:30] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:44:30] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:44:30] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:44:30] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:44:30] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:44:30] INFO     📊 SQMs configurados: 9 posiciones
+[08:44:30] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:44:30] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:44:30] INFO     📊 Player center: (592, 252)
+[08:44:30] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:44:30] INFO     ✅ Calibración completada exitosamente
+[08:44:31] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:44:47] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:44:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:45:03] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:45:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:45:12] DEBUG    🔍 Debug image guardada (ciclo #640)
+[08:45:18] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:45:24] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:45:33] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:45:35] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:45:35] DEBUG    🔍 Debug image guardada (ciclo #680)
+[08:45:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:45:49] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:46:01] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:46:01] DEBUG    🔍 Debug image guardada (ciclo #720)
+[08:46:01] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:46:01] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:46:01] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:46:01] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:46:01] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:46:01] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:46:01] INFO     📊   ✗ right_opt1: confianza=0.581 < 0.6 (fallido)
+[08:46:01] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:46:01] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:46:01] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:46:01] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:46:01] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:46:01] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:46:01] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:46:01] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:46:01] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:46:01] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:46:01] INFO     📊 SQMs configurados: 9 posiciones
+[08:46:01] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:46:01] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:46:01] INFO     📊 Player center: (592, 252)
+[08:46:01] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[08:46:01] INFO     ✅ Calibración completada exitosamente
+[08:46:04] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:46:13] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:46:20] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:46:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:46:24] DEBUG    🔍 Debug image guardada (ciclo #760)
+[08:46:35] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:46:36] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:46:51] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:46:54] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:46:55] DEBUG    🔍 Debug image guardada (ciclo #800)
+[08:47:06] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:47:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:18] DEBUG    🔍 Debug image guardada (ciclo #840)
+[08:47:18] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:47:18] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:47:18] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:47:18] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:47:18] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:47:18] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:47:18] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:47:18] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:47:18] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:47:18] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:47:18] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:47:18] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:47:18] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:47:18] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:47:18] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:47:18] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:47:18] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:47:18] INFO     📊 SQMs configurados: 9 posiciones
+[08:47:18] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:47:18] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:47:18] INFO     📊 Player center: (592, 252)
+[08:47:18] INFO     ✅ Calibración completada exitosamente
+[08:47:21] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:47:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:37] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:47:38] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:38] DEBUG    🔍 Debug image guardada (ciclo #880)
+[08:47:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:52] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:47:59] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:47:59] DEBUG    🔍 Debug image guardada (ciclo #920)
+[08:48:07] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:48:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:48:20] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:48:20] DEBUG    🔍 Debug image guardada (ciclo #960)
+[08:48:20] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:48:20] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:48:20] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:48:20] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:48:20] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:48:20] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:48:20] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:48:20] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:48:20] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:48:20] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:48:20] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:48:20] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:48:20] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:48:20] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:48:20] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:48:20] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:48:20] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:48:20] INFO     📊 SQMs configurados: 9 posiciones
+[08:48:20] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:48:20] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:48:20] INFO     📊 Player center: (592, 252)
+[08:48:20] INFO     ✅ Calibración completada exitosamente
+[08:48:22] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:48:32] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:48:38] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:48:45] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:48:45] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[08:48:53] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:49:00] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:09] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:49:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:11] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[08:49:21] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:24] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:49:31] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:31] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[08:49:31] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:49:31] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:49:32] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:49:32] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:49:32] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:49:32] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:49:32] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:49:32] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:49:32] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:49:32] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:49:32] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:49:32] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:49:32] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:49:32] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:49:32] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:49:32] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:49:32] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:49:32] INFO     📊 SQMs configurados: 9 posiciones
+[08:49:32] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:49:32] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:49:32] INFO     📊 Player center: (592, 252)
+[08:49:32] INFO     ✅ Calibración completada exitosamente
+[08:49:40] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:49:42] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:52] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:49:52] DEBUG    🔍 Debug image guardada (ciclo #1120)
+[08:49:55] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:50:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:50:10] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:50:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:50:12] DEBUG    🔍 Debug image guardada (ciclo #1160)
+[08:50:23] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:50:26] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:50:33] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:50:33] DEBUG    🔍 Debug image guardada (ciclo #1200)
+[08:50:33] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:50:33] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:50:33] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:50:33] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:50:33] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:50:33] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:50:33] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:50:33] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:50:33] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:50:33] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:50:33] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:50:33] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:50:33] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:50:33] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:50:33] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:50:33] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:50:33] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:50:33] INFO     📊 SQMs configurados: 9 posiciones
+[08:50:33] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:50:33] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:50:33] INFO     📊 Player center: (592, 252)
+[08:50:33] INFO     ✅ Calibración completada exitosamente
+[08:50:41] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:50:48] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:50:56] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:51:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:02] DEBUG    🔍 Debug image guardada (ciclo #1240)
+[08:51:12] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:51:12] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:24] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:24] DEBUG    🔍 Debug image guardada (ciclo #1280)
+[08:51:27] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:51:34] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:42] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:51:45] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:45] DEBUG    🔍 Debug image guardada (ciclo #1320)
+[08:51:45] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:51:45] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:51:45] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:51:45] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:51:45] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:51:45] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:51:45] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:51:45] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:51:45] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:51:45] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:51:45] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:51:45] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:51:45] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:51:45] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:51:45] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:51:45] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:51:45] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:51:45] INFO     📊 SQMs configurados: 9 posiciones
+[08:51:45] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:51:45] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:51:45] INFO     📊 Player center: (592, 252)
+[08:51:45] INFO     ✅ Calibración completada exitosamente
+[08:51:56] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:51:58] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:52:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:52:07] DEBUG    🔍 Debug image guardada (ciclo #1360)
+[08:52:13] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:52:17] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:52:28] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:52:28] DEBUG    🔍 Debug image guardada (ciclo #1400)
+[08:52:28] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:52:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:52:44] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:52:58] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:52:58] DEBUG    🔍 Debug image guardada (ciclo #1440)
+[08:52:58] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[08:52:58] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[08:52:58] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[08:52:58] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[08:52:58] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[08:52:58] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[08:52:58] INFO     📊   ✗ right_opt1: confianza=0.582 < 0.6 (fallido)
+[08:52:58] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[08:52:58] INFO     📊   ✓ right_opt3: confianza=0.787 >= 0.6 en (574,143)
+[08:52:59] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[08:52:59] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[08:52:59] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[08:52:59] INFO     📊 Map region: (1199, 5, 1304, 113)
+[08:52:59] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[08:52:59] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[08:52:59] INFO     📊 [Looter]   SQM size: (78, 45)
+[08:52:59] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[08:52:59] INFO     📊 SQMs configurados: 9 posiciones
+[08:52:59] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[08:52:59] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[08:52:59] INFO     📊 Player center: (592, 252)
+[08:52:59] INFO     ✅ Calibración completada exitosamente
+[08:52:59] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:53:10] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:53:14] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:53:20] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[08:53:20] DEBUG    🔍 Debug image guardada (ciclo #1480)
+[08:53:29] INFO     📊 [Looter] v11 Estado: loots=1, clicks=9, sprite=0, ciegos=1, método=left_click
+[08:53:32] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA

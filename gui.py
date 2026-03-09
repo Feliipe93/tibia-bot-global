@@ -2036,6 +2036,52 @@ class TibiaHealerGUI(ctk.CTk):
         ctk.CTkLabel(row_sqm, text="Cuántos SQMs clickear por cuerpo (1-9, 9=todos incl. centro)",
                       font=ctk.CTkFont(size=11), text_color="#888888").pack(side="left", padx=8)
 
+        # --- Modo de detección de cadáveres ---
+        detect_mode_frame = ctk.CTkFrame(scroll, border_width=1, border_color="#3498DB")
+        detect_mode_frame.pack(fill="x", padx=5, pady=5)
+        ctk.CTkLabel(detect_mode_frame, text="🔍 MODO DE DETECCIÓN DE CADÁVERES",
+                      font=ctk.CTkFont(weight="bold"),
+                      text_color="#3498DB").pack(anchor="w", padx=10, pady=(8, 4))
+
+        self._loot_mode_var = ctk.StringVar(
+            value=self.config.looter.get("loot_mode", "basic")
+        )
+
+        basic_row = ctk.CTkFrame(detect_mode_frame, fg_color="transparent")
+        basic_row.pack(fill="x", padx=10, pady=2)
+        self.rb_loot_basic = ctk.CTkRadioButton(
+            basic_row, text="📦 Método Básico (SQMs ciegos)",
+            variable=self._loot_mode_var, value="basic",
+            font=ctk.CTkFont(size=12, weight="bold"),
+        )
+        self.rb_loot_basic.pack(side="left")
+        ctk.CTkLabel(basic_row,
+                      text="Clickea los 9 SQMs alrededor del player tras cada kill. Siempre funciona.",
+                      font=ctk.CTkFont(size=10), text_color="#2ECC71").pack(side="left", padx=10)
+
+        adv_row = ctk.CTkFrame(detect_mode_frame, fg_color="transparent")
+        adv_row.pack(fill="x", padx=10, pady=2)
+        self.rb_loot_advanced = ctk.CTkRadioButton(
+            adv_row, text="🎯 Método Avanzado (Sprite del cadáver)",
+            variable=self._loot_mode_var, value="advanced",
+            font=ctk.CTkFont(size=12, weight="bold"),
+        )
+        self.rb_loot_advanced.pack(side="left")
+        ctk.CTkLabel(adv_row,
+                      text="Busca la imagen del cadáver en pantalla → click preciso. Requiere captura de sprite.",
+                      font=ctk.CTkFont(size=10), text_color="#F39C12").pack(side="left", padx=10)
+
+        ctk.CTkLabel(
+            detect_mode_frame,
+            text=(
+                "💡 Básico: No requiere configuración extra. Lootea clickeando todos los cuadros.\n"
+                "💡 Avanzado: Necesitas capturar el sprite del cadáver de cada criatura (sección abajo).\n"
+                "    Si no hay sprite para una criatura, el avanzado usa SQMs ciegos como fallback."
+            ),
+            font=ctk.CTkFont(size=10), text_color="#888888",
+            justify="left",
+        ).pack(anchor="w", padx=12, pady=(4, 10))
+
         # --- Estrategia de looteo ---
         strat_frame = ctk.CTkFrame(scroll)
         strat_frame.pack(fill="x", padx=5, pady=5)
@@ -2386,6 +2432,9 @@ class TibiaHealerGUI(ctk.CTk):
             looter["max_loot_sqms"] = int(self.entry_max_loot_sqms.get())
         except ValueError:
             looter["max_loot_sqms"] = 9
+
+        # Modo de detección (básico / avanzado)
+        looter["loot_mode"] = self._loot_mode_var.get()
 
         # Estrategia kill-first
         looter["always_loot"] = bool(self.cb_always_loot.get())
@@ -3361,9 +3410,9 @@ class TibiaHealerGUI(ctk.CTk):
         else:
             display_rgb = roi_rgb.copy()
 
-        dialog.geometry(f"{display_w + 20}x{display_h + 400}")
+        dialog.geometry(f"{max(display_w + 40, 600)}x{min(display_h + 450, 900)}")
         dialog.resizable(True, True)
-        dialog.minsize(400, 400)
+        dialog.minsize(500, 500)
 
         # Instrucciones
         ctk.CTkLabel(
@@ -3407,7 +3456,7 @@ class TibiaHealerGUI(ctk.CTk):
             font=ctk.CTkFont(size=10), text_color="#888888",
         ).pack(padx=10, pady=(0, 4))
 
-        # Canvas con imagen
+        # Canvas con imagen (sin expand para no robarse el espacio de los botones)
         pil_img = Image.fromarray(display_rgb)
         tk_img = ImageTk.PhotoImage(pil_img)
 
@@ -3429,16 +3478,20 @@ class TibiaHealerGUI(ctk.CTk):
                 color = "#FF0000" if dx == 0 and dy == 0 else "#333333"
                 canvas.create_rectangle(sx, sy, ex, ey, outline=color, width=1)
 
-        # Label de preview
+        # Label de preview de coordenadas
         lbl_preview = ctk.CTkLabel(
-            dialog, text="Haz clic en una criatura...",
+            dialog, text="👆 Haz clic en el cadáver de una criatura...",
             font=ctk.CTkFont(size=11),
         )
-        lbl_preview.pack(pady=2)
+        lbl_preview.pack(padx=10, pady=2)
 
         # Preview del sprite capturado
         sprite_preview_label = ctk.CTkLabel(dialog, text="")
         sprite_preview_label.pack(pady=2)
+
+        # ── Botones (siempre visibles al final) ──────────────
+        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_frame.pack(fill="x", padx=10, pady=(4, 10))
 
         def on_click(event):
             # Coordenadas reales en el ROI
@@ -3486,10 +3539,6 @@ class TibiaHealerGUI(ctk.CTk):
                 sprite_preview_label._tk_img = tk_preview
 
         canvas.bind("<Button-1>", on_click)
-
-        # Botones
-        btn_frame = ctk.CTkFrame(dialog, fg_color="transparent")
-        btn_frame.pack(pady=8)
 
         def on_save():
             if not state["click_done"]:
