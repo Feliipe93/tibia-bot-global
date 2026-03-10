@@ -85,21 +85,89 @@ class TibiaHealerGUI(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
         # ----------------------------------------------------------
-        # Layout principal con tabs
+        # Layout principal con pestañas verticales y scroll
         # ----------------------------------------------------------
-        self.tabview = ctk.CTkTabview(self, anchor="nw")
-        self.tabview.pack(fill="both", expand=True, padx=8, pady=(8, 4))
-
-        self.tab_main = self.tabview.add("🏠 Principal")
-        self.tab_simple_walking = self.tabview.add("🚶 Simple Walking")
-        self.tab_test = self.tabview.add("🧪 Test")
-        self.tab_config = self.tabview.add("⚙️ Configuración")
-        self.tab_windows = self.tabview.add("🪟 Ventanas")
-        self.tab_cavebot = self.tabview.add("🗺️ Cavebot")
-        self.tab_targeting = self.tabview.add("⚔️ Targeting")
-        self.tab_looter = self.tabview.add("💰 Looter")
-        self.tab_screenview = self.tabview.add("🖥️ Screen View")
-        self.tab_help = self.tabview.add("❓ Ayuda")
+        # Frame principal para contener todo
+        main_frame = ctk.CTkFrame(self)
+        main_frame.pack(fill="both", expand=True, padx=8, pady=(8, 4))
+        
+        # Frame izquierdo para las pestañas verticales
+        tabs_frame = ctk.CTkFrame(main_frame, width=200)
+        tabs_frame.pack(side="left", fill="y", padx=(0, 5))
+        tabs_frame.pack_propagate(False)
+        
+        # Scrollable frame para las pestañas
+        self.tabs_scroll = ctk.CTkScrollableFrame(tabs_frame, fg_color="transparent")
+        self.tabs_scroll.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        # Frame derecho para el contenido
+        self.content_frame = ctk.CTkFrame(main_frame)
+        self.content_frame.pack(side="right", fill="both", expand=True)
+        
+        # Crear pestañas verticales
+        self.tab_buttons = {}
+        self.tab_contents = {}
+        self.current_tab = None
+        
+        # Lista de pestañas con sus iconos
+        tabs_data = [
+            ("main", "🏠 Principal"),
+            ("simple_walking", "🚶 Simple Walking"),
+            ("test", "🧪 Test"),
+            ("config", "⚙️ Configuración"),
+            ("windows", "🪟 Ventanas"),
+            ("cavebot", "🗺️ Cavebot"),
+            ("targeting", "⚔️ Targeting"),
+            ("looter", "💰 Looter"),
+            ("screenview", "🖥️ Screen View"),
+            ("help", "❓ Ayuda")
+        ]
+        
+        for tab_id, tab_name in tabs_data:
+            # Botón de pestaña
+            btn = ctk.CTkButton(
+                self.tabs_scroll,
+                text=tab_name,
+                width=180,
+                height=40,
+                command=lambda tid=tab_id: self._switch_tab(tid)
+            )
+            btn.pack(fill="x", pady=2)
+            self.tab_buttons[tab_id] = btn
+            
+            # Frame de contenido (oculto inicialmente)
+            content = ctk.CTkFrame(self.content_frame)
+            self.tab_contents[tab_id] = content
+        
+        # Separador y botón para agregar pestañas
+        separator = ctk.CTkFrame(self.tabs_scroll, height=2)
+        separator.pack(fill="x", pady=(10, 5))
+        
+        add_tab_btn = ctk.CTkButton(
+            self.tabs_scroll,
+            text="➕ Agregar Pestaña",
+            width=180,
+            height=40,
+            fg_color=("#27AE60", "#229954"),
+            hover_color=("#229954", "#1E8449"),
+            command=self._show_add_tab_dialog
+        )
+        add_tab_btn.pack(fill="x", pady=2)
+        
+        # Seleccionar primera pestaña por defecto
+        self._switch_tab("main")
+        
+        # Asignar tabs a variables para compatibilidad con código existente
+        self.tab_main = self.tab_contents["main"]
+        self.tab_simple_walking = self.tab_contents["simple_walking"]
+        self.tab_test = self.tab_contents["test"]
+        self.tab_config = self.tab_contents["config"]
+        self.tab_windows = self.tab_contents["windows"]
+        self.tab_cavebot = self.tab_contents["cavebot"]
+        self.tab_targeting = self.tab_contents["targeting"]
+        self.tab_looter = self.tab_contents["looter"]
+        self.tab_screenview = self.tab_contents["screenview"]
+        self.tab_help = self.tab_contents["help"]
 
         # Construir cada sección
         self._build_main_tab()
@@ -138,6 +206,77 @@ class TibiaHealerGUI(ctk.CTk):
         )
 
         self.log.ok("GUI iniciada correctamente")
+
+    def _switch_tab(self, tab_id: str):
+        """Cambia a la pestaña especificada."""
+        if self.current_tab == tab_id:
+            return
+            
+        # Ocultar contenido actual
+        if self.current_tab and self.current_tab in self.tab_contents:
+            self.tab_contents[self.current_tab].pack_forget()
+            # Restaurar color del botón
+            self.tab_buttons[self.current_tab].configure(
+                fg_color=("gray75", "gray25"),
+                hover_color=("gray60", "gray40")
+            )
+        
+        # Mostrar nuevo contenido
+        if tab_id in self.tab_contents:
+            self.tab_contents[tab_id].pack(fill="both", expand=True, padx=5, pady=5)
+            # Resaltar botón activo
+            self.tab_buttons[tab_id].configure(
+                fg_color=("#1f538d", "#1a4d8c"),
+                hover_color=("#2e6da4", "#286090")
+            )
+            self.current_tab = tab_id
+
+    def add_new_tab(self, tab_id: str, tab_name: str):
+        """Agrega una nueva pestaña dinámicamente."""
+        if tab_id in self.tab_buttons:
+            return  # Ya existe
+            
+        # Crear botón
+        btn = ctk.CTkButton(
+            self.tabs_scroll,
+            text=tab_name,
+            width=180,
+            height=40,
+            command=lambda tid=tab_id: self._switch_tab(tid)
+        )
+        btn.pack(fill="x", pady=2)
+        self.tab_buttons[tab_id] = btn
+        
+        # Crear frame de contenido
+        content = ctk.CTkFrame(self.content_frame)
+        self.tab_contents[tab_id] = content
+        
+        # Asignar a variable dinámica
+        setattr(self, f"tab_{tab_id}", content)
+
+    def _show_add_tab_dialog(self):
+        """Muestra un diálogo para agregar una nueva pestaña."""
+        dialog = ctk.CTkInputDialog(
+            text="Nombre de la nueva pestaña:",
+            title="Agregar Nueva Pestaña"
+        )
+        
+        tab_name = dialog.get_input()
+        if tab_name and tab_name.strip():
+            # Generar ID válido desde el nombre
+            tab_id = tab_name.strip().lower().replace(" ", "_").replace("ñ", "n")
+            tab_id = "".join(c for c in tab_id if c.isalnum() or c == "_")
+            
+            if not tab_id:
+                messagebox.showerror("Error", "Nombre inválido")
+                return
+                
+            # Agregar la pestaña
+            self.add_new_tab(tab_id, tab_name.strip())
+            self.log.ok(f"Nueva pestaña agregada: {tab_name}")
+            
+            # Cambiar a la nueva pestaña
+            self._switch_tab(tab_id)
 
     def _auto_connect_obs(self):
         """Intenta conectar automáticamente a OBS si hay config guardada."""
@@ -4299,12 +4438,13 @@ class TibiaHealerGUI(ctk.CTk):
             overlay_frame,
             variable=self._sv_overlay_var,
             values=["Ninguno", "Game Region", "Battle Region",
-                    "SQMs", "Player Center", "Minimap", "Todo"],
-            width=160,
+                    "SQMs", "Player Center", "Minimap", "Cavebot Waypoints",
+                    "Targeting Criaturas", "Looter Items", "Todo"],
+            width=180,
         ).pack(side="left", padx=6)
 
         # FPS del visor
-        self._sv_fps_var = ctk.StringVar(value="Velocidad: 2 fps")
+        self._sv_fps_var = ctk.StringVar(value="Velocidad: 10 fps")
         ctk.CTkLabel(
             overlay_frame,
             textvariable=self._sv_fps_var,
@@ -4346,20 +4486,16 @@ class TibiaHealerGUI(ctk.CTk):
         self._sv_loop()
 
     def _sv_loop(self):
-        """Loop de refresco del Screen View (~1 fps para no sobrecargar la GUI)."""
+        """Loop de refresco del Screen View (~10 fps para video fluido)."""
         try:
             if self._sv_live_var.get():
                 # Solo refrescar si la pestaña Screen View está visible
-                try:
-                    current_tab = self.tabview.get()
-                except Exception:
-                    current_tab = ""
-                if current_tab == "🖥️ Screen View":
+                if self.current_tab == "screenview":
                     self._sv_refresh()
         except Exception:
             pass
-        # Programar siguiente tick (500 ms = ~2 fps)
-        self._sv_refresh_job = self.after(500, self._sv_loop)
+        # Programar siguiente tick (100 ms = ~10 fps para video fluido)
+        self._sv_refresh_job = self.after(100, self._sv_loop)
 
     def _sv_capture_once(self):
         """Fuerza una captura inmediata aunque el live esté pausado."""
@@ -4572,6 +4708,62 @@ class TibiaHealerGUI(ctk.CTk):
                                     )
                         except Exception:
                             pass
+
+                # Cavebot Waypoints overlay
+                if overlay in ("Cavebot Waypoints", "Todo"):
+                    try:
+                        cb = self.bot.cavebot_engine
+                        if cb.waypoints:
+                            # Dibujar waypoints actuales y siguientes
+                            for i, wp in enumerate(cb.waypoints):
+                                if hasattr(wp, 'x') and hasattr(wp, 'y'):
+                                    # Convertir coordenadas del juego a pantalla
+                                    cal = self.bot.calibrator
+                                    if hasattr(cal, 'game_region') and cal.game_region:
+                                        gx1, gy1, gx2, gy2 = cal.game_region
+                                        # Approx conversion (esto puede necesitar ajuste)
+                                        px = gx1 + int((wp.x / 15) * (gx2 - gx1))  # 15 = aprox ancho del mapa
+                                        py = gy1 + int((wp.y / 15) * (gy2 - gy1))
+                                        
+                                        # Es el waypoint actual?
+                                        is_current = (i == cb.current_wp_index if hasattr(cb, 'current_wp_index') else False)
+                                        color = (0, 255, 0) if is_current else (255, 255, 0)
+                                        
+                                        cv2.circle(display, (px, py), 8, color, 2)
+                                        cv2.putText(display, f"W{i+1}", (px + 10, py - 5),
+                                                   cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+                    except Exception:
+                        pass
+
+                # Targeting Criaturas overlay
+                if overlay in ("Targeting Criaturas", "Todo"):
+                    try:
+                        targeting = self.bot.targeting_engine
+                        if hasattr(targeting, 'detected_creatures'):
+                            for creature in targeting.detected_creatures:
+                                if hasattr(creature, 'rect') and hasattr(creature, 'name'):
+                                    x, y, w, h = creature.rect
+                                    # Dibujar rectángulo alrededor de la criatura
+                                    cv2.rectangle(display, (x, y), (x + w, y + h), (255, 0, 255), 2)
+                                    cv2.putText(display, creature.name[:8], (x, y - 5),
+                                               cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 255), 1)
+                    except Exception:
+                        pass
+
+                # Looter Items overlay
+                if overlay in ("Looter Items", "Todo"):
+                    try:
+                        looter = self.bot.looter_engine
+                        if hasattr(looter, 'detected_items'):
+                            for item in looter.detected_items:
+                                if hasattr(item, 'rect') and hasattr(item, 'name'):
+                                    x, y, w, h = item.rect
+                                    # Dibujar rectángulo alrededor del item
+                                    cv2.rectangle(display, (x, y), (x + w, y + h), (0, 255, 255), 2)
+                                    cv2.putText(display, item.name[:6], (x, y - 5),
+                                               cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
+                    except Exception:
+                        pass
 
             except Exception:
                 pass

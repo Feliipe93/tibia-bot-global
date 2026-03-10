@@ -368,10 +368,24 @@ class TargetingEngine:
         already_attacking = self.battle_reader.is_attacking(frame)
 
         if already_attacking and self.current_target:
-            # YA estamos atacando Y tenemos target — no re-clickear
+            # YA estamos atacando Y tenemos target — verificar si debemos cambiar
             self.state = "attacking"
             # v10: Rastrear posición del target en el game screen
             self._track_target_position(frame, creatures)
+            
+            # CORRECCIÓN: Verificar periódicamente si hay un target mejor
+            # Si hay más criaturas y nuestra prioridad no es la mejor, considerar cambiar
+            # PERO no cambiar si el target actual está casi muerto (para evitar dejar enemigos a medio vida)
+            if len(creatures) > 1 and time_since_switch >= self._target_switch_cooldown:
+                # Verificar si el target actual está muy dañado (menos del 25% de vida)
+                current_creature = next((c for c in creatures if c.name.lower() == self.current_target.lower()), None)
+                should_not_abandon = current_creature and self._is_creature_low_health(current_creature, frame)
+                
+                if not should_not_abandon:
+                    better_target = self._should_switch_target(creatures)
+                    if better_target:
+                        self._log(f"Cambiando a target mejor: {better_target.name} (prioridad más alta)")
+                        self._attack_target(frame, better_target)
             return
 
         # Si tenemos un target activo y sigue en la battle list → no re-clickear
@@ -470,6 +484,82 @@ class TargetingEngine:
                 frame=frame,
                 death_position=death_position,
             )
+
+    def _is_creature_low_health(self, creature: CreatureEntry, frame: np.ndarray) -> bool:
+        """
+        Verifica si una criatura tiene baja salud (< 25%) basándose en el color de su nombre.
+        En Tibia, los nombres de criaturas con baja vida aparecen en rojo/naranja.
+        """
+        try:
+            if creature.screen_x == 0 or creature.screen_y == 0:
+                return False
+                
+            # Extraer una pequeña región alrededor del nombre de la criatura
+            x, y = creature.screen_x, creature.screen_y
+            name_region = frame[max(0, y-5):min(frame.shape[0], y+15), 
+                               max(0, x-40):min(frame.shape[1], x+100)]
+            
+            if name_region.size == 0:
+                return False
+            
+            # Convertir a HSV para mejor detección de colores
+            hsv = cv2.cvtColor(name_region, cv2.COLOR_BGR2HSV)
+            
+            # Definir rangos para colores de baja vida (rojo/naranja)
+            red_lower1 = np.array([0, 120, 120])
+            red_upper1 = np.array([10, 255, 255])
+            red_lower2 = np.array([170, 120, 120])
+            red_upper2 = np.array([180, 255, 255])
+            
+            orange_lower = np.array([10, 120, 120])
+            orange_upper = np.array([25, 255, 255])
+            
+            # Contar píxeles rojos/naranjas
+            mask1 = cv2.inRange(hsv, red_lower1, red_upper1)
+            mask2 = cv2.inRange(hsv, red_lower2, red_upper2)
+            mask3 = cv2.inRange(hsv, orange_lower, orange_upper)
+            
+            total_pixels = name_region.size // 3  # 3 canales
+            low_health_pixels = cv2.countNonZero(mask1) + cv2.countNonZero(mask2) + cv2.countNonZero(mask3)
+            
+            # Si más del 15% de los píxeles son rojos/naranjas, considerar baja vida
+            low_health_ratio = low_health_pixels / total_pixels
+            return low_health_ratio > 0.15
+            
+        except Exception:
+            # Si hay error, asumir que no está baja vida (conservador)
+            return False
+
+    def _should_switch_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
+        """
+        Determina si debe cambiar a un target mejor basado en prioridad.
+        Retorna un mejor target si existe, None si el actual es el mejor.
+        """
+        if not self.current_target or not creatures:
+            return None
+            
+        # Obtener prioridad del target actual
+        current_priority = 0
+        current_profile = self.get_creature_profile(self.current_target)
+        if current_profile:
+            current_priority = current_profile.get("priority", 0)
+        
+        # Buscar creature con mayor prioridad
+        best_target = None
+        best_priority = current_priority
+        
+        for c in creatures:
+            if c.name.lower() == self.current_target.lower():
+                continue  # Saltar el target actual
+                
+            profile = self.get_creature_profile(c.name)
+            priority = profile.get("priority", 0) if profile else 0
+            
+            if priority > best_priority:
+                best_priority = priority
+                best_target = c
+        
+        return best_target
 
     def _select_target(self, creatures: List[CreatureEntry]) -> Optional[CreatureEntry]:
         """

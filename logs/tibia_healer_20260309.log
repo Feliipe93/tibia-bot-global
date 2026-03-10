@@ -20077,3 +20077,572 @@
 [15:43:49] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
 [15:43:50] DEBUG    🔍 Debug image guardada (ciclo #400)
 [15:44:08] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[21:11:18] INFO     ✅ Tibia seleccionado: Tibia - Pasturry Pynga Durynga
+[21:11:18] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[21:11:18] INFO     📊 [Targeting] Templates cargados: 4/5
+[21:11:18] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[21:11:18] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[21:11:18] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[21:11:18] INFO     ✅ Tibia encontrado: Tibia - Pasturry Pynga Durynga
+[21:11:18] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[21:11:18] INFO     📊   [0] hwnd=3342404 title='Tibia - Pasturry Pynga Durynga' (1382x744)
+[21:11:18] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[21:11:18] INFO     📊 [Targeting] Templates cargados: 4/5
+[21:11:18] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[21:11:18] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[21:11:18] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[21:11:18] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[21:11:18] INFO     📊 Ventanas Tibia encontradas: 1
+[21:11:18] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[21:11:18] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[21:11:18] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[21:11:18] INFO     📊 Loop principal iniciado
+[21:11:18] INFO     ✅ Bot iniciado
+[21:11:19] INFO     ✅ GUI iniciada correctamente
+[21:13:23] INFO     ✅ Tibia seleccionado: Tibia - Pasturry Pynga Durynga
+[21:13:23] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[21:13:23] INFO     📊 [Targeting] Templates cargados: 4/5
+[21:13:23] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[21:13:23] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[21:13:23] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[21:13:23] INFO     ✅ Tibia encontrado: Tibia - Pasturry Pynga Durynga
+[21:13:23] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[21:13:23] INFO     📊   [0] hwnd=3342404 title='Tibia - Pasturry Pynga Durynga' (1382x744)
+[21:13:23] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[21:13:23] INFO     📊 [Targeting] Templates cargados: 4/5
+[21:13:23] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[21:13:23] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[21:13:23] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[21:13:23] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[21:13:23] INFO     📊 Ventanas Tibia encontradas: 1
+[21:13:23] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[21:13:24] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[21:13:24] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[21:13:24] INFO     📊 Loop principal iniciado
+[21:13:24] INFO     ✅ Bot iniciado
+[21:13:24] INFO     ✅ GUI iniciada correctamente
+[21:13:25] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1018,221)
+[21:13:25] INFO     📊 Battle List header en (1018,221), nombres desde y=236
+[21:13:25] INFO     📊   ✓ MapSettings: confianza=0.972 >= 0.65 en (1305,191)
+[21:13:25] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[21:13:25] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[21:13:25] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[21:13:25] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[21:13:25] INFO     📊   ✓ right_opt2: confianza=0.726 >= 0.6 en (172,29)
+[21:13:25] INFO     📊   ✓ right_opt3: confianza=0.786 >= 0.6 en (0,594)
+[21:13:25] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[21:13:25] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[21:13:25] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.972 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.754 | right_opt1=0.643 | right_opt2=0.726 | right_opt3=0.786 | right_opt4=1.000 | EndLocation=0.866
+[21:13:25] INFO     📊 Battle region: (1018, 236, 1183, 636)
+[21:13:25] INFO     📊 Map region: (1199, 192, 1304, 300)
+[21:13:25] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[21:13:25] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[21:13:25] INFO     📊 [Looter]   SQM size: (55, 45)
+[21:13:25] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[21:13:25] INFO     📊 SQMs configurados: 9 posiciones
+[21:13:25] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[21:13:25] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[21:13:25] INFO     📊 Player center: (590, 252)
+[21:13:25] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[21:13:25] INFO     ✅ Calibración completada exitosamente
+[21:13:41] INFO     📊 Auto-healer ACTIVADO
+[21:13:42] INFO     📊 HP=99% (VERDE) | MP=94% | Estado=ACTIVO
+[21:14:01] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:14:02] DEBUG    🔍 Debug image guardada (ciclo #40)
+[21:14:22] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:14:41] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:14:41] DEBUG    🔍 Debug image guardada (ciclo #80)
+[21:15:01] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:15:20] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:15:20] DEBUG    🔍 Debug image guardada (ciclo #120)
+[21:15:20] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1018,221)
+[21:15:20] INFO     📊 Battle List header en (1018,221), nombres desde y=236
+[21:15:20] INFO     📊   ✓ MapSettings: confianza=0.972 >= 0.65 en (1305,191)
+[21:15:20] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[21:15:20] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[21:15:20] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[21:15:20] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[21:15:20] INFO     📊   ✓ right_opt2: confianza=0.726 >= 0.6 en (172,29)
+[21:15:20] INFO     📊   ✓ right_opt3: confianza=0.789 >= 0.6 en (1190,601)
+[21:15:20] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[21:15:20] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[21:15:20] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.972 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.754 | right_opt1=0.643 | right_opt2=0.726 | right_opt3=0.789 | right_opt4=1.000 | EndLocation=0.866
+[21:15:20] INFO     📊 Battle region: (1018, 236, 1183, 636)
+[21:15:20] INFO     📊 Map region: (1199, 192, 1304, 300)
+[21:15:20] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[21:15:20] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[21:15:20] INFO     📊 [Looter]   SQM size: (55, 45)
+[21:15:20] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[21:15:20] INFO     📊 SQMs configurados: 9 posiciones
+[21:15:20] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[21:15:20] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[21:15:20] INFO     📊 Player center: (590, 252)
+[21:15:20] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[21:15:20] INFO     ✅ Calibración completada exitosamente
+[21:15:37] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:15:54] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:15:54] DEBUG    🔍 Debug image guardada (ciclo #160)
+[21:16:14] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:16:33] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:16:33] DEBUG    🔍 Debug image guardada (ciclo #200)
+[21:16:54] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[21:17:00] INFO     📊 Auto-healer DESACTIVADO
+[21:17:14] INFO     📊 HP=99% (VERDE) | MP=95% | Estado=EN ESPERA
+[21:17:14] DEBUG    🔍 Debug image guardada (ciclo #240)
+[21:17:14] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1018,221)
+[21:17:14] INFO     📊 Battle List header en (1018,221), nombres desde y=236
+[21:17:14] INFO     📊   ✓ MapSettings: confianza=0.972 >= 0.65 en (1305,191)
+[21:17:14] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[21:17:14] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[21:17:14] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[21:17:15] INFO     📊   ✓ right_opt1: confianza=0.691 >= 0.6 en (1196,232)
+[21:17:15] INFO     📊   ✓ right_opt2: confianza=0.726 >= 0.6 en (172,29)
+[21:17:15] INFO     📊   ✓ right_opt3: confianza=0.786 >= 0.6 en (0,594)
+[21:17:15] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[21:17:15] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[21:17:15] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.972 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.754 | right_opt1=0.691 | right_opt2=0.726 | right_opt3=0.786 | right_opt4=1.000 | EndLocation=0.866
+[21:17:15] INFO     📊 Battle region: (1018, 236, 1183, 636)
+[21:17:15] INFO     📊 Map region: (1199, 192, 1304, 300)
+[21:17:15] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[21:17:15] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[21:17:15] INFO     📊 [Looter]   SQM size: (55, 45)
+[21:17:15] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[21:17:15] INFO     📊 SQMs configurados: 9 posiciones
+[21:17:15] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[21:17:15] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[21:17:15] INFO     📊 Player center: (590, 252)
+[21:17:15] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[21:17:15] INFO     ✅ Calibración completada exitosamente
+[21:17:29] INFO     📊 Auto-healer ACTIVADO
+[21:17:29] INFO     📊 Auto-healer DESACTIVADO
+[21:17:29] INFO     📊 Auto-healer ACTIVADO
+[21:17:34] INFO     📊 HP=99% (VERDE) | MP=90% | Estado=ACTIVO
+[21:17:56] INFO     📊 HP=99% (VERDE) | MP=92% | Estado=ACTIVO
+[21:17:56] DEBUG    🔍 Debug image guardada (ciclo #280)
+[21:18:04] INFO     📊 Auto-healer DESACTIVADO
+[21:18:18] INFO     📊 HP=99% (VERDE) | MP=88% | Estado=EN ESPERA
+[21:18:39] INFO     📊 HP=99% (VERDE) | MP=84% | Estado=EN ESPERA
+[21:18:39] DEBUG    🔍 Debug image guardada (ciclo #320)
+[21:19:00] INFO     📊 HP=99% (VERDE) | MP=85% | Estado=EN ESPERA
+[21:19:20] INFO     📊 HP=99% (VERDE) | MP=86% | Estado=EN ESPERA
+[21:19:20] DEBUG    🔍 Debug image guardada (ciclo #360)
+[21:19:20] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1018,221)
+[21:19:20] INFO     📊 Battle List header en (1018,221), nombres desde y=236
+[21:19:20] INFO     📊   ✓ MapSettings: confianza=0.972 >= 0.65 en (1305,191)
+[21:19:20] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[21:19:20] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[21:19:20] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[21:19:20] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[21:19:20] INFO     📊   ✓ right_opt2: confianza=0.726 >= 0.6 en (172,29)
+[21:19:20] INFO     📊   ✓ right_opt3: confianza=0.786 >= 0.6 en (0,594)
+[21:19:20] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[21:19:20] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[21:19:20] INFO     📊 Battle region: (1018, 236, 1183, 636)
+[21:19:20] INFO     📊 Map region: (1199, 192, 1304, 300)
+[21:19:20] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[21:19:20] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[21:19:20] INFO     📊 [Looter]   SQM size: (55, 45)
+[21:19:20] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[21:19:20] INFO     📊 SQMs configurados: 9 posiciones
+[21:19:20] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[21:19:20] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[21:19:20] INFO     📊 Player center: (590, 252)
+[21:19:20] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[21:19:20] INFO     ✅ Calibración completada exitosamente
+[21:19:40] INFO     📊 HP=99% (VERDE) | MP=87% | Estado=EN ESPERA
+[21:20:00] INFO     📊 HP=100% (VERDE) | MP=88% | Estado=EN ESPERA
+[21:20:00] DEBUG    🔍 Debug image guardada (ciclo #400)
+[21:20:02] INFO     📊 Auto-healer ACTIVADO
+[21:20:02] INFO     💊 HP=53% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:08] INFO     💊 HP=62% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:10] INFO     💊 HP=48% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:12] INFO     💊 HP=4% < 30% → F6 (Exura Vita) [hwnd=3342404]
+[21:20:14] INFO     💊 HP=2% < 30% → F6 (Exura Vita) [hwnd=3342404]
+[21:20:16] INFO     💊 HP=1% < 30% → F6 (Exura Vita) [hwnd=3342404]
+[21:20:19] INFO     💊 HP=5% < 30% → F6 (Exura Vita) [hwnd=3342404]
+[21:20:22] INFO     📊 HP=N/A (N/A) | MP=84% | Estado=ACTIVO
+[21:20:24] INFO     💊 HP=39% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:26] INFO     💊 HP=33% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:28] INFO     💊 HP=49% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:30] INFO     💊 HP=58% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:32] INFO     💊 HP=42% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:34] INFO     💊 HP=44% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:35] INFO     💊 HP=62% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:38] INFO     💊 HP=47% < 50% → F2 (Exura Gran) [hwnd=3342404]
+[21:20:40] INFO     💊 HP=21% < 30% → F6 (Exura Vita) [hwnd=3342404]
+[21:20:42] INFO     💊 HP=65% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:44] INFO     📊 HP=61% (VERDE) | MP=84% | Estado=ACTIVO
+[21:20:44] DEBUG    🔍 Debug image guardada (ciclo #440)
+[21:20:44] INFO     💊 HP=61% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:46] INFO     💊 HP=61% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:48] INFO     💊 HP=61% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:50] INFO     💊 HP=61% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:51] INFO     💊 HP=57% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:53] INFO     💊 HP=61% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:56] INFO     💊 HP=64% < 70% → F1 (Exura) [hwnd=3342404]
+[21:20:57] INFO     📊 Cerrando aplicación...
+[21:21:00] INFO     ✅ Bot detenido
+[23:38:46] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[23:38:46] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:38:46] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:38:46] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:38:46] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:38:46] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:38:46] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[23:38:46] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[23:38:46] INFO     📊   [0] hwnd=3342404 title='Tibia - Pastero codode bronze' (1382x744)
+[23:38:46] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:38:46] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:38:46] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:38:46] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:38:46] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:38:46] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:38:46] INFO     📊 Ventanas Tibia encontradas: 1
+[23:38:46] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[23:38:46] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[23:38:46] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[23:38:46] INFO     📊 Loop principal iniciado
+[23:38:46] INFO     ✅ Bot iniciado
+[23:38:46] INFO     ✅ GUI iniciada correctamente
+[23:38:47] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:38:47] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:38:47] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:38:47] INFO     📊   ✓ left_opt1: confianza=0.616 >= 0.6 en (199,635)
+[23:38:47] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:38:47] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:38:47] INFO     📊   ✗ right_opt1: confianza=0.580 < 0.6 (fallido)
+[23:38:47] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:38:47] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[23:38:47] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:38:47] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:38:47] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.616 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.580 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[23:38:47] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:38:47] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:38:47] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:38:47] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:38:47] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:38:47] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:38:47] INFO     📊 SQMs configurados: 9 posiciones
+[23:38:47] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:38:47] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:38:47] INFO     📊 Player center: (592, 252)
+[23:38:47] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:38:47] INFO     ✅ Calibración completada exitosamente
+[23:38:58] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:39:09] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:39:09] DEBUG    🔍 Debug image guardada (ciclo #40)
+[23:39:13] INFO     📊 Cerrando aplicación...
+[23:39:16] INFO     ✅ Bot detenido
+[23:41:42] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[23:41:42] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:41:42] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:41:42] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:41:42] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:41:42] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:41:42] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[23:41:42] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[23:41:42] INFO     📊   [0] hwnd=3342404 title='Tibia - Pastero codode bronze' (1382x744)
+[23:41:42] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:41:42] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:41:42] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:41:42] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:41:42] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:41:42] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:41:42] INFO     📊 Ventanas Tibia encontradas: 1
+[23:41:42] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[23:41:42] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[23:41:42] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[23:41:42] INFO     📊 Loop principal iniciado
+[23:41:42] INFO     ✅ Bot iniciado
+[23:41:43] INFO     ✅ GUI iniciada correctamente
+[23:41:45] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:41:45] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:41:45] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:41:45] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[23:41:45] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:41:45] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:41:45] INFO     📊   ✗ right_opt1: confianza=0.583 < 0.6 (fallido)
+[23:41:46] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:41:46] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[23:41:46] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:41:46] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:41:46] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.583 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[23:41:46] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:41:46] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:41:46] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:41:46] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:41:46] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:41:46] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:41:46] INFO     📊 SQMs configurados: 9 posiciones
+[23:41:46] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:41:46] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:41:46] INFO     📊 Player center: (592, 252)
+[23:41:46] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:41:46] INFO     ✅ Calibración completada exitosamente
+[23:41:46] INFO     📊 Cerrando aplicación...
+[23:41:49] INFO     ✅ Bot detenido
+[23:42:24] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[23:42:24] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:42:24] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:42:24] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:42:24] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:42:24] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:42:24] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[23:42:24] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[23:42:24] INFO     📊   [0] hwnd=3342404 title='Tibia - Pastero codode bronze' (1382x744)
+[23:42:24] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:42:24] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:42:24] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:42:24] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:42:24] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:42:24] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:42:24] INFO     📊 Ventanas Tibia encontradas: 1
+[23:42:24] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[23:42:24] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[23:42:24] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[23:42:24] INFO     📊 Loop principal iniciado
+[23:42:24] INFO     ✅ Bot iniciado
+[23:42:24] INFO     ✅ GUI iniciada correctamente
+[23:42:25] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:42:25] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:42:25] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:42:25] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[23:42:25] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:42:25] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:42:25] INFO     📊   ✗ right_opt1: confianza=0.583 < 0.6 (fallido)
+[23:42:25] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:42:25] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[23:42:25] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:42:25] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:42:25] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.583 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[23:42:25] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:42:25] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:42:25] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:42:25] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:42:25] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:42:25] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:42:25] INFO     📊 SQMs configurados: 9 posiciones
+[23:42:25] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:42:25] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:42:25] INFO     📊 Player center: (592, 252)
+[23:42:25] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:42:25] INFO     ✅ Calibración completada exitosamente
+[23:42:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:42:51] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:42:51] DEBUG    🔍 Debug image guardada (ciclo #40)
+[23:43:05] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:43:19] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:43:19] DEBUG    🔍 Debug image guardada (ciclo #80)
+[23:43:37] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:44:06] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:44:06] DEBUG    🔍 Debug image guardada (ciclo #120)
+[23:44:06] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:44:06] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:44:06] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:44:06] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[23:44:06] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:44:06] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:44:06] INFO     📊   ✗ right_opt1: confianza=0.583 < 0.6 (fallido)
+[23:44:07] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:44:07] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[23:44:07] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:44:07] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:44:07] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.583 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[23:44:07] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:44:07] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:44:07] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:44:07] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:44:07] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:44:07] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:44:07] INFO     📊 SQMs configurados: 9 posiciones
+[23:44:07] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:44:07] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:44:07] INFO     📊 Player center: (592, 252)
+[23:44:07] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:44:07] INFO     ✅ Calibración completada exitosamente
+[23:44:12] INFO     📊 Cerrando aplicación...
+[23:44:15] INFO     ✅ Bot detenido
+[23:45:44] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[23:45:44] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:45:44] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:45:44] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:45:44] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:45:44] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:45:44] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[23:45:44] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[23:45:44] INFO     📊   [0] hwnd=3342404 title='Tibia - Pastero codode bronze' (1382x744)
+[23:45:44] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:45:44] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:45:44] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[23:45:44] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[23:45:44] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[23:45:44] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[23:45:44] INFO     📊 Ventanas Tibia encontradas: 1
+[23:45:44] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[23:45:44] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[23:45:44] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[23:45:44] INFO     📊 Loop principal iniciado
+[23:45:44] INFO     ✅ Bot iniciado
+[23:45:44] INFO     ✅ GUI iniciada correctamente
+[23:45:45] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:45:45] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:45:45] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:45:45] INFO     📊   ✓ left_opt1: confianza=0.656 >= 0.6 en (850,101)
+[23:45:45] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:45:45] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:45:45] INFO     📊   ✓ right_opt1: confianza=0.637 >= 0.6 en (895,460)
+[23:45:45] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:45:45] INFO     📊   ✓ right_opt3: confianza=0.784 >= 0.6 en (490,185)
+[23:45:46] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:45:46] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:45:46] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.656 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.637 | right_opt2=1.000 | right_opt3=0.784 | right_opt4=0.643 | EndLocation=0.867
+[23:45:46] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:45:46] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:45:46] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:45:46] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:45:46] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:45:46] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:45:46] INFO     📊 SQMs configurados: 9 posiciones
+[23:45:46] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:45:46] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:45:46] INFO     📊 Player center: (592, 252)
+[23:45:46] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:45:46] INFO     ✅ Calibración completada exitosamente
+[23:45:58] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:46:11] INFO     📊 HP=100% (VERDE) | MP=84% | Estado=EN ESPERA
+[23:46:11] DEBUG    🔍 Debug image guardada (ciclo #40)
+[23:46:29] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:46:42] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:46:42] DEBUG    🔍 Debug image guardada (ciclo #80)
+[23:46:59] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:47:16] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:47:16] DEBUG    🔍 Debug image guardada (ciclo #120)
+[23:47:16] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:47:16] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:47:17] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:47:17] INFO     📊   ✓ left_opt1: confianza=0.656 >= 0.6 en (850,101)
+[23:47:17] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:47:17] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:47:17] INFO     📊   ✓ right_opt1: confianza=0.637 >= 0.6 en (895,460)
+[23:47:17] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:47:17] INFO     📊   ✓ right_opt3: confianza=0.784 >= 0.6 en (490,185)
+[23:47:17] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:47:17] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:47:17] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.656 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.637 | right_opt2=1.000 | right_opt3=0.784 | right_opt4=0.643 | EndLocation=0.867
+[23:47:17] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:47:17] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:47:17] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:47:17] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:47:17] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:47:17] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:47:17] INFO     📊 SQMs configurados: 9 posiciones
+[23:47:17] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:47:17] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:47:17] INFO     📊 Player center: (592, 252)
+[23:47:17] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:47:17] INFO     ✅ Calibración completada exitosamente
+[23:47:31] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:47:47] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:47:47] DEBUG    🔍 Debug image guardada (ciclo #160)
+[23:48:07] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=EN ESPERA
+[23:48:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:48:27] DEBUG    🔍 Debug image guardada (ciclo #200)
+[23:49:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:49:32] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[23:49:32] DEBUG    🔍 Debug image guardada (ciclo #240)
+[23:49:32] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[23:49:32] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[23:49:32] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[23:49:32] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[23:49:32] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[23:49:32] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[23:49:32] INFO     📊   ✗ right_opt1: confianza=0.549 < 0.6 (fallido)
+[23:49:32] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[23:49:32] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[23:49:32] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[23:49:32] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[23:49:32] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.549 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[23:49:32] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[23:49:32] INFO     📊 Map region: (1199, 5, 1304, 113)
+[23:49:32] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[23:49:33] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[23:49:33] INFO     📊 [Looter]   SQM size: (78, 45)
+[23:49:33] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[23:49:33] INFO     📊 SQMs configurados: 9 posiciones
+[23:49:33] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[23:49:33] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[23:49:33] INFO     📊 Player center: (592, 252)
+[23:49:33] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[23:49:33] INFO     ✅ Calibración completada exitosamente
+[23:49:38] INFO     📊 Auto-healer ACTIVADO
+[23:50:00] INFO     💊 HP=69% < 70% → F1 (Exura) [hwnd=3342404]
+[23:50:02] INFO     💊 HP=66% < 70% → F1 (Exura) [hwnd=3342404]
+[23:50:05] INFO     💊 HP=66% < 70% → F1 (Exura) [hwnd=3342404]
+[23:50:07] INFO     📊 HP=67% (VERDE) | MP=87% | Estado=ACTIVO
+[23:50:07] INFO     💊 HP=67% < 70% → F1 (Exura) [hwnd=3342404]
+[23:50:09] INFO     💊 HP=69% < 70% → F1 (Exura) [hwnd=3342404]
+[23:50:18] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[23:50:18] INFO     📊 [Targeting] Templates cargados: 4/5
+[23:50:18] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[23:50:18] INFO     📊 Módulo 'targeting' habilitado
+[23:50:18] INFO     📊 [Targeting] Targeting v3 + Tracker v10 activado
+[23:50:18] INFO     📊 [Targeting]   Templates: 4 (['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat'])
+[23:50:18] INFO     📊 [Targeting]   Battle region: (1194, 367, 1359, 767)
+[23:50:18] INFO     📊 [Targeting]   Attack list: ['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[23:50:18] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[23:50:18] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[23:50:18] INFO     📊 [Targeting]   Tracker: Sin sprites — usando inferencia por battle list
+[23:50:18] INFO     📊 [Targeting]     💡 Captura sprites en la pestaña Looter para mejor precisión
+[23:50:18] INFO     📊 Targeting habilitado
+[23:50:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=0
+[23:50:19] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.961, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[23:50:19] INFO     📊 [Targeting] → Atacando: Rat en (1263,372)
+[23:50:19] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[23:50:19] DEBUG    🔍 Click OK — OBS(1263,372) → client(1263,372) hwnd=3342404
+[23:50:19] INFO     📊 [Targeting] Atacando: Rat en (1263,372)
+[23:50:25] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:30] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:36] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:36] INFO     📊 [BattleReader] is_attacking=True (fallback temporal: 'rat' clickeado hace 16.3s)
+[23:50:41] INFO     📊 HP=85% (VERDE) | MP=74% | Estado=ACTIVO
+[23:50:42] DEBUG    🔍 Debug image guardada (ciclo #280)
+[23:50:42] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:47] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:52] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:50:57] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:51:02] INFO     📊 HP=90% (VERDE) | MP=79% | Estado=ACTIVO
+[23:51:02] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.961, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[23:51:02] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:51:08] INFO     📊 Cerrando aplicación...
+[23:51:08] INFO     📊 [Targeting] Estado: target=Rat, criaturas=4, templates=4, kills=0
+[23:51:11] INFO     ✅ Bot detenido

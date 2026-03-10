@@ -1,0 +1,79 @@
+[00:01:09] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode bronze
+[00:01:09] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[00:01:09] INFO     📊 [Targeting] Templates cargados: 4/5
+[00:01:09] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[00:01:09] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[00:01:09] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[00:01:09] INFO     ✅ Tibia encontrado: Tibia - Pastero codode bronze
+[00:01:09] INFO     📊   HWND=3342404 | Ventanas Tibia encontradas: 1
+[00:01:09] INFO     📊   [0] hwnd=3342404 title='Tibia - Pastero codode bronze' (1382x744)
+[00:01:09] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[00:01:09] INFO     📊 [Targeting] Templates cargados: 4/5
+[00:01:09] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[00:01:09] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[00:01:09] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[00:01:09] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[00:01:09] INFO     📊 Ventanas Tibia encontradas: 1
+[00:01:09] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[00:01:09] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[00:01:09] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[00:01:09] INFO     📊 Loop principal iniciado
+[00:01:09] INFO     ✅ Bot iniciado
+[00:01:09] INFO     ✅ GUI iniciada correctamente
+[00:01:10] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,352)
+[00:01:10] INFO     📊 Battle List header en (1194,352), nombres desde y=367
+[00:01:10] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[00:01:10] INFO     📊   ✓ left_opt1: confianza=0.631 >= 0.6 en (1034,584)
+[00:01:10] INFO     📊   ✓ left_opt2: confianza=0.702 >= 0.6 en (0,2)
+[00:01:10] INFO     📊   ✓ left_opt3: confianza=1.000 >= 0.6 en (1,2)
+[00:01:10] INFO     📊   ✗ right_opt1: confianza=0.533 < 0.6 (fallido)
+[00:01:10] INFO     📊   ✓ right_opt2: confianza=1.000 >= 0.6 en (1183,2)
+[00:01:10] INFO     📊   ✓ right_opt3: confianza=0.782 >= 0.6 en (1190,524)
+[00:01:10] INFO     📊   ✓ right_opt4: confianza=0.643 >= 0.6 en (1183,2)
+[00:01:10] INFO     📊   ✓ EndLocation: confianza=0.867 >= 0.55 en (321,503)
+[00:01:10] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.631 | left_opt2=0.702 | left_opt3=1.000 | right_opt1=0.533 | right_opt2=1.000 | right_opt3=0.782 | right_opt4=0.643 | EndLocation=0.867
+[00:01:10] INFO     📊 Battle region: (1194, 367, 1359, 767)
+[00:01:10] INFO     📊 Map region: (1199, 5, 1304, 113)
+[00:01:10] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[00:01:10] INFO     📊 [Looter]   Center (idx 4): (592, 252)
+[00:01:10] INFO     📊 [Looter]   SQM size: (78, 45)
+[00:01:10] INFO     📊 [Looter]   Cardinales: S=(592, 297), N=(592, 207), E=(670, 252), W=(514, 252)
+[00:01:10] INFO     📊 SQMs configurados: 9 posiciones
+[00:01:10] INFO     📊 [GSD] GSD region_calibrator=(1,2)-(1183,503) player_center=(592,262)
+[00:01:10] INFO     📊 Game region para detección de cuerpos: (1, 2, 1183, 503)
+[00:01:10] INFO     📊 Player center: (592, 252)
+[00:01:10] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[00:01:10] INFO     ✅ Calibración completada exitosamente
+[00:01:14] INFO     📊 Auto-healer ACTIVADO
+[00:01:17] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[00:01:17] INFO     📊 [Targeting] Templates cargados: 4/5
+[00:01:17] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[00:01:17] INFO     📊 Módulo 'targeting' habilitado
+[00:01:17] INFO     📊 [Targeting] Targeting v3 + Tracker v10 activado
+[00:01:17] INFO     📊 [Targeting]   Templates: 4 (['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat'])
+[00:01:17] INFO     📊 [Targeting]   Battle region: (1194, 367, 1359, 767)
+[00:01:17] INFO     📊 [Targeting]   Attack list: ['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Spider']
+[00:01:17] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[00:01:17] INFO     📊 [Targeting]   Perfiles: ['swamp troll']
+[00:01:17] INFO     📊 [Targeting]   Tracker: Sin sprites — usando inferencia por battle list
+[00:01:17] INFO     📊 [Targeting]     💡 Captura sprites en la pestaña Looter para mejor precisión
+[00:01:17] INFO     📊 Targeting habilitado
+[00:01:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=4, kills=0
+[00:01:21] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.961, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[00:01:21] INFO     📊 [Targeting] → Atacando: Cave Rat en (1245,372)
+[00:01:21] INFO     📊   ✗ NotIdle: confianza=0.647 < 0.65 (fallido)
+[00:01:21] DEBUG    🔍 Click OK — OBS(1245,372) → client(1245,372) hwnd=3342404
+[00:01:21] INFO     📊 [Targeting] Atacando: Cave Rat en (1245,372)
+[00:01:21] ERROR    ❌ Error en módulo 'targeting': cannot access local variable 'time_since_switch' where it is not associated with a value
+[00:01:25] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[00:01:39] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[00:01:39] DEBUG    🔍 Debug image guardada (ciclo #40)
+[00:01:53] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[00:02:09] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[00:02:09] DEBUG    🔍 Debug image guardada (ciclo #80)
+[00:02:27] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
