@@ -32,6 +32,7 @@ from screen_calibrator import ScreenCalibrator
 from targeting.targeting_engine import TargetingEngine
 from looter.looter_engine import LooterEngine
 from cavebot.cavebot_engine import CavebotEngine
+from utils.ocr_helper import OCRHelper
 
 
 class HealerBot:
@@ -70,6 +71,7 @@ class HealerBot:
         self.targeting_engine = TargetingEngine()
         self.looter_engine = LooterEngine()
         self.cavebot_engine = CavebotEngine()
+        self.ocr_helper = OCRHelper()  # OCR para detección de canales
         self._calibrated = False
 
         # Wire calibrator log callback for diagnostics

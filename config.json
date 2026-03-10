@@ -64,7 +64,7 @@
     "targeting": {
         "enabled": true,
         "auto_attack": true,
-        "chase_monsters": false,
+        "chase_monsters": true,
         "attack_mode": "offensive",
         "target_priority": "closest",
         "attack_delay": 0.5,

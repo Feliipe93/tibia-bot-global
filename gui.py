@@ -80,8 +80,8 @@ class TibiaHealerGUI(ctk.CTk):
         # Configuración de la ventana principal
         # ----------------------------------------------------------
         self.title("⚔️ Tibia Auto Healer")
-        self.geometry("780x900")
-        self.minsize(700, 750)
+        self.geometry("800x720")  # Reducido más para asegurar espacio
+        self.minsize(700, 620)    # Reducido mínimo
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
         # ----------------------------------------------------------
@@ -102,24 +102,25 @@ class TibiaHealerGUI(ctk.CTk):
         
         # Frame derecho para el contenido
         self.content_frame = ctk.CTkFrame(main_frame)
-        self.content_frame.pack(side="right", fill="both", expand=True)
+        self.content_frame.pack(side="right", fill="both", expand=True, padx=(0, 8), pady=8)
         
         # Crear pestañas verticales
         self.tab_buttons = {}
         self.tab_contents = {}
         self.current_tab = None
         
-        # Lista de pestañas con sus iconos
+        # Lista de pestañas con sus iconos (orden reorganizado)
         tabs_data = [
             ("main", "🏠 Principal"),
-            ("simple_walking", "🚶 Simple Walking"),
-            ("test", "🧪 Test"),
             ("config", "⚙️ Configuración"),
             ("windows", "🪟 Ventanas"),
-            ("cavebot", "🗺️ Cavebot"),
             ("targeting", "⚔️ Targeting"),
             ("looter", "💰 Looter"),
+            ("simple_walking", "🚶 Simple Walking"),
+            ("cavebot", "🗺️ Cavebot"),
             ("screenview", "🖥️ Screen View"),
+            ("test", "🧪 Test"),
+            ("logs", "📋 Logs"),
             ("help", "❓ Ayuda")
         ]
         
@@ -167,6 +168,7 @@ class TibiaHealerGUI(ctk.CTk):
         self.tab_targeting = self.tab_contents["targeting"]
         self.tab_looter = self.tab_contents["looter"]
         self.tab_screenview = self.tab_contents["screenview"]
+        self.tab_logs = self.tab_contents["logs"]
         self.tab_help = self.tab_contents["help"]
 
         # Construir cada sección
@@ -179,6 +181,7 @@ class TibiaHealerGUI(ctk.CTk):
         self._build_targeting_tab()
         self._build_looter_tab()
         self._build_screenview_tab()
+        self._build_logs_tab()
         self._build_help_tab()
 
         # ----------------------------------------------------------
@@ -204,6 +207,9 @@ class TibiaHealerGUI(ctk.CTk):
         self.walk_recorder.set_send_key_callback(
             lambda key: self.bot.key_sender.send_key(key)
         )
+        
+        # Conectar las funciones de test al mismo callback que Simple Walker
+        self._test_send_key_callback = lambda key: self.bot.key_sender.send_key(key)
 
         self.log.ok("GUI iniciada correctamente")
 
@@ -223,7 +229,7 @@ class TibiaHealerGUI(ctk.CTk):
         
         # Mostrar nuevo contenido
         if tab_id in self.tab_contents:
-            self.tab_contents[tab_id].pack(fill="both", expand=True, padx=5, pady=5)
+            self.tab_contents[tab_id].pack(fill="both", expand=True, padx=3, pady=3)
             # Resaltar botón activo
             self.tab_buttons[tab_id].configure(
                 fg_color=("#1f538d", "#1a4d8c"),
@@ -302,20 +308,20 @@ class TibiaHealerGUI(ctk.CTk):
 
         # --- Header ---
         header = ctk.CTkFrame(tab, fg_color="transparent")
-        header.pack(fill="x", padx=10, pady=(10, 5))
+        header.pack(fill="x", padx=8, pady=(8, 3))
 
         ctk.CTkLabel(
             header,
             text="⚔️ TIBIA AUTO HEALER",
-            font=ctk.CTkFont(size=22, weight="bold"),
+            font=ctk.CTkFont(size=20, weight="bold"),
         ).pack(side="left")
 
         self.btn_toggle = ctk.CTkButton(
             header,
             text="▶ ACTIVAR",
-            width=140,
-            height=40,
-            font=ctk.CTkFont(size=14, weight="bold"),
+            width=130,
+            height=35,
+            font=ctk.CTkFont(size=13, weight="bold"),
             fg_color="#2ECC71",
             hover_color="#27AE60",
             command=self._toggle_bot,
@@ -324,72 +330,72 @@ class TibiaHealerGUI(ctk.CTk):
 
         # --- Estado ---
         status_frame = ctk.CTkFrame(tab)
-        status_frame.pack(fill="x", padx=10, pady=5)
+        status_frame.pack(fill="x", padx=8, pady=3)
 
         self.lbl_status = ctk.CTkLabel(
             status_frame,
             text="Estado: ○ INACTIVO",
-            font=ctk.CTkFont(size=16, weight="bold"),
+            font=ctk.CTkFont(size=15, weight="bold"),
             text_color="#FFAA00",
         )
-        self.lbl_status.pack(anchor="w", padx=15, pady=(10, 5))
+        self.lbl_status.pack(anchor="w", padx=12, pady=(8, 3))
 
         # --- Barras HP/MP ---
         bars_frame = ctk.CTkFrame(tab)
-        bars_frame.pack(fill="x", padx=10, pady=5)
+        bars_frame.pack(fill="x", padx=8, pady=3)
 
         # HP
         hp_row = ctk.CTkFrame(bars_frame, fg_color="transparent")
-        hp_row.pack(fill="x", padx=15, pady=(10, 3))
-        ctk.CTkLabel(hp_row, text="HP:", font=ctk.CTkFont(size=14, weight="bold"), width=35).pack(side="left")
-        self.hp_bar = ctk.CTkProgressBar(hp_row, height=22, width=350)
-        self.hp_bar.pack(side="left", padx=(5, 10))
+        hp_row.pack(fill="x", padx=12, pady=(8, 2))
+        ctk.CTkLabel(hp_row, text="HP:", font=ctk.CTkFont(size=13, weight="bold"), width=30).pack(side="left")
+        self.hp_bar = ctk.CTkProgressBar(hp_row, height=20, width=280)
+        self.hp_bar.pack(side="left", padx=(4, 8))
         self.hp_bar.set(0)
-        self.lbl_hp = ctk.CTkLabel(hp_row, text="N/A", font=ctk.CTkFont(size=14), width=120)
+        self.lbl_hp = ctk.CTkLabel(hp_row, text="N/A", font=ctk.CTkFont(size=13), width=100)
         self.lbl_hp.pack(side="left")
 
         # MP
         mp_row = ctk.CTkFrame(bars_frame, fg_color="transparent")
-        mp_row.pack(fill="x", padx=15, pady=(3, 10))
-        ctk.CTkLabel(mp_row, text="MP:", font=ctk.CTkFont(size=14, weight="bold"), width=35).pack(side="left")
-        self.mp_bar = ctk.CTkProgressBar(mp_row, height=22, width=350, progress_color="#3498DB")
-        self.mp_bar.pack(side="left", padx=(5, 10))
+        mp_row.pack(fill="x", padx=12, pady=(2, 8))
+        ctk.CTkLabel(mp_row, text="MP:", font=ctk.CTkFont(size=13, weight="bold"), width=30).pack(side="left")
+        self.mp_bar = ctk.CTkProgressBar(mp_row, height=20, width=280, progress_color="#3498DB")
+        self.mp_bar.pack(side="left", padx=(4, 8))
         self.mp_bar.set(0)
-        self.lbl_mp = ctk.CTkLabel(mp_row, text="N/A", font=ctk.CTkFont(size=14), width=120)
+        self.lbl_mp = ctk.CTkLabel(mp_row, text="N/A", font=ctk.CTkFont(size=13), width=100)
         self.lbl_mp.pack(side="left")
 
         # --- Info conexión ---
         info_frame = ctk.CTkFrame(tab)
-        info_frame.pack(fill="x", padx=10, pady=5)
+        info_frame.pack(fill="x", padx=8, pady=3)
 
         self.lbl_tibia_status = ctk.CTkLabel(
-            info_frame, text="Tibia: No conectado", font=ctk.CTkFont(size=12)
+            info_frame, text="Tibia: No conectado", font=ctk.CTkFont(size=11)
         )
-        self.lbl_tibia_status.pack(anchor="w", padx=15, pady=(8, 2))
+        self.lbl_tibia_status.pack(anchor="w", padx=12, pady=(6, 2))
 
-        self.lbl_proj_status = ctk.CTkLabel(
-            info_frame, text="OBS WebSocket: No conectado", font=ctk.CTkFont(size=12)
+        self.lbl_obs_status = ctk.CTkLabel(
+            info_frame, text="OBS: No conectado", font=ctk.CTkFont(size=11)
         )
-        self.lbl_proj_status.pack(anchor="w", padx=15, pady=(2, 2))
+        self.lbl_obs_status.pack(anchor="w", padx=12, pady=(2, 6))
 
         self.lbl_fps = ctk.CTkLabel(
-            info_frame, text="Capturas/seg: 0.0", font=ctk.CTkFont(size=12)
+            info_frame, text="Capturas/seg: 0.0", font=ctk.CTkFont(size=11)
         )
-        self.lbl_fps.pack(anchor="w", padx=15, pady=(2, 2))
+        self.lbl_fps.pack(anchor="w", padx=12, pady=(2, 2))
 
         self.lbl_heals = ctk.CTkLabel(
-            info_frame, text="Curaciones: 0", font=ctk.CTkFont(size=12)
+            info_frame, text="Curaciones: 0", font=ctk.CTkFont(size=11)
         )
-        self.lbl_heals.pack(anchor="w", padx=15, pady=(2, 2))
+        self.lbl_heals.pack(anchor="w", padx=12, pady=(2, 2))
 
         # --- Indicador de calibración v3.1 ---
         self.lbl_calibration = ctk.CTkLabel(
             info_frame,
             text="🎯 Calibración: Pendiente",
-            font=ctk.CTkFont(size=12, weight="bold"),
+            font=ctk.CTkFont(size=11, weight="bold"),
             text_color="#FFAA00",
         )
-        self.lbl_calibration.pack(anchor="w", padx=15, pady=(2, 2))
+        self.lbl_calibration.pack(anchor="w", padx=12, pady=(2, 2))
 
         # --- Indicador de módulos activos ---
         self.lbl_modules_status = ctk.CTkLabel(
@@ -398,54 +404,54 @@ class TibiaHealerGUI(ctk.CTk):
             font=ctk.CTkFont(size=11),
             text_color="#95A5A6",
         )
-        self.lbl_modules_status.pack(anchor="w", padx=15, pady=(2, 8))
+        self.lbl_modules_status.pack(anchor="w", padx=12, pady=(2, 6))
 
-    # ==================================================================
-    # TAB: Configuración de curación
-    # ==================================================================
+# ==================================================================
+# TAB: Configuración de curación
+# ==================================================================
     def _build_config_tab(self):
         tab = self.tab_config
 
         # Scrollable frame
         scroll = ctk.CTkScrollableFrame(tab, label_text="REGLAS DE CURACIÓN")
-        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+        scroll.pack(fill="both", expand=True, padx=8, pady=8)
 
         # --- Reglas de HP ---
         self.rules_container = ctk.CTkFrame(scroll, fg_color="transparent")
-        self.rules_container.pack(fill="x", padx=5, pady=5)
+        self.rules_container.pack(fill="x", padx=4, pady=3)
 
         self._rebuild_rules_ui()
 
         # Botones agregar/quitar
         btn_row = ctk.CTkFrame(scroll, fg_color="transparent")
-        btn_row.pack(fill="x", padx=5, pady=5)
+        btn_row.pack(fill="x", padx=4, pady=3)
 
         ctk.CTkButton(
-            btn_row, text="+ Agregar regla", width=150, command=self._add_rule
-        ).pack(side="left", padx=5)
+            btn_row, text="+ Agregar regla", width=140, command=self._add_rule
+        ).pack(side="left", padx=4)
         ctk.CTkButton(
             btn_row,
             text="- Quitar última",
-            width=150,
+            width=140,
             fg_color="#E74C3C",
             hover_color="#C0392B",
             command=self._remove_last_rule,
-        ).pack(side="left", padx=5)
+        ).pack(side="left", padx=4)
 
         # --- Curación de Mana ---
         mana_frame = ctk.CTkFrame(scroll)
-        mana_frame.pack(fill="x", padx=5, pady=(15, 5))
+        mana_frame.pack(fill="x", padx=4, pady=(10, 3))
         ctk.CTkLabel(mana_frame, text="CURACIÓN DE MANA", font=ctk.CTkFont(weight="bold")).pack(
-            anchor="w", padx=10, pady=(8, 4)
+            anchor="w", padx=8, pady=(6, 3)
         )
 
         mana_row = ctk.CTkFrame(mana_frame, fg_color="transparent")
-        mana_row.pack(fill="x", padx=10, pady=5)
+        mana_row.pack(fill="x", padx=8, pady=3)
 
         self.mana_enabled_var = ctk.BooleanVar(value=self.config.mana_heal.get("enabled", False))
         ctk.CTkCheckBox(
             mana_row, text="Activar", variable=self.mana_enabled_var, command=self._save_mana_config
-        ).pack(side="left", padx=(0, 10))
+        ).pack(side="left", padx=(0, 8))
 
         ctk.CTkLabel(mana_row, text="MP <").pack(side="left")
         self.mana_threshold_var = ctk.StringVar(
@@ -457,54 +463,54 @@ class TibiaHealerGUI(ctk.CTk):
         self.mana_key_var = ctk.StringVar(value=self.config.mana_heal.get("key", "F3"))
         ctk.CTkOptionMenu(
             mana_row, variable=self.mana_key_var, values=AVAILABLE_KEYS, width=80, command=lambda _: self._save_mana_config()
-        ).pack(side="left", padx=5)
+        ).pack(side="left", padx=4)
 
         # --- Parámetros ---
         params_frame = ctk.CTkFrame(scroll)
-        params_frame.pack(fill="x", padx=5, pady=(15, 5))
+        params_frame.pack(fill="x", padx=4, pady=(10, 3))
         ctk.CTkLabel(params_frame, text="PARÁMETROS", font=ctk.CTkFont(weight="bold")).pack(
-            anchor="w", padx=10, pady=(8, 4)
+            anchor="w", padx=8, pady=(6, 3)
         )
 
         # Cooldown
         p_row1 = ctk.CTkFrame(params_frame, fg_color="transparent")
-        p_row1.pack(fill="x", padx=10, pady=3)
+        p_row1.pack(fill="x", padx=8, pady=3)
         ctk.CTkLabel(p_row1, text="Cooldown entre curaciones (seg):").pack(side="left")
         self.cooldown_var = ctk.StringVar(value=str(self.config.cooldown))
-        ctk.CTkEntry(p_row1, textvariable=self.cooldown_var, width=70).pack(side="left", padx=5)
+        ctk.CTkEntry(p_row1, textvariable=self.cooldown_var, width=70).pack(side="left", padx=4)
 
         # Intervalo
         p_row2 = ctk.CTkFrame(params_frame, fg_color="transparent")
-        p_row2.pack(fill="x", padx=10, pady=3)
+        p_row2.pack(fill="x", padx=8, pady=3)
         ctk.CTkLabel(p_row2, text="Intervalo de chequeo (seg):").pack(side="left")
         self.interval_var = ctk.StringVar(value=str(self.config.check_interval))
-        ctk.CTkEntry(p_row2, textvariable=self.interval_var, width=70).pack(side="left", padx=5)
+        ctk.CTkEntry(p_row2, textvariable=self.interval_var, width=70).pack(side="left", padx=4)
 
         # Hotkeys
         p_row3 = ctk.CTkFrame(params_frame, fg_color="transparent")
-        p_row3.pack(fill="x", padx=10, pady=3)
+        p_row3.pack(fill="x", padx=8, pady=3)
         ctk.CTkLabel(p_row3, text="Tecla Activar/Desactivar:").pack(side="left")
         self.toggle_key_var = ctk.StringVar(value=self.config.hotkey_toggle)
         ctk.CTkOptionMenu(
             p_row3, variable=self.toggle_key_var, values=AVAILABLE_KEYS, width=80
-        ).pack(side="left", padx=5)
+        ).pack(side="left", padx=4)
 
         p_row4 = ctk.CTkFrame(params_frame, fg_color="transparent")
-        p_row4.pack(fill="x", padx=10, pady=(3, 10))
+        p_row4.pack(fill="x", padx=8, pady=(3, 8))
         ctk.CTkLabel(p_row4, text="Tecla Salir:").pack(side="left")
         self.exit_key_var = ctk.StringVar(value=self.config.hotkey_exit)
         ctk.CTkOptionMenu(
             p_row4, variable=self.exit_key_var, values=AVAILABLE_KEYS, width=80
-        ).pack(side="left", padx=5)
+        ).pack(side="left", padx=4)
 
         # Botón guardar
         ctk.CTkButton(
             scroll,
             text="💾 Guardar Configuración",
-            height=40,
-            font=ctk.CTkFont(size=14, weight="bold"),
+            height=35,
+            font=ctk.CTkFont(size=13, weight="bold"),
             command=self._save_all_config,
-        ).pack(fill="x", padx=5, pady=15)
+        ).pack(fill="x", padx=4, pady=10)
 
     def _rebuild_rules_ui(self):
         """Reconstruye los widgets de reglas de HP."""
@@ -518,7 +524,7 @@ class TibiaHealerGUI(ctk.CTk):
             frame = ctk.CTkFrame(self.rules_container)
             frame.pack(fill="x", pady=3)
 
-            ctk.CTkLabel(frame, text=f"Nivel {i + 1}:", width=65).pack(side="left", padx=(10, 5))
+            ctk.CTkLabel(frame, text=f"Nivel {i + 1}:", width=60).pack(side="left", padx=(8, 4))
             ctk.CTkLabel(frame, text="HP <").pack(side="left")
 
             thresh_var = ctk.StringVar(value=str(int(level["threshold"] * 100)))
@@ -528,11 +534,11 @@ class TibiaHealerGUI(ctk.CTk):
             key_var = ctk.StringVar(value=level.get("key", "F1"))
             ctk.CTkOptionMenu(
                 frame, variable=key_var, values=AVAILABLE_KEYS, width=80
-            ).pack(side="left", padx=5)
+            ).pack(side="left", padx=4)
 
             ctk.CTkLabel(frame, text="Desc:").pack(side="left")
             desc_var = ctk.StringVar(value=level.get("description", ""))
-            ctk.CTkEntry(frame, textvariable=desc_var, width=120).pack(side="left", padx=5)
+            ctk.CTkEntry(frame, textvariable=desc_var, width=110).pack(side="left", padx=4)
 
             self._rule_vars.append((thresh_var, key_var, desc_var))
             self._rule_frames.append(frame)
@@ -4315,9 +4321,16 @@ class TibiaHealerGUI(ctk.CTk):
 
         ctk.CTkLabel(
             numkeys_frame,
-            text="🔢 Teclas Numéricas",
+            text="🔢 Teclas Numéricas (con Enter)",
             font=ctk.CTkFont(size=14, weight="bold"),
         ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        ctk.CTkLabel(
+            numkeys_frame,
+            text="Presiona para escribir número y enviar mensaje automáticamente",
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        ).pack(anchor="w", padx=10, pady=(0, 6))
 
         numkeys_row = ctk.CTkFrame(numkeys_frame, fg_color="transparent")
         numkeys_row.pack(fill="x", padx=10, pady=(0, 8))
@@ -4327,8 +4340,78 @@ class TibiaHealerGUI(ctk.CTk):
                 numkeys_row, text=nk, width=45, height=32,
                 font=ctk.CTkFont(size=11),
                 fg_color="#2C3E50", hover_color="#34495E",
-                command=lambda k=nk: self._test_send_key(k),
+                command=lambda k=nk: self._test_send_number(k),
             ).pack(side="left", padx=1, pady=2)
+
+        # --- Chat Functions ---
+        chat_frame = ctk.CTkFrame(scroll)
+        chat_frame.pack(fill="x", padx=5, pady=(10, 5))
+
+        ctk.CTkLabel(
+            chat_frame,
+            text="💬 Chat Functions",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(anchor="w", padx=10, pady=(8, 4))
+
+        ctk.CTkLabel(
+            chat_frame,
+            text="Envía mensajes al chat local y canal NPC",
+            font=ctk.CTkFont(size=11),
+            text_color="#95A5A6",
+        ).pack(anchor="w", padx=10, pady=(0, 6))
+
+        # Botones de chat
+        chat_buttons_row = ctk.CTkFrame(chat_frame, fg_color="transparent")
+        chat_buttons_row.pack(fill="x", padx=10, pady=(0, 8))
+
+        # Botón para enviar "hi" automáticamente
+        ctk.CTkButton(
+            chat_buttons_row, text="👋 Enviar 'hi'", width=120, height=32,
+            font=ctk.CTkFont(size=11),
+            fg_color="#27AE60", hover_color="#229954",
+            command=self._send_hi_message,
+        ).pack(side="left", padx=2, pady=2)
+
+        # Botón para abrir canal NPC
+        ctk.CTkButton(
+            chat_buttons_row, text="📢 Abrir NPC", width=120, height=32,
+            font=ctk.CTkFont(size=11),
+            fg_color="#3498DB", hover_color="#2980B9",
+            command=self._open_npc_channel,
+        ).pack(side="left", padx=2, pady=2)
+
+        # Entrada de texto personalizado
+        custom_msg_frame = ctk.CTkFrame(chat_frame, fg_color="transparent")
+        custom_msg_frame.pack(fill="x", padx=10, pady=(0, 8))
+
+        ctk.CTkLabel(
+            custom_msg_frame,
+            text="Mensaje personalizado:",
+            font=ctk.CTkFont(size=11),
+        ).pack(anchor="w", padx=(0, 5))
+
+        msg_input_row = ctk.CTkFrame(custom_msg_frame, fg_color="transparent")
+        msg_input_row.pack(fill="x", pady=(2, 0))
+
+        self.custom_msg_entry = ctk.CTkEntry(
+            msg_input_row, placeholder_text="Escribe tu mensaje aquí...",
+            font=ctk.CTkFont(size=11), width=300
+        )
+        self.custom_msg_entry.pack(side="left", padx=(0, 5))
+
+        ctk.CTkButton(
+            msg_input_row, text="📤 Enviar Local", width=100, height=32,
+            font=ctk.CTkFont(size=11),
+            fg_color="#E67E22", hover_color="#D35400",
+            command=self._send_custom_local,
+        ).pack(side="left", padx=2, pady=2)
+
+        ctk.CTkButton(
+            msg_input_row, text="📤 Enviar NPC", width=100, height=32,
+            font=ctk.CTkFont(size=11),
+            fg_color="#9B59B6", hover_color="#8E44AD",
+            command=self._send_custom_npc,
+        ).pack(side="left", padx=2, pady=2)
 
         # --- Test log ---
         test_log_frame = ctk.CTkFrame(scroll)
@@ -4360,18 +4443,59 @@ class TibiaHealerGUI(ctk.CTk):
 
     # --- Test: helpers ---
     def _test_send_arrow(self, key_name: str):
-        """Envía una flecha direccional al cliente de Tibia."""
-        self._test_send_key(key_name)
-
-    def _test_send_key(self, key_name: str):
-        """Envía una tecla al cliente de Tibia y muestra resultado."""
+        """Envía una flecha direccional al cliente de Tibia (igual que Simple Walker)."""
         if not self.bot.tibia_connected:
             self._test_log(f"⚠️ Tibia no conectado — no se puede enviar '{key_name}'", "FAIL")
             self.lbl_test_arrow_result.configure(
                 text="⚠️ Tibia no conectado", text_color="#E74C3C"
             )
             return
-        ok = self.bot.key_sender.send_key(key_name)
+        
+        # Usar el MISMO callback que Simple Walker
+        ok = self._test_send_key_callback(key_name)
+        if ok:
+            self._test_log(f"✅ Flecha '{key_name}' enviada (movimiento)", "OK")
+            self.lbl_test_arrow_result.configure(
+                text=f"✅ Moviendo: {key_name}", text_color="#2ECC71"
+            )
+        else:
+            self._test_log(f"❌ Fallo al enviar flecha '{key_name}'", "FAIL")
+            self.lbl_test_arrow_result.configure(
+                text=f"❌ Fallo: {key_name}", text_color="#E74C3C"
+            )
+
+    def _test_send_number(self, number: str):
+        """Envía un número y presiona Enter automáticamente."""
+        if not self.bot.tibia_connected:
+            self._test_log(f"⚠️ Tibia no conectado — no se puede enviar '{number}'", "FAIL")
+            return
+        
+        # Enviar número + Enter usando el mismo callback
+        ok1 = self._test_send_key_callback(number)
+        time.sleep(0.05)  # Pequeña pausa entre teclas
+        ok2 = self._test_send_key_callback("ENTER")
+        
+        if ok1 and ok2:
+            self._test_log(f"✅ Número '{number}' + Enter enviados", "OK")
+            self.lbl_test_arrow_result.configure(
+                text=f"✅ Enviado: {number} + Enter", text_color="#2ECC71"
+            )
+        else:
+            self._test_log(f"❌ Fallo al enviar número '{number}'", "FAIL")
+            self.lbl_test_arrow_result.configure(
+                text=f"❌ Fallo: {number}", text_color="#E74C3C"
+            )
+
+    def _test_send_key(self, key_name: str):
+        """Envía una tecla al cliente de Tibia (igual que Simple Walker)."""
+        if not self.bot.tibia_connected:
+            self._test_log(f"⚠️ Tibia no conectado — no se puede enviar '{key_name}'", "FAIL")
+            self.lbl_test_arrow_result.configure(
+                text="⚠️ Tibia no conectado", text_color="#E74C3C"
+            )
+            return
+        
+        ok = self._test_send_key_callback(key_name)
         if ok:
             self._test_log(f"✅ Tecla '{key_name}' enviada correctamente", "OK")
             self.lbl_test_arrow_result.configure(
@@ -4394,6 +4518,281 @@ class TibiaHealerGUI(ctk.CTk):
         self.test_log_text.configure(state="normal")
         self.test_log_text._textbox.delete("1.0", "end")
         self.test_log_text.configure(state="disabled")
+
+    # --- Chat Functions ---
+    def _is_local_channel_open(self) -> bool:
+        """Detecta si el canal local está abierto usando OCR o color."""
+        try:
+            frame = self.bot.last_frame
+            if frame is None:
+                self._test_log("⚠️ No hay frame disponible para OCR", "FAIL")
+                return False
+            
+            # Región donde aparece el nombre del canal
+            chat_region = frame[500:550, 600:800]
+            
+            # Método 1: OCR
+            if hasattr(self.bot, 'ocr_helper') and self.bot.ocr_helper.is_available:
+                text = self.bot.ocr_helper.read_text(chat_region, preprocess=True)
+                self._test_log(f"🔍 OCR detectó: '{text}'", "INFO")
+                # Canal local no tiene texto específico, verificamos que no sea NPC/Guild/Party
+                if not any(channel in text.lower() for channel in ["npc", "guild", "party", "trade"]):
+                    return True
+            
+            # Método 2: Detección por color (local es blanco/verde)
+            hsv = cv2.cvtColor(chat_region, cv2.COLOR_BGR2HSV)
+            
+            # Rango para texto de canal local (blanco/verde claro)
+            lower_white = np.array([0, 0, 200])
+            upper_white = np.array([180, 30, 255])
+            
+            mask = cv2.inRange(hsv, lower_white, upper_white)
+            white_pixels = cv2.countNonZero(mask)
+            
+            if white_pixels > 30:
+                self._test_log(f"🔍 Detección por color: {white_pixels} píxeles local", "INFO")
+                return True
+            
+            self._test_log("🔍 Canal local no detectado", "INFO")
+            return False
+            
+        except Exception as e:
+            self._test_log(f"⚠️ Error en detección de canal local: {e}", "FAIL")
+            return False
+
+    def _switch_to_local_channel(self):
+        """Cambia al canal local usando Previous/Next channel."""
+        if not self.bot.tibia_connected:
+            self._test_log("⚠️ Tibia no conectado", "FAIL")
+            return
+        
+        # Si ya estamos en local, no hacer nada
+        if self._is_local_channel_open():
+            self._test_log("ℹ️ Ya estamos en canal local", "OK")
+            return
+        
+        # Intentar cambiar de canal con Previous/Next
+        # Generalmente Previous Channel (Ctrl+PageUp o similar) vuelve al local
+        self._test_log("🔄 Intentando volver al canal local...", "INFO")
+        
+        # Método 1: Previous Channel (generalmente Ctrl+PageUp)
+        ok1 = self._test_send_key_callback("CTRL+PGUP")
+        time.sleep(0.2)
+        
+        if self._is_local_channel_open():
+            self._test_log("✅ Canal local restaurado (Ctrl+PageUp)", "OK")
+            return
+        
+        # Método 2: Intentar con PageUp solo
+        ok2 = self._test_send_key_callback("PGUP")
+        time.sleep(0.2)
+        
+        if self._is_local_channel_open():
+            self._test_log("✅ Canal local restaurado (PageUp)", "OK")
+            return
+        
+        # Método 3: Intentar varias veces Next Channel hasta llegar al local
+        for i in range(5):  # Máximo 5 intentos
+            self._test_send_key_callback("PGDN")  # Next Channel
+            time.sleep(0.2)
+            if self._is_local_channel_open():
+                self._test_log(f"✅ Canal local encontrado después de {i+1} ciclos", "OK")
+                return
+        
+        self._test_log("❌ No se pudo volver al canal local", "FAIL")
+
+    def _send_hi_message(self):
+        """Envía 'hi' al chat local automáticamente."""
+        if not self.bot.tibia_connected:
+            self._test_log("⚠️ Tibia no conectado — no se puede enviar 'hi'", "FAIL")
+            return
+        
+        # Asegurarse de estar en canal local
+        self._switch_to_local_channel()
+        time.sleep(0.2)
+        
+        # Escribir "hi" y presionar Enter
+        ok1 = self._test_send_key_callback("H")
+        time.sleep(0.05)
+        ok2 = self._test_send_key_callback("I")
+        time.sleep(0.05)
+        ok3 = self._test_send_key_callback("ENTER")
+        
+        if ok1 and ok2 and ok3:
+            self._test_log("✅ Mensaje 'hi' enviado al chat local", "OK")
+        else:
+            self._test_log("❌ Fallo al enviar mensaje 'hi'", "FAIL")
+
+    def _open_npc_channel(self):
+        """Abre el canal de chat NPC usando Ctrl+O y click en NPCs/Open."""
+        if not self.bot.tibia_connected:
+            self._test_log("⚠️ Tibia no conectado — no se puede abrir canal NPC", "FAIL")
+            return
+        
+        # Verificar target
+        if self.bot.key_sender.hwnd != self.bot.tibia_hwnd:
+            self.bot.key_sender.set_target(self.bot.tibia_hwnd)
+        
+        # Primero verificar si ya está abierto usando OCR
+        if self._is_npc_channel_open():
+            self._test_log("ℹ️ Canal NPC ya está abierto", "OK")
+            return
+        
+        # Abrir ventana de canales con Ctrl+O
+        ok1 = self.bot.key_sender.send_key("CTRL+O")
+        time.sleep(0.3)  # Esperar que abra la ventana
+        
+        if not ok1:
+            self._test_log("❌ Fallo al abrir ventana de canales (Ctrl+O)", "FAIL")
+            return
+        
+        # Hacer click donde dice "NPCs" (posición aproximada)
+        # Esta posición puede variar, necesitaríamos calibrarla
+        npcs_x, npcs_y = 400, 200  # Posición estimada
+        ok2 = self.bot.mouse_sender.click(npcs_x, npcs_y)
+        time.sleep(0.2)
+        
+        if not ok2:
+            self._test_log("❌ Fallo al hacer click en NPCs", "FAIL")
+            return
+        
+        # Hacer click en "Open"
+        open_x, open_y = 400, 250  # Posición estimada
+        ok3 = self.bot.mouse_sender.click(open_x, open_y)
+        time.sleep(0.3)
+        
+        if ok3:
+            self._test_log("✅ Canal NPC abierto (Ctrl+O → NPCs → Open)", "OK")
+        else:
+            self._test_log("❌ Fallo al hacer click en Open", "FAIL")
+
+    def _is_npc_channel_open(self) -> bool:
+        """Detecta si el canal NPC ya está abierto usando OCR o detección de color."""
+        try:
+            # Tomar captura de la región del chat
+            frame = self.bot.last_frame
+            if frame is None:
+                self._test_log("⚠️ No hay frame disponible para OCR", "FAIL")
+                return False
+            
+            # Región donde aparece el nombre del canal (parte inferior derecha)
+            # Estas coordenadas son aproximadas y necesitarían calibración
+            chat_region = frame[500:550, 600:800]  # y:y+h, x:x+w
+            
+            # Método 1: Usar OCR si está disponible
+            if hasattr(self.bot, 'ocr_helper') and self.bot.ocr_helper.is_available:
+                text = self.bot.ocr_helper.read_text(chat_region, preprocess=True)
+                self._test_log(f"🔍 OCR detectó: '{text}'", "INFO")
+                if "npc" in text.lower():
+                    return True
+            
+            # Método 2: Detección por color (fallback)
+            # El canal NPC tiene un color característico (generalmente amarillo/naranja)
+            # Buscar píxeles con el color del canal NPC
+            hsv = cv2.cvtColor(chat_region, cv2.COLOR_BGR2HSV)
+            
+            # Rango de color para texto de canal NPC (amarillo/naranja)
+            lower_yellow = np.array([20, 100, 100])
+            upper_yellow = np.array([30, 255, 255])
+            
+            mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+            yellow_pixels = cv2.countNonZero(mask)
+            
+            if yellow_pixels > 50:  # Si hay suficientes píxeles amarillos
+                self._test_log(f"🔍 Detección por color: {yellow_pixels} píxeles NPC", "INFO")
+                return True
+            
+            self._test_log("🔍 Canal NPC no detectado", "INFO")
+            return False
+            
+        except Exception as e:
+            self._test_log(f"⚠️ Error en detección de canal NPC: {e}", "FAIL")
+            return False
+
+    def _send_custom_local(self):
+        """Envía un mensaje personalizado al chat local."""
+        if not self.bot.tibia_connected:
+            self._test_log("⚠️ Tibia no conectado — no se puede enviar mensaje", "FAIL")
+            return
+        
+        message = self.custom_msg_entry.get().strip()
+        if not message:
+            self._test_log("⚠️ Escribe un mensaje para enviar", "FAIL")
+            return
+        
+        # Verificar target
+        if self.bot.key_sender.hwnd != self.bot.tibia_hwnd:
+            self.bot.key_sender.set_target(self.bot.tibia_hwnd)
+        
+        # Convertir mensaje a teclas (mayúsculas para letras)
+        all_ok = True
+        for char in message.upper():
+            if char == ' ':
+                ok = self._test_send_key_callback("SPACE")
+            elif char in self.bot.key_sender.get_available_keys():
+                ok = self._test_send_key_callback(char)
+            else:
+                continue  # Saltar caracteres no soportados
+            
+            if not ok:
+                all_ok = False
+                break
+            time.sleep(0.03)  # Pequeña pausa entre caracteres
+        
+        # Enviar el mensaje con Enter
+        if all_ok:
+            ok_enter = self._test_send_key_callback("ENTER")
+            if ok_enter:
+                self._test_log(f"✅ Mensaje enviado al chat local: '{message}'", "OK")
+            else:
+                self._test_log(f"❌ Fallo al enviar Enter para: '{message}'", "FAIL")
+        else:
+            self._test_log(f"❌ Fallo al enviar mensaje: '{message}'", "FAIL")
+
+    def _send_custom_npc(self):
+        """Envía un mensaje personalizado al canal NPC y vuelve al local."""
+        if not self.bot.tibia_connected:
+            self._test_log("⚠️ Tibia no conectado — no se puede enviar mensaje NPC", "FAIL")
+            return
+        
+        message = self.custom_msg_entry.get().strip()
+        if not message:
+            self._test_log("⚠️ Escribe un mensaje para enviar", "FAIL")
+            return
+        
+        # Abrir canal NPC
+        self._open_npc_channel()
+        time.sleep(0.5)  # Esperar a que el canal se abra
+        
+        # Convertir mensaje a teclas y enviar
+        all_ok = True
+        for char in message.upper():
+            if char == ' ':
+                ok = self._test_send_key_callback("SPACE")
+            elif char in self.bot.key_sender.get_available_keys():
+                ok = self._test_send_key_callback(char)
+            else:
+                continue
+            
+            if not ok:
+                all_ok = False
+                break
+            time.sleep(0.03)
+        
+        # Enviar con Enter
+        if all_ok:
+            ok_enter = self._test_send_key_callback("ENTER")
+            if ok_enter:
+                self._test_log(f"✅ Mensaje enviado al canal NPC: '{message}'", "OK")
+                
+                # Esperar un momento y volver al canal local
+                time.sleep(0.5)
+                self._switch_to_local_channel()
+                
+            else:
+                self._test_log(f"❌ Fallo al enviar Enter NPC para: '{message}'", "FAIL")
+        else:
+            self._test_log(f"❌ Fallo al enviar mensaje NPC: '{message}'", "FAIL")
 
     # ==================================================================
     # TAB: Screen View (visualizador OBS en tiempo real)
@@ -4913,47 +5312,54 @@ class TibiaHealerGUI(ctk.CTk):
         ).pack(fill="both", padx=10, pady=10)
 
     # ==================================================================
-    # Panel de Logs
+    # TAB: Logs
     # ==================================================================
-    def _build_log_panel(self):
-        log_frame = ctk.CTkFrame(self)
-        log_frame.pack(fill="x", padx=8, pady=(0, 8))
-
+    def _build_logs_tab(self):
+        tab = self.tab_logs
+        
         # Header
-        header = ctk.CTkFrame(log_frame, fg_color="transparent")
-        header.pack(fill="x", padx=5, pady=(5, 2))
+        header = ctk.CTkFrame(tab, fg_color="transparent")
+        header.pack(fill="x", padx=10, pady=(10, 5))
 
-        ctk.CTkLabel(header, text="📋 LOGS", font=ctk.CTkFont(weight="bold")).pack(side="left")
+        ctk.CTkLabel(header, text="📋 LOGS DEL SISTEMA", font=ctk.CTkFont(size=16, weight="bold")).pack(side="left")
 
-        ctk.CTkButton(
-            header, text="Guardar", width=70, height=26, command=self._save_log
-        ).pack(side="right", padx=3)
-        ctk.CTkButton(
-            header, text="Limpiar", width=70, height=26, command=self._clear_log
+        # Controles a la derecha
+        controls_frame = ctk.CTkFrame(header, fg_color="transparent")
+        controls_frame.pack(side="right")
+
+        # Nivel de log
+        ctk.CTkLabel(controls_frame, text="Nivel:").pack(side="right", padx=(10, 3))
+        self.log_level_var = ctk.StringVar(value=self.config.log_level)
+        ctk.CTkOptionMenu(
+            controls_frame,
+            variable=self.log_level_var,
+            values=["DEBUG", "INFO", "WARNING", "ERROR"],
+            width=90,
+            command=self._change_log_level,
         ).pack(side="right", padx=3)
 
         # Auto-scroll checkbox
         self.autoscroll_var = ctk.BooleanVar(value=True)
         ctk.CTkCheckBox(
-            header, text="Auto-scroll", variable=self.autoscroll_var, width=100
+            controls_frame, text="Auto-scroll", variable=self.autoscroll_var, width=100
         ).pack(side="right", padx=10)
 
-        # Nivel de log
-        ctk.CTkLabel(header, text="Nivel:").pack(side="right", padx=(10, 3))
-        self.log_level_var = ctk.StringVar(value=self.config.log_level)
-        ctk.CTkOptionMenu(
-            header,
-            variable=self.log_level_var,
-            values=["DEBUG", "INFO", "WARNING", "ERROR"],
-            width=90,
-            command=self._change_log_level,
-        ).pack(side="right")
+        # Botones
+        ctk.CTkButton(
+            controls_frame, text="Limpiar", width=70, height=26, command=self._clear_log
+        ).pack(side="right", padx=3)
+        ctk.CTkButton(
+            controls_frame, text="Guardar", width=70, height=26, command=self._save_log
+        ).pack(side="right", padx=3)
 
         # Textbox de logs
+        log_container = ctk.CTkFrame(tab)
+        log_container.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+
         self.log_text = ctk.CTkTextbox(
-            log_frame, height=180, font=ctk.CTkFont(family="Consolas", size=11)
+            log_container, font=ctk.CTkFont(family="Consolas", size=11)
         )
-        self.log_text.pack(fill="x", padx=5, pady=(2, 5))
+        self.log_text.pack(fill="both", expand=True, padx=5, pady=5)
         self.log_text.configure(state="disabled")
 
         # Configurar tags de color
@@ -4962,6 +5368,14 @@ class TibiaHealerGUI(ctk.CTk):
         self.log_text._textbox.tag_configure("WARNING", foreground="#FFAA00")
         self.log_text._textbox.tag_configure("ERROR", foreground="#FF3333")
         self.log_text._textbox.tag_configure("CRITICAL", foreground="#FF0000")
+
+    # ==================================================================
+    # Panel de Logs (mantenido por compatibilidad pero vacío)
+    # ==================================================================
+    def _build_log_panel(self):
+        # Esta función se mantiene por compatibilidad pero no hace nada
+        # El contenido se movió a la pestaña "Logs"
+        pass
 
     def _configure_module_log_tags(self):
         """Configura tags de color para los textboxes de log de cada módulo."""

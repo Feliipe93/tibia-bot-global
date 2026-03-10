@@ -45,6 +45,13 @@ VK_MAP = {
     "DOWN": win32con.VK_DOWN,
     "LEFT": win32con.VK_LEFT,
     "RIGHT": win32con.VK_RIGHT,
+    "SHIFT": win32con.VK_SHIFT,
+    "LSHIFT": win32con.VK_LSHIFT,
+    "RSHIFT": win32con.VK_RSHIFT,
+    "PGUP": win32con.VK_PRIOR,
+    "PGDN": win32con.VK_NEXT,
+    "CTRL+PGUP": "CTRL+PGUP",  # Special case handled in send_key
+    "CTRL+PGDN": "CTRL+PGDN",  # Special case handled in send_key
 }
 
 
@@ -70,11 +77,10 @@ class KeySender:
         Envía una tecla a la ventana de Tibia usando SendMessage (síncrono).
         Patrón de TibiaAuto12: SendMessage(WM_KEYDOWN, vk, 0) + SendMessage(WM_KEYUP, vk, 0)
         
-        Para combinaciones Ctrl+key usa keybd_event global para Ctrl
-        + SendMessage para la tecla (patrón híbrido de TibiaAuto12).
+        Soporta combinaciones Ctrl+key y Shift+key.
 
         Args:
-            key_name: Nombre de la tecla ("F1", "A", "Ctrl+1", etc.).
+            key_name: Nombre de la tecla ("F1", "A", "Ctrl+1", "Shift+2", etc.).
             delay: Pausa en segundos entre KeyDown y KeyUp.
 
         Returns:
@@ -83,16 +89,27 @@ class KeySender:
         if self.hwnd is None or not win32gui.IsWindow(self.hwnd):
             return False
 
-        # Detectar modificador Ctrl+
+        # Detectar modificadores
         use_ctrl = False
+        use_shift = False
         actual_key = key_name.strip().upper()
+        
         if actual_key.startswith("CTRL+"):
             use_ctrl = True
             actual_key = actual_key[5:].strip()
+        elif actual_key.startswith("SHIFT+"):
+            use_shift = True
+            actual_key = actual_key[6:].strip()
 
         vk = VK_MAP.get(actual_key)
         if vk is None:
-            return False
+            # Special cases for Ctrl+PageUp/PageDown
+            if actual_key == "PGUP" and use_ctrl:
+                vk = win32con.VK_PRIOR
+            elif actual_key == "PGDN" and use_ctrl:
+                vk = win32con.VK_NEXT
+            else:
+                return False
 
         try:
             # Si Ctrl, usar keybd_event global (patrón TibiaAuto12 PressHotkey)
@@ -100,12 +117,24 @@ class KeySender:
                 win32api.keybd_event(win32con.VK_CONTROL, 0, 0, 0)
                 time.sleep(0.05)
 
+            # Si Shift, usar keybd_event global para Shift
+            if use_shift:
+                win32api.keybd_event(win32con.VK_SHIFT, 0, 0, 0)
+                time.sleep(0.05)
+
             # SendMessage síncrono con lParam=0 (como TibiaAuto12)
             win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, vk, 0)
             time.sleep(delay)
             win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, vk, 0)
 
-            # Soltar Ctrl
+            # Soltar modificadores en orden inverso
+            if use_shift:
+                time.sleep(0.05)
+                win32api.keybd_event(
+                    win32con.VK_SHIFT, 0,
+                    win32con.KEYEVENTF_KEYUP, 0
+                )
+            
             if use_ctrl:
                 time.sleep(0.05)
                 win32api.keybd_event(
