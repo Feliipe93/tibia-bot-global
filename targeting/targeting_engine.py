@@ -365,6 +365,11 @@ class TargetingEngine:
         # - Verificar si ya estamos atacando algo (bordes rojos en battle list)
         # - Si NO estamos atacando → buscar target y hacer click
         # - Si SÍ estamos atacando → no re-clickear (pero sí mantener estado)
+        
+        # Calcular tiempos para usar en ambas secciones
+        time_since_attack = now - self.last_attack_time
+        time_since_switch = now - self._last_target_switch
+        
         already_attacking = self.battle_reader.is_attacking(frame)
 
         if already_attacking and self.current_target:
@@ -402,8 +407,6 @@ class TargetingEngine:
                 return
 
         # NO estamos atacando (o perdimos el target) → buscar y atacar
-        time_since_attack = now - self.last_attack_time
-        time_since_switch = now - self._last_target_switch
         delay = self.attack_delay
 
         if time_since_attack >= delay:
