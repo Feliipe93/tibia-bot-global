@@ -4907,10 +4907,13 @@ class TibiaHealerGUI(ctk.CTk):
 
         # Botón captura única
         ctk.CTkButton(
-            ctrl_frame,
-            text="📸 Captura ahora",
-            width=130,
+            ctrl_frame, text="📸 Capturar", width=100,
             command=self._sv_capture_once,
+        ).pack(side="right", padx=4)
+
+        ctk.CTkButton(
+            ctrl_frame, text="🔄 Calibrar", width=100,
+            command=self._sv_force_calibration,
         ).pack(side="right", padx=4)
 
         # ── Selector de overlay ───────────────────────────────────────────
@@ -4987,6 +4990,32 @@ class TibiaHealerGUI(ctk.CTk):
         """Fuerza una captura inmediata aunque el live esté pausado."""
         self._sv_refresh()
 
+    def _sv_force_calibration(self):
+        """Fuerza una calibración completa del screen calibrator."""
+        try:
+            if self.bot.calibrator is None:
+                self._sv_info_var.set("❌ Calibrator no disponible")
+                return
+            
+            # Tomar frame actual
+            frame = getattr(self.bot, "last_frame", None)
+            if frame is None:
+                self._sv_info_var.set("❌ Sin frame para calibrar")
+                return
+            
+            # Forzar calibración
+            success = self.bot.calibrator.calibrate_all(frame)
+            if success:
+                self._sv_info_var.set("✅ Calibración completada")
+                self.log.ok("Screen View: Calibración forzada exitosa")
+            else:
+                self._sv_info_var.set("❌ Calibración falló")
+                self.log.error("Screen View: La calibración forzada falló")
+                
+        except Exception as e:
+            self._sv_info_var.set(f"❌ Error: {str(e)}")
+            self.log.error(f"Screen View: Error en calibración: {e}")
+
     def _sv_refresh(self):
         """Obtiene el último frame del bot y lo muestra con overlay opcional."""
         import time as _time
@@ -5005,54 +5034,72 @@ class TibiaHealerGUI(ctk.CTk):
         if overlay != "Ninguno":
             try:
                 cal = self.bot.calibrator
+                
+                # Verificar que el calibrator está inicializado
+                if cal is None:
+                    cv2.putText(display, "Calibrator not initialized", (10, 30),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                else:
+                    # Game Region (screen_calibrator)
+                    if overlay in ("Game Region", "Todo"):
+                        gr = cal.game_region
+                        if gr and len(gr) == 4:
+                            x1, y1, x2, y2 = gr
+                            cv2.rectangle(display, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                            cv2.putText(display, "Game", (x1 + 4, y1 + 18),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 0), 1)
+                        else:
+                            cv2.putText(display, "Game Region: Not calibrated", (10, 30),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
-                # Game Region (screen_calibrator)
-                if overlay in ("Game Region", "Todo"):
-                    gr = cal.game_region
-                    if gr:
-                        x1, y1, x2, y2 = gr
-                        cv2.rectangle(display, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                        cv2.putText(display, "Game", (x1 + 4, y1 + 18),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 0), 1)
-
-                # Battle Region
-                if overlay in ("Battle Region", "Todo"):
-                    br = cal.battle_region
-                    if br:
-                        bx1, by1, bx2, by2 = br
-                        cv2.rectangle(display, (bx1, by1), (bx2, by2),
-                                      (0, 100, 255), 2)
-                        cv2.putText(display, "Battle List",
-                                    (bx1 + 4, by1 + 18),
-                                    cv2.FONT_HERSHEY_SIMPLEX,
-                                    0.5, (0, 100, 255), 1)
+                    # Battle Region
+                    if overlay in ("Battle Region", "Todo"):
+                        br = cal.battle_region
+                        if br and len(br) == 4:
+                            bx1, by1, bx2, by2 = br
+                            cv2.rectangle(display, (bx1, by1), (bx2, by2),
+                                          (0, 100, 255), 2)
+                            cv2.putText(display, "Battle List",
+                                        (bx1 + 4, by1 + 18),
+                                        cv2.FONT_HERSHEY_SIMPLEX,
+                                        0.5, (0, 100, 255), 1)
+                        else:
+                            cv2.putText(display, "Battle Region: Not calibrated", (10, 55),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 100, 255), 1)
 
                 # Player Center
                 if overlay in ("Player Center", "Todo"):
                     pc = cal.player_center
-                    if pc:
+                    if pc and len(pc) == 2:
                         cx, cy = pc
                         cv2.circle(display, (cx, cy), 10, (255, 255, 0), 2)
                         cv2.circle(display, (cx, cy), 3, (255, 255, 0), -1)
                         cv2.putText(display, "Player", (cx + 12, cy - 4),
                                     cv2.FONT_HERSHEY_SIMPLEX,
                                     0.45, (255, 255, 0), 1)
+                    else:
+                        cv2.putText(display, "Player Center: Not calibrated", (10, 80),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
 
                 # SQMs (9 posiciones calibradas)
                 if overlay in ("SQMs", "Todo"):
                     sqms = cal.sqms
-                    if sqms:
+                    if sqms and len(sqms) == 9:
                         for idx, (sx, sy) in enumerate(sqms):
-                            # Centro = naranja, resto = cyan
-                            color = (0, 200, 255) if idx != 4 else (0, 100, 255)
-                            cv2.rectangle(
-                                display,
-                                (sx - 10, sy - 10), (sx + 10, sy + 10),
-                                color, 1,
-                            )
-                            cv2.putText(display, str(idx), (sx - 4, sy + 4),
-                                        cv2.FONT_HERSHEY_SIMPLEX,
-                                        0.35, color, 1)
+                            if sx is not None and sy is not None:
+                                # Centro = naranja, resto = cyan
+                                color = (0, 200, 255) if idx != 4 else (0, 100, 255)
+                                cv2.rectangle(
+                                    display,
+                                    (sx - 10, sy - 10), (sx + 10, sy + 10),
+                                    color, 1,
+                                )
+                                cv2.putText(display, str(idx), (sx - 4, sy + 4),
+                                            cv2.FONT_HERSHEY_SIMPLEX,
+                                            0.35, color, 1)
+                    else:
+                        cv2.putText(display, "SQMs: Not calibrated", (10, 105),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 200, 255), 1)
 
                 # GSD region proporcional (si el looter la calculó)
                 if overlay in ("Game Region", "Todo"):
@@ -5081,7 +5128,7 @@ class TibiaHealerGUI(ctk.CTk):
                 # Minimap overlay
                 if overlay in ("Minimap", "Todo"):
                     mr = cal.map_region
-                    if mr:
+                    if mr and len(mr) == 4:
                         mx1, my1, mx2, my2 = mr
                         # Rectángulo del minimap
                         cv2.rectangle(display, (mx1, my1), (mx2, my2),
@@ -5101,8 +5148,12 @@ class TibiaHealerGUI(ctk.CTk):
                                     (mcx + 8, mcy - 6),
                                     cv2.FONT_HERSHEY_SIMPLEX,
                                     0.35, (0, 255, 255), 1)
+                    else:
+                        cv2.putText(display, "Minimap: Not calibrated", (10, 130),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 200, 0), 1)
 
-                        # Buscar marcas del cavebot en el minimap
+                    # Buscar marcas del cavebot en el minimap (solo si está calibrado)
+                    if mr and len(mr) == 4:
                         try:
                             cb = self.bot.cavebot_engine
                             if cb.waypoints and cb._mark_templates:
