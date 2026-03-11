@@ -27,13 +27,13 @@ ROJO_MAX1 = np.array([10, 255, 255])
 ROJO_MIN2 = np.array([170, 100, 100])
 ROJO_MAX2 = np.array([180, 255, 255])
 
-# Mana: AZUL
-AZUL_MIN = np.array([95, 60, 60])
-AZUL_MAX = np.array([135, 255, 255])
+# Mana: AZUL (rango más amplio para diferentes tonalidades)
+AZUL_MIN = np.array([90, 50, 50])
+AZUL_MAX = np.array([140, 255, 255])
 
 # Fondo oscuro de las barras (gris/negro de la parte vacía)
-BAR_BG_MAX_VALUE = 60       # V < 60 = píxel oscuro
-BAR_BG_MAX_SATURATION = 80  # S < 80 = poco saturado
+BAR_BG_MAX_VALUE = 70       # V < 70 = píxel oscuro (aumentado para detectar mejor)
+BAR_BG_MAX_SATURATION = 90  # S < 90 = poco saturado (aumentado)
 
 
 class BarDetector:
@@ -95,7 +95,29 @@ class BarDetector:
 
         # Re-calibrar periódicamente para adaptarse a cambios de paneles
         self._frame_count += 1
-        if not self.calibrated or self._frame_count % self._recalib_interval == 0:
+        # Calibrar más frecuentemente: cada 20 frames o si no está calibrado
+        need_recalib = not self.calibrated or self._frame_count % 20 == 0
+        
+        # Detección de cambios drásticos: si el ancho detectado cambia mucho, forzar recalibración
+        if self.calibrated and self.bar_max_width > 0:
+            current_width_estimate = self._estimate_current_bar_width(hsv, w, scan_height)
+            if abs(current_width_estimate - self.bar_max_width) > (self.bar_max_width * 0.10):  # Reducido a 10%
+                need_recalib = True
+        
+        # Siempre recalibrar si HP o MP son None (detección fallida)
+        if self.calibrated:
+            # Probar detección rápida
+            hp_pct = self._calc_percent_calibrated(
+                self.last_mask_hp, self.hp_row, self.hp_bar_x1, self.hp_bar_x2
+            ) if hasattr(self, 'last_mask_hp') else None
+            mp_pct = self._calc_percent_calibrated(
+                self.last_mask_mp, self.mp_row, self.mp_bar_x1, self.mp_bar_x2
+            ) if hasattr(self, 'last_mask_mp') else None
+            
+            if hp_pct is None or mp_pct is None:
+                need_recalib = True
+        
+        if need_recalib:
             self._calibrate_bar_positions(hsv, w, scan_height)
 
         # Crear máscaras para HP (verde + amarillo + rojo)
@@ -195,12 +217,26 @@ class BarDetector:
             self.hp_bar_x1 = hp_x1
             self.hp_bar_x2 = hp_x2
 
-        # Encontrar límites exactos de la barra MP
         if mp_row is not None:
             mp_x1, mp_x2 = self._find_bar_extent(hsv, mp_row, frame_w, "mp")
             if mp_x2 > mp_x1:
                 self.mp_bar_x1 = mp_x1
                 self.mp_bar_x2 = mp_x2
+        else:
+            # Si no se encuentra fila de mana, buscar más agresivamente
+            # Buscar cualquier píxel azul en el área de barras
+            blue_mask = cv2.inRange(hsv, AZUL_MIN, AZUL_MAX)
+            blue_pixels = np.where(blue_mask > 0)
+            if len(blue_pixels[0]) > 0:
+                # Encontrar la fila con más píxeles azules
+                unique_rows, counts = np.unique(blue_pixels[0], return_counts=True)
+                if len(counts) > 0:
+                    mp_row = unique_rows[np.argmax(counts)]
+                    self.mp_row = mp_row
+                    mp_x1, mp_x2 = self._find_bar_extent(hsv, mp_row, frame_w, "mp")
+                    if mp_x2 > mp_x1:
+                        self.mp_bar_x1 = mp_x1
+                        self.mp_bar_x2 = mp_x2
 
         self.bar_max_width = max(
             self.hp_bar_x2 - self.hp_bar_x1,
@@ -336,6 +372,51 @@ class BarDetector:
 
         percent = min(best_count / total_width, 1.0)
         return round(percent, 3)
+
+    def _estimate_current_bar_width(self, hsv: np.ndarray, frame_w: int, scan_h: int) -> int:
+        """
+        Estima rápidamente el ancho actual de las barras para detectar cambios.
+        Retorna 0 si no puede detectar.
+        """
+        # Buscar la fila con más píxeles de HP o MP
+        max_px = 0
+        best_row = None
+        
+        for y in range(scan_h):
+            row_hsv = hsv[y:y+1, :]
+            
+            # Contar píxeles de HP
+            g = cv2.countNonZero(cv2.inRange(row_hsv, VERDE_MIN, VERDE_MAX))
+            a = cv2.countNonZero(cv2.inRange(row_hsv, AMARILLO_MIN, AMARILLO_MAX))
+            r1 = cv2.countNonZero(cv2.inRange(row_hsv, ROJO_MIN1, ROJO_MAX1))
+            r2 = cv2.countNonZero(cv2.inRange(row_hsv, ROJO_MIN2, ROJO_MAX2))
+            hp_px = g + a + r1 + r2
+            
+            # Contar píxeles de MP
+            b = cv2.countNonZero(cv2.inRange(row_hsv, AZUL_MIN, AZUL_MAX))
+            total_px = hp_px + b
+            
+            if total_px > max_px and total_px > 20:
+                max_px = total_px
+                best_row = y
+        
+        if best_row is None:
+            return 0
+        
+        # Encontrar el bloque continuo más largo en esa fila
+        row_hsv = hsv[best_row:best_row+1, :]
+        mask_hp = cv2.inRange(row_hsv, VERDE_MIN, VERDE_MAX)
+        mask_hp = cv2.bitwise_or(mask_hp, cv2.inRange(row_hsv, AMARILLO_MIN, AMARILLO_MAX))
+        mask_hp = cv2.bitwise_or(mask_hp, cv2.inRange(row_hsv, ROJO_MIN1, ROJO_MAX1))
+        mask_hp = cv2.bitwise_or(mask_hp, cv2.inRange(row_hsv, ROJO_MIN2, ROJO_MAX2))
+        mask_mp = cv2.inRange(row_hsv, AZUL_MIN, AZUL_MAX)
+        mask_combined = cv2.bitwise_or(mask_hp, mask_mp)
+        
+        cols = np.where(mask_combined[0] > 0)[0]
+        if len(cols) < 5:
+            return 0
+            
+        return self._find_longest_continuous_block(cols, gap_tolerance=3)
 
     def auto_calibrate(self, img: np.ndarray) -> Dict:
         """

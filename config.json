@@ -9,7 +9,7 @@
     },
     "heal_levels": [
         {
-            "threshold": 0.7,
+            "threshold": 1.0,
             "key": "F1",
             "description": "Exura"
         },
@@ -26,7 +26,15 @@
     ],
     "mana_heal": {
         "enabled": true,
-        "threshold": 0.3,
+        "levels": [
+            {
+                "threshold": 1.0,
+                "comparison": "<=",
+                "key": "F7",
+                "description": "Strong Mana Potion"
+            }
+        ],
+        "threshold": 1.0,
         "key": "F7",
         "description": "Mana potion"
     },

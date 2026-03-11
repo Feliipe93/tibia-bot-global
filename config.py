@@ -26,9 +26,11 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     ],
     "mana_heal": {
         "enabled": False,
-        "threshold": 0.30,
-        "key": "F3",
-        "description": "Mana potion",
+        "levels": [
+            {"threshold": 0.80, "comparison": "<=", "key": "F3", "description": "Strong Mana Potion"},
+            {"threshold": 0.50, "comparison": "<=", "key": "F4", "description": "Great Mana Potion"},
+            {"threshold": 0.30, "comparison": "<=", "key": "F5", "description": "Mana Potion"},
+        ],
     },
     "cooldown_seconds": 1.2,
     "check_interval_seconds": 0.25,
@@ -220,6 +222,40 @@ class Config:
     @mana_heal.setter
     def mana_heal(self, value: Dict) -> None:
         self.data["mana_heal"] = value
+
+    def get_mana_levels(self) -> List[Dict]:
+        """Retorna la lista de niveles de mana (para compatibilidad con el nuevo formato)."""
+        mana_cfg = self.mana_heal
+        # Si tiene el formato antiguo, convertirlo
+        if "levels" not in mana_cfg and "threshold" in mana_cfg:
+            return [{
+                "threshold": mana_cfg.get("threshold", 0.30),
+                "comparison": mana_cfg.get("comparison", "<="),
+                "key": mana_cfg.get("key", "F3"),
+                "description": mana_cfg.get("description", "Mana potion"),
+            }]
+        return mana_cfg.get("levels", [])
+    
+    def set_mana_levels(self, levels: List[Dict]) -> None:
+        """Establece la lista de niveles de mana."""
+        mana_cfg = self.mana_heal.copy()
+        mana_cfg["levels"] = levels
+        # Ordenar de mayor a menor threshold
+        mana_cfg["levels"].sort(key=lambda x: x["threshold"], reverse=True)
+        self.mana_heal = mana_cfg
+    
+    def add_mana_level(self, level: Dict) -> None:
+        """Agrega un nuevo nivel de mana."""
+        levels = self.get_mana_levels()
+        levels.append(level)
+        self.set_mana_levels(levels)
+    
+    def remove_mana_level(self, index: int) -> None:
+        """Elimina un nivel de mana por índice."""
+        levels = self.get_mana_levels()
+        if 0 <= index < len(levels):
+            levels.pop(index)
+            self.set_mana_levels(levels)
 
     # -- Propiedades de acceso rápido ----------------------------------
     @property

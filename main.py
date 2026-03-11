@@ -61,9 +61,9 @@ def main():
 
     print()
     print("=" * 50)
-    print("  ⚔️  TIBIA AUTO HEALER")
+    print("  TIBIA AUTO HEALER")
     print("=" * 50)
-    print("  Iniciando interfaz gráfica...")
+    print("  Iniciando interfaz grafica...")
     print("  Usa F9 para activar/desactivar")
     print("  Usa F10 para cerrar")
     print("=" * 50)

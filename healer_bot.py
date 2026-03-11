@@ -104,7 +104,9 @@ class HealerBot:
         self.captures_per_sec: float = 0.0
         self.cycle_count: int = 0
         self.heal_count: int = 0
+        self.mana_count: int = 0
         self.last_heal_time: float = 0.0
+        self.last_mana_time: float = 0.0  # Cooldown separado para mana
         self.last_heal_key: str = ""
         self.errors: List[str] = []
         self.last_frame: Optional[np.ndarray] = None  # Último frame capturado (para GUI preview)
@@ -668,57 +670,79 @@ class HealerBot:
         """Evalúa si debe curar y envía la tecla correspondiente."""
         now = time.time()
 
-        # Verificar cooldown
-        if (now - self.last_heal_time) < self.config.cooldown:
-            return
-
         # HP healing: evaluar niveles de mayor a menor prioridad
         # Los niveles están ordenados de mayor threshold a menor
         if hp is not None:
-            heal_levels = sorted(
-                self.config.heal_levels,
-                key=lambda x: x.get("threshold", 0),
-            )
-            for level in heal_levels:
-                threshold = level.get("threshold", 0)
-                key = level.get("key", "")
-                desc = level.get("description", key)
+            # Verificar cooldown específico para HP
+            if (now - self.last_heal_time) >= self.config.cooldown:
+                heal_levels = sorted(
+                    self.config.heal_levels,
+                    key=lambda x: x.get("threshold", 0),
+                )
+                for level in heal_levels:
+                    threshold = level.get("threshold", 0)
+                    key = level.get("key", "")
+                    desc = level.get("description", key)
 
-                if hp < threshold and key:
-                    success = self.key_sender.send_key(key)
-                    if success:
-                        self.last_heal_time = now
-                        self.last_heal_key = key
-                        self.heal_count += 1
-                        # Log detallado con hwnd para diagnóstico
-                        self.log.heal(
-                            f"HP={hp * 100:.0f}% < {threshold * 100:.0f}% "
-                            f"→ {key} ({desc}) [hwnd={self.key_sender.hwnd}]"
-                        )
-                    else:
-                        self.log.error(
-                            f"Error enviando tecla {key} a Tibia"
-                        )
-                    return  # Solo una curación por ciclo
+                    if hp < threshold and key:
+                        success = self.key_sender.send_key(key)
+                        if success:
+                            self.last_heal_time = now
+                            self.last_heal_key = key
+                            self.heal_count += 1
+                            # Log detallado con hwnd para diagnóstico
+                            self.log.heal(
+                                f"HP={hp * 100:.0f}% < {threshold * 100:.0f}% "
+                                f"→ {key} ({desc}) [hwnd={self.key_sender.hwnd}]"
+                            )
+                        else:
+                            self.log.error(
+                                f"Error enviando tecla {key} a Tibia"
+                            )
+                        return  # Solo una curación por ciclo
 
         # Mana healing
         mana_cfg = self.config.mana_heal
         if (
             mana_cfg.get("enabled", False)
             and mp is not None
-            and mp < mana_cfg.get("threshold", 0.30)
         ):
-            key = mana_cfg.get("key", "F3")
-            if (now - self.last_heal_time) >= self.config.cooldown:
-                success = self.key_sender.send_key(key)
-                if success:
-                    self.last_heal_time = now
-                    self.last_heal_key = key
-                    self.heal_count += 1
-                    self.log.heal(
-                        f"MP={mp * 100:.0f}% < {mana_cfg['threshold'] * 100:.0f}% "
-                        f"→ {key} ({mana_cfg.get('description', 'Mana')})"
-                    )
+            # Verificar cooldown específico para mana
+            if (now - self.last_mana_time) >= self.config.cooldown:
+                # Obtener niveles de mana (compatible con ambos formatos)
+                mana_levels = self.config.get_mana_levels()
+                
+                # Evaluar niveles de mayor a menor threshold (como en HP)
+                for level in mana_levels:
+                    threshold = level.get("threshold", 0.30)
+                    comparison = level.get("comparison", "<=")
+                    key = level.get("key", "F3")
+                    desc = level.get("description", key)
+                    
+                    # Evaluar según el operador configurado
+                    should_heal = False
+                    if comparison == "<":
+                        should_heal = mp < threshold
+                    elif comparison == "<=":
+                        should_heal = mp <= threshold
+                    else:
+                        should_heal = mp <= threshold  # fallback por seguridad
+                    
+                    if should_heal and key:
+                        success = self.key_sender.send_key(key)
+                        if success:
+                            self.last_mana_time = now  # Usar cooldown de mana
+                            self.last_heal_key = key
+                            self.mana_count += 1
+                            self.log.heal(
+                                f"MP={mp * 100:.0f}% {comparison} {threshold * 100:.0f}% "
+                                f"→ {key} ({desc}) [hwnd={self.key_sender.hwnd}]"
+                            )
+                        else:
+                            self.log.error(
+                                f"Error enviando tecla {key} a Tibia"
+                            )
+                        return  # Solo una curación de mana por ciclo
 
     # ==================================================================
     # Utilidades

@@ -445,25 +445,39 @@ class TibiaHealerGUI(ctk.CTk):
             anchor="w", padx=8, pady=(6, 3)
         )
 
-        mana_row = ctk.CTkFrame(mana_frame, fg_color="transparent")
-        mana_row.pack(fill="x", padx=8, pady=3)
-
+        # Checkbox para activar mana healing
         self.mana_enabled_var = ctk.BooleanVar(value=self.config.mana_heal.get("enabled", False))
+        mana_enable_row = ctk.CTkFrame(mana_frame, fg_color="transparent")
+        mana_enable_row.pack(fill="x", padx=8, pady=3)
         ctk.CTkCheckBox(
-            mana_row, text="Activar", variable=self.mana_enabled_var, command=self._save_mana_config
+            mana_enable_row, text="Activar curación de mana", 
+            variable=self.mana_enabled_var, command=self._save_mana_config
+        ).pack(side="left")
+
+        # Frame para las reglas de mana (dinámico como HP)
+        self.mana_rules_frame = ctk.CTkFrame(mana_frame, fg_color="transparent")
+        self.mana_rules_frame.pack(fill="x", padx=8, pady=3)
+        
+        # Botones para agregar/eliminar reglas de mana
+        mana_buttons_row = ctk.CTkFrame(mana_frame, fg_color="transparent")
+        mana_buttons_row.pack(fill="x", padx=8, pady=3)
+        
+        ctk.CTkButton(
+            mana_buttons_row, text="Agregar Condición", 
+            command=self._add_mana_rule, width=120
         ).pack(side="left", padx=(0, 8))
+        
+        ctk.CTkButton(
+            mana_buttons_row, text="Eliminar Última", 
+            command=self._remove_last_mana_rule, width=120
+        ).pack(side="left")
 
-        ctk.CTkLabel(mana_row, text="MP <").pack(side="left")
-        self.mana_threshold_var = ctk.StringVar(
-            value=str(int(self.config.mana_heal.get("threshold", 0.30) * 100))
-        )
-        ctk.CTkEntry(mana_row, textvariable=self.mana_threshold_var, width=50).pack(side="left", padx=3)
-        ctk.CTkLabel(mana_row, text="% → Tecla:").pack(side="left")
-
-        self.mana_key_var = ctk.StringVar(value=self.config.mana_heal.get("key", "F3"))
-        ctk.CTkOptionMenu(
-            mana_row, variable=self.mana_key_var, values=AVAILABLE_KEYS, width=80, command=lambda _: self._save_mana_config()
-        ).pack(side="left", padx=4)
+        # Variables para las reglas de mana (dinámicas)
+        self._mana_rule_vars: List[Tuple[ctk.StringVar, ctk.StringVar, ctk.StringVar, ctk.StringVar]] = []
+        self._mana_rule_frames: List[ctk.CTkFrame] = []
+        
+        # Construir UI inicial de reglas de mana
+        self._rebuild_mana_rules_ui()
 
         # --- Parámetros ---
         params_frame = ctk.CTkFrame(scroll)
@@ -553,17 +567,89 @@ class TibiaHealerGUI(ctk.CTk):
             self.config.remove_heal_level(len(levels) - 1)
             self._rebuild_rules_ui()
 
-    def _save_mana_config(self):
-        try:
-            threshold = int(self.mana_threshold_var.get()) / 100.0
-        except ValueError:
-            threshold = 0.30
-        self.config.mana_heal = {
-            "enabled": self.mana_enabled_var.get(),
-            "threshold": threshold,
-            "key": self.mana_key_var.get(),
-            "description": "Mana potion",
+    def _add_mana_rule(self):
+        """Agrega una nueva regla de mana."""
+        new_level = {
+            "threshold": 0.50,
+            "comparison": "<=",
+            "key": "F3",
+            "description": "Mana Potion",
         }
+        self.config.add_mana_level(new_level)
+        self._rebuild_mana_rules_ui()
+
+    def _remove_last_mana_rule(self):
+        """Elimina la última regla de mana."""
+        levels = self.config.get_mana_levels()
+        if len(levels) > 0:
+            self.config.remove_mana_level(len(levels) - 1)
+            self._rebuild_mana_rules_ui()
+
+    def _rebuild_mana_rules_ui(self):
+        """Reconstruye la UI de las reglas de mana."""
+        # Limpiar widgets existentes
+        for frame in self._mana_rule_frames:
+            frame.destroy()
+        self._mana_rule_frames.clear()
+        self._mana_rule_vars.clear()
+
+        # Crear widgets para cada nivel
+        mana_levels = self.config.get_mana_levels()
+        for i, level in enumerate(mana_levels):
+            frame = ctk.CTkFrame(self.mana_rules_frame, fg_color="transparent")
+            frame.pack(fill="x", pady=2)
+            self._mana_rule_frames.append(frame)
+
+            # Dropdown de comparación
+            comp_var = ctk.StringVar(value=level.get("comparison", "<="))
+            ctk.CTkOptionMenu(
+                frame, variable=comp_var, values=["<", "<="], width=50
+            ).pack(side="left", padx=(0, 4))
+
+            # Threshold
+            thresh_var = ctk.StringVar(value=str(int(level.get("threshold", 0.50) * 100)))
+            ctk.CTkEntry(frame, textvariable=thresh_var, width=50).pack(side="left", padx=3)
+            ctk.CTkLabel(frame, text="% →").pack(side="left", padx=(0, 4))
+
+            # Key
+            key_var = ctk.StringVar(value=level.get("key", "F3"))
+            ctk.CTkOptionMenu(
+                frame, variable=key_var, values=AVAILABLE_KEYS, width=80
+            ).pack(side="left", padx=4)
+
+            # Description
+            desc_var = ctk.StringVar(value=level.get("description", "Mana Potion"))
+            ctk.CTkEntry(frame, textvariable=desc_var, width=150).pack(side="left", padx=4)
+
+            # Guardar variables
+            self._mana_rule_vars.append((comp_var, thresh_var, key_var, desc_var))
+
+    def _save_mana_config(self):
+        """Guarda la configuración de mana desde la UI."""
+        # Guardar enabled
+        current_mana = self.config.mana_heal.copy()
+        current_mana["enabled"] = self.mana_enabled_var.get()
+        
+        # Guardar niveles desde las variables
+        new_levels = []
+        for comp_var, thresh_var, key_var, desc_var in self._mana_rule_vars:
+            try:
+                thresh = int(thresh_var.get()) / 100.0
+            except ValueError:
+                thresh = 0.50
+            
+            new_levels.append({
+                "threshold": max(0.01, min(1.0, thresh)),
+                "comparison": comp_var.get(),
+                "key": key_var.get(),
+                "description": desc_var.get(),
+            })
+        
+        # Ordenar de mayor a menor threshold
+        new_levels.sort(key=lambda x: x["threshold"], reverse=True)
+        current_mana["levels"] = new_levels
+        
+        self.config.mana_heal = current_mana
 
     def _save_all_config(self):
         """Guarda toda la configuración desde los widgets de la GUI."""
@@ -609,6 +695,7 @@ class TibiaHealerGUI(ctk.CTk):
         # Guardar en disco
         self.config.save()
         self._rebuild_rules_ui()
+        self._rebuild_mana_rules_ui()
         self.log.ok("Configuración guardada exitosamente")
 
     # ==================================================================
