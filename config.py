@@ -32,6 +32,185 @@ DEFAULT_CONFIG: Dict[str, Any] = {
             {"threshold": 0.30, "comparison": "<=", "key": "F5", "description": "Mana Potion"},
         ],
     },
+    "conditions": {
+        "enabled": False,
+        "debug_mode": False,
+        "global_cooldown": 0.5,
+        "haste": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "paralyze": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "poison": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "burning": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "curse": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "hunger": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "manashield": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "haste_medivia": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "haste_otclient": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "haste_otclientNewer": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "haste_tibia-old": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "haste_wearedragons": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "paralyze_otclientNewer": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "poison_likeretro": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "poison_medivia": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "poison_otclientNewer": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "poison_realera": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "manashield_new": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "manashield_otclient": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "manashield_otclientNewer": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "hungry_lunos": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "hungry_medivia": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "hungry_nostalgic": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone_medivia": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone_nostalgic": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone_otclient": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone_otclientv8": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        },
+        "pz_zone_revolution": {
+            "enabled": False,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
+        }
+    },
     "cooldown_seconds": 1.2,
     "check_interval_seconds": 0.25,
     "hotkey_toggle": "F9",
@@ -240,9 +419,7 @@ class Config:
         """Establece la lista de niveles de mana."""
         mana_cfg = self.mana_heal.copy()
         mana_cfg["levels"] = levels
-        # Ordenar de mayor a menor threshold
-        mana_cfg["levels"].sort(key=lambda x: x["threshold"], reverse=True)
-        self.mana_heal = mana_cfg
+        self.data["mana_heal"] = mana_cfg
     
     def add_mana_level(self, level: Dict) -> None:
         """Agrega un nuevo nivel de mana."""
@@ -256,6 +433,30 @@ class Config:
         if 0 <= index < len(levels):
             levels.pop(index)
             self.set_mana_levels(levels)
+
+    # -- Conditions ---------------------------------------------------
+    @property
+    def conditions(self) -> Dict:
+        return self.data.get("conditions", DEFAULT_CONFIG["conditions"])
+
+    @conditions.setter
+    def conditions(self, value: Dict) -> None:
+        self.data["conditions"] = value
+
+    def get_condition(self, condition_name: str) -> Dict:
+        """Obtiene la configuración de una condición específica."""
+        conditions_cfg = self.conditions
+        return conditions_cfg.get(condition_name, {})
+
+    def set_condition(self, condition_name: str, config: Dict) -> None:
+        """Establece la configuración de una condición específica."""
+        if "conditions" not in self.data:
+            self.data["conditions"] = {}
+        self.data["conditions"][condition_name] = config
+
+    def get_all_conditions(self) -> Dict:
+        """Obtiene toda la configuración de condiciones."""
+        return self.conditions.copy()
 
     # -- Propiedades de acceso rápido ----------------------------------
     @property

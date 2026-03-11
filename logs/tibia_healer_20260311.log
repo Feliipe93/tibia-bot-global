@@ -5103,3 +5103,814 @@
 [15:12:24] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
 [15:12:44] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
 [15:12:44] DEBUG    🔍 Debug image guardada (ciclo #40)
+[15:13:08] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:13:26] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:13:26] DEBUG    🔍 Debug image guardada (ciclo #80)
+[15:13:43] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:14:00] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:14:00] DEBUG    🔍 Debug image guardada (ciclo #120)
+[15:14:00] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:14:00] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:14:00] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:14:00] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:14:01] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:14:01] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:14:01] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:14:01] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:14:01] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:14:01] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:14:01] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:14:01] INFO     📊 [Calibrator] #2: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.727 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.781 | right_opt4=1.000 | EndLocation=0.866
+[15:14:01] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:14:01] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:14:01] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:14:01] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:14:01] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:14:01] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:14:01] INFO     📊 SQMs configurados: 9 posiciones
+[15:14:01] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:14:01] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:14:01] INFO     📊 Player center: (590, 252)
+[15:14:01] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:14:01] INFO     ✅ Calibración completada exitosamente
+[15:14:18] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:14:32] INFO     📊 Auto-healer ACTIVADO
+[15:14:33] INFO     💊 HP=99% < 100% → F1 (Exura) [hwnd=991094]
+[15:14:34] INFO     💊 MP=99% <= 100% → F7 (Strong Mana Potion) [hwnd=991094]
+[15:14:35] INFO     💊 HP=99% < 100% → F1 (Exura) [hwnd=991094]
+[15:14:36] INFO     📊 Auto-healer DESACTIVADO
+[15:14:37] INFO     📊 HP=99% (VERDE) | MP=93% | Estado=EN ESPERA
+[15:14:37] DEBUG    🔍 Debug image guardada (ciclo #160)
+[15:14:54] INFO     📊 HP=99% (VERDE) | MP=96% | Estado=EN ESPERA
+[15:15:20] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:15:20] DEBUG    🔍 Debug image guardada (ciclo #200)
+[15:15:42] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:16:01] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:16:02] DEBUG    🔍 Debug image guardada (ciclo #240)
+[15:16:02] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:16:02] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:16:02] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:16:02] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:16:02] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:16:02] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:16:02] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:16:02] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:16:02] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:16:02] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:16:02] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:16:02] INFO     📊 [Calibrator] #3: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.727 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.781 | right_opt4=1.000 | EndLocation=0.866
+[15:16:02] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:16:02] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:16:02] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:16:02] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:16:02] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:16:02] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:16:02] INFO     📊 SQMs configurados: 9 posiciones
+[15:16:02] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:16:02] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:16:02] INFO     📊 Player center: (590, 252)
+[15:16:02] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:16:02] INFO     ✅ Calibración completada exitosamente
+[15:16:21] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:16:40] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:16:40] DEBUG    🔍 Debug image guardada (ciclo #280)
+[15:16:59] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:17:17] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:17:17] DEBUG    🔍 Debug image guardada (ciclo #320)
+[15:17:36] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:17:57] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:17:57] DEBUG    🔍 Debug image guardada (ciclo #360)
+[15:17:57] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:17:57] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:17:57] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:17:57] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:17:57] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:17:57] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:17:57] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:17:57] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:17:58] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:17:58] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:17:58] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:17:58] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:17:58] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:17:58] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:17:58] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:17:58] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:17:58] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:17:58] INFO     📊 SQMs configurados: 9 posiciones
+[15:17:58] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:17:58] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:17:58] INFO     📊 Player center: (590, 252)
+[15:17:58] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:17:58] INFO     ✅ Calibración completada exitosamente
+[15:18:17] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:18:38] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:18:38] DEBUG    🔍 Debug image guardada (ciclo #400)
+[15:18:58] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:19:18] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:19:18] DEBUG    🔍 Debug image guardada (ciclo #440)
+[15:19:37] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:20:04] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:20:04] DEBUG    🔍 Debug image guardada (ciclo #480)
+[15:20:04] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:20:04] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:20:04] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:20:04] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:20:04] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:20:04] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:20:04] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:20:04] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:20:04] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:20:04] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:20:04] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:20:04] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:20:04] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:20:04] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:20:04] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:20:04] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:20:04] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:20:04] INFO     📊 SQMs configurados: 9 posiciones
+[15:20:04] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:20:04] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:20:04] INFO     📊 Player center: (590, 252)
+[15:20:04] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:20:04] INFO     ✅ Calibración completada exitosamente
+[15:20:36] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:21:03] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:21:03] DEBUG    🔍 Debug image guardada (ciclo #520)
+[15:21:32] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:22:06] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:22:06] DEBUG    🔍 Debug image guardada (ciclo #560)
+[15:22:39] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:23:13] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:23:13] DEBUG    🔍 Debug image guardada (ciclo #600)
+[15:23:13] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:23:13] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:23:13] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:23:13] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:23:13] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:23:13] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:23:13] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:23:14] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:23:14] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:23:14] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:23:14] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:23:14] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:23:14] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:23:14] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:23:14] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:23:14] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:23:14] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:23:14] INFO     📊 SQMs configurados: 9 posiciones
+[15:23:14] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:23:14] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:23:14] INFO     📊 Player center: (590, 252)
+[15:23:14] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:23:14] INFO     ✅ Calibración completada exitosamente
+[15:23:48] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:24:18] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:24:19] DEBUG    🔍 Debug image guardada (ciclo #640)
+[15:24:54] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:25:17] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:25:17] DEBUG    🔍 Debug image guardada (ciclo #680)
+[15:25:36] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:25:54] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:25:54] DEBUG    🔍 Debug image guardada (ciclo #720)
+[15:25:54] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:25:54] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:25:54] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:25:54] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:25:54] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:25:54] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:25:55] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:25:55] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:25:55] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:25:55] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:25:55] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:25:55] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:25:55] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:25:55] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:25:55] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:25:55] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:25:55] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:25:55] INFO     📊 SQMs configurados: 9 posiciones
+[15:25:55] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:25:55] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:25:55] INFO     📊 Player center: (590, 252)
+[15:25:55] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:25:55] INFO     ✅ Calibración completada exitosamente
+[15:26:24] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:26:58] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:26:58] DEBUG    🔍 Debug image guardada (ciclo #760)
+[15:27:30] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:27:59] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:27:59] DEBUG    🔍 Debug image guardada (ciclo #800)
+[15:28:28] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:28:50] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:28:50] DEBUG    🔍 Debug image guardada (ciclo #840)
+[15:28:50] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,472)
+[15:28:50] INFO     📊 Battle List header en (1194,472), nombres desde y=487
+[15:28:50] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[15:28:50] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[15:28:50] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[15:28:50] INFO     📊   ✓ left_opt3: confianza=0.727 >= 0.6 en (1010,29)
+[15:28:50] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[15:28:50] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[15:28:50] INFO     📊   ✓ right_opt3: confianza=0.781 >= 0.6 en (1190,589)
+[15:28:50] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[15:28:50] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[15:28:50] INFO     📊 Battle region: (1194, 487, 1359, 887)
+[15:28:50] INFO     📊 Map region: (1199, 5, 1304, 113)
+[15:28:50] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[15:28:50] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[15:28:50] INFO     📊 [Looter]   SQM size: (55, 45)
+[15:28:50] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[15:28:50] INFO     📊 SQMs configurados: 9 posiciones
+[15:28:50] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[15:28:50] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[15:28:50] INFO     📊 Player center: (590, 252)
+[15:28:50] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[15:28:50] INFO     ✅ Calibración completada exitosamente
+[15:29:15] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:29:48] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:29:48] DEBUG    🔍 Debug image guardada (ciclo #880)
+[15:30:09] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=EN ESPERA
+[15:30:40] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:30:40] DEBUG    🔍 Debug image guardada (ciclo #920)
+[15:31:17] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:31:51] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:31:51] DEBUG    🔍 Debug image guardada (ciclo #960)
+[15:31:51] INFO     📊   ✗ BattleList: confianza=0.544 < 0.7 (fallido)
+[15:31:51] INFO     📊   ✗ MapSettings: confianza=0.391 < 0.65 (fallido)
+[15:31:52] INFO     📊   ✓ left_opt1: confianza=0.654 >= 0.6 en (678,588)
+[15:31:52] INFO     📊   ✗ left_opt2: confianza=0.576 < 0.6 (fallido)
+[15:31:52] INFO     📊   ✓ left_opt3: confianza=0.758 >= 0.6 en (189,452)
+[15:31:52] INFO     📊   ✓ right_opt1: confianza=0.621 >= 0.6 en (99,469)
+[15:31:52] INFO     📊   ✗ right_opt2: confianza=0.585 < 0.6 (fallido)
+[15:31:52] INFO     📊   ✓ right_opt3: confianza=0.717 >= 0.6 en (173,590)
+[15:31:52] INFO     📊   ✗ right_opt4: confianza=0.533 < 0.6 (fallido)
+[15:31:52] INFO     📊   ✓ EndLocation: confianza=0.596 >= 0.55 en (790,689)
+[15:31:52] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_153152.png
+[15:31:52] INFO     📊 [Calibrator] #9: BL=✗ MM=✗ GW=✓ | BattleList=0.544 | MapSettings=0.391 | left_opt1=0.654 | left_opt2=0.576 | left_opt3=0.758 | right_opt1=0.621 | right_opt2=0.585 | right_opt3=0.717 | right_opt4=0.533 | EndLocation=0.596
+[15:31:52] WARNING  ⚠️ Calibración fallida #1 — No se encontró la Battle List | BattleList=0.54, MapSettings=0.39, left_opt1=0.65, left_opt2=0.58, left_opt3=0.76, right_opt1=0.62, right_opt2=0.59, right_opt3=0.72, right_opt4=0.53, EndLocation=0.60
+[15:32:24] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:32:55] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:32:55] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[15:33:18] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:34:05] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:34:05] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[15:34:50] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:35:34] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:35:35] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[15:35:35] INFO     📊   ✗ BattleList: confianza=0.544 < 0.7 (fallido)
+[15:35:35] INFO     📊   ✗ MapSettings: confianza=0.391 < 0.65 (fallido)
+[15:35:35] INFO     📊   ✓ left_opt1: confianza=0.654 >= 0.6 en (678,588)
+[15:35:35] INFO     📊   ✗ left_opt2: confianza=0.576 < 0.6 (fallido)
+[15:35:35] INFO     📊   ✓ left_opt3: confianza=0.758 >= 0.6 en (189,452)
+[15:35:35] INFO     📊   ✓ right_opt1: confianza=0.621 >= 0.6 en (99,469)
+[15:35:35] INFO     📊   ✗ right_opt2: confianza=0.585 < 0.6 (fallido)
+[15:35:35] INFO     📊   ✓ right_opt3: confianza=0.717 >= 0.6 en (173,590)
+[15:35:35] INFO     📊   ✗ right_opt4: confianza=0.533 < 0.6 (fallido)
+[15:35:35] INFO     📊   ✓ EndLocation: confianza=0.596 >= 0.55 en (790,689)
+[15:35:35] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_153535.png
+[15:35:35] INFO     📊 [Calibrator] #10: BL=✗ MM=✗ GW=✓ | BattleList=0.544 | MapSettings=0.391 | left_opt1=0.654 | left_opt2=0.576 | left_opt3=0.758 | right_opt1=0.621 | right_opt2=0.585 | right_opt3=0.717 | right_opt4=0.533 | EndLocation=0.596
+[15:35:35] WARNING  ⚠️ Calibración fallida #2 — No se encontró la Battle List | BattleList=0.54, MapSettings=0.39, left_opt1=0.65, left_opt2=0.58, left_opt3=0.76, right_opt1=0.62, right_opt2=0.59, right_opt3=0.72, right_opt4=0.53, EndLocation=0.60
+[15:36:17] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:37:02] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:37:02] DEBUG    🔍 Debug image guardada (ciclo #1120)
+[15:37:47] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:38:31] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:38:31] DEBUG    🔍 Debug image guardada (ciclo #1160)
+[15:39:16] INFO     📊 HP=N/A (N/A) | MP=58% | Estado=EN ESPERA
+[15:39:35] INFO     📊 Cerrando aplicación...
+[15:39:38] INFO     ✅ Bot detenido
+[16:11:15] INFO     ✅ Tibia seleccionado: Tibia - Pasturry Pynga Durynga
+[16:11:15] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[16:11:15] INFO     📊 [Targeting] Templates cargados: 4/5
+[16:11:15] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[16:11:15] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[16:11:15] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[16:11:15] INFO     ✅ Tibia encontrado: Tibia - Pasturry Pynga Durynga
+[16:11:15] INFO     📊   HWND=991094 | Ventanas Tibia encontradas: 1
+[16:11:15] INFO     📊   [0] hwnd=991094 title='Tibia - Pasturry Pynga Durynga' (1382x744)
+[16:11:15] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[16:11:15] INFO     📊 [Targeting] Templates cargados: 4/5
+[16:11:15] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[16:11:15] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[16:11:15] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[16:11:15] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[16:11:15] INFO     📊 Ventanas Tibia encontradas: 1
+[16:11:15] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[16:11:15] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[16:11:15] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[16:12:01] INFO     ✅ Tibia seleccionado: Tibia - Pasturry Pynga Durynga
+[16:12:01] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[16:12:01] INFO     📊 [Targeting] Templates cargados: 4/5
+[16:12:01] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[16:12:01] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[16:12:01] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[16:12:01] INFO     ✅ Tibia encontrado: Tibia - Pasturry Pynga Durynga
+[16:12:01] INFO     📊   HWND=991094 | Ventanas Tibia encontradas: 1
+[16:12:01] INFO     📊   [0] hwnd=991094 title='Tibia - Pasturry Pynga Durynga' (1382x744)
+[16:12:01] INFO     📊 [Targeting] Perfiles de criaturas: ['swamp troll']
+[16:12:01] INFO     📊 [Targeting] Templates cargados: 4/5
+[16:12:01] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[16:12:01] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[16:12:01] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[16:12:01] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[16:12:01] INFO     📊 Ventanas Tibia encontradas: 1
+[16:12:01] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[16:12:01] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[16:12:01] INFO     ✅ Fuente OBS seleccionada: Captura de juego
+[16:12:01] INFO     📊 Loop principal iniciado
+[16:12:01] INFO     ✅ Bot iniciado
+[16:12:01] INFO     ✅ GUI iniciada correctamente
+[16:12:05] INFO     📊   ✗ BattleList: confianza=0.437 < 0.7 (fallido)
+[16:12:06] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:06] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:06] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:06] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:06] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:06] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:06] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:06] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:06] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:06] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_161206.png
+[16:12:06] INFO     📊 [Calibrator] #1: BL=✗ MM=✓ GW=✓ | BattleList=0.437 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:06] WARNING  ⚠️ Calibración fallida #1 — No se encontró la Battle List | BattleList=0.44, MapSettings=0.97, left_opt1=0.67, left_opt2=1.00, left_opt3=0.74, right_opt1=0.64, right_opt2=0.72, right_opt3=0.78, right_opt4=1.00, EndLocation=0.87
+[16:12:09] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:09] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:09] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:09] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:09] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:09] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:09] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:09] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:09] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:09] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:10] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_161209.png
+[16:12:10] INFO     📊 [Calibrator] #2: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:10] WARNING  ⚠️ Calibración fallida #2 — No se encontró la Battle List | BattleList=0.43, MapSettings=0.97, left_opt1=0.67, left_opt2=1.00, left_opt3=0.74, right_opt1=0.64, right_opt2=0.72, right_opt3=0.78, right_opt4=1.00, EndLocation=0.87
+[16:12:12] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:12] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:12] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:12] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:12] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:12] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:12] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:13] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:13] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:13] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:13] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_161213.png
+[16:12:13] INFO     📊 [Calibrator] #3: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:13] WARNING  ⚠️ Calibración fallida #3 — No se encontró la Battle List | BattleList=0.43, MapSettings=0.97, left_opt1=0.67, left_opt2=1.00, left_opt3=0.74, right_opt1=0.64, right_opt2=0.72, right_opt3=0.78, right_opt4=1.00, EndLocation=0.87
+[16:12:15] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:15] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:15] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:15] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:15] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:15] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:15] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:15] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:15] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:15] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:15] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_161215.png
+[16:12:15] INFO     📊 [Calibrator] #4: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:17] INFO     📊   ✗ BattleList: confianza=0.449 < 0.7 (fallido)
+[16:12:17] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:17] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:17] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:17] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:18] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:18] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:18] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:18] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:18] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:18] INFO     📊 [Calibrator] Frame guardado: C:\Users\felip\Documents\GitHub\bot_ia_claude\debug\calib_fail_161218.png
+[16:12:18] INFO     📊 [Calibrator] #5: BL=✗ MM=✓ GW=✓ | BattleList=0.449 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:20] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:20] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:20] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:20] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:20] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:20] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:20] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:20] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:20] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:20] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:20] INFO     📊 [Calibrator] #6: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:22] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:22] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:22] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:22] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:22] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:22] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:22] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:22] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:22] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:22] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:22] INFO     📊 [Calibrator] #7: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:24] INFO     📊   ✗ BattleList: confianza=0.430 < 0.7 (fallido)
+[16:12:24] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:24] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:24] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:24] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:25] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:25] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:25] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:25] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:25] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:25] INFO     📊 [Calibrator] #8: BL=✗ MM=✓ GW=✓ | BattleList=0.430 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:26] INFO     📊   ✗ BattleList: confianza=0.432 < 0.7 (fallido)
+[16:12:27] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:27] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:27] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:27] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:27] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:27] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:27] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:27] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:27] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:27] INFO     📊 [Calibrator] #9: BL=✗ MM=✓ GW=✓ | BattleList=0.432 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:29] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:29] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:29] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:29] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:29] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:29] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:29] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:29] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:29] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:29] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:29] INFO     📊 [Calibrator] #10: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:31] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:31] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:31] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:31] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:31] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:31] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:31] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:31] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:31] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:31] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:31] INFO     📊 [Calibrator] #11: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:33] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:33] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:33] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:33] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:33] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:33] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:33] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:33] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:33] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:33] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:33] INFO     📊 [Calibrator] #12: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:35] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:35] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:35] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:35] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:35] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:35] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:35] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:35] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:35] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:35] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:35] INFO     📊 [Calibrator] #13: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:37] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:37] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:37] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:37] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:37] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:37] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:37] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:37] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:37] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:37] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:37] INFO     📊 [Calibrator] #14: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:38] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:38] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:38] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:38] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:38] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:38] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:39] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:39] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:39] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:39] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:39] INFO     📊 [Calibrator] #15: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:40] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:40] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:40] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:40] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:40] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:40] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:40] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:41] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:41] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:41] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:41] INFO     📊 [Calibrator] #16: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:42] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:42] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:42] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:42] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:42] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:42] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:42] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:42] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:42] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:42] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:42] INFO     📊 [Calibrator] #17: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:44] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:44] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:44] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:44] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:44] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:44] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:44] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:44] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:44] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:44] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:44] INFO     📊 [Calibrator] #18: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:46] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:46] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:46] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:46] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:46] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:46] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:46] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:46] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:46] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:46] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:46] INFO     📊 [Calibrator] #19: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:48] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=EN ESPERA
+[16:12:48] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:48] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:48] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:48] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:48] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:48] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:48] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:48] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:48] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:48] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:48] INFO     📊 [Calibrator] #20: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:48] WARNING  ⚠️ Calibración fallida #20 — No se encontró la Battle List | BattleList=0.43, MapSettings=0.97, left_opt1=0.67, left_opt2=1.00, left_opt3=0.74, right_opt1=0.64, right_opt2=0.72, right_opt3=0.78, right_opt4=1.00, EndLocation=0.87
+[16:12:50] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:50] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:50] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:50] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:50] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:50] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:50] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:50] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:50] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:50] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:50] INFO     📊 [Calibrator] #21: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:52] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:52] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:52] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:52] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:52] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:52] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:52] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:52] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:52] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:52] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:52] INFO     📊 [Calibrator] #22: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:53] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:53] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:53] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:53] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:54] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:54] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:54] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:54] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:54] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:54] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:54] INFO     📊 [Calibrator] #23: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:55] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:55] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:55] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:55] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:55] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:55] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:55] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:56] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:56] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:56] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:56] INFO     📊 [Calibrator] #24: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:57] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:57] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:57] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:57] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:57] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:57] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:57] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:57] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:57] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:58] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:58] INFO     📊 [Calibrator] #25: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:12:59] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:12:59] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:12:59] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:12:59] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:12:59] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:12:59] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:12:59] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:12:59] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:12:59] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:12:59] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:12:59] INFO     📊 [Calibrator] #26: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:01] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:01] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:01] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:01] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:01] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:01] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:01] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:01] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:01] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:01] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:01] INFO     📊 [Calibrator] #27: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:02] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:03] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:03] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:03] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:03] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:03] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:03] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:03] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:03] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:03] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:03] INFO     📊 [Calibrator] #28: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:05] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:05] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:05] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:05] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:05] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:05] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:05] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:05] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:05] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:05] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:05] INFO     📊 [Calibrator] #29: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:05] INFO     📊 Motor de condiciones activado
+[16:13:05] INFO     📊 Sistema de condiciones activado
+[16:13:07] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:07] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:07] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:07] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:07] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:07] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:07] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:07] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:07] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:07] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:07] INFO     📊 [Calibrator] #30: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:08] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:08] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:08] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:08] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:08] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:09] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:09] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:09] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:09] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:09] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:09] INFO     📊 [Calibrator] #31: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:10] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:10] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:10] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:10] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:10] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:10] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:10] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:10] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:10] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:11] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:11] INFO     📊 [Calibrator] #32: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:12] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:12] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:12] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:12] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:12] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:12] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:12] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:12] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:12] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:12] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:12] INFO     📊 [Calibrator] #33: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:14] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:14] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:14] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:14] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:14] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:14] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:14] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:14] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:15] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:15] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:15] INFO     📊 [Calibrator] #34: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:16] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:16] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:16] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:16] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:16] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:16] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:17] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:17] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:17] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:17] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:17] INFO     📊 [Calibrator] #35: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:18] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:18] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:18] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:18] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:18] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:19] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:19] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:19] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:19] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:19] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:19] INFO     📊 [Calibrator] #36: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:20] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:20] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:20] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:20] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:20] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:20] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:20] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:20] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:20] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:21] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:21] INFO     📊 [Calibrator] #37: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:22] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:22] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:22] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:22] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:22] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:22] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:22] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:22] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:22] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:22] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:22] INFO     📊 [Calibrator] #38: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:24] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:24] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:24] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:24] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:24] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:24] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:24] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:24] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:24] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:24] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:24] INFO     📊 [Calibrator] #39: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:26] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=EN ESPERA
+[16:13:26] DEBUG    🔍 Debug image guardada (ciclo #40)
+[16:13:26] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:26] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:26] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:26] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:26] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:26] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:26] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:26] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:26] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:26] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:26] INFO     📊 [Calibrator] #40: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:26] WARNING  ⚠️ Calibración fallida #40 — No se encontró la Battle List | BattleList=0.43, MapSettings=0.97, left_opt1=0.67, left_opt2=1.00, left_opt3=0.74, right_opt1=0.64, right_opt2=0.72, right_opt3=0.78, right_opt4=1.00, EndLocation=0.87
+[16:13:27] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:27] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:27] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:28] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:28] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:28] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:28] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:28] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:28] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:28] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:28] INFO     📊 [Calibrator] #41: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:29] INFO     📊 Cerrando aplicación...
+[16:13:29] INFO     📊   ✗ BattleList: confianza=0.433 < 0.7 (fallido)
+[16:13:29] INFO     📊   ✓ MapSettings: confianza=0.970 >= 0.65 en (1305,56)
+[16:13:29] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[16:13:29] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[16:13:29] INFO     📊   ✓ left_opt3: confianza=0.740 >= 0.6 en (612,403)
+[16:13:30] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[16:13:30] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[16:13:30] INFO     📊   ✓ right_opt3: confianza=0.785 >= 0.6 en (1190,570)
+[16:13:30] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[16:13:30] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[16:13:30] INFO     📊 [Calibrator] #42: BL=✗ MM=✓ GW=✓ | BattleList=0.433 | MapSettings=0.970 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.740 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.785 | right_opt4=1.000 | EndLocation=0.866
+[16:13:32] INFO     ✅ Bot detenido

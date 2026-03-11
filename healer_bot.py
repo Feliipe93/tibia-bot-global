@@ -33,6 +33,7 @@ from targeting.targeting_engine import TargetingEngine
 from looter.looter_engine import LooterEngine
 from cavebot.cavebot_engine import CavebotEngine
 from utils.ocr_helper import OCRHelper
+from condition_engine import ConditionEngine
 
 
 class HealerBot:
@@ -72,6 +73,7 @@ class HealerBot:
         self.looter_engine = LooterEngine()
         self.cavebot_engine = CavebotEngine()
         self.ocr_helper = OCRHelper()  # OCR para detección de canales
+        self.condition_engine = ConditionEngine(self.key_sender, self.log.info)
         self._calibrated = False
 
         # Wire calibrator log callback for diagnostics
@@ -485,6 +487,13 @@ class HealerBot:
         if self.running:
             return False
         self.running = True
+        
+        # Inicializar condition engine con configuración
+        self.condition_engine.update_from_config(self.config.get_all_conditions())
+        if self.config.conditions.get("enabled", False):
+            self.condition_engine.set_enabled(True)
+            self.log.info("Sistema de condiciones activado")
+        
         self.thread = threading.Thread(target=self._main_loop, daemon=True)
         self.thread.start()
         self.log.ok("Bot iniciado")
@@ -579,6 +588,11 @@ class HealerBot:
                     self.hp_percent = hp
                     self.mp_percent = mp
                     self.hp_color = self.detector.get_hp_color_name(hp)
+
+                # --- 3b. Procesar condiciones de estado ---
+                if self.config.conditions.get("enabled", False):
+                    condition_results = self.condition_engine.process_frame(img)
+                    # El motor manejará el envío de teclas automáticamente
 
                 # Log periódico
                 self.cycle_count += 1

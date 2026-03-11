@@ -113,6 +113,7 @@ class TibiaHealerGUI(ctk.CTk):
         tabs_data = [
             ("main", "🏠 Principal"),
             ("config", "⚙️ Configuración"),
+            ("conditions", "🩺 Condiciones"),
             ("windows", "🪟 Ventanas"),
             ("targeting", "⚔️ Targeting"),
             ("looter", "💰 Looter"),
@@ -160,22 +161,24 @@ class TibiaHealerGUI(ctk.CTk):
         
         # Asignar tabs a variables para compatibilidad con código existente
         self.tab_main = self.tab_contents["main"]
-        self.tab_simple_walking = self.tab_contents["simple_walking"]
-        self.tab_test = self.tab_contents["test"]
         self.tab_config = self.tab_contents["config"]
+        self.tab_conditions = self.tab_contents["conditions"]
         self.tab_windows = self.tab_contents["windows"]
-        self.tab_cavebot = self.tab_contents["cavebot"]
         self.tab_targeting = self.tab_contents["targeting"]
         self.tab_looter = self.tab_contents["looter"]
+        self.tab_cavebot = self.tab_contents["cavebot"]
         self.tab_screenview = self.tab_contents["screenview"]
+        self.tab_test = self.tab_contents["test"]
         self.tab_logs = self.tab_contents["logs"]
         self.tab_help = self.tab_contents["help"]
+        self.tab_simple_walking = self.tab_contents["simple_walking"]
 
         # Construir cada sección
         self._build_main_tab()
         self._build_simple_walking_tab()
         self._build_test_tab()
         self._build_config_tab()
+        self._build_conditions_tab()
         self._build_windows_tab()
         self._build_cavebot_tab()
         self._build_targeting_tab()
@@ -697,6 +700,95 @@ class TibiaHealerGUI(ctk.CTk):
         self._rebuild_rules_ui()
         self._rebuild_mana_rules_ui()
         self.log.ok("Configuración guardada exitosamente")
+
+    # ==================================================================
+    # TAB: Condiciones (sistema de estado)
+    # ==================================================================
+    def _build_conditions_tab(self):
+        tab = self.tab_conditions
+        
+        # Scrollable frame
+        scroll = ctk.CTkScrollableFrame(tab, label_text="🩺 CONDICIONES — Auto Haste, Paralyze, Poison")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # === Activador principal ===
+        main_frame = ctk.CTkFrame(scroll)
+        main_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Enable/Disable principal
+        self.conditions_enabled_var = ctk.BooleanVar(value=self.config.conditions.get("enabled", False))
+        ctk.CTkCheckBox(
+            main_frame,
+            text="🩺 Activar Sistema de Condiciones",
+            variable=self.conditions_enabled_var,
+            command=self._on_conditions_toggle
+        ).pack(anchor="w", padx=10, pady=5)
+        
+        # Botón de recalibración
+        ctk.CTkButton(
+            main_frame,
+            text="🔄 Recalibrar Barras",
+            width=150,
+            command=self._force_conditions_calibration
+        ).pack(anchor="w", padx=10, pady=2)
+        
+        # === Configuración individual ===
+        # Frame para controles dinámicos
+        self.conditions_frame = ctk.CTkFrame(scroll)
+        self.conditions_frame.pack(fill="x", padx=5, pady=5)
+        
+        ctk.CTkLabel(
+            self.conditions_frame, text="⚙️ Configuración Individual", 
+            font=ctk.CTkFont(size=13, weight="bold")
+        ).pack(anchor="w", padx=10, pady=(5, 10))
+        
+        # Contenedor scrollable para todas las condiciones
+        self.conditions_scroll_frame = ctk.CTkScrollableFrame(self.conditions_frame)
+        self.conditions_scroll_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        
+        # Generar dinámicamente los controles para cada condición
+        self._build_conditions_controls()
+        
+        # Separador visual
+        separator = ctk.CTkFrame(self.conditions_scroll_frame)
+        separator.pack(fill="x", padx=5, pady=10)
+        
+        # Botones de acción
+        actions_frame = ctk.CTkFrame(self.conditions_frame)
+        actions_frame.pack(fill="x", padx=5, pady=5)
+        
+        ctk.CTkButton(
+            actions_frame, text="🔄 Recalibrar Todo", width=150,
+            command=self._force_conditions_calibration
+        ).pack(side="left", padx=5)
+        
+        ctk.CTkButton(
+            actions_frame, text="💾 Guardar Configuración", width=150,
+            command=self._save_all_conditions_config
+        ).pack(side="left", padx=5)
+        
+        # === Información ===
+        info_frame = ctk.CTkFrame(scroll)
+        info_frame.pack(fill="x", padx=5, pady=10)
+        
+        info_text = (
+            "📋 SISTEMA DE CONDICIONES\n\n"
+            "Este sistema detecta automáticamente estados como:\n"
+            "• 🏃 Haste - Ausencia de lentitud\n"
+            "• ⚡ Paralyze - Parálisis del personaje\n"
+            "• ☠️ Poison - Personaje envenenado\n\n"
+            "El bot monitorea la barra de condiciones (debajo de la barra de mana) "
+            "y activa los hechizos configurados cuando detecta alguna condición.\n\n"
+            "💡 La calibración es automática y se adapta a cambios en los paneles del juego."
+        )
+        
+        ctk.CTkLabel(
+            info_frame,
+            text=info_text,
+            font=ctk.CTkFont(size=11),
+            justify="left",
+            text_color="#CCCCCC"
+        ).pack(anchor="w", padx=10, pady=5)
 
     # ==================================================================
     # TAB: Ventanas
@@ -4928,7 +5020,7 @@ class TibiaHealerGUI(ctk.CTk):
             variable=self._sv_overlay_var,
             values=["Ninguno", "Game Region", "Battle Region",
                     "SQMs", "Player Center", "Minimap", "Cavebot Waypoints",
-                    "Targeting Criaturas", "Looter Items", "Todo"],
+                    "Targeting Criaturas", "Looter Items", "Conditions", "Todo"],
             width=180,
         ).pack(side="left", padx=6)
 
@@ -5299,6 +5391,74 @@ class TibiaHealerGUI(ctk.CTk):
                                     cv2.rectangle(display, (x, y), (x + w, y + h), (0, 255, 255), 2)
                                     cv2.putText(display, item.name[:6], (x, y - 5),
                                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
+                    except Exception:
+                        pass
+
+                # Conditions overlay
+                if overlay in ("Conditions", "Todo"):
+                    try:
+                        if hasattr(self.bot, 'condition_engine'):
+                            debug_info = self.bot.condition_engine.get_debug_info(frame)
+                            
+                            # Dibujar barra de condiciones calibrada
+                            if debug_info["calibrated"] and debug_info["bar_position"]:
+                                pos = debug_info["bar_position"]
+                                cv2.rectangle(display, 
+                                          (pos["x1"]-5, pos["row"]-15),
+                                          (pos["x2"]+5, pos["row"]+15),
+                                          (255, 255, 0), 2)
+                                cv2.putText(display, "Conditions Bar", 
+                                          (pos["x1"], pos["row"]-20),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
+                            
+                            # Dibujar detecciones activas con colores específicos
+                            for condition_name, detected in debug_info["detections"].items():
+                                if detected:
+                                    # Obtener posición relativa para dibujar indicador
+                                    if debug_info["bar_position"]:
+                                        bar_y = debug_info["bar_position"]["row"]
+                                        # Dibujar indicador a la derecha de la barra de condiciones
+                                        indicator_x = debug_info["bar_position"]["x2"] + 10
+                                        indicator_y = bar_y
+                                        
+                                        # Colores específicos para cada condición
+                                        colors = {
+                                            "haste": (0, 255, 0),      # Verde
+                                            "paralyze": (255, 0, 255),    # Rojo
+                                            "poison": (0, 0, 255),       # Azul
+                                            "burning": (0, 165, 255),     # Naranja
+                                            "curse": (128, 0, 128),     # Gris
+                                            "hunger": (255, 165, 0),      # Amarillo oscuro
+                                            "manashield": (255, 0, 255),     # Rojo
+                                            "pz_zone": (255, 255, 255),   # Blanco
+                                            "haste_medivia": (0, 255, 0),      # Verde
+                                            "haste_otclient": (0, 255, 0),      # Verde
+                                            "haste_otclientNewer": (0, 255, 0),      # Verde
+                                            "haste_tibia-old": (0, 255, 0),      # Verde
+                                            "haste_wearedragons": (0, 255, 0),      # Verde
+                                            "paralyze_otclientNewer": (255, 0, 255),    # Rojo
+                                            "poison_likeretro": (0, 0, 255),       # Azul
+                                            "poison_medivia": (0, 0, 255),       # Azul
+                                            "poison_otclientNewer": (0, 0, 255),       # Azul
+                                            "poison_realera": (0, 0, 255),       # Azul
+                                            "manashield_new": (255, 0, 255),     # Rojo
+                                            "manashield_otclient": (255, 0, 255),     # Rojo
+                                            "manashield_otclientNewer": (255, 0, 255),     # Rojo
+                                            "hungry_lunos": (255, 165, 0),      # Amarillo oscuro
+                                            "hungry_medivia": (255, 165, 0),      # Amarillo oscuro
+                                            "hungry_nostalgic": (255, 165, 0),      # Amarillo oscuro
+                                            "pz_zone_medivia": (255, 255, 255),   # Blanco
+                                            "pz_zone_nostalgic": (255, 255, 255),   # Blanco
+                                            "pz_zone_otclient": (255, 255, 255),   # Blanco
+                                            "pz_zone_otclientv8": (255, 255, 255),   # Blanco
+                                            "pz_zone_revolution": (255, 255, 255),   # Blanco
+                                        }
+                                        color = colors.get(condition_name, (128, 128, 128))
+                                        
+                                        cv2.circle(display, (indicator_x, indicator_y), 8, color, -1)
+                                        cv2.putText(display, condition_name[:3].upper(),
+                                                  (indicator_x - 15, indicator_y + 3),
+                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
                     except Exception:
                         pass
 
@@ -5858,7 +6018,232 @@ class TibiaHealerGUI(ctk.CTk):
         self.after(0, self._toggle_bot)
 
     def _on_hotkey_exit(self):
-        self.after(0, self._on_close)
+        self.after(0, self.destroy())
+
+    # ==================================================================
+    # Métodos del sistema de condiciones
+    # ==================================================================
+    def _on_conditions_toggle(self):
+        """Callback cuando se activa/desactiva el sistema de condiciones."""
+        enabled = self.conditions_enabled_var.get()
+        conditions_cfg = self.config.conditions.copy()
+        conditions_cfg["enabled"] = enabled
+        self.config.conditions = conditions_cfg
+        self.config.save()
+        
+        # Actualizar motor del bot
+        if hasattr(self.bot, 'condition_engine'):
+            self.bot.condition_engine.set_enabled(enabled)
+        
+        self.log.info(f"Sistema de condiciones {'activado' if enabled else 'desactivado'}")
+
+    def _force_conditions_calibration(self):
+        """Fuerza recalibración de las barras de condiciones."""
+        try:
+            if hasattr(self.bot, 'condition_engine'):
+                self.bot.condition_engine.force_recalibration()
+                self.log.ok("Recalibración forzada de barras de condiciones")
+            else:
+                self.log.warning("Motor de condiciones no disponible")
+        except Exception as e:
+            self.log.error(f"Error en recalibración: {e}")
+
+    def _build_conditions_controls(self):
+        """Construye dinámicamente los controles para todas las condiciones configuradas."""
+        # Limpiar widgets existentes
+        for widget in self.conditions_scroll_frame.winfo_children():
+            widget.destroy()
+        
+        # Obtener todas las condiciones del config
+        conditions = self.config.get_all_conditions()
+        
+        # Filtrar solo las condiciones individuales (no las globales)
+        condition_configs = {}
+        for key, value in conditions.items():
+            if key not in ["enabled", "debug_mode", "global_cooldown"] and isinstance(value, dict):
+                condition_configs[key] = value
+        
+        # Definir colores para cada tipo de condición
+        condition_colors = {
+            "haste": (0, 255, 0),      # Verde
+            "paralyze": (255, 0, 255),    # Rojo
+            "poison": (0, 0, 255),       # Azul
+            "burning": (0, 165, 255),     # Naranja
+            "curse": (128, 0, 128),     # Gris
+            "hunger": (255, 165, 0),      # Amarillo oscuro
+            "manashield": (255, 0, 255),     # Rojo
+            "pz_zone": (255, 255, 255),   # Blanco
+            "haste_medivia": (0, 255, 0),      # Verde
+            "haste_otclient": (0, 255, 0),      # Verde
+            "haste_otclientNewer": (0, 255, 0),      # Verde
+            "haste_tibia-old": (0, 255, 0),      # Verde
+            "haste_wearedragons": (0, 255, 0),      # Verde
+            "paralyze_otclientNewer": (255, 0, 255),    # Rojo
+            "poison_likeretro": (0, 0, 255),       # Azul
+            "poison_medivia": (0, 0, 255),       # Azul
+            "poison_otclientNewer": (0, 0, 255),       # Azul
+            "poison_realera": (0, 0, 255),       # Azul
+            "manashield_new": (255, 0, 255),     # Rojo
+            "manashield_otclient": (255, 0, 255),     # Rojo
+            "manashield_otclientNewer": (255, 0, 255),     # Rojo
+            "hungry_lunos": (255, 165, 0),      # Amarillo oscuro
+            "hungry_medivia": (255, 165, 0),      # Amarillo oscuro
+            "hungry_nostalgic": (255, 165, 0),      # Amarillo oscuro
+            "pz_zone_medivia": (255, 255, 255),   # Blanco
+            "pz_zone_nostalgic": (255, 255, 255),   # Blanco
+            "pz_zone_otclient": (255, 255, 255),   # Blanco
+            "pz_zone_otclientv8": (255, 255, 255),   # Blanco
+            "pz_zone_revolution": (255, 255, 255),   # Blanco
+        }
+        
+        # Iconos para cada condición
+        condition_icons = {
+            "haste": "🏃",
+            "paralyze": "⚡",
+            "poison": "☠️",
+            "burning": "🔥",
+            "curse": "👻",
+            "hunger": "🍽",
+            "manashield": "🛡️",
+            "pz_zone": "🛡️",
+            "haste_medivia": "🏃",
+            "haste_otclient": "🏃",
+            "haste_otclientNewer": "🏃",
+            "haste_tibia-old": "🏃",
+            "haste_wearedragons": "🏃",
+            "paralyze_otclientNewer": "⚡",
+            "poison_likeretro": "☠️",
+            "poison_medivia": "☠️",
+            "poison_otclientNewer": "☠️",
+            "poison_realera": "☠️",
+            "manashield_new": "🛡️",
+            "manashield_otclient": "🛡️",
+            "manashield_otclientNewer": "🛡️",
+            "hungry_lunos": "🍽",
+            "hungry_medivia": "🍽",
+            "hungry_nostalgic": "🍽",
+            "pz_zone_medivia": "🛡️",
+            "pz_zone_nostalgic": "🛡️",
+            "pz_zone_otclient": "🛡️",
+            "pz_zone_otclientv8": "🛡️",
+            "pz_zone_revolution": "🛡️"
+        }
+        
+        # Generar controles para cada condición
+        for condition_name, condition_config in condition_configs.items():
+            self._build_condition_control(condition_name, condition_config, condition_colors, condition_icons)
+    
+    def _build_condition_control(self, condition_name: str, condition_config: dict, colors: dict, icons: dict):
+        """Construye el control para una condición específica."""
+        # Frame para esta condición
+        condition_frame = ctk.CTkFrame(self.conditions_scroll_frame)
+        condition_frame.pack(fill="x", padx=5, pady=3)
+        
+        # Header con icono y color
+        header_frame = ctk.CTkFrame(condition_frame, fg_color="transparent")
+        header_frame.pack(fill="x", padx=5, pady=(0, 3))
+        
+        icon_label = ctk.CTkLabel(header_frame, text=icons.get(condition_name, "❓"),
+                                       font=ctk.CTkFont(size=16))
+        icon_label.pack(side="left", padx=(0, 5))
+        
+        name_label = ctk.CTkLabel(header_frame, text=condition_name.upper(),
+                                       font=ctk.CTkFont(size=14, weight="bold"))
+        name_label.pack(side="left", padx=5)
+        
+        # Controles
+        controls_frame = ctk.CTkFrame(condition_frame, fg_color="transparent")
+        controls_frame.pack(fill="x", padx=(10, 0), pady=3)
+        
+        # Checkbox de activación
+        enabled_var = ctk.BooleanVar(value=condition_config.get("enabled", False))
+        ctk.CTkCheckBox(controls_frame, text="Activado", variable=enabled_var,
+                     command=lambda: self._save_condition_config(condition_name)).pack(side="left", padx=(0, 10))
+        
+        # Hotkey
+        hotkey_var = ctk.StringVar(value=condition_config.get("hotkey", ""))
+        ctk.CTkLabel(controls_frame, text="Hotkey:").pack(side="left", padx=(10, 0))
+        ctk.CTkOptionMenu(controls_frame, variable=hotkey_var,
+                          values=[""] + [f"F{i}" for i in range(1, 13)],
+                          width=80).pack(side="left", padx=3)
+        
+        # Sensibilidad
+        threshold_var = ctk.DoubleVar(value=condition_config.get("threshold", 0.7))
+        ctk.CTkLabel(controls_frame, text="Sensibilidad:").pack(side="left", padx=(10, 0))
+        ctk.CTkSlider(controls_frame, from_=0.5, to=1.0, number_of_steps=10,
+                     variable=threshold_var).pack(side="left", fill="x", expand=True)
+        
+        # Guardar referencia para actualización
+        self._save_condition_control_vars(condition_name, enabled_var, hotkey_var, threshold_var)
+
+    def _save_condition_control_vars(self, condition_name: str, enabled_var, hotkey_var, threshold_var):
+        """Guarda las variables de control para una condición."""
+        setattr(self, f"{condition_name}_enabled_var", enabled_var)
+        setattr(self, f"{condition_name}_hotkey_var", hotkey_var)
+        setattr(self, f"{condition_name}_threshold_var", threshold_var)
+
+    def _save_condition_config(self, condition_name: str, enabled_var, hotkey_var, threshold_var):
+        """Guarda configuración de una condición específica."""
+        try:
+            # Obtener configuración actual
+            conditions_cfg = self.config.conditions.copy()
+            
+            # Actualizar configuración de la condición
+            if condition_name not in conditions_cfg:
+                conditions_cfg[condition_name] = {}
+            
+            conditions_cfg[condition_name]["enabled"] = enabled_var.get()
+            conditions_cfg[condition_name]["hotkey"] = hotkey_var.get()
+            conditions_cfg[condition_name]["threshold"] = threshold_var.get()
+            
+            # Guardar en config
+            self.config.conditions = conditions_cfg
+            self.config.save()
+            
+            # Actualizar motor del bot
+            if hasattr(self.bot, 'condition_engine'):
+                self.bot.condition_engine.update_from_config(conditions_cfg)
+            
+            self.log.ok(f"Configuración de {condition_name} guardada")
+            
+        except Exception as e:
+            self.log.error(f"Error guardando configuración de {condition_name}: {e}")
+
+    def _save_all_conditions_config(self):
+        """Guarda toda la configuración de condiciones."""
+        try:
+            # Obtener todas las variables
+            all_conditions = {}
+            for condition_name in self.config.get_all_conditions().keys():
+                if condition_name in ["enabled", "debug_mode", "global_cooldown"]:
+                    continue  # Skip these, they're global
+                
+                # Buscar las variables correspondientes
+                enabled_var = getattr(self, f"{condition_name}_enabled_var", None)
+                hotkey_var = getattr(self, f"{condition_name}_hotkey_var", None)
+                threshold_var = getattr(self, f"{condition_name}_threshold_var", None)
+                
+                if enabled_var and hotkey_var and threshold_var:
+                    all_conditions[condition_name] = {
+                        "enabled": enabled_var.get(),
+                        "hotkey": hotkey_var.get(),
+                        "threshold": threshold_var.get(),
+                        "cooldown": self.config.get_condition(condition_name).get("cooldown", 1.0),
+                        "last_triggered": 0.0
+                    }
+            
+            # Actualizar configuración
+            self.config.conditions = all_conditions
+            self.config.save()
+            
+            # Actualizar motor del bot
+            if hasattr(self.bot, 'condition_engine'):
+                self.bot.condition_engine.update_from_config(all_conditions)
+            
+            self.log.ok("Configuración de condiciones guardada")
+            
+        except Exception as e:
+            self.log.error(f"Error guardando configuración de condiciones: {e}")
 
     # ==================================================================
     # Cierre
