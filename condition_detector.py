@@ -1,436 +1,476 @@
-"""
-Condition Detector - Sistema de detección de condiciones de estado
-Basado en el sistema del OldBot para detectar: paralyze, poison, haste, etc.
-"""
-
 import cv2
 import numpy as np
-from typing import Optional, Tuple, Dict, Any
 import time
-
+from typing import Dict, Optional, List
+import os
 
 class ConditionDetector:
-    """Detecta condiciones de estado como paralyze, poison, haste usando imágenes template."""
-    
     def __init__(self):
-        self.condition_bar_row = None
-        self.condition_bar_x1 = None
-        self.condition_bar_x2 = None
-        self.calibrated = False
-        self.last_detection_time = 0.0
-        
-        # Configuración de condiciones (extensible)
-        self.conditions = {
-            "haste": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0  # segundos
-            },
-            "paralyze": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/paralyze.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "poison": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/poison.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Condiciones del OldBot
-            "burning": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/burning.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "curse": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/curse.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "hunger": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/hunger.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "manashield": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/manashield.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "pz_zone": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de Haste
-            "haste_medivia": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste_medivia.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "haste_otclient": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste_otclient.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "haste_otclientNewer": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste_otclientNewer.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "haste_tibia-old": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste_tibia-old.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "haste_wearedragons": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/haste_wearedragons.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de Paralyze
-            "paralyze_otclientNewer": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/paralyze_otclientNewer.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de Poison
-            "poison_likeretro": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/poison_likeretro.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "poison_medivia": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/poison_medivia.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "poison_otclientNewer": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/poison_otclientNewer.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "poison_realera": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/poison_realera.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de Mana Shield
-            "manashield_new": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/manashield_new.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "manashield_otclient": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/manashield_otclient.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "manashield_otclientNewer": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/manashield_otclientNewer.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de Hunger
-            "hungry_lunos": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/hungry_lunos.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "hungry_medivia": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/hungry_medivia.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "hungry_nostalgic": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/hungry_nostalgic.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            # Variantes de PZ Zone
-            "pz_zone_medivia": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone_medivia.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "pz_zone_nostalgic": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone_nostalgic.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "pz_zone_otclient": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone_otclient.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "pz_zone_otclientv8": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone_otclientv8.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            },
-            "pz_zone_revolution": {
-                "enabled": False,
-                "hotkey": "",
-                "template": "assets/conditions/pz_zone_revolution.png",
-                "threshold": 0.7,
-                "last_triggered": 0.0,
-                "cooldown": 1.0
-            }
+        # Rangos de color HSV para cada condición (más específicos)
+        self.condition_colors = {
+            'haste': [(40, 100, 100), (80, 255, 255)],  # Verde
+            'paralyze': [(140, 100, 100), (170, 255, 255)],  # Rosa/Morado
+            'poison': [(40, 100, 100), (80, 255, 255)],  # Verde (mismo que haste)
+            'burning': [(10, 100, 100), (25, 255, 255)],  # Naranja
+            'curse': [(120, 100, 100), (150, 255, 255)],  # Morado
+            'hunger': [(20, 100, 100), (35, 255, 255)],  # Amarillo
+            'manashield': [(140, 100, 100), (170, 255, 255)],  # Rosa
+            'pz_zone': [(0, 0, 100), (180, 50, 255)]  # Blanco
         }
         
-        # Cargar templates
+        self.confidence_threshold = 0.8
+        self.calibrated = False
+        self.condition_bar_row = 0
+        self.condition_bar_x1 = 0
+        self.condition_bar_x2 = 0
+        
+        # Templates de iconos
         self.templates = {}
+        
+        # Estado de condiciones
+        self.conditions = {
+            'haste': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'paralyze': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'poison': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'burning': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'curse': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'hunger': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'manashield': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0},
+            'pz_zone': {'enabled': False, 'hotkey': '', 'threshold': 0.8, 'last_triggered': 0.0}
+        }
+        
         self._load_templates()
     
     def _load_templates(self):
-        """Carga las imágenes template para cada condición."""
-        for condition_name, condition_config in self.conditions.items():
-            try:
-                template = cv2.imread(condition_config["template"], cv2.IMREAD_COLOR)
-                if template is not None:
-                    self.templates[condition_name] = template
-                    print(f"Template cargado: {condition_name}")
-                else:
-                    print(f"Error cargando template: {condition_config['template']}")
-            except Exception as e:
-                print(f"Error cargando template {condition_name}: {e}")
+        """Carga los templates PNG de condiciones."""
+        template_dir = "images/Conditions"
+        if os.path.exists(template_dir):
+            for filename in os.listdir(template_dir):
+                if filename.endswith('.png'):
+                    condition_name = filename.replace('.png', '').lower()
+                    template_path = os.path.join(template_dir, filename)
+                    try:
+                        template = cv2.imread(template_path)
+                        if template is not None:
+                            self.templates[condition_name] = template
+                            print(f"Template cargado: {condition_name}")
+                        else:
+                            print(f"No se pudo cargar template: {filename}")
+                    except Exception as e:
+                        print(f"Error cargando template {filename}: {e}")
     
-    def calibrate(self, frame: np.ndarray) -> bool:
+    def calibrate(self, frame: np.ndarray) -> Optional[Dict[str, int]]:
         """
-        Calibra la posición de la barra de condiciones.
-        La barra de condiciones está debajo de la barra de mana.
+        Calibra la posición de la barra de condiciones usando múltiples métodos mejorados.
         """
         try:
-            # Buscar la barra de condiciones usando análisis de color
-            # La barra de condiciones típicamente tiene colores distintivos
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            print(" Calibrando barra de condiciones mejorada...")
             
-            # Buscar en la parte inferior de la pantalla (donde están las barras)
             h, w = frame.shape[:2]
-            scan_height = min(200, h // 3)  # Tercio inferior
-            scan_region = frame[h - scan_height:h, :]
             
-            # Convertir a escala de grises para detección de bordes
-            gray = cv2.cvtColor(scan_region, cv2.COLOR_BGR2GRAY)
-            edges = cv2.Canny(gray, 50, 150)
+            # Método 1: Búsqueda por líneas horizontales mejorado
+            bar_info = self._calibrate_by_lines(frame)
+            print(f" Método 1 (líneas): {bar_info}")
             
-            # Buscar líneas horizontales (barras)
-            lines = cv2.HoughLinesP(edges, 1, np.pi/2, 100, minLineLength=50, maxLineGap=10)
+            # Método 2: Búsqueda por regiones de color mejorado
+            if not bar_info:
+                bar_info = self._calibrate_by_color_regions(frame)
+                print(f" Método 2 (color): {bar_info}")
             
-            if lines is not None:
-                # Encontrar la línea más baja (barra de condiciones)
-                lowest_y = 0
-                for line in lines:
-                    x1, y1, x2, y2 = line[0]
-                    # Calcular posición global
-                    global_y = (h - scan_height) + y1
-                    if global_y > lowest_y:
-                        lowest_y = global_y
+            # Método 3: Búsqueda por detección de iconos mejorado
+            if not bar_info:
+                bar_info = self._calibrate_by_icon_detection(frame)
+                print(f" Método 3 (iconos): {bar_info}")
+            
+            if bar_info:
+                self.condition_bar_row = bar_info['row']
+                self.condition_bar_x1 = bar_info['x1']
+                self.condition_bar_x2 = bar_info['x2']
+                self.calibrated = True
                 
-                if lowest_y > 0:
-                    # Guardar posición de la barra
-                    self.condition_bar_row = lowest_y
-                    
-                    # Estimar límites horizontales
-                    # Buscar región con mayor actividad horizontal
-                    row_region = frame[lowest_y-5:lowest_y+5, :]
-                    row_gray = cv2.cvtColor(row_region, cv2.COLOR_BGR2GRAY)
-                    
-                    # Proyección horizontal
-                    horizontal_sum = np.sum(row_gray, axis=0)
-                    threshold = np.max(horizontal_sum) * 0.3
-                    
-                    # Encontrar límites
-                    active_pixels = np.where(horizontal_sum > threshold)[0]
-                    if len(active_pixels) > 0:
-                        self.condition_bar_x1 = active_pixels[0]
-                        self.condition_bar_x2 = active_pixels[-1]
-                        
-                        self.calibrated = True
-                        print(f"Barra de condiciones calibrada: y={lowest_y}, x1={self.condition_bar_x1}, x2={self.condition_bar_x2}")
-                        return True
-            
-            print("No se pudo calibrar la barra de condiciones")
-            return False
-            
+                print(f" Barra de condiciones calibrada:")
+                print(f"   Y: {self.condition_bar_row}")
+                print(f"   X1-X2: {self.condition_bar_x1} - {self.condition_bar_x2}")
+                return bar_info
+            else:
+                print(" No se pudo calibrar la barra de condiciones")
+                return False
+                
         except Exception as e:
-            print(f"Error en calibración de condiciones: {e}")
+            print(f"Error en calibración mejorada: {e}")
             return False
     
+    def _calibrate_by_lines(self, frame: np.ndarray) -> Optional[Dict[str, int]]:
+        """Calibración usando detección de líneas horizontales mejorada y enfocada."""
+        try:
+            h, w = frame.shape[:2]
+            
+            # ENFOCAR ESPECÍFICAMENTE en el área donde están las condiciones
+            # Área: entre la barra de maná y el chat (aprox 80% desde arriba)
+            scan_start_y = int(h * 0.65)  # Empezar al 65% desde arriba
+            scan_end_y = int(h * 0.85)    # Terminar al 85% desde arriba
+            scan_height = scan_end_y - scan_start_y
+            
+            if scan_height <= 0:
+                return None
+                
+            scan_region = frame[scan_start_y:scan_end_y, :]
+            gray = cv2.cvtColor(scan_region, cv2.COLOR_BGR2GRAY)
+            
+            # Detectar bordes con sensibilidad ajustada
+            edges = cv2.Canny(gray, 30, 100)
+            
+            # Buscar líneas horizontales
+            lines = cv2.HoughLinesP(edges, 1, np.pi/2, 50, minLineLength=50, maxLineGap=10)
+            
+            if lines is not None and len(lines) > 0:
+                horizontal_lines = []
+                for line in lines:
+                    x1, y1, x2, y2 = line[0]
+                    if abs(y2 - y1) < 3:  # Línea casi horizontal
+                        global_y = scan_start_y + y1
+                        horizontal_lines.append(global_y)
+                
+                if horizontal_lines:
+                    horizontal_lines.sort()
+                    
+                    # Buscar la línea más probable para la barra de condiciones
+                    # Preferir líneas en la parte inferior del área de escaneo
+                    best_line = None
+                    for y in reversed(horizontal_lines):  # Empezar desde abajo
+                        if scan_start_y < y < scan_end_y - 10:
+                            # Verificar si hay estructura de barra en esta línea
+                            row_region = frame[y-3:y+3, :]
+                            if row_region.size > 0:
+                                row_gray = cv2.cvtColor(row_region, cv2.COLOR_BGR2GRAY)
+                                
+                                # Buscar variación en la línea (indicativo de iconos)
+                                row_std = np.std(row_gray)
+                                if row_std > 20:  # Hay variación (iconos)
+                                    best_line = y
+                                    break
+                    
+                    if best_line:
+                        # Encontrar los límites horizontales de la barra
+                        row_region = frame[best_line-3:best_line+3, :]
+                        row_gray = cv2.cvtColor(row_region, cv2.COLOR_BGR2GRAY)
+                        horizontal_sum = np.sum(row_gray, axis=0)
+                        
+                        # Buscar donde empieza y termina la estructura
+                        threshold = np.max(horizontal_sum) * 0.8
+                        active_pixels = np.where(horizontal_sum < threshold)[0]
+                        
+                        if len(active_pixels) > 50:
+                            return {
+                                'row': best_line,
+                                'x1': active_pixels[0],
+                                'x2': active_pixels[-1]
+                            }
+        
+        except Exception as e:
+            print(f"Error en calibración por líneas enfocada: {e}")
+        
+        return None
+    
+    def _calibrate_by_color_regions(self, frame: np.ndarray) -> Optional[Dict[str, int]]:
+        """Calibración usando detección de regiones de color enfocada."""
+        try:
+            h, w = frame.shape[:2]
+            
+            # ENFOCAR en el área específico donde están las condiciones
+            scan_start_y = int(h * 0.65)  # 65% desde arriba
+            scan_end_y = int(h * 0.85)    # 85% desde arriba
+            scan_height = scan_end_y - scan_start_y
+            
+            if scan_height <= 0:
+                return None
+                
+            scan_region = frame[scan_start_y:scan_end_y, :]
+            hsv = cv2.cvtColor(scan_region, cv2.COLOR_BGR2HSV)
+            
+            # Buscar colores de condiciones específicos
+            color_masks = []
+            
+            # Verde (poison/haste)
+            green_mask = cv2.inRange(hsv, (40, 100, 100), (80, 255, 255))
+            color_masks.append(green_mask)
+            
+            # Amarillo (hunger)
+            yellow_mask = cv2.inRange(hsv, (20, 100, 100), (35, 255, 255))
+            color_masks.append(yellow_mask)
+            
+            # Rosa/Morado (paralyze/manashield)
+            pink_mask = cv2.inRange(hsv, (140, 100, 100), (170, 255, 255))
+            color_masks.append(pink_mask)
+            
+            # Combinar todas las máscaras
+            combined_mask = cv2.bitwise_or(color_masks[0], color_masks[1])
+            for mask in color_masks[2:]:
+                combined_mask = cv2.bitwise_or(combined_mask, mask)
+            
+            # Limpiar la máscara
+            kernel = np.ones((3, 3), np.uint8)
+            combined_mask = cv2.morphologyEx(combined_mask, cv2.MORPH_CLOSE, kernel)
+            combined_mask = cv2.morphologyEx(combined_mask, cv2.MORPH_OPEN, kernel)
+            
+            # Encontrar contornos
+            contours, _ = cv2.findContours(combined_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            
+            if contours:
+                # Buscar el contorno más grande y bien posicionado
+                best_contour = None
+                best_area = 0
+                
+                for contour in contours:
+                    x, y, w_cont, h_cont = cv2.boundingRect(contour)
+                    global_y = scan_start_y + y
+                    area = cv2.contourArea(contour)
+                    
+                    # Filtrar contornos muy pequeños
+                    if area < 20:
+                        continue
+                    
+                    # Preferir contornos en el área central horizontal
+                    center_x = x + w_cont // 2
+                    if w * 0.2 < center_x < w * 0.8 and area > best_area:
+                        best_contour = contour
+                        best_area = area
+                
+                if best_contour:
+                    x, y, w_cont, h_cont = cv2.boundingRect(best_contour)
+                    bar_y = scan_start_y + y
+                    
+                    # Estimar límites horizontales basados en el contorno
+                    bar_x1 = max(0, x - 20)
+                    bar_x2 = min(w, x + w_cont + 20)
+                    
+                    return {
+                        'row': bar_y,
+                        'x1': bar_x1,
+                        'x2': bar_x2
+                    }
+        
+        except Exception as e:
+            print(f"Error en calibración por color enfocada: {e}")
+        
+        return None
+    
+    def _calibrate_by_icon_detection(self, frame: np.ndarray) -> Optional[Dict[str, int]]:
+        """Calibración usando detección de iconos conocidos enfocada."""
+        try:
+            h, w = frame.shape[:2]
+            
+            # ENFOCAR en el área específico donde están las condiciones
+            scan_start_y = int(h * 0.65)  # 65% desde arriba
+            scan_end_y = int(h * 0.85)    # 85% desde arriba
+            scan_height = scan_end_y - scan_start_y
+            
+            if scan_height <= 0:
+                return None
+                
+            scan_region = frame[scan_start_y:scan_end_y, :]
+            
+            # Buscar iconos conocidos en el área
+            best_matches = []
+            for condition_name, template in self.templates.items():
+                if template is None or condition_name == 'base_image':
+                    continue
+                    
+                # Template matching con umbral ajustado
+                result = cv2.matchTemplate(scan_region, template, cv2.TM_CCOEFF_NORMED)
+                min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+                
+                if max_val > 0.7:  # Umbral alto para evitar falsos positivos
+                    global_y = scan_start_y + max_loc[1]
+                    best_matches.append({
+                        'condition': condition_name,
+                        'y': global_y,
+                        'confidence': max_val,
+                        'loc': max_loc
+                    })
+            
+            if best_matches:
+                # Agrupar detecciones por Y (misma fila)
+                best_matches.sort(key=lambda x: x['y'])
+                
+                # Buscar el grupo con más detecciones
+                if len(best_matches) >= 1:
+                    base_y = best_matches[0]['y']
+                    nearby_matches = [m for m in best_matches if abs(m['y'] - base_y) < 20]
+                    
+                    if nearby_matches:
+                        # Calcular posición promedio
+                        avg_y = int(np.mean([m['y'] for m in nearby_matches]))
+                        
+                        # Estimar límites horizontales
+                        min_x = min([m['loc'][0] for m in nearby_matches])
+                        max_x = max([m['loc'][0] + self.templates[nearby_matches[0]['condition']].shape[1] for m in nearby_matches])
+                        
+                        return {
+                            'row': avg_y,
+                            'x1': max(0, min_x - 30),
+                            'x2': min(w, max_x + 30)
+                        }
+        
+        except Exception as e:
+            print(f"Error en calibración por iconos enfocada: {e}")
+        
+        return None
+    
     def detect_conditions(self, frame: np.ndarray) -> Dict[str, bool]:
-        """
-        Detecta todas las condiciones activas.
-        Returns: Dict con nombre de condición -> bool (activada/inactivada)
-        """
+        """Detecta condiciones en el frame actual."""
         results = {}
         current_time = time.time()
         
         if not self.calibrated:
+            # Intentar calibrar
+            if self.calibrate(frame):
+                print(" Barra calibrada, iniciando detección...")
             return results
         
         try:
-            # Extraer región de la barra de condiciones
-            if (self.condition_bar_x1 is not None and 
-                self.condition_bar_x2 is not None and
-                self.condition_bar_row is not None):
+            # Extraer región de condiciones más grande
+            y1 = max(0, self.condition_bar_row - 25)
+            y2 = min(frame.shape[0], self.condition_bar_row + 25)
+            x1 = max(0, self.condition_bar_x1 - 100)
+            x2 = min(frame.shape[1], self.condition_bar_x2 + 100)
+            condition_region = frame[y1:y2, x1:x2]
+            
+            # Detectar cada condición activa
+            for condition_name, condition_config in self.conditions.items():
+                if not condition_config.get('enabled', False):
+                    continue
                 
-                # Región más grande para incluir iconos
-                y1 = max(0, self.condition_bar_row - 15)
-                y2 = min(frame.shape[0], self.condition_bar_row + 15)
-                x1 = max(0, self.condition_bar_x1 - 20)
-                x2 = min(frame.shape[1], self.condition_bar_x2 + 20)
-                condition_region = frame[y1:y2, x1:x2]
+                # Verificar cooldown
+                if current_time - condition_config.get('last_triggered', 0.0) < condition_config.get('cooldown', 1.0):
+                    results[condition_name] = False
+                    continue
                 
-                # Detectar cada condición configurada
-                for condition_name, condition_config in self.conditions.items():
-                    if not condition_config.get("enabled", False):
-                        continue
-                        
-                    # Verificar cooldown
-                    if current_time - condition_config.get("last_triggered", 0.0) < condition_config.get("cooldown", 1.0):
-                        # Template matching
-                        template = self.templates.get(condition_name)
-                        if template is not None:
-                            detected = self._match_template(condition_region, template, condition_config.get("threshold", 0.7))
-                            
-                            if detected:
-                                condition_config["last_triggered"] = current_time
-                                results[condition_name] = True
-                            else:
-                                results[condition_name] = False
-                        else:
-                            results[condition_name] = False
-            else:
-                # Si no está calibrado, intentar calibrar
-                self._attempt_calibration(frame)
-        
+                # Usar detección híbrida
+                threshold = condition_config.get('threshold', self.confidence_threshold)
+                detected = self._detect_hybrid(condition_region, condition_name, threshold)
+                
+                if detected:
+                    condition_config['last_triggered'] = current_time
+                    results[condition_name] = True
+                    print(f" {condition_name.upper()} DETECTADO!")
+                else:
+                    results[condition_name] = False
+                    
+            # Mostrar resumen solo si hay detecciones
+            detected_conds = [name for name, detected in results.items() if detected]
+            if detected_conds:
+                print(f" Condiciones detectadas: {detected_conds}")
+                    
         except Exception as e:
-            print(f"Error en detección de condiciones: {e}")
+            print(f"Error en detección mejorada: {e}")
         
         return results
     
-    def _match_template(self, region: np.ndarray, template: np.ndarray, threshold: float) -> bool:
-        """Realiza template matching con umbral."""
-        try:
-            if region.shape[0] < template.shape[0] or region.shape[1] < template.shape[1]:
-                return False
-            
-            # Template matching
-            result = cv2.matchTemplate(region, template, cv2.TM_CCOEFF_NORMED)
-            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-            
-            return max_val >= threshold
-            
-        except Exception as e:
-            print(f"❌ Error en template matching: {e}")
-            return False
+    def _detect_hybrid(self, region: np.ndarray, condition_name: str, threshold: float) -> bool:
+        """Detección híbrida combinando template y color."""
+        template_result = self._detect_by_template(region, condition_name, threshold)
+        color_result = self._detect_by_color(region, condition_name, threshold)
+        
+        # REQUERIR AMBOS MÉTODOS para reducir falsos positivos
+        result = template_result and color_result
+        
+        if template_result or color_result:
+            print(f" {condition_name}: template={template_result}, color={color_result}, hybrid={result}")
+        
+        return result
     
-    def update_condition(self, condition_name: str, enabled: bool, hotkey: str, threshold: float = 0.7):
+    def _detect_by_template(self, region: np.ndarray, condition_name: str, threshold: float) -> bool:
+        """Detección usando template matching mejorada."""
+        # Primero intentar con el nombre exacto
+        if condition_name in self.templates and self.templates[condition_name] is not None:
+            template = self.templates[condition_name]
+            try:
+                result = cv2.matchTemplate(region, template, cv2.TM_CCOEFF_NORMED)
+                min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+                
+                if max_val >= threshold:
+                    print(f"  Template {condition_name} detectado con confianza: {max_val:.3f}")
+                    return True
+            except Exception as e:
+                print(f"Error en template matching para {condition_name}: {e}")
+        
+        # Si no funciona, intentar con variantes
+        for template_name, template in self.templates.items():
+            if template is None:
+                continue
+                
+            # Buscar si el template_name contiene el condition_name
+            if condition_name.lower() in template_name.lower():
+                try:
+                    result = cv2.matchTemplate(region, template, cv2.TM_CCOEFF_NORMED)
+                    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+                    
+                    if max_val >= threshold:
+                        print(f"  Template variant {template_name} detectado para {condition_name} con confianza: {max_val:.3f}")
+                        return True
+                except Exception as e:
+                    print(f"Error en template matching para {template_name}: {e}")
+        
+        return False
+    
+    def _detect_by_color(self, region: np.ndarray, condition_name: str, threshold: float) -> bool:
+        """Detección usando análisis de color más estricta."""
+        if condition_name not in self.condition_colors:
+            return False
+        
+        try:
+            hsv = cv2.cvtColor(region, cv2.COLOR_BGR2HSV)
+            color_ranges = self.condition_colors[condition_name]
+            
+            # Crear máscara para el rango de color
+            if len(color_ranges) >= 2:
+                lower, upper = color_ranges[0], color_ranges[1]
+                mask = cv2.inRange(hsv, lower, upper)
+                
+                # Encontrar contornos
+                contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                
+                if contours:
+                    # Filtrar contornos muy pequeños (ruido)
+                    valid_contours = [c for c in contours if cv2.contourArea(c) > 5]
+                    
+                    if valid_contours:
+                        # Calcular área total
+                        total_area = sum(cv2.contourArea(contour) for contour in valid_contours)
+                        region_area = region.shape[0] * region.shape[1]
+                        coverage = total_area / region_area
+                        
+                        # Requerir cobertura mínima más alta
+                        return coverage >= (threshold * 2)  # Más estricto
+        
+        except Exception as e:
+            print(f"Error en detección por color para {condition_name}: {e}")
+        
+        return False
+    
+    def update_condition(self, condition_name: str, enabled: bool, hotkey: str, threshold: float):
         """Actualiza la configuración de una condición."""
         if condition_name in self.conditions:
-            self.conditions[condition_name]["enabled"] = enabled
-            self.conditions[condition_name]["hotkey"] = hotkey
-            self.conditions[condition_name]["threshold"] = threshold
+            self.conditions[condition_name]['enabled'] = enabled
+            self.conditions[condition_name]['hotkey'] = hotkey
+            self.conditions[condition_name]['threshold'] = threshold
     
-    def get_condition_config(self, condition_name: str) -> Dict[str, Any]:
-        """Obtiene la configuración de una condición."""
-        return self.conditions.get(condition_name, {})
-    
-    def get_all_conditions(self) -> Dict[str, Dict[str, Any]]:
-        """Obtiene toda la configuración de condiciones."""
+    def get_all_conditions(self) -> Dict:
+        """Retorna una copia de todas las condiciones."""
         return self.conditions.copy()
     
-    def is_calibrated(self) -> bool:
-        """Verifica si el detector está calibrado."""
-        return self.calibrated
+    def get_bar_info(self) -> Optional[Dict[str, int]]:
+        """Obtiene información de la barra calibrada."""
+        if self.calibrated:
+            return {
+                'row': self.condition_bar_row,
+                'x1': self.condition_bar_x1,
+                'x2': self.condition_bar_x2
+            }
+        return None
     
     def force_recalibration(self):
-        """Fuerza una recalibración."""
+        """Fuerza la recalibración."""
         self.calibrated = False
-        self.condition_bar_row = None
-        self.condition_bar_x1 = None
-        self.condition_bar_x2 = None
+        print(" Recalibración forzada de la barra de condiciones")

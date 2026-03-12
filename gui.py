@@ -21,6 +21,7 @@ import keyboard
 from config import Config
 from logger import BotLogger
 from healer_bot import HealerBot
+from condition_detector import ConditionDetector
 from window_finder import find_tibia_windows
 from key_sender import KeySender
 from simple_walking import SimpleWalkRecorder, DIRECTION_ARROWS
@@ -113,16 +114,14 @@ class TibiaHealerGUI(ctk.CTk):
         tabs_data = [
             ("main", "🏠 Principal"),
             ("config", "⚙️ Configuración"),
-            ("conditions", "🩺 Condiciones"),
             ("windows", "🪟 Ventanas"),
+            ("conditions", "🛡️ Condiciones"),
+            ("conditions_cal", "🎯 Calibración"),
+            ("healer", "💊 Healer"),
+            ("looter", "🎒 Looter"),
             ("targeting", "⚔️ Targeting"),
-            ("looter", "💰 Looter"),
-            ("simple_walking", "🚶 Simple Walking"),
-            ("cavebot", "🗺️ Cavebot"),
-            ("screenview", "🖥️ Screen View"),
-            ("test", "🧪 Test"),
+            ("screenview", "👁️ Screen View"),
             ("logs", "📋 Logs"),
-            ("help", "❓ Ayuda")
         ]
         
         for tab_id, tab_name in tabs_data:
@@ -162,40 +161,36 @@ class TibiaHealerGUI(ctk.CTk):
         # Asignar tabs a variables para compatibilidad con código existente
         self.tab_main = self.tab_contents["main"]
         self.tab_config = self.tab_contents["config"]
-        self.tab_conditions = self.tab_contents["conditions"]
         self.tab_windows = self.tab_contents["windows"]
+        self.tab_conditions = self.tab_contents["conditions"]
+        self.tab_conditions_cal = self.tab_contents["conditions_cal"]
+        self.tab_healer = self.tab_contents.get("healer")
         self.tab_targeting = self.tab_contents["targeting"]
         self.tab_looter = self.tab_contents["looter"]
-        self.tab_cavebot = self.tab_contents["cavebot"]
         self.tab_screenview = self.tab_contents["screenview"]
-        self.tab_test = self.tab_contents["test"]
         self.tab_logs = self.tab_contents["logs"]
-        self.tab_help = self.tab_contents["help"]
-        self.tab_simple_walking = self.tab_contents["simple_walking"]
+        self.tab_simple_walking = self.tab_contents.get("simple_walking")
 
         # Construir cada sección
         self._build_main_tab()
-        self._build_simple_walking_tab()
-        self._build_test_tab()
         self._build_config_tab()
-        self._build_conditions_tab()
         self._build_windows_tab()
-        self._build_cavebot_tab()
+        self._build_conditions_tab()
+        self._build_conditions_cal_tab()
         self._build_targeting_tab()
         self._build_looter_tab()
         self._build_screenview_tab()
         self._build_logs_tab()
-        self._build_help_tab()
 
         # ----------------------------------------------------------
-        # Panel de Logs (siempre visible abajo)
+        # Panel de Logs (siempre visible abajo) - Comentado temporalmente
         # ----------------------------------------------------------
-        self._build_log_panel()
+        # self._build_log_panel()
 
         # ----------------------------------------------------------
         # Inicialización post-build
         # ----------------------------------------------------------
-        self._refresh_windows()
+        self._refresh_tibia_windows()
         self._auto_connect_obs()
         self.bot.start()
         self._register_hotkeys()
@@ -296,12 +291,54 @@ class TibiaHealerGUI(ctk.CTk):
                     text=f"Estado: Conectado — {self.bot.obs_version}",
                     text_color="#2ECC71",
                 )
-                self._refresh_obs_sources()
             else:
                 self.lbl_obs_status.configure(
                     text="Estado: Auto-conexión fallida (conéctate manualmente)",
                     text_color="#FFAA00",
                 )
+
+    def _refresh_tibia_windows(self):
+        """Refresca la lista de ventanas de Tibia disponibles."""
+        try:
+            from window_finder import find_tibia_windows
+            self._tibia_windows = find_tibia_windows()
+            
+            # Actualizar combo Tibia
+            tibia_titles = [w["title"] for w in self._tibia_windows]
+            if tibia_titles:
+                self.tibia_combo.configure(values=tibia_titles)
+                # Si hay una guardada, seleccionarla
+                saved = self.config.get("tibia_window_title", "")
+                found = False
+                for t in tibia_titles:
+                    if saved and saved.lower() in t.lower():
+                        self.tibia_combo_var.set(t)
+                        found = True
+                        break
+                if not found:
+                    self.tibia_combo_var.set(tibia_titles[0])
+                self._on_tibia_selected(self.tibia_combo_var.get())
+            else:
+                self.tibia_combo.configure(values=["(ninguna ventana encontrada)"])
+                self.tibia_combo_var.set("(ninguna ventana encontrada)")
+                
+        except Exception as e:
+            self.log.error(f"Error refrescando ventanas Tibia: {e}")
+            self.tibia_combo.configure(values=["(error)"])
+            self.tibia_combo_var.set("(error)")
+
+    def _on_tibia_selected(self, title: str):
+        """Callback cuando se selecciona una ventana de Tibia."""
+        if not title or title.startswith("("):
+            return
+            
+        # Encontrar la ventana seleccionada
+        for window in self._tibia_windows:
+            if window["title"] == title:
+                self.config.tibia_window_title = title
+                self.bot.detect_windows()
+                self.log.ok(f"Ventana Tibia seleccionada: {title}")
+                break
 
     # ==================================================================
     # TAB: Principal (Estado del bot)
@@ -366,6 +403,36 @@ class TibiaHealerGUI(ctk.CTk):
         self.mp_bar.set(0)
         self.lbl_mp = ctk.CTkLabel(mp_row, text="N/A", font=ctk.CTkFont(size=13), width=100)
         self.lbl_mp.pack(side="left")
+
+        # --- Conexión Tibia ---
+        tibia_frame = ctk.CTkFrame(tab)
+        tibia_frame.pack(fill="x", padx=8, pady=3)
+        
+        ctk.CTkLabel(
+            tibia_frame, text="🎮 Ventana Tibia:", font=ctk.CTkFont(size=12, weight="bold")
+        ).pack(anchor="w", padx=12, pady=(6, 2))
+        
+        # Selector de ventana
+        tibia_select_row = ctk.CTkFrame(tibia_frame, fg_color="transparent")
+        tibia_select_row.pack(fill="x", padx=12, pady=(2, 6))
+        
+        self.tibia_combo_var = ctk.StringVar(value="(detectando...)")
+        self.tibia_combo = ctk.CTkOptionMenu(
+            tibia_select_row,
+            variable=self.tibia_combo_var,
+            values=["(detectando...)"],
+            width=300,
+            command=self._on_tibia_selected,
+        )
+        self.tibia_combo.pack(side="left", padx=(0, 8))
+        
+        # Botón de refresh
+        ctk.CTkButton(
+            tibia_select_row,
+            text="🔄",
+            width=35,
+            command=self._refresh_windows
+        ).pack(side="left")
 
         # --- Info conexión ---
         info_frame = ctk.CTkFrame(tab)
@@ -791,6 +858,50 @@ class TibiaHealerGUI(ctk.CTk):
         ).pack(anchor="w", padx=10, pady=5)
 
     # ==================================================================
+    # TAB: Healer (sistema de curación)
+    # ==================================================================
+    def _build_healer_tab(self):
+        tab = self.tab_healer
+        
+        # Scrollable frame
+        scroll = ctk.CTkScrollableFrame(tab, label_text="💊 HEALER — Sistema de Curación")
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # === Activador principal ===
+        main_frame = ctk.CTkFrame(scroll)
+        main_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Enable/Disable principal
+        self.healer_enabled_var = ctk.BooleanVar(value=self.config.healer_enabled)
+        ctk.CTkCheckBox(
+            main_frame,
+            text="💊 Activar Auto-Healer",
+            variable=self.healer_enabled_var,
+            command=self._on_healer_toggle
+        ).pack(anchor="w", padx=10, pady=5)
+        
+        # === Información ===
+        info_frame = ctk.CTkFrame(scroll)
+        info_frame.pack(fill="x", padx=5, pady=10)
+        
+        info_text = (
+            "📋 SISTEMA DE CURACIÓN\n\n"
+            "El healer monitorea tus barras de HP y Mana:\n"
+            "• ❤️ Vida - Usa pociones o hechizos cuando la vida baja\n"
+            "• 💧 Mana - Usa pociones de mana cuando es necesario\n\n"
+            "Configura tus teclas en la pestaña Configuración.\n"
+            "Usa F9 para activar/desactivar rápidamente."
+        )
+        
+        ctk.CTkLabel(
+            info_frame,
+            text=info_text,
+            font=ctk.CTkFont(size=11),
+            justify="left",
+            text_color="#CCCCCC"
+        ).pack(anchor="w", padx=10, pady=5)
+
+    # ==================================================================
     # TAB: Ventanas
     # ==================================================================
     def _build_windows_tab(self):
@@ -885,14 +996,14 @@ class TibiaHealerGUI(ctk.CTk):
         ).pack(anchor="w", padx=10, pady=(8, 4))
 
         self.tibia_combo_var = ctk.StringVar(value="(ninguno)")
-        self.tibia_combo = ctk.CTkOptionMenu(
+        self.tibia_combo_config = ctk.CTkOptionMenu(
             tibia_frame,
             variable=self.tibia_combo_var,
             values=["(ninguno)"],
             width=450,
             command=self._on_tibia_selected,
         )
-        self.tibia_combo.pack(fill="x", padx=10, pady=3)
+        self.tibia_combo_config.pack(fill="x", padx=10, pady=3)
 
         self.lbl_tibia_info = ctk.CTkLabel(
             tibia_frame, text="HWND: — | Tamaño: —", font=ctk.CTkFont(size=11)
@@ -1056,7 +1167,7 @@ class TibiaHealerGUI(ctk.CTk):
         # Actualizar combo Tibia
         tibia_titles = [w["title"] for w in self._tibia_windows]
         if tibia_titles:
-            self.tibia_combo.configure(values=tibia_titles)
+            self.tibia_combo_config.configure(values=tibia_titles)
             # Si hay una guardada, seleccionarla
             saved = self.config.get("tibia_window_title", "")
             found = False
@@ -1069,7 +1180,7 @@ class TibiaHealerGUI(ctk.CTk):
                 self.tibia_combo_var.set(tibia_titles[0])
             self._on_tibia_selected(self.tibia_combo_var.get())
         else:
-            self.tibia_combo.configure(values=["(ninguno)"])
+            self.tibia_combo_config.configure(values=["(ninguno)"])
             self.tibia_combo_var.set("(ninguno)")
             self.lbl_tibia_info.configure(text="HWND: — | Tamaño: —")
 
@@ -5361,38 +5472,11 @@ class TibiaHealerGUI(ctk.CTk):
                                         cv2.circle(display, (px, py), 8, color, 2)
                                         cv2.putText(display, f"W{i+1}", (px + 10, py - 5),
                                                    cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
-                    except Exception:
-                        pass
-
-                # Targeting Criaturas overlay
-                if overlay in ("Targeting Criaturas", "Todo"):
-                    try:
-                        targeting = self.bot.targeting_engine
-                        if hasattr(targeting, 'detected_creatures'):
-                            for creature in targeting.detected_creatures:
-                                if hasattr(creature, 'rect') and hasattr(creature, 'name'):
-                                    x, y, w, h = creature.rect
-                                    # Dibujar rectángulo alrededor de la criatura
-                                    cv2.rectangle(display, (x, y), (x + w, y + h), (255, 0, 255), 2)
-                                    cv2.putText(display, creature.name[:8], (x, y - 5),
-                                               cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 255), 1)
-                    except Exception:
-                        pass
-
-                # Looter Items overlay
-                if overlay in ("Looter Items", "Todo"):
-                    try:
-                        looter = self.bot.looter_engine
-                        if hasattr(looter, 'detected_items'):
-                            for item in looter.detected_items:
-                                if hasattr(item, 'rect') and hasattr(item, 'name'):
-                                    x, y, w, h = item.rect
-                                    # Dibujar rectángulo alrededor del item
-                                    cv2.rectangle(display, (x, y), (x + w, y + h), (0, 255, 255), 2)
-                                    cv2.putText(display, item.name[:6], (x, y - 5),
-                                               cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        # Mostrar error en overlay
+                        cv2.putText(display, f"ERROR: {str(e)[:50]}",
+                                  (50, 50),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
                 # Conditions overlay
                 if overlay in ("Conditions", "Todo"):
@@ -5403,67 +5487,104 @@ class TibiaHealerGUI(ctk.CTk):
                             # Dibujar barra de condiciones calibrada
                             if debug_info["calibrated"] and debug_info["bar_position"]:
                                 pos = debug_info["bar_position"]
+                                
+                                # Marco amarillo más grueso y visible alrededor de la barra
                                 cv2.rectangle(display, 
-                                          (pos["x1"]-5, pos["row"]-15),
-                                          (pos["x2"]+5, pos["row"]+15),
-                                          (255, 255, 0), 2)
-                                cv2.putText(display, "Conditions Bar", 
-                                          (pos["x1"], pos["row"]-20),
-                                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
+                                          (pos["x1"]-10, pos["row"]-20),
+                                          (pos["x2"]+10, pos["row"]+20),
+                                          (0, 255, 255), 3)  # Amarillo más grueso
+                                
+                                # Línea central para mayor visibilidad
+                                cv2.line(display,
+                                       (pos["x1"]-10, pos["row"]),
+                                       (pos["x2"]+10, pos["row"]),
+                                       (0, 255, 255), 2)
+                                
+                                # Texto de fondo para mejor legibilidad
+                                cv2.rectangle(display,
+                                          (pos["x1"], pos["row"]-35),
+                                          (pos["x1"]+140, pos["row"]-20),
+                                          (0, 0, 0), -1)
+                                
+                                cv2.putText(display, "CONDITIONS BAR", 
+                                          (pos["x1"]+2, pos["row"]-22),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+                                
+                                # Mostrar coordenadas para debug
+                                coord_text = f"Y:{pos['row']} X1:{pos['x1']} X2:{pos['x2']}"
+                                cv2.putText(display, coord_text,
+                                          (pos["x1"], pos["row"]+35),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
+                                
+                                # Mostrar estado del sistema
+                                status_text = f"SYSTEM: {'ON' if debug_info['enabled'] else 'OFF'}"
+                                cv2.putText(display, status_text,
+                                          (pos["x1"], pos["row"]-50),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0) if debug_info['enabled'] else (0, 0, 255), 1)
                             
                             # Dibujar detecciones activas con colores específicos
+                            detected_count = 0
                             for condition_name, detected in debug_info["detections"].items():
                                 if detected:
+                                    detected_count += 1
                                     # Obtener posición relativa para dibujar indicador
                                     if debug_info["bar_position"]:
                                         bar_y = debug_info["bar_position"]["row"]
                                         # Dibujar indicador a la derecha de la barra de condiciones
-                                        indicator_x = debug_info["bar_position"]["x2"] + 10
+                                        indicator_x = debug_info["bar_position"]["x2"] + 15 + (detected_count - 1) * 40
                                         indicator_y = bar_y
                                         
-                                        # Colores específicos para cada condición
+                                        # Colores específicos para cada condición (basados en los PNG reales)
                                         colors = {
                                             "haste": (0, 255, 0),      # Verde
-                                            "paralyze": (255, 0, 255),    # Rojo
-                                            "poison": (0, 0, 255),       # Azul
+                                            "paralyze": (255, 0, 255),    # Morado/Rosa
+                                            "poison": (0, 255, 0),       # Verde (real)
                                             "burning": (0, 165, 255),     # Naranja
-                                            "curse": (128, 0, 128),     # Gris
-                                            "hunger": (255, 165, 0),      # Amarillo oscuro
-                                            "manashield": (255, 0, 255),     # Rojo
+                                            "curse": (128, 0, 128),     # Morado
+                                            "hunger": (0, 255, 255),      # Amarillo (real)
+                                            "manashield": (255, 0, 255),     # Rosa
                                             "pz_zone": (255, 255, 255),   # Blanco
-                                            "haste_medivia": (0, 255, 0),      # Verde
-                                            "haste_otclient": (0, 255, 0),      # Verde
-                                            "haste_otclientNewer": (0, 255, 0),      # Verde
-                                            "haste_tibia-old": (0, 255, 0),      # Verde
-                                            "haste_wearedragons": (0, 255, 0),      # Verde
-                                            "paralyze_otclientNewer": (255, 0, 255),    # Rojo
-                                            "poison_likeretro": (0, 0, 255),       # Azul
-                                            "poison_medivia": (0, 0, 255),       # Azul
-                                            "poison_otclientNewer": (0, 0, 255),       # Azul
-                                            "poison_realera": (0, 0, 255),       # Azul
-                                            "manashield_new": (255, 0, 255),     # Rojo
-                                            "manashield_otclient": (255, 0, 255),     # Rojo
-                                            "manashield_otclientNewer": (255, 0, 255),     # Rojo
-                                            "hungry_lunos": (255, 165, 0),      # Amarillo oscuro
-                                            "hungry_medivia": (255, 165, 0),      # Amarillo oscuro
-                                            "hungry_nostalgic": (255, 165, 0),      # Amarillo oscuro
-                                            "pz_zone_medivia": (255, 255, 255),   # Blanco
-                                            "pz_zone_nostalgic": (255, 255, 255),   # Blanco
-                                            "pz_zone_otclient": (255, 255, 255),   # Blanco
-                                            "pz_zone_otclientv8": (255, 255, 255),   # Blanco
-                                            "pz_zone_revolution": (255, 255, 255),   # Blanco
                                         }
                                         color = colors.get(condition_name, (128, 128, 128))
                                         
-                                        cv2.circle(display, (indicator_x, indicator_y), 8, color, -1)
-                                        cv2.putText(display, condition_name[:3].upper(),
-                                                  (indicator_x - 15, indicator_y + 3),
-                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
-                    except Exception:
-                        pass
-
-            except Exception:
-                pass
+                                        # Círculo más grande y visible
+                                        cv2.circle(display, (indicator_x, indicator_y), 12, color, -1)
+                                        cv2.circle(display, (indicator_x, indicator_y), 12, (255, 255, 255), 2)
+                                        
+                                        # Texto más visible
+                                        cv2.putText(display, condition_name[:4].upper(),
+                                                  (indicator_x - 18, indicator_y + 5),
+                                                  cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            
+                            # Mostrar contador de detecciones
+                            if detected_count > 0:
+                                count_text = f"DETECTED: {detected_count}"
+                                cv2.putText(display, count_text,
+                                          (50, 100),
+                                          cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                            
+                            else:
+                                # Mostrar mensaje si no está calibrado o no hay detecciones
+                                if not debug_info["calibrated"]:
+                                    cv2.putText(display, "CONDITIONS BAR NOT CALIBRATED",
+                                              (50, 50),
+                                              cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                                    cv2.putText(display, "Enable conditions system and wait for calibration",
+                                              (50, 75),
+                                              cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                    
+                    except Exception as e:
+                        # Mostrar error en overlay
+                        cv2.putText(display, f"ERROR: {str(e)[:50]}",
+                                  (50, 50),
+                                  cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+            
+            except Exception as e:
+                # Error general en el procesamiento de overlays
+                cv2.putText(display, f"OVERLAY ERROR: {str(e)[:30]}",
+                          (10, 10),
+                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+                                
 
         # ── Escalar al tamaño del canvas ──────────────────────────────────
         cw = self._sv_canvas.winfo_width()
@@ -5668,12 +5789,349 @@ class TibiaHealerGUI(ctk.CTk):
         self.log_text._textbox.tag_configure("CRITICAL", foreground="#FF0000")
 
     # ==================================================================
-    # Panel de Logs (mantenido por compatibilidad pero vacío)
+    # TAB: Calibración de Condiciones (Manual)
     # ==================================================================
-    def _build_log_panel(self):
-        # Esta función se mantiene por compatibilidad pero no hace nada
-        # El contenido se movió a la pestaña "Logs"
-        pass
+    def _build_conditions_cal_tab(self):
+        """Construye la pestaña de calibración manual de condiciones."""
+        tab = self.tab_conditions_cal
+        
+        # Scrollable frame
+        scroll = ctk.CTkScrollableFrame(tab, label_text="🎯 CALIBRACIÓN MANUAL — Posición Exacta de Barra")
+        scroll.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        # Frame principal
+        main_frame = ctk.CTkFrame(scroll)
+        main_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Información principal
+        info_frame = ctk.CTkFrame(main_frame)
+        info_frame.pack(fill="x", padx=10, pady=10)
+        
+        ctk.CTkLabel(
+            info_frame, 
+            text="📍 CALIBRACIÓN PRECISA DE BARRA DE CONDICIONES",
+            font=ctk.CTkFont(size=16, weight="bold")
+        ).pack(pady=5)
+        
+        ctk.CTkLabel(
+            info_frame,
+            text="Este sistema te permite seleccionar exactamente donde está la barra de condiciones\n"
+                 "usando clic y arrastrar, similar al sistema de healing.",
+            font=ctk.CTkFont(size=12),
+            justify="center"
+        ).pack(pady=5)
+        
+        # Configuración actual
+        config_frame = ctk.CTkFrame(main_frame)
+        config_frame.pack(fill="x", padx=10, pady=10)
+        
+        ctk.CTkLabel(
+            config_frame,
+            text="⚙️ CONFIGURACIÓN ACTUAL",
+            font=ctk.CTkFont(size=14, weight="bold")
+        ).pack(pady=5)
+        
+        # Variables para mostrar configuración
+        self.cal_x1_var = ctk.StringVar(value="No configurado")
+        self.cal_y_var = ctk.StringVar(value="No configurado")
+        self.cal_x2_var = ctk.StringVar(value="No configurado")
+        self.cal_status_var = ctk.StringVar(value="❌ No calibrado")
+        
+        # Frame para valores
+        values_frame = ctk.CTkFrame(config_frame)
+        values_frame.pack(fill="x", padx=10, pady=5)
+        
+        # Crear grid para valores
+        ctk.CTkLabel(values_frame, text="X1:").grid(row=0, column=0, padx=5, pady=2)
+        ctk.CTkEntry(values_frame, textvariable=self.cal_x1_var, width=100, state="readonly").grid(row=0, column=1, padx=5, pady=2)
+        
+        ctk.CTkLabel(values_frame, text="Y:").grid(row=0, column=2, padx=5, pady=2)
+        ctk.CTkEntry(values_frame, textvariable=self.cal_y_var, width=100, state="readonly").grid(row=0, column=3, padx=5, pady=2)
+        
+        ctk.CTkLabel(values_frame, text="X2:").grid(row=1, column=0, padx=5, pady=2)
+        ctk.CTkEntry(values_frame, textvariable=self.cal_x2_var, width=100, state="readonly").grid(row=1, column=1, padx=5, pady=2)
+        
+        ctk.CTkLabel(values_frame, text="Estado:").grid(row=1, column=2, padx=5, pady=2)
+        ctk.CTkLabel(values_frame, textvariable=self.cal_status_var, font=ctk.CTkFont(weight="bold")).grid(row=1, column=3, padx=5, pady=2)
+        
+        # Botones de acción
+        buttons_frame = ctk.CTkFrame(main_frame)
+        buttons_frame.pack(fill="x", padx=10, pady=10)
+        
+        ctk.CTkLabel(
+            buttons_frame,
+            text="🎮 ACCIONES DE CALIBRACIÓN",
+            font=ctk.CTkFont(size=14, weight="bold")
+        ).pack(pady=5)
+        
+        # Botones principales
+        btn_frame = ctk.CTkFrame(buttons_frame)
+        btn_frame.pack(fill="x", padx=10, pady=5)
+        
+        self.btn_start_cal = ctk.CTkButton(
+            btn_frame,
+            text="🎯 INICIAR CALIBRACIÓN",
+            width=200,
+            command=self._start_conditions_calibration,
+            fg_color="green"
+        )
+        self.btn_start_cal.pack(side="left", padx=5, pady=5)
+        
+        self.btn_apply_cal = ctk.CTkButton(
+            btn_frame,
+            text="✅ APLICAR AL BOT",
+            width=150,
+            command=self._apply_conditions_calibration,
+            state="disabled"
+        )
+        self.btn_apply_cal.pack(side="left", padx=5, pady=5)
+        
+        self.btn_reset_cal = ctk.CTkButton(
+            btn_frame,
+            text="🔄 REINICIAR",
+            width=120,
+            command=self._reset_conditions_calibration
+        )
+        self.btn_reset_cal.pack(side="left", padx=5, pady=5)
+        
+        # Instrucciones detalladas
+        instructions_frame = ctk.CTkFrame(main_frame)
+        instructions_frame.pack(fill="x", padx=10, pady=10)
+        
+        ctk.CTkLabel(
+            instructions_frame,
+            text="📋 INSTRUCCIONES DETALLADAS",
+            font=ctk.CTkFont(size=14, weight="bold")
+        ).pack(pady=5)
+        
+        instructions_text = """
+1. Asegúrate de que OBS esté conectado y capturando Tibia
+2. Presiona "🎯 INICIAR CALIBRACIÓN" 
+3. Se abrirá una ventana con el juego en tiempo real
+4. Haz CLIC y ARRASTRA para seleccionar el área exacta de la barra de condiciones
+   - Debe estar justo debajo de la barra de maná
+   - Incluye todos los iconos posibles (hunger, poison, etc.)
+5. Presiona 'G' para guardar la selección
+6. Presiona 'ESC' para cerrar la ventana
+7. Presiona "✅ APLICAR AL BOT" para usar la configuración
+
+💡 CONSEJOS:
+- El área debe ser un rectángulo que cubra toda la barra de condiciones
+- Incluye espacio extra para diferentes órdenes de iconos
+- La barra suele estar entre las coordenadas Y: 350-420 en resolución 1366x768
+        """
+        
+        instructions_label = ctk.CTkLabel(
+            instructions_frame,
+            text=instructions_text,
+            font=ctk.CTkFont(family="Consolas", size=11),
+            justify="left"
+        )
+        instructions_label.pack(padx=10, pady=5)
+        
+        # Estado del calibrador
+        status_frame = ctk.CTkFrame(main_frame)
+        status_frame.pack(fill="x", padx=10, pady=10)
+        
+        self.cal_status_label = ctk.CTkLabel(
+            status_frame,
+            text="🔍 ESTADO: Esperando inicio de calibración...",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color="gray"
+        )
+        self.cal_status_label.pack(pady=5)
+        
+        # Logs de calibración
+        logs_frame = ctk.CTkFrame(main_frame)
+        logs_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        ctk.CTkLabel(
+            logs_frame,
+            text="📝 LOGS DE CALIBRACIÓN",
+            font=ctk.CTkFont(size=14, weight="bold")
+        ).pack(pady=5)
+        
+        self.cal_logs_text = ctk.CTkTextbox(logs_frame, height=150, font=ctk.CTkFont(family="Consolas", size=10))
+        self.cal_logs_text.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        # Cargar configuración existente si hay
+        self._load_calibration_display()
+    
+    def _load_calibration_display(self):
+        """Carga y muestra la configuración de calibración existente."""
+        try:
+            import json
+            import os
+            
+            config_file = "conditions_calibration.json"
+            if os.path.exists(config_file):
+                with open(config_file, 'r') as f:
+                    config = json.load(f)
+                
+                if 'conditions_bar' in config:
+                    bar = config['conditions_bar']
+                    self.cal_x1_var.set(str(bar['x1']))
+                    self.cal_y_var.set(str(bar['y']))
+                    self.cal_x2_var.set(str(bar['x2']))
+                    self.cal_status_var.set("✅ Configurado")
+                    self.btn_apply_cal.configure(state="normal")
+                    
+                    self._cal_log("Configuración cargada desde archivo", "INFO")
+        except Exception as e:
+            self._cal_log(f"Error cargando configuración: {e}", "ERROR")
+    
+    def _cal_log(self, message: str, level: str = "INFO"):
+        """Agrega un mensaje al log de calibración."""
+        import time
+        timestamp = time.strftime("%H:%M:%S")
+        
+        # Colores según nivel
+        colors = {
+            "INFO": "#00CC66",
+            "WARNING": "#FFAA00", 
+            "ERROR": "#FF3333",
+            "SUCCESS": "#00FF00"
+        }
+        color = colors.get(level, "#FFFFFF")
+        
+        log_entry = f"[{timestamp}] [{level}] {message}"
+        
+        # Agregar al textbox
+        self.cal_logs_text.insert("end", log_entry + "\n")
+        self.cal_logs_text.see("end")
+        
+        # También al log principal
+        if level == "ERROR":
+            self.log.error(f"Calibration: {message}")
+        elif level == "WARNING":
+            self.log.warning(f"Calibration: {message}")
+        else:
+            self.log.info(f"Calibration: {message}")
+    
+    def _start_conditions_calibration(self):
+        """Inicia el proceso de calibración manual."""
+        try:
+            from conditions_calibrator import ConditionCalibrator
+            
+            self._cal_log("Iniciando calibración manual de condiciones...", "INFO")
+            self.cal_status_label.configure(text="🎯 INICIANDO CALIBRACIÓN...", text_color="orange")
+            
+            # Crear calibrador
+            if hasattr(self.bot, 'capture') and self.bot.capture:
+                calibrator = ConditionCalibrator(self.bot.capture)
+            else:
+                self._cal_log("Error: No hay conexión con OBS", "ERROR")
+                return
+            
+            # Actualizar estado
+            self.cal_status_label.configure(text="📡 ESPERANDO SELECCIÓN...", text_color="blue")
+            self.btn_start_cal.configure(state="disabled")
+            
+            # Ejecutar calibración en hilo separado para no bloquear GUI
+            import threading
+            
+            def run_calibration():
+                try:
+                    success = calibrator.run_calibration_window()
+                    
+                    # Actualizar GUI desde el hilo principal
+                    self.after(0, lambda: self._on_calibration_complete(calibrator, success))
+                    
+                except Exception as e:
+                    self.after(0, lambda: self._cal_log(f"Error en calibración: {e}", "ERROR"))
+                    self.after(0, lambda: self.cal_status_label.configure(text="❌ ERROR EN CALIBRACIÓN", text_color="red"))
+                    self.after(0, lambda: self.btn_start_cal.configure(state="normal"))
+            
+            # Iniciar hilo
+            thread = threading.Thread(target=run_calibration, daemon=True)
+            thread.start()
+            
+        except Exception as e:
+            self._cal_log(f"Error iniciando calibración: {e}", "ERROR")
+    
+    def _on_calibration_complete(self, calibrator, success: bool):
+        """Maneja el completion de la calibración."""
+        if success:
+            # Obtener configuración
+            config = calibrator.get_config_for_detector()
+            if config:
+                self.cal_x1_var.set(str(config['x1']))
+                self.cal_y_var.set(str(config['row']))
+                self.cal_x2_var.set(str(config['x2']))
+                self.cal_status_var.set("✅ Listo para aplicar")
+                self.btn_apply_cal.configure(state="normal")
+                
+                self._cal_log(f"Calibración completada: X1={config['x1']}, Y={config['row']}, X2={config['x2']}", "SUCCESS")
+                self.cal_status_label.configure(text="✅ CALIBRACIÓN COMPLETADA", text_color="green")
+                
+                # Guardar referencia al calibrador
+                self._last_calibrator = calibrator
+            else:
+                self._cal_log("Calibración completada pero sin datos válidos", "WARNING")
+                self.cal_status_label.configure(text="⚠️ CALIBRACIÓN INCOMPLETA", text_color="orange")
+        else:
+            self._cal_log("Calibración cancelada o fallida", "WARNING")
+            self.cal_status_label.configure(text="❌ CALIBRACIÓN CANCELADA", text_color="red")
+        
+        self.btn_start_cal.configure(state="normal")
+    
+    def _apply_conditions_calibration(self):
+        """Aplica la calibración al bot."""
+        try:
+            if hasattr(self, '_last_calibrator'):
+                # Aplicar al detector del bot
+                if hasattr(self.bot, 'condition_engine') and self.bot.condition_engine:
+                    detector = self.bot.condition_engine.detector
+                    
+                    if self._last_calibrator.apply_to_detector(detector):
+                        self._cal_log("Configuración aplicada exitosamente al ConditionDetector", "SUCCESS")
+                        self.cal_status_var.set("✅ Aplicado")
+                        self.cal_status_label.configure(text="✅ CONFIGURACIÓN APLICADA AL BOT", text_color="green")
+                        
+                        # Actualizar overlay
+                        self.after(1000, self._sv_refresh)
+                    else:
+                        self._cal_log("Error aplicando configuración al detector", "ERROR")
+                else:
+                    self._cal_log("Error: No hay condition_engine en el bot", "ERROR")
+            else:
+                self._cal_log("Error: No hay calibrador disponible", "ERROR")
+                
+        except Exception as e:
+            self._cal_log(f"Error aplicando calibración: {e}", "ERROR")
+    
+    def _reset_conditions_calibration(self):
+        """Reinicia la configuración de calibración."""
+        try:
+            import os
+            
+            # Eliminar archivo de configuración
+            config_file = "conditions_calibration.json"
+            if os.path.exists(config_file):
+                os.remove(config_file)
+            
+            # Resetear variables
+            self.cal_x1_var.set("No configurado")
+            self.cal_y_var.set("No configurado")
+            self.cal_x2_var.set("No configurado")
+            self.cal_status_var.set("❌ No calibrado")
+            
+            # Resetear botones
+            self.btn_apply_cal.configure(state="disabled")
+            
+            # Resetear detector si existe
+            if hasattr(self.bot, 'condition_engine') and self.bot.condition_engine:
+                detector = self.bot.condition_engine.detector
+                detector.calibrated = False
+                detector.condition_bar_row = 0
+                detector.condition_bar_x1 = 0
+                detector.condition_bar_x2 = 0
+            
+            self._cal_log("Configuración reiniciada", "INFO")
+            self.cal_status_label.configure(text="🔄 CONFIGURACIÓN REINICIADA", text_color="gray")
+            
+        except Exception as e:
+            self._cal_log(f"Error reiniciando configuración: {e}", "ERROR")
 
     def _configure_module_log_tags(self):
         """Configura tags de color para los textboxes de log de cada módulo."""
@@ -6037,6 +6495,12 @@ class TibiaHealerGUI(ctk.CTk):
         
         self.log.info(f"Sistema de condiciones {'activado' if enabled else 'desactivado'}")
 
+    def _on_healer_toggle(self):
+        """Callback cuando se activa/desactiva el healer."""
+        enabled = self.healer_enabled_var.get()
+        self.config.healer_enabled = enabled
+        self.log.info(f"Healer {'activado' if enabled else 'desactivado'}")
+
     def _force_conditions_calibration(self):
         """Fuerza recalibración de las barras de condiciones."""
         try:
@@ -6158,23 +6622,32 @@ class TibiaHealerGUI(ctk.CTk):
         # Checkbox de activación
         enabled_var = ctk.BooleanVar(value=condition_config.get("enabled", False))
         ctk.CTkCheckBox(controls_frame, text="Activado", variable=enabled_var,
-                     command=lambda: self._save_condition_config(condition_name)).pack(side="left", padx=(0, 10))
+                     command=lambda cn=condition_name: self._save_condition_config(cn, getattr(self, f"{cn}_enabled_var", enabled_var), getattr(self, f"{cn}_hotkey_var", None), getattr(self, f"{cn}_threshold_var", None))).pack(side="left", padx=(0, 10))
         
         # Hotkey
         hotkey_var = ctk.StringVar(value=condition_config.get("hotkey", ""))
         ctk.CTkLabel(controls_frame, text="Hotkey:").pack(side="left", padx=(10, 0))
-        ctk.CTkOptionMenu(controls_frame, variable=hotkey_var,
+        hotkey_menu = ctk.CTkOptionMenu(controls_frame, variable=hotkey_var,
                           values=[""] + [f"F{i}" for i in range(1, 13)],
-                          width=80).pack(side="left", padx=3)
+                          width=80)
+        hotkey_menu.pack(side="left", padx=3)
         
         # Sensibilidad
         threshold_var = ctk.DoubleVar(value=condition_config.get("threshold", 0.7))
         ctk.CTkLabel(controls_frame, text="Sensibilidad:").pack(side="left", padx=(10, 0))
-        ctk.CTkSlider(controls_frame, from_=0.5, to=1.0, number_of_steps=10,
-                     variable=threshold_var).pack(side="left", fill="x", expand=True)
+        threshold_slider = ctk.CTkSlider(controls_frame, from_=0.5, to=1.0, number_of_steps=10,
+                     variable=threshold_var)
+        threshold_slider.pack(side="left", fill="x", expand=True)
         
         # Guardar referencia para actualización
         self._save_condition_control_vars(condition_name, enabled_var, hotkey_var, threshold_var)
+        
+        # Configurar callbacks después de guardar las variables
+        def update_config(*args):
+            self._save_condition_config(condition_name, enabled_var, hotkey_var, threshold_var)
+        
+        hotkey_menu.configure(command=update_config)
+        threshold_slider.configure(command=update_config)
 
     def _save_condition_control_vars(self, condition_name: str, enabled_var, hotkey_var, threshold_var):
         """Guarda las variables de control para una condición."""

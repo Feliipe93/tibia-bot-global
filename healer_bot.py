@@ -490,6 +490,8 @@ class HealerBot:
         
         # Inicializar condition engine con configuración
         self.condition_engine.update_from_config(self.config.get_all_conditions())
+        # Pasar referencia del bot para actualizar heal_count
+        self.condition_engine.bot = self
         if self.config.conditions.get("enabled", False):
             self.condition_engine.set_enabled(True)
             self.log.info("Sistema de condiciones activado")
@@ -591,8 +593,22 @@ class HealerBot:
 
                 # --- 3b. Procesar condiciones de estado ---
                 if self.config.conditions.get("enabled", False):
+                    # Intentar calibrar si no está calibrado
+                    if not self.condition_engine.detector.calibrated:
+                        success = self.condition_engine.detector.calibrate(img)
+                        if success:
+                            self.log.info("Barra de condiciones calibrada correctamente")
+                        else:
+                            self.log.warning("No se pudo calibrar la barra de condiciones")
+                    
                     condition_results = self.condition_engine.process_frame(img)
                     # El motor manejará el envío de teclas automáticamente
+                    
+                    # Log de detecciones para debug
+                    if condition_results:
+                        detected_conditions = [name for name, detected in condition_results.items() if detected]
+                        if detected_conditions:
+                            self.log.info(f"Condiciones detectadas: {detected_conditions}")
 
                 # Log periódico
                 self.cycle_count += 1

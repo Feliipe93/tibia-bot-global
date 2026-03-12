@@ -52,7 +52,7 @@ class ConditionEngine:
             return {}
         
         # Si no está calibrado, intentar calibrar
-        if not self.detector.is_calibrated():
+        if not self.detector.calibrated:
             if self.debug_mode:
                 self._log("Intentando calibrar barra de condiciones...")
             success = self.detector.calibrate(frame)
@@ -70,10 +70,35 @@ class ConditionEngine:
         self.last_check_time = current_time
         return results
     
+    def get_debug_info(self, frame) -> Dict[str, Any]:
+        """Obtiene información de debug para el overlay."""
+        try:
+            # Obtener información del detector
+            bar_info = self.detector.get_bar_info()
+            
+            # Detectar condiciones actuales
+            detections = self.detector.detect_conditions(frame)
+            
+            return {
+                "calibrated": self.detector.calibrated,
+                "bar_position": bar_info,
+                "detections": detections,
+                "trigger_count": self.trigger_count,
+                "enabled": self.enabled
+            }
+        except Exception as e:
+            return {
+                "calibrated": False,
+                "bar_position": None,
+                "detections": {},
+                "trigger_count": 0,
+                "enabled": False
+            }
+    
     def _handle_condition_detected(self, condition_name: str):
         """Maneja una condición detectada."""
         try:
-            condition_config = self.detector.get_condition_config(condition_name)
+            condition_config = self.detector.conditions.get(condition_name, {})
             hotkey = condition_config.get("hotkey", "")
             
             if hotkey:
@@ -82,16 +107,18 @@ class ConditionEngine:
                     success = self.key_sender.send_key(hotkey)
                     if success:
                         self.trigger_count += 1
-                        self._log(f"{condition_name.capitalize()} activado -> {hotkey}", "OK")
+                        # Incrementar heal_count del bot también
+                        if hasattr(self, 'bot') and self.bot:
+                            self.bot.heal_count += 1
+                        self._log(f"{condition_name.upper()} DETECTADO -> Enviando {hotkey}", "OK")
                     else:
                         self._log(f"Error enviando {hotkey} para {condition_name}", "ERROR")
                 else:
                     self._log(f"Key sender no disponible para {condition_name}", "WARN")
             else:
-                self._log(f"{condition_name.capitalize()} detectado pero sin hotkey configurado", "WARN")
-                
+                self._log(f"No hay hotkey configurado para {condition_name}", "WARN")
         except Exception as e:
-            self._log(f"Error procesando {condition_name}: {e}", "ERROR")
+            self._log(f"Error manejando {condition_name}: {e}", "ERROR")
     
     def _log(self, message: str, level: str = "INFO"):
         """Función de logging."""
@@ -119,7 +146,7 @@ class ConditionEngine:
         """Retorna el estado actual del motor."""
         return {
             "enabled": self.enabled,
-            "calibrated": self.detector.is_calibrated(),
+            "calibrated": self.detector.calibrated,
             "trigger_count": self.trigger_count,
             "last_check": self.last_check_time,
             "conditions": self.detector.get_all_conditions()
@@ -128,7 +155,8 @@ class ConditionEngine:
     def get_debug_info(self, frame) -> Dict[str, Any]:
         """Genera información de debug para visualización."""
         debug_info = {
-            "calibrated": self.detector.is_calibrated(),
+            "enabled": self.enabled,
+            "calibrated": self.detector.calibrated,
             "bar_position": None,
             "detections": {}
         }
@@ -141,7 +169,7 @@ class ConditionEngine:
             }
         
         # Realizar detección para debug
-        if self.detector.is_calibrated():
+        if self.detector.calibrated:
             debug_info["detections"] = self.detector.detect_conditions(frame)
         
         return debug_info

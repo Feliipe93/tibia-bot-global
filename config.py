@@ -13,6 +13,7 @@ CONFIG_FILE = "config.json"
 DEFAULT_CONFIG: Dict[str, Any] = {
     "tibia_window_title": "",
     "obs_projector_title": "",
+    "healer_enabled": False,
     "obs_websocket": {
         "host": "localhost",
         "port": 4455,
@@ -377,8 +378,16 @@ class Config:
         return self.data.get("heal_levels", [])
 
     @heal_levels.setter
-    def heal_levels(self, levels: List[Dict]) -> None:
-        self.data["heal_levels"] = levels
+    def heal_levels(self, value: List[Dict]) -> None:
+        self.data["heal_levels"] = value
+
+    @property
+    def healer_enabled(self) -> bool:
+        return self.data.get("healer_enabled", False)
+
+    @healer_enabled.setter
+    def healer_enabled(self, value: bool) -> None:
+        self.data["healer_enabled"] = value
 
     def add_heal_level(self, threshold: float, key: str, description: str = "") -> None:
         self.data["heal_levels"].append({
