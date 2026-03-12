@@ -259,7 +259,7 @@
         }
     },
     "targeting": {
-        "enabled": true,
+        "enabled": false,
         "auto_attack": true,
         "chase_monsters": true,
         "attack_mode": "offensive",
