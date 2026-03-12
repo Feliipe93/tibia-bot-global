@@ -18,6 +18,8 @@ import numpy as np
 
 from targeting.battle_list_reader import BattleListReader, CreatureEntry
 from targeting.creature_tracker import CreatureTracker
+from targeting.creature_hp_detector import CreatureHPDetector
+from targeting.spell_manager import SpellManager
 
 
 # Default creature profile
@@ -28,6 +30,16 @@ DEFAULT_CREATURE_PROFILE = {
     "is_ranged": False,         # True = ranged creature (keep stand), False = melee
     "priority": 0,              # Higher = attacked first (0 = use global priority)
     "use_chase_on_flee": True,  # Auto-switch to chase when creature flees
+    "hp_threshold_chase": 0.0,  # Switch to chase when HP <= this % (0.0 = disabled)
+    "hp_threshold_stand": 0.0,  # Switch to stand when HP >= this % (0.0 = disabled)
+    "spells_by_count": {        # Spells to use based on nearby creature count
+        1: [],                  # 1 creature nearby
+        2: [],                  # 2 creatures nearby
+        3: [],                  # 3+ creatures nearby
+        "default": []           # Default if no specific count
+    },
+    "spell_cooldown": 1.0,       # Cooldown between spells for this creature
+    "last_spell_time": 0.0,      # Last time a spell was cast on this creature
 }
 
 
@@ -42,6 +54,8 @@ class TargetingEngine:
     def __init__(self):
         self.battle_reader = BattleListReader()
         self.creature_tracker = CreatureTracker()
+        self.hp_detector = CreatureHPDetector()
+        self.spell_manager = SpellManager()
 
         # Estado
         self.enabled: bool = False
@@ -120,10 +134,15 @@ class TargetingEngine:
     def set_key_callback(self, fn: Callable):
         """fn(key_name) - envía tecla a Tibia."""
         self._key_fn = fn
+        # Propagar al spell manager
+        self.spell_manager.set_key_callback(fn)
 
     def set_log_callback(self, fn: Callable):
         """fn(msg) - log del módulo."""
         self._log_fn = fn
+        # Propagar a los componentes
+        self.spell_manager.set_log_callback(fn)
+        self.hp_detector.set_log_callback(fn)
 
     def set_looter_engine(self, engine):
         """Referencia al LooterEngine para notificar kills directamente."""
@@ -174,6 +193,9 @@ class TargetingEngine:
             merged = dict(DEFAULT_CREATURE_PROFILE)
             merged.update(profile)
             self.creature_profiles[name.lower()] = merged
+            
+            # Configurar spells para esta criatura
+            self.spell_manager.configure_spells(name.lower(), merged)
 
         if self.creature_profiles:
             self._log(f"Perfiles de criaturas: {list(self.creature_profiles.keys())}")
@@ -404,6 +426,8 @@ class TargetingEngine:
                 self.state = "attacking"
                 # v10: Rastrear posición del target en el game screen
                 self._track_target_position(frame, creatures)
+                # v11: Procesar HP y spells
+                self._process_hp_and_spells(frame, creatures)
                 return
 
         # NO estamos atacando (o perdimos el target) → buscar y atacar
@@ -442,10 +466,13 @@ class TargetingEngine:
         Si había 3 Rotworm y ahora hay 2 → 1 kill de Rotworm.
         Detección inmediata (sin requerir múltiples frames de confirmación).
         v7: Pasa el frame al looter para detección visual de cadáveres.
+        v11: También verifica HP del target actual para mejorar detección.
         """
         if not self._prev_counts_by_name:
             return
 
+        kills_detected = False
+        
         for name, prev_count in self._prev_counts_by_name.items():
             curr_count = current_counts.get(name, 0)
             if prev_count > curr_count:
@@ -457,6 +484,23 @@ class TargetingEngine:
 
                 for _ in range(kills):
                     self._notify_kill(display_name, frame)
+                
+                kills_detected = True
+        
+        # v11: Verificar si nuestro target actual murió por HP
+        if self.current_target and not kills_detected:
+            hp_info = self.hp_detector.process_frame(frame)
+            if hp_info['selected'] and hp_info['name']:
+                if hp_info['name'].lower() == self.current_target.lower():
+                    if hp_info['hp_percentage'] is not None and hp_info['hp_percentage'] <= 0:
+                        # Target murió (HP = 0%)
+                        self._log(f"¡Kill! {self.current_target} (HP=0%) — Total: {self.monsters_killed + 1}")
+                        self._notify_kill(self.current_target, frame)
+                        kills_detected = True
+        
+        # Si detectamos kills, actualizar estado
+        if kills_detected:
+            self.state = "searching"  # Forzar búsqueda de nuevo target
 
     def _notify_kill(self, monster_name: str, frame=None):
         """Notifica una kill al looter directamente y resetea el fallback de ataque.
@@ -632,6 +676,84 @@ class TargetingEngine:
                 self._log(f"Re-atacando: {target.name}")
 
     # ==================================================================
+    # v11: Sistema de HP y spells mejorado
+    # ==================================================================
+    def _process_hp_and_spells(self, frame: np.ndarray, creatures: List[CreatureEntry]):
+        """
+        Procesa el HP del target actual y lanza spells según corresponda.
+        """
+        if not self.current_target or not creatures:
+            return
+            
+        # Procesar HP del target
+        hp_info = self.hp_detector.process_frame(frame)
+        
+        if hp_info['selected'] and hp_info['name']:
+            target_name = hp_info['name'].lower()
+            
+            # Verificar si es nuestro target
+            if target_name == self.current_target.lower():
+                if hp_info['hp_percentage'] is not None:
+                    self._handle_hp_thresholds(target_name, hp_info['hp_percentage'])
+                
+                # Procesar spells basados en criaturas cercanas
+                nearby_creatures = [c.name.lower() for c in creatures]
+                self.spell_manager.process_spells_for_creature(target_name, nearby_creatures)
+    
+    def _handle_hp_thresholds(self, creature_name: str, hp_percentage: float):
+        """
+        Maneja los umbrales de HP para cambiar entre chase/stand.
+        """
+        profile = self.creature_profiles.get(creature_name, {})
+        
+        chase_threshold = profile.get('hp_threshold_chase', 0.0)
+        stand_threshold = profile.get('hp_threshold_stand', 0.0)
+        
+        if chase_threshold > 0 and hp_percentage <= chase_threshold:
+            # Cambiar a chase mode
+            self._set_chase_mode()
+            self._log(f"HP {hp_percentage:.0f}% ≤ {chase_threshold*100:.0f}% → Chase mode")
+            
+        elif stand_threshold > 0 and hp_percentage >= stand_threshold:
+            # Cambiar a stand mode
+            self._set_stand_mode()
+            self._log(f"HP {hp_percentage:.0f}% ≥ {stand_threshold*100:.0f}% → Stand mode")
+    
+    def _set_chase_mode(self):
+        """Activa el chase mode."""
+        if self._current_chase_mode != "chase":
+            if self.chase_key and self._key_fn:
+                self._key_fn(self.chase_key)
+                self._current_chase_mode = "chase"
+                self._log("Chase mode activado")
+    
+    def _set_stand_mode(self):
+        """Activa el stand mode."""
+        if self._current_chase_mode != "stand":
+            if self.stand_key and self._key_fn:
+                self._key_fn(self.stand_key)
+                self._current_chase_mode = "stand"
+                self._log("Stand mode activado")
+    
+    def _apply_chase_mode_for_creature(self, creature_name: str, frame: np.ndarray):
+        """
+        Aplica el modo chase/stand adecuado para una criatura específica.
+        """
+        profile = self.creature_profiles.get(creature_name.lower(), {})
+        chase_mode = profile.get('chase_mode', 'auto')
+        
+        if chase_mode == 'chase':
+            self._set_chase_mode()
+        elif chase_mode == 'stand':
+            self._set_stand_mode()
+        elif chase_mode == 'auto':
+            # Usar configuración global
+            if self.chase_monsters:
+                self._set_chase_mode()
+            else:
+                self._set_stand_mode()
+
+    # ==================================================================
     # v10: Tracking de posición en game screen
     # ==================================================================
     def _track_target_position(self, frame: np.ndarray, creatures: List[CreatureEntry]):
@@ -663,6 +785,7 @@ class TargetingEngine:
         """
         Actualiza la calibración del creature tracker con las regiones actuales.
         Llamado cuando se completa una re-calibración.
+        v11: También configura el HP detector.
         """
         if self._calibrator:
             if self._calibrator.game_region:
@@ -671,6 +794,13 @@ class TargetingEngine:
                 self.creature_tracker.set_player_center(*self._calibrator.player_center)
             if self._calibrator.sqm_size:
                 self.creature_tracker.set_sqm_size(*self._calibrator.sqm_size)
+            
+            # v11: Auto-configurar HP detector
+            if self.battle_reader.battle_region:
+                self.hp_detector.auto_calibrate_regions(
+                    None,  # frame no necesario para auto-calibración
+                    self.battle_reader.battle_region
+                )
 
     # ==================================================================
     # API pública

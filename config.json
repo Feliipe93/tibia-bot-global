@@ -1,5 +1,5 @@
 {
-    "tibia_window_title": "Tibia - Pastero codode hierro",
+    "tibia_window_title": "Tibia - Pastero codode bronze",
     "obs_projector_title": "",
     "healer_enabled": false,
     "obs_websocket": {
@@ -26,225 +26,205 @@
         }
     ],
     "mana_heal": {
-        "enabled": true,
+        "enabled": false,
         "levels": [
             {
-                "threshold": 0.1,
+                "threshold": 0.8,
                 "comparison": "<=",
-                "key": "F7",
+                "key": "F3",
                 "description": "Strong Mana Potion"
+            },
+            {
+                "threshold": 0.5,
+                "comparison": "<=",
+                "key": "F4",
+                "description": "Great Mana Potion"
+            },
+            {
+                "threshold": 0.3,
+                "comparison": "<=",
+                "key": "F5",
+                "description": "Mana Potion"
             }
-        ],
-        "threshold": 1.0,
-        "key": "F7",
-        "description": "Mana potion"
+        ]
     },
     "conditions": {
-        "enabled": true,
+        "enabled": false,
         "debug_mode": false,
         "global_cooldown": 0.5,
         "haste": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "paralyze": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "poison": {
-            "enabled": true,
-            "hotkey": "F3",
+            "enabled": false,
+            "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "burning": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "curse": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "hunger": {
-            "enabled": true,
-            "hotkey": "F10",
-            "threshold": 1.0,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "enabled": false,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0
         },
         "manashield": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "haste_medivia": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "haste_otclient": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "haste_otclientNewer": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "haste_tibia-old": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "haste_wearedragons": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "paralyze_otclientNewer": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "poison_likeretro": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "poison_medivia": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "poison_otclientNewer": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "poison_realera": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "manashield_new": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "manashield_otclient": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "manashield_otclientNewer": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "hungry_lunos": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "hungry_medivia": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "hungry_nostalgic": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone_medivia": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone_nostalgic": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone_otclient": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone_otclientv8": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         },
         "pz_zone_revolution": {
             "enabled": false,
             "hotkey": "",
             "threshold": 0.7,
-            "cooldown": 1.0,
-            "last_triggered": 0.0
+            "cooldown": 1.0
         }
     },
     "cooldown_seconds": 1.2,
@@ -315,15 +295,31 @@
                 "is_ranged": true,
                 "attack_mode": "auto",
                 "flees_at_hp": 0.0
+            },
+            "Rotworm": {
+                "chase_mode": "chase",
+                "priority": 90,
+                "use_chase_on_flee": true,
+                "is_ranged": false,
+                "attack_mode": "auto",
+                "flees_at_hp": 0.0
+            },
+            "Rat": {
+                "chase_mode": "auto",
+                "priority": 10,
+                "use_chase_on_flee": true,
+                "is_ranged": false,
+                "attack_mode": "auto",
+                "flees_at_hp": 0.0
             }
         },
         "chase_key": "",
         "stand_key": "",
         "battle_list_region": {
-            "x": 0,
-            "y": 0,
+            "x": 640,
+            "y": 50,
             "w": 160,
-            "h": 220
+            "h": 400
         },
         "spell_rotation": {
             "enabled": true,
@@ -401,5 +397,58 @@
         "pick": "",
         "machete": "",
         "light": ""
+    },
+    "healing": {
+        "hp_healer": {
+            "enabled": false,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0,
+            "last_triggered": 0.0
+        },
+        "mp_healer": {
+            "enabled": false,
+            "hotkey": "",
+            "threshold": 0.7,
+            "cooldown": 1.0,
+            "last_triggered": 0.0
+        },
+        "conditions": {
+            "poison": {
+                "enabled": false,
+                "hotkey": "",
+                "threshold": 0.7,
+                "cooldown": 1.0,
+                "last_triggered": 0.0
+            },
+            "burning": {
+                "enabled": false,
+                "hotkey": "",
+                "threshold": 0.7,
+                "cooldown": 1.0,
+                "last_triggered": 0.0
+            },
+            "curse": {
+                "enabled": false,
+                "hotkey": "",
+                "threshold": 0.7,
+                "cooldown": 1.0,
+                "last_triggered": 0.0
+            },
+            "haste": {
+                "enabled": false,
+                "hotkey": "",
+                "threshold": 0.7,
+                "cooldown": 1.0,
+                "last_triggered": 0.0
+            },
+            "manashield": {
+                "enabled": false,
+                "hotkey": "",
+                "threshold": 0.7,
+                "cooldown": 1.0,
+                "last_triggered": 0.0
+            }
+        }
     }
 }

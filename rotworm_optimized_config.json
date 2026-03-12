@@ -1,0 +1,49 @@
+{
+  "target_creatures": [
+    "rotworm",
+    "carrion worm"
+  ],
+  "selected_creatures": [
+    "rotworm",
+    "carrion worm"
+  ],
+  "ignored_creatures": [],
+  "creature_priorities": {
+    "rotworm": 50.0,
+    "carrion worm": 60.0
+  },
+  "creature_data": {
+    "rotworm": {
+      "name": "rotworm",
+      "priority": 50.0,
+      "selected": true,
+      "ignored": false,
+      "hp": 70,
+      "experience": 40,
+      "difficulty": 1,
+      "is_ranged": false,
+      "is_mage": false,
+      "is_healer": false,
+      "class_type": "melee",
+      "look_type": 26,
+      "corpse_id": 4354,
+      "corpse_name": "Dead Worm"
+    },
+    "carrion worm": {
+      "name": "carrion worm",
+      "priority": 60.0,
+      "selected": true,
+      "ignored": false,
+      "hp": 85,
+      "experience": 70,
+      "difficulty": 2,
+      "is_ranged": false,
+      "is_mage": false,
+      "is_healer": false,
+      "class_type": "melee",
+      "look_type": 306,
+      "corpse_id": 4353,
+      "corpse_name": "Dead Carrion Worm"
+    }
+  }
+}

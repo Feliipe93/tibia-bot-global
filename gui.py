@@ -53,12 +53,14 @@ class TibiaHealerGUI(ctk.CTk):
         # ----------------------------------------------------------
         self.config = Config()
         self.log = BotLogger(level=self.config.log_level)
-        self.bot = HealerBot(self.config, self.log)
-
-        # Conectar callbacks
-        self.bot.set_status_callback(self._schedule_status_update)
-        self.log.set_gui_callback(self._log_callback)
-
+        
+        # NO crear el HealerBot inmediatamente para evitar congelación
+        self.bot = None
+        self.bot_initialized = False
+        
+        # Crear bot en hilo separado
+        self._initialize_bot_async()
+        
         # Estado GUI
         self._hotkey_registered = False
         self._exit_hotkey_registered = False
@@ -69,6 +71,28 @@ class TibiaHealerGUI(ctk.CTk):
 
         # Listas de ventanas para dropdowns
         self._tibia_windows: List[Dict] = []
+        
+    def _initialize_bot_async(self):
+        """Inicializa el HealerBot en un hilo separado para evitar congelación."""
+        def init_bot():
+            try:
+                self.log.info("Inicializando HealerBot en hilo separado...")
+                self.bot = HealerBot(self.config, self.log)
+                
+                # Conectar callbacks
+                self.bot.set_status_callback(self._schedule_status_update)
+                self.log.set_gui_callback(self._log_callback)
+                
+                self.bot_initialized = True
+                self.log.info("HealerBot inicializado correctamente")
+                
+            except Exception as e:
+                self.log.error(f"Error inicializando HealerBot: {e}")
+        
+        # Inicializar en hilo separado
+        thread = threading.Thread(target=init_bot)
+        thread.daemon = True
+        thread.start()
 
         # Simple Walking recorder
         self.walk_recorder = SimpleWalkRecorder()
@@ -120,6 +144,7 @@ class TibiaHealerGUI(ctk.CTk):
             ("healer", "💊 Healer"),
             ("looter", "🎒 Looter"),
             ("targeting", "⚔️ Targeting"),
+            ("targeting_v2", "🎯 Targeting V2"),
             ("screenview", "👁️ Screen View"),
             ("logs", "📋 Logs"),
         ]
@@ -166,6 +191,7 @@ class TibiaHealerGUI(ctk.CTk):
         self.tab_conditions_cal = self.tab_contents["conditions_cal"]
         self.tab_healer = self.tab_contents.get("healer")
         self.tab_targeting = self.tab_contents["targeting"]
+        self.tab_targeting_v2 = self.tab_contents["targeting_v2"]
         self.tab_looter = self.tab_contents["looter"]
         self.tab_screenview = self.tab_contents["screenview"]
         self.tab_logs = self.tab_contents["logs"]
@@ -178,6 +204,7 @@ class TibiaHealerGUI(ctk.CTk):
         self._build_conditions_tab()
         self._build_conditions_cal_tab()
         self._build_targeting_tab()
+        self._build_targeting_v2_tab()
         self._build_looter_tab()
         self._build_screenview_tab()
         self._build_logs_tab()
@@ -6717,6 +6744,67 @@ class TibiaHealerGUI(ctk.CTk):
             
         except Exception as e:
             self.log.error(f"Error guardando configuración de condiciones: {e}")
+
+    # ==================================================================
+    # TAB: Targeting V2 (Sistema Avanzado)
+    # ==================================================================
+    def _build_targeting_v2_tab(self):
+        """Construye la pestaña completa del targeting V2."""
+        try:
+            # Importar la GUI del targeting V2
+            from targeting_v2_gui import TargetingV2GUI
+            
+            # Crear instancia de la GUI V2
+            self.targeting_v2_gui = TargetingV2GUI(
+                self.tab_targeting_v2, 
+                self.config, 
+                self.bot.targeting_engine
+            )
+            
+            # Conectar callback de estado
+            if hasattr(self.bot.targeting_engine, 'get_status'):
+                self._schedule_targeting_v2_status_update()
+                
+        except Exception as e:
+            self.log.error(f"Error construyendo targeting V2: {e}")
+            # Mostrar mensaje de error en la pestaña
+            error_frame = ctk.CTkFrame(self.tab_targeting_v2)
+            error_frame.pack(fill="both", expand=True, padx=20, pady=20)
+            
+            ctk.CTkLabel(
+                error_frame,
+                text="❌ Error cargando Targeting V2",
+                font=ctk.CTkFont(size=16, weight="bold"),
+                text_color="#E74C3C"
+            ).pack(pady=10)
+            
+            ctk.CTkLabel(
+                error_frame,
+                text=f"Detalles: {str(e)}",
+                font=ctk.CTkFont(size=12),
+                text_color="#95A5A6"
+            ).pack(pady=5)
+    
+    def _schedule_targeting_v2_status_update(self):
+        """Actualiza el estado en la GUI del targeting V2."""
+        try:
+            if hasattr(self, 'targeting_v2_gui'):
+                # Obtener estado del targeting engine
+                status = self.bot.targeting_engine.get_status()
+                
+                # Actualizar indicadores
+                self.targeting_v2_gui.update_status(
+                    target_name=status.get('current_target'),
+                    hp_percentage=None,  # Se podría obtener del HP detector si está disponible
+                    mode=status.get('current_chase_mode', 'unknown'),
+                    creature_count=status.get('monster_count', 0)
+                )
+            
+            # Programar próxima actualización
+            self.after(500, self._schedule_targeting_v2_status_update)
+            
+        except Exception as e:
+            self.log.error(f"Error actualizando estado targeting V2: {e}")
 
     # ==================================================================
     # Cierre

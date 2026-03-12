@@ -538,6 +538,10 @@ Ejecuta **`iniciar.bat`** — automáticamente busca Python, crea el entorno vir
 - [x] Detección de target perdido (desaparece N frames → busca otro)
 - [x] Re-attack delay configurable para evitar spam de clicks
 - [x] Log separado en pestaña propia de la GUI
+- [x] **Targeting V2 con Inteligencia Artificial** - Sistema avanzado con base de datos de 1429 criaturas
+- [x] **Lazy Loading Optimizado** - Carga solo criaturas necesarias (99.4% menos memoria)
+- [x] **Perfiles Automáticos** - Genera estrategias basadas en características reales
+- [x] **Análisis Inteligente** - Debilidades, inmunidades, spells recomendados
 - [ ] **FALTA MEJORAR:** Combos de spells de ataque (exori, exori gran, etc.)
 - [ ] **FALTA MEJORAR:** Conteo de monstruos más robusto (a veces pierde kills)
 - [ ] **FALTA MEJORAR:** A veces no re-ataca al perder target
