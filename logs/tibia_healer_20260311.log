@@ -8901,3 +8901,374 @@
 [22:35:04] INFO     📊 Looter deshabilitado
 [22:35:04] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
 [22:35:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:18] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[22:35:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:26] INFO     💊 HP=64% < 70% → F1 (Exura) [hwnd=991094]
+[22:35:28] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:29] INFO     💊 HP=56% < 70% → F1 (Exura) [hwnd=991094]
+[22:35:32] INFO     💊 HP=53% < 70% → F1 (Exura) [hwnd=991094]
+[22:35:33] INFO     💊 HP=28% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:35:33] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:34] INFO     💊 MP=5% <= 10% → F7 (Strong Mana Potion) [hwnd=991094]
+[22:35:35] INFO     💊 HP=10% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:35:37] INFO     💊 HP=26% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:35:39] INFO     💊 HP=52% < 70% → F1 (Exura) [hwnd=991094]
+[22:35:39] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:40] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=ACTIVO
+[22:35:40] DEBUG    🔍 Debug image guardada (ciclo #640)
+[22:35:44] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:35:58] INFO     📊 HP=99% (VERDE) | MP=96% | Estado=ACTIVO
+[22:36:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:20] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[22:36:20] DEBUG    🔍 Debug image guardada (ciclo #680)
+[22:36:22] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:34] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:40] INFO     📊 HP=100% (VERDE) | MP=75% | Estado=ACTIVO
+[22:36:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:46] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:36:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:02] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[22:37:02] DEBUG    🔍 Debug image guardada (ciclo #720)
+[22:37:02] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,558)
+[22:37:02] INFO     📊 Battle List header en (1194,558), nombres desde y=573
+[22:37:02] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[22:37:03] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[22:37:03] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[22:37:03] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[22:37:03] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[22:37:03] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[22:37:03] INFO     📊   ✓ right_opt3: confianza=0.772 >= 0.6 en (1014,194)
+[22:37:03] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[22:37:03] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[22:37:03] INFO     📊 Battle region: (1194, 573, 1359, 973)
+[22:37:03] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:37:03] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[22:37:03] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[22:37:03] INFO     📊 [Looter]   SQM size: (55, 45)
+[22:37:03] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[22:37:03] INFO     📊 SQMs configurados: 9 posiciones
+[22:37:03] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[22:37:03] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[22:37:03] INFO     📊 Player center: (590, 252)
+[22:37:03] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:37:03] INFO     ✅ Calibración completada exitosamente
+[22:37:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:09] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:25] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:29] INFO     📊 HP=84% (VERDE) | MP=99% | Estado=ACTIVO
+[22:37:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:46] INFO     📊 HP=88% (VERDE) | MP=100% | Estado=ACTIVO
+[22:37:46] DEBUG    🔍 Debug image guardada (ciclo #760)
+[22:37:47] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:52] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:37:57] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:03] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:09] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=ACTIVO
+[22:38:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:34] INFO     📊 HP=89% (VERDE) | MP=45% | Estado=ACTIVO
+[22:38:34] DEBUG    🔍 Debug image guardada (ciclo #800)
+[22:38:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:53] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:38:58] INFO     📊 HP=83% (VERDE) | MP=72% | Estado=ACTIVO
+[22:38:58] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:20] INFO     📊 HP=92% (VERDE) | MP=96% | Estado=ACTIVO
+[22:39:20] DEBUG    🔍 Debug image guardada (ciclo #840)
+[22:39:20] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,558)
+[22:39:20] INFO     📊 Battle List header en (1194,558), nombres desde y=573
+[22:39:21] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[22:39:21] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[22:39:21] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[22:39:21] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[22:39:21] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[22:39:21] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[22:39:21] INFO     📊   ✓ right_opt3: confianza=0.772 >= 0.6 en (1014,194)
+[22:39:21] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[22:39:21] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[22:39:21] INFO     📊 Battle region: (1194, 573, 1359, 973)
+[22:39:21] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:39:21] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[22:39:21] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[22:39:21] INFO     📊 [Looter]   SQM size: (55, 45)
+[22:39:21] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[22:39:21] INFO     📊 SQMs configurados: 9 posiciones
+[22:39:21] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[22:39:21] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[22:39:21] INFO     📊 Player center: (590, 252)
+[22:39:21] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:39:21] INFO     ✅ Calibración completada exitosamente
+[22:39:21] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:32] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:41] INFO     📊 HP=97% (VERDE) | MP=99% | Estado=ACTIVO
+[22:39:42] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:48] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:39:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:03] INFO     📊 HP=100% (VERDE) | MP=54% | Estado=ACTIVO
+[22:40:03] DEBUG    🔍 Debug image guardada (ciclo #880)
+[22:40:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:10] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:15] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:20] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:24] INFO     📊 HP=96% (VERDE) | MP=55% | Estado=ACTIVO
+[22:40:26] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:37] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:46] INFO     📊 HP=98% (VERDE) | MP=66% | Estado=ACTIVO
+[22:40:46] DEBUG    🔍 Debug image guardada (ciclo #920)
+[22:40:50] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:40:55] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:00] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:05] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=1
+[22:41:26] INFO     📊 HP=90% (VERDE) | MP=52% | Estado=ACTIVO
+[22:41:26] INFO     📊 [Targeting] → Atacando: Rat en (1221,654)
+[22:41:26] DEBUG    🔍 Click OK — OBS(1221,654) → client(1221,654) hwnd=991094
+[22:41:26] INFO     📊 [Targeting] Atacando: Rat en (1221,654)
+[22:41:29] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:41:36] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:41:41] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:41:43] INFO     💊 HP=66% < 70% → F1 (Exura) [hwnd=991094]
+[22:41:45] INFO     💊 HP=48% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:41:47] INFO     💊 HP=29% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:41:47] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:41:49] INFO     💊 HP=54% < 70% → F1 (Exura) [hwnd=991094]
+[22:41:51] INFO     💊 HP=23% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:41:53] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:41:58] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:42:05] INFO     📊 HP=99% (VERDE) | MP=98% | Estado=ACTIVO
+[22:42:05] DEBUG    🔍 Debug image guardada (ciclo #960)
+[22:42:05] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,649)
+[22:42:05] INFO     📊 Battle List header en (1194,649), nombres desde y=664
+[22:42:05] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[22:42:05] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[22:42:05] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[22:42:05] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[22:42:05] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[22:42:05] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[22:42:05] INFO     📊   ✓ right_opt3: confianza=0.779 >= 0.6 en (1014,251)
+[22:42:05] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[22:42:06] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[22:42:06] INFO     📊 Battle region: (1194, 664, 1359, 1064)
+[22:42:06] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:42:06] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[22:42:06] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[22:42:06] INFO     📊 [Looter]   SQM size: (55, 45)
+[22:42:06] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[22:42:06] INFO     📊 SQMs configurados: 9 posiciones
+[22:42:06] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[22:42:06] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[22:42:06] INFO     📊 Player center: (590, 252)
+[22:42:06] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:42:06] INFO     ✅ Calibración completada exitosamente
+[22:42:06] INFO     📊 [Targeting] Estado: target=Rat, criaturas=1, templates=5, kills=1
+[22:42:06] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 2
+[22:42:06] INFO     📊 [Tracker] Posición de muerte: OBS(590, 252) (método=inferred, conf=0.50)
+[22:42:06] INFO     📊 [Targeting] Posición de muerte detectada: OBS(590, 252) (método: inferred)
+[22:42:09] INFO     💊 HP=66% < 70% → F1 (Exura) [hwnd=991094]
+[22:42:10] INFO     💊 HP=55% < 70% → F1 (Exura) [hwnd=991094]
+[22:42:12] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:17] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:23] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:29] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:31] INFO     📊 HP=99% (VERDE) | MP=99% | Estado=ACTIVO
+[22:42:32] WARNING  ⚠️ Perfil 'Amazon' ya existe
+[22:42:34] WARNING  ⚠️ Perfil 'Amazon' ya existe
+[22:42:35] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:40] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:46] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:51] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:42:56] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:02] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:03] INFO     📊 HP=98% (VERDE) | MP=78% | Estado=ACTIVO
+[22:43:04] DEBUG    🔍 Debug image guardada (ciclo #1000)
+[22:43:08] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:14] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:24] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:29] INFO     💊 MP=6% <= 10% → F7 (Strong Mana Potion) [hwnd=991094]
+[22:43:31] INFO     💊 MP=9% <= 10% → F7 (Strong Mana Potion) [hwnd=991094]
+[22:43:31] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:36] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=ACTIVO
+[22:43:36] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:43] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:49] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:52] INFO     ✅ Template guardado: Valkyrie.png (72x9px)
+[22:43:52] INFO     ✅ ✅ 1 template(s) guardado(s) y recargado(s)
+[22:43:54] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:43:59] INFO     📊 Módulo 'targeting' deshabilitado
+[22:43:59] INFO     📊 [Targeting] Targeting desactivado
+[22:43:59] INFO     📊 Targeting deshabilitado
+[22:43:59] INFO     📊 [Targeting] Perfiles de criaturas: ['amazon']
+[22:43:59] INFO     📊 [Targeting] Templates cargados: 5/6
+[22:43:59] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[22:43:59] INFO     📊 Módulo 'targeting' habilitado
+[22:43:59] INFO     📊 [Targeting] Targeting v3 + Tracker v10 activado
+[22:43:59] INFO     📊 [Targeting]   Templates: 5 (['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Amazon'])
+[22:43:59] INFO     📊 [Targeting]   Battle region: (1194, 664, 1359, 1064)
+[22:43:59] INFO     📊 [Targeting]   Attack list: ['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Spider', 'Amazon']
+[22:43:59] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[22:43:59] INFO     📊 [Targeting]   Perfiles: ['amazon']
+[22:43:59] INFO     📊 [Targeting]   Tracker: Sin sprites — usando inferencia por battle list
+[22:43:59] INFO     📊 [Targeting]     💡 Captura sprites en la pestaña Looter para mejor precisión
+[22:43:59] INFO     📊 Targeting habilitado
+[22:43:59] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:44:05] INFO     📊 HP=97% (VERDE) | MP=100% | Estado=ACTIVO
+[22:44:06] DEBUG    🔍 Debug image guardada (ciclo #1040)
+[22:44:06] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:44:11] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=2
+[22:44:15] INFO     📊 Módulo 'targeting' deshabilitado
+[22:44:15] INFO     📊 [Targeting] Targeting desactivado
+[22:44:15] INFO     📊 Targeting deshabilitado
+[22:44:16] INFO     📊 [Targeting] Perfiles de criaturas: ['amazon']
+[22:44:16] INFO     📊 [Targeting] Templates cargados: 5/6
+[22:44:16] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[22:44:16] INFO     📊 Módulo 'targeting' habilitado
+[22:44:16] INFO     📊 [Targeting] Targeting v3 + Tracker v10 activado
+[22:44:16] INFO     📊 [Targeting]   Templates: 5 (['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Amazon'])
+[22:44:16] INFO     📊 [Targeting]   Battle region: (1194, 664, 1359, 1064)
+[22:44:16] INFO     📊 [Targeting]   Attack list: ['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Spider', 'Amazon']
+[22:44:16] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[22:44:16] INFO     📊 [Targeting]   Perfiles: ['amazon']
+[22:44:16] INFO     📊 [Targeting]   Tracker: Sin sprites — usando inferencia por battle list
+[22:44:16] INFO     📊 [Targeting]     💡 Captura sprites en la pestaña Looter para mejor precisión
+[22:44:16] INFO     📊 Targeting habilitado
+[22:44:41] INFO     📊 HP=99% (VERDE) | MP=100% | Estado=ACTIVO
+[22:44:44] INFO     💊 HP=44% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:44:45] INFO     💊 HP=36% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:44:47] INFO     💊 HP=23% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:44:49] INFO     💊 HP=28% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:44:52] INFO     💊 HP=29% < 30% → F6 (Exura Vita) [hwnd=991094]
+[22:44:53] INFO     💊 HP=45% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:44:54] INFO     💊 HP=42% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:44:56] INFO     💊 HP=40% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:44:58] INFO     💊 HP=58% < 70% → F1 (Exura) [hwnd=991094]
+[22:45:15] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=ACTIVO
+[22:45:15] DEBUG    🔍 Debug image guardada (ciclo #1080)
+[22:45:15] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,452)
+[22:45:15] INFO     📊 Battle List header en (1194,452), nombres desde y=467
+[22:45:15] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[22:45:15] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[22:45:15] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[22:45:15] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[22:45:15] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[22:45:16] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[22:45:16] INFO     📊   ✓ right_opt3: confianza=0.783 >= 0.6 en (1190,597)
+[22:45:16] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[22:45:16] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[22:45:16] INFO     📊 Battle region: (1194, 467, 1359, 867)
+[22:45:16] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:45:16] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[22:45:16] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[22:45:16] INFO     📊 [Looter]   SQM size: (55, 45)
+[22:45:16] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[22:45:16] INFO     📊 SQMs configurados: 9 posiciones
+[22:45:16] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[22:45:16] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[22:45:16] INFO     📊 Player center: (590, 252)
+[22:45:16] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:45:16] INFO     ✅ Calibración completada exitosamente
+[22:45:20] INFO     💊 HP=64% < 70% → F1 (Exura) [hwnd=991094]
+[22:45:23] INFO     💊 HP=50% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:45:24] INFO     💊 HP=48% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:45:26] INFO     💊 HP=48% < 50% → F2 (Exura Gran) [hwnd=991094]
+[22:45:49] INFO     📊 HP=100% (VERDE) | MP=99% | Estado=ACTIVO
+[22:46:18] INFO     📊 Cerrando aplicación...
+[22:46:21] INFO     ✅ Bot detenido
+[22:51:48] INFO     ✅ Tibia seleccionado: Tibia - Pastero codode hierro
+[22:51:48] INFO     📊 [Targeting] Perfiles de criaturas: ['amazon']
+[22:51:48] INFO     📊 [Targeting] Templates cargados: 5/6
+[22:51:48] INFO     📊 [Looter] Cuenta FREE — loot va a BP principal
+[22:51:48] INFO     📊 [Looter] Configurado: método=left_click, delay=0.15s, max_clicks=9, cuenta=free, modo=BÁSICO (SQMs ciegos)
+[22:51:48] DEBUG    🔍 Dispatcher: handler 'targeting' registrado
+[22:51:48] DEBUG    🔍 Dispatcher: handler 'cavebot' registrado
+[22:51:48] DEBUG    🔍 Dispatcher: handler 'looter' registrado
+[22:51:48] INFO     ✅ Módulos v3.1 inicializados (targeting v2, looter v2, cavebot v2)
+[22:51:48] INFO     📊 Conectando a OBS WebSocket localhost:4455...
+[22:51:48] INFO     ✅ Conectado a OBS: OBS 32.0.4 (WebSocket 5.6.3)
+[22:51:48] INFO     📊 Motor de condiciones activado
+[22:51:48] INFO     📊 Sistema de condiciones activado
+[22:51:48] INFO     📊 Loop principal iniciado
+[22:51:48] INFO     ✅ Bot iniciado
+[22:51:48] INFO     ✅ GUI iniciada correctamente
+[22:51:49] INFO     📊 Barra de condiciones calibrada correctamente
+[22:51:49] INFO     📊   ✓ BattleList: confianza=0.973 >= 0.7 en (1194,452)
+[22:51:49] INFO     📊 Battle List header en (1194,452), nombres desde y=467
+[22:51:49] INFO     📊   ✓ MapSettings: confianza=0.999 >= 0.65 en (1305,4)
+[22:51:49] INFO     📊   ✓ left_opt1: confianza=0.672 >= 0.6 en (174,2)
+[22:51:49] INFO     📊   ✓ left_opt2: confianza=1.000 >= 0.6 en (174,2)
+[22:51:49] INFO     📊   ✓ left_opt3: confianza=0.754 >= 0.6 en (1010,29)
+[22:51:49] INFO     📊   ✓ right_opt1: confianza=0.643 >= 0.6 en (1007,2)
+[22:51:49] INFO     📊   ✓ right_opt2: confianza=0.718 >= 0.6 en (172,29)
+[22:51:49] INFO     📊   ✓ right_opt3: confianza=0.783 >= 0.6 en (1190,597)
+[22:51:49] INFO     📊   ✓ right_opt4: confianza=1.000 >= 0.6 en (1007,2)
+[22:51:49] INFO     📊   ✓ EndLocation: confianza=0.866 >= 0.55 en (497,503)
+[22:51:49] INFO     📊 [Calibrator] #1: BL=✓ MM=✓ GW=✓ | BattleList=0.973 | MapSettings=0.999 | left_opt1=0.672 | left_opt2=1.000 | left_opt3=0.754 | right_opt1=0.643 | right_opt2=0.718 | right_opt3=0.783 | right_opt4=1.000 | EndLocation=0.866
+[22:51:49] INFO     📊 Battle region: (1194, 467, 1359, 867)
+[22:51:49] INFO     📊 Map region: (1199, 5, 1304, 113)
+[22:51:49] INFO     📊 [Looter] SQMs configurados: 9 posiciones
+[22:51:49] INFO     📊 [Looter]   Center (idx 4): (590, 252)
+[22:51:49] INFO     📊 [Looter]   SQM size: (55, 45)
+[22:51:49] INFO     📊 [Looter]   Cardinales: S=(590, 297), N=(590, 207), E=(645, 252), W=(535, 252)
+[22:51:49] INFO     📊 SQMs configurados: 9 posiciones
+[22:51:49] INFO     📊 [GSD] GSD region_calibrator=(174,2)-(1007,503) player_center=(590,262)
+[22:51:49] INFO     📊 Game region para detección de cuerpos: (174, 2, 1007, 503)
+[22:51:49] INFO     📊 Player center: (590, 252)
+[22:51:49] INFO     📊 Escala OBS(1366x705) → Tibia(1366x705): x=1.000 y=1.000
+[22:51:49] INFO     ✅ Calibración completada exitosamente
+[22:52:07] INFO     📊 HP=100% (VERDE) | MP=100% | Estado=EN ESPERA
+[22:52:19] INFO     📊 [Targeting] Perfiles de criaturas: ['amazon']
+[22:52:19] INFO     📊 [Targeting] Templates cargados: 5/6
+[22:52:19] INFO     ✅ Configuración de Targeting guardada (1 perfiles)
+[22:52:19] INFO     📊 Módulo 'targeting' habilitado
+[22:52:19] INFO     📊 [Targeting] Targeting v3 + Tracker v10 activado
+[22:52:19] INFO     📊 [Targeting]   Templates: 5 (['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Amazon'])
+[22:52:19] INFO     📊 [Targeting]   Battle region: (1194, 467, 1359, 867)
+[22:52:19] INFO     📊 [Targeting]   Attack list: ['Rotworm', 'Swamp Troll', 'Cave Rat', 'Rat', 'Spider', 'Amazon']
+[22:52:19] INFO     📊 [Targeting]   Delays: attack=0.5s re-attack=0.6s
+[22:52:19] INFO     📊 [Targeting]   Perfiles: ['amazon']
+[22:52:19] INFO     📊 [Targeting]   Tracker: Sin sprites — usando inferencia por battle list
+[22:52:19] INFO     📊 [Targeting]     💡 Captura sprites en la pestaña Looter para mejor precisión
+[22:52:19] INFO     📊 Targeting habilitado
+[22:52:19] INFO     📊 [Targeting] Estado: target=None, criaturas=0, templates=5, kills=0
+[22:52:19] INFO     📊 [BattleReader] Bordes de ataque: best_conf=0.968, matched=['BottomPink', 'LeftPink', 'LeftRed'] (threshold_small=0.92, threshold_normal=0.65)
+[22:52:19] INFO     📊 [Targeting] → Atacando: Amazon en (1234,470)
+[22:52:19] DEBUG    🔍 Click OK — OBS(1234,470) → client(1234,470) hwnd=991094
+[22:52:19] INFO     📊 [Targeting] Atacando: Amazon en (1234,470)
+[22:52:25] INFO     📊 [Targeting] Estado: target=Amazon, criaturas=6, templates=5, kills=0
+[22:52:29] INFO     📊 HP=100% (VERDE) | MP=38% | Estado=EN ESPERA
+[22:52:29] DEBUG    🔍 Debug image guardada (ciclo #40)
+[22:52:32] INFO     📊 [Targeting] Estado: target=Amazon, criaturas=6, templates=5, kills=0
+[22:52:33] INFO     📊 [Targeting] ¡Kill! Amazon x1 — Total: 1
+[22:52:33] INFO     📊 [Tracker] Posición de muerte: OBS(590, 252) (método=inferred, conf=0.50)
+[22:52:33] INFO     📊 [Targeting] Posición de muerte detectada: OBS(590, 252) (método: inferred)
+[22:52:33] INFO     📊 [Targeting] ¡Kill! Rat x1 — Total: 2
+[22:52:34] INFO     📊 [Targeting] → Atacando: Amazon en (1234,470)
+[22:52:34] DEBUG    🔍 Click OK — OBS(1234,470) → client(1234,470) hwnd=991094
+[22:52:34] INFO     📊 [Targeting] Atacando: Amazon en (1234,470)
+[22:52:38] INFO     📊 [Targeting] Estado: target=Amazon, criaturas=4, templates=5, kills=2

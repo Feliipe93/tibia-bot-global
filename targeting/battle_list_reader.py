@@ -63,7 +63,7 @@ class BattleListReader:
         self._creatures: List[CreatureEntry] = []
         self._monster_count: int = 0
         self._is_attacking: bool = False
-        self.name_precision: float = 0.80
+        self.name_precision: float = 0.35  # Umbral optimizado para detectar nombres con variaciones
         self.attack_precision: float = 0.65  # Bajado para detectar bordes de ataque más fácilmente
 
         # --- Fallback temporal para is_attacking ---
